@@ -125,6 +125,11 @@ function Model(props) {
         <mesh geometry={nodes.Lamp_base_Lamp_base_material001_0.geometry} material={materials['Lamp_base_material.001']} />
         <mesh geometry={nodes.Lampshade001_Lampshade001_material_0.geometry} material={materials['Lampshade.001_material']} position={[0, 0, 0.181]} />
       </group>
+
+
+
+
+      
       {/* <group position={[217.731, -61.79, 190.094]} rotation={[-1.905, 0, 1.606]} scale={194.179}>
         <mesh geometry={nodes.Book0001_Book0_material001_0.geometry} material={materials['Book0_material.001']} />
         <mesh geometry={nodes.Book0001_Book0_side_material001_0.geometry} material={materials['Book0_side_material.001']} />
