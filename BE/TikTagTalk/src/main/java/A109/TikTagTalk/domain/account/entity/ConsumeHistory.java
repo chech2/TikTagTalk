@@ -18,9 +18,6 @@ public class ConsumeHistory {
     private String detail;
 
     @Column(nullable=false)
-    private String place;
-
-    @Column(nullable=false)
     private long amount;
 
     @Column(nullable=false)
@@ -29,8 +26,4 @@ public class ConsumeHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ACCOUNT_ID")
     private Account account;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="TAG_ID")
-    private Tag tag;
 }
