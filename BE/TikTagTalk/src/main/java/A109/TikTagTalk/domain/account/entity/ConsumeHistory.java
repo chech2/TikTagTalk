@@ -1,6 +1,6 @@
 package A109.TikTagTalk.domain.account.entity;
 
-import A109.TikTagTalk.domain.tag.entity.Tag;
+import A109.TikTagTalk.domain.tag.entity.Store;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,4 +26,8 @@ public class ConsumeHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ACCOUNT_ID")
     private Account account;
+
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="STORE_ID")
+    private Store store;
 }

@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor @AllArgsConstructor
 @Entity
-public class Place {
+public class Store {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
