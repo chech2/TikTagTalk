@@ -1,0 +1,9 @@
+{
+  "name": "tiktagtalk",
+  "version": "1.0.0",
+  "description": "Project",
+  "main": "index.js",
+  "repository": "https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git",
+  "author": "Jun",
+  "license": "MIT"
+}
