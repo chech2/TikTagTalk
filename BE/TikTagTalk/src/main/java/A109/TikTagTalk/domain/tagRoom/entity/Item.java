@@ -15,6 +15,6 @@ public class Item {
     @Column(nullable=false)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
+//    @Enumerated(EnumType.STRING)
+//    private Category category;
 }
