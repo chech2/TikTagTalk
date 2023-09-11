@@ -1,0 +1,625 @@
+[
+  {
+    "Room_Wall_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Room_Floor_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Room_Windows_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Table_Table_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube_Bed_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube_Bed2_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube001_Table_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book_BookA_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book_Paper_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book_CoverA_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book001_BookB_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book001_Paper_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book002_BookC_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book002_Paper_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book003_BookD_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book003_Paper_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book003_CoverA_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book004_Paper_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book004_CoverB_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Plane_Cloth_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Plane_ClothB_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube002__0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube003__0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube004_Computer_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube004_Mac_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube004_Black_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube004_Keyboard_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube004_Desktop_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube005_Wardrop_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube005_Table_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube007_Black_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Cube007_Images_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "VenetianFrame_Plastic_venetian_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Venetian_slats_Plastic_venetian_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "StringL_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "StringC_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "StringR_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "StringfL_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "StringfC_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "StringfR_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "StringbL_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "StringbC_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "StringbR_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Venetian_base_Plastic_venetian_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Venetian_stick__0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Venetian_updown_String_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book0_Book0_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book0_Book0_side_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book1_Book1_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book1_Book1_side_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book2_Book2_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book2_Book2_side_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book3_Book3_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book3_Book3_side_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book4_Book4_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book4_Book4_side_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lampholder_Lampholder_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lampstrings_Lampstrings_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lamp_B1_Lampstrings_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lamp_B2_Lampstrings_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lamp_Bulb001_Lamp_Bulb_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lamp_base_Lamp_base_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lampholder001_Lampholder001_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lampstrings001_Lampstrings001_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lamp_B1001_Lampstrings001_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lamp_B2001_Lampstrings001_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lamp_Bulb_Lamp_Bulb001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Lampshade001_Lampshade001_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Shelves1_Shelves_material_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book0001_Book0_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book0001_Book0_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book1001_Book1_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book1001_Book1_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book2001_Book2_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book2001_Book2_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book3001_Book3_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book3001_Book3_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book4001_Book4_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book4001_Book4_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book0002_Book0_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book0002_Book0_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book1002_Book1_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book1002_Book1_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book2002_Book2_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book2002_Book2_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book3002_Book3_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book3002_Book3_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book4002_Book4_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "Book4002_Book4_side_material001_0": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+]
