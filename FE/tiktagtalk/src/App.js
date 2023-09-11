@@ -1,5 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import {Routes} from "react-router-dom";
+
+
 
 function App() {
   return (
@@ -18,6 +21,10 @@ function App() {
           Learn React
         </a>
       </header>
+      <Routes>
+        {/* <Route path='/' element={<Home />} /> */}
+        {/* <Route path='/:id' element={<Detail />} /> */}
+      </Routes>
     </div>
   );
 }
