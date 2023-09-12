@@ -23,6 +23,9 @@ public class ConsumeHistory {
     @Column(nullable=false)
     private LocalDateTime consumeTime;
 
+    @Column(nullable = false)
+    private Long tagId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ACCOUNT_ID")
     private Account account;

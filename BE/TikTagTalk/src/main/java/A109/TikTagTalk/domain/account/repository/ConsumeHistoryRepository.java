@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ConsumeHistoryRepository extends JpaRepository<ConsumeHistory,Long> {
+public interface ConsumeHistoryRepository extends JpaRepository<ConsumeHistory,Long>, ConsumeHistoryRepositoryCustom {
 
-    List<ConsumeHistory> findByAccountId(Long accountId);
 }

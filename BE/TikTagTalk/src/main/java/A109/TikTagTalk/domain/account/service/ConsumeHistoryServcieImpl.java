@@ -1,6 +1,7 @@
 package A109.TikTagTalk.domain.account.service;
 
 import A109.TikTagTalk.domain.account.dto.AllConsumeHistoryResponseDto;
+import A109.TikTagTalk.domain.account.dto.CheckAccountResponseDto;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 import A109.TikTagTalk.domain.account.repository.ConsumeHistoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +18,22 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public AllConsumeHistoryResponseDto allConsumeHistory() {
-        List<ConsumeHistory> allConsumeHistoryList=consumeHistoryRepository.findAll();
-//        System.out.println(allConsumeHistoryList.get(0).getAmount());
+    public AllConsumeHistoryResponseDto allConsumeHistoryRecently(Long accountId) {
+        List<ConsumeHistory> allConsumeHistoryList=consumeHistoryRepository.findAllRecently(accountId);
         return new AllConsumeHistoryResponseDto(allConsumeHistoryList);
     }
 
     @Override
-    public AllConsumeHistoryResponseDto findOne(Long accountId) {
-        List<ConsumeHistory> list=consumeHistoryRepository.findByAccountId(accountId);
+    @Transactional(readOnly = true)
+    public AllConsumeHistoryResponseDto allConsumeHistoryHighest(Long accountId) {
+        List<ConsumeHistory> allConsumeHistoryList=consumeHistoryRepository.findAllHighest(accountId);
+        return new AllConsumeHistoryResponseDto(allConsumeHistoryList);
+    }
 
-        return new AllConsumeHistoryResponseDto(list);
+    @Override
+    @Transactional(readOnly = true)
+    public CheckAccountResponseDto checkAccountTotalAccount(Long accountId){
+        Long totalAccount= consumeHistoryRepository.checkAccountTotalAccount(accountId);
+        return new CheckAccountResponseDto(totalAccount);
     }
 }
