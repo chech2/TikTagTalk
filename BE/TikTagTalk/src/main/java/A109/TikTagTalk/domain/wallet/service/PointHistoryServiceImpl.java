@@ -67,7 +67,7 @@ public class PointHistoryServiceImpl implements PointHistoryService{
 
         Integer balancePoint = pointHistoryRepository.selectBalancePoint(Tnow, member.getId());
 
-        List<PointHistory> list = pointHistoryRepository.findAllByMember_Id(member.getId());
+        List<PointHistory> list = pointHistoryRepository.findAllByMember_MemberId(member.getId());
 
         if(list.size() == 0){
             return null;

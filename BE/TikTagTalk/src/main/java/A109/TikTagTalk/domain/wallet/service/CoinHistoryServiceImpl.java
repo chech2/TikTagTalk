@@ -3,11 +3,13 @@ package A109.TikTagTalk.domain.wallet.service;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.wallet.dto.response.CoinListResponse;
 import A109.TikTagTalk.domain.wallet.entity.CoinHistory;
+import A109.TikTagTalk.domain.wallet.entity.PointHistory;
 import A109.TikTagTalk.domain.wallet.repository.CoinHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,7 +53,25 @@ public class CoinHistoryServiceImpl implements CoinHistoryService{
     }
 
     @Override
-    public Integer calculateBalanceCoin(String userId, Timestamp end) {
-        return null;
+    public Integer calculateBalanceCoin(String userId, Timestamp end) throws NullPointerException {
+
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp Tnow = Timestamp.valueOf(now);
+
+        Member member = memberRepository.findByUserId(userId).get();
+
+        Integer balanceCoin = coinHistoryRepository.selectBalanceCoin(Tnow, member.getId());
+
+        List<CoinHistory> list = coinHistoryRepository.findAllByMember_Memberid(member.getId());
+
+        if(list.size() == 0) {
+            return null;
+        }
+
+        CoinHistory coinHistory = list.get(list.size() - 1);
+
+        coinHistory.setBalanceCoin(balanceCoin);
+
+        return balanceCoin;
     }
 }

@@ -1,7 +1,7 @@
 package A109.TikTagTalk.domain.wallet.controller;
 
-import A109.TikTagTalk.domain.wallet.dto.response.PointListResponse;
-import A109.TikTagTalk.domain.wallet.service.PointHistoryService;
+import A109.TikTagTalk.domain.wallet.dto.response.CoinListResponse;
+import A109.TikTagTalk.domain.wallet.service.CoinHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,41 +17,40 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/exchange/points")
-public class PointHistoryController {
-    //포인트 전체 조회
-    private final PointHistoryService pointHistoryService;
+@RequestMapping("/api/exchange/coin")
+public class CoinHistoryController {
+    //코인 전체 조회
+    private final CoinHistoryService coinHistoryService;
     private final JwtService jwtService;
 
     @GetMapping
-    public ResponseEntity<List<PointListResponse>> getAllPoints(@RequestHeader(required = true, name = "Authorization") String token) throws NullPointerException{
+    public ResponseEntity<List<CoinListResponse>> getAllCoins(@RequestHeader(required = true, name = "Authorization") String token) throws NullPointerException {
 
         String userId = jwtService.extractUserIdTest(token);
-        if(userId == null) {
+        if (userId == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         LocalDateTime now = LocalDateTime.now();
         Timestamp day = Timestamp.valueOf(now);
 
-        List<PointListResponse> list = pointHistoryService.selectPointAll(userId);
-
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        List<CoinListResponse> list = coinHistoryService.selectCoinAll(userId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    //포인트 내역 조회
+    //코인 내역 조회
     @GetMapping("/list")
-    public ResponseEntity<List<PointListResponse>> pointList(@RequestHeader(required = true, name = "Authorization") String token, @RequestParam String start, @RequestParam String end){
+    public ResponseEntity<List<CoinListResponse>> coinList(@RequestHeader(required = true, name = "Authorization") String token, @RequestParam String start, @RequestParam String end) {
         String userId = jwtService.extractUserIdTest(token);
-        if(userId == null) {
+        if(userId == null){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         Timestamp endtime = Timestamp.valueOf(end + " 23:59:59.9");
 
-        List<PointListResponse> points = pointHistoryService.selectPointListByUserIdAndDate(userId, start, end);
+        List<CoinListResponse> coins = coinHistoryService.selectCoinListByUserIdAndDate(userId, start, end);
 
-        return ResponseEntity.status(HttpStatus.OK).body(points);
+        return ResponseEntity.status(HttpStatus.OK).body(coins);
     }
 
 }
