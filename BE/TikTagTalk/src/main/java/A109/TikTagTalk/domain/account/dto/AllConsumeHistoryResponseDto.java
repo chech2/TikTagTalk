@@ -14,7 +14,7 @@ public class AllConsumeHistoryResponseDto {
     private List<ConsumeHistoryDto> consumeHistoryList;
     public AllConsumeHistoryResponseDto(List<ConsumeHistory> consumeHistoryList){
         this.consumeHistoryList=consumeHistoryList.stream()
-                .map(consumeHistory -> new ConsumeHistoryDto(consumeHistory.getAmount(),consumeHistory.getConsumeTime(),consumeHistory.getStore()))
+                .map(consumeHistory -> new ConsumeHistoryDto(consumeHistory.getAmount(),consumeHistory.getConsumeTime(),consumeHistory.getStore(), consumeHistory.getDetail()))
                 .collect(Collectors.toList());
     }
     @Getter
@@ -22,11 +22,12 @@ public class AllConsumeHistoryResponseDto {
         private Long amount;
         private LocalDateTime consumeTime;
         private StoreDto store;
-
-        public ConsumeHistoryDto(Long amount, LocalDateTime consumeTime, Store store) {
+        private String detail;
+        public ConsumeHistoryDto(Long amount, LocalDateTime consumeTime, Store store,String detail) {
             this.amount = amount;
             this.consumeTime = consumeTime;
             this.store=new StoreDto(store.getName(),store.getTag());
+            this.detail=detail;
         }
     }
     @Getter

@@ -1,9 +1,12 @@
 package A109.TikTagTalk.domain.account.repository;
 
-import A109.TikTagTalk.domain.account.entity.Account;
+import A109.TikTagTalk.domain.account.dto.AllConsumeHistoryResponseDto;
+import A109.TikTagTalk.domain.account.dto.CheckAccountResponseDto;
+import A109.TikTagTalk.domain.account.dto.CheckMemberTagResponseDto;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 import A109.TikTagTalk.domain.account.entity.QConsumeHistory;
-import A109.TikTagTalk.domain.tag.dto.TagDto;
+import A109.TikTagTalk.domain.tag.entity.QTag;
+import A109.TikTagTalk.domain.tag.entity.Tag;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -11,14 +14,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Long.sum;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
 public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCustom{
     private final JPAQueryFactory queryFactory;
     private QConsumeHistory consumeHistory=new QConsumeHistory("consumeHistory");
+    private QTag qTag=new QTag("qtag");
     @Override
     public List<ConsumeHistory> findAllRecently(Long accountId) {
         List<ConsumeHistory> list=queryFactory
@@ -40,28 +43,39 @@ public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCus
     }
 
     @Override
-    public Long checkAccountTotalAccount(Long accountId){
+    public CheckAccountResponseDto checkAccountTagAmount(Long accountId) {
         Long totalAmount=queryFactory
                 .select(consumeHistory.amount.sum())
                 .from(consumeHistory)
                 .where(consumeHistory.account.id.eq(accountId))
                 .fetchOne();
-        return totalAmount;
+        List<CheckAccountResponseDto.TagDto> tagList=new ArrayList<>();
+        List<Tuple> tuples=queryFactory
+                .select(consumeHistory.amount.sum(),qTag.name)
+                .from(consumeHistory)
+                .join(qTag).on(consumeHistory.tag.id.eq(qTag.id))
+                .where(consumeHistory.account.id.eq(accountId))
+                .groupBy(consumeHistory.tag)
+                .fetch();
+        for(Tuple tuple:tuples){
+            tagList.add(new CheckAccountResponseDto.TagDto(tuple.get(1, String.class),tuple.get(0,Long.class),(Math.round(((double)tuple.get(0,Long.class)/(double)totalAmount)*1000)/10.0) ));
+        }
+        return new CheckAccountResponseDto(totalAmount,tagList);
     }
 
     @Override
-    public List<TagDto> checkAccountTagAndAmount(Long accountId){
-        List<TagDto> tagList=new ArrayList<>();
-        List<Tuple> tupleList=queryFactory
-                .select(consumeHistory.amount.sum(),consumeHistory.tagId)
+    public List<CheckMemberTagResponseDto> checkTags(Long accountId) {
+        List<CheckMemberTagResponseDto> list=new ArrayList<>();
+        List<Tuple> tuples=queryFactory
+                .select(consumeHistory.amount.sum(),consumeHistory.amount.count(),consumeHistory.tag)
                 .from(consumeHistory)
+                .groupBy(consumeHistory.tag)
                 .where(consumeHistory.account.id.eq(accountId))
-                .groupBy(consumeHistory.tagId)
                 .fetch();
-        for(Tuple tuple:tupleList){
-            Long amountSum=tuple.get(consumeHistory.amount);
-            Long tagId=tuple.get(consumeHistory.tagId);
-            tagList.add(new TagDto(tagId,amountSum));
+        for(Tuple tuple:tuples){
+            list.add(new CheckMemberTagResponseDto(tuple.get(2, Tag.class),tuple.get(1, Long.class),tuple.get(0,Long.class)));
         }
+        return list;
     }
+
 }

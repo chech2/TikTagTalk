@@ -1,5 +1,6 @@
 package A109.TikTagTalk.domain.account.service;
 
+import A109.TikTagTalk.domain.account.dto.AddConsumeHistoryRequestDto;
 import A109.TikTagTalk.domain.account.dto.AllConsumeHistoryResponseDto;
 import A109.TikTagTalk.domain.account.dto.CheckAccountResponseDto;
 import org.springframework.data.jpa.repository.Query;
@@ -11,4 +12,7 @@ public interface ConsumeHistoryService {
     AllConsumeHistoryResponseDto allConsumeHistoryHighest(Long accountId);
 
     CheckAccountResponseDto checkAccountTotalAccount(Long accountId);
+    int addConsumeHistory(AddConsumeHistoryRequestDto reqestDto);
+
+    void test(Long accountId);
 }

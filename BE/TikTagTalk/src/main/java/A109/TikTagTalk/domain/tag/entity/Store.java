@@ -4,19 +4,23 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
-@Setter
-@Builder
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Entity
 public class Store {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @OneToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="TAG_ID")
     private Tag tag;
+
+    @Builder
+    public Store(String name,Tag tag){
+        this.name=name;
+        this.tag=tag;
+    }
 }

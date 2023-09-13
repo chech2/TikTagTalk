@@ -1,23 +1,35 @@
 package A109.TikTagTalk.domain.tag.entity;
 
+import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.user.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter @Setter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class MemberTag {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
+    //지금은 member가 없으니 걍 account로 하자
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ACCOUNT_ID")
+    private Account account;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TAG_ID")
     private Tag tag;
+
+    @Builder
+    public MemberTag(Account account,Tag tag){
+        this.account=account;
+        this.tag=tag;
+    }
 }
