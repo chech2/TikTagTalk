@@ -1,0 +1,12 @@
+.footercontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  width: 100%; /* 가로 폭 100%로 설정 */
+  position: fixed;
+  bottom: 0; /* 화면 하단에 고정 */
+  height : 20vw;
+  border-radius: 10px;
+  background-color: blueviolet;
+}

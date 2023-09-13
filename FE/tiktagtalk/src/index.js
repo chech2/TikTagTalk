@@ -7,7 +7,7 @@ import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import store from './redux/store';
 import axios from 'axios';
-
+import GlobalStyle from './GlobalStyle';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore} from 'redux-persist';
 
@@ -19,6 +19,7 @@ axios.defaults.withCredentials = true;
 root.render(
   // <React.StrictMode>
     <Provider store={store}>
+      <GlobalStyle />
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <App />

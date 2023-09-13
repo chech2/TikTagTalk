@@ -3,26 +3,39 @@ import './App.css';
 // import react from 'react';
 import {Routes, Route} from "react-router-dom";
 // import styled from 'styled-components';
+import GlobalStyle from './GlobalStyle'; 
 import LoginPage from './pages/LoginPage';
-import MainPage from './pages/MainPage'
+import MainPage from './pages/MainPage';
 // import GlobalStyle from './styles/GlobalStyle';
 // import  MobilePage  from './pages/MobilePage';
-import SkingShopPage from './pages/SkinShopPage'
-import TestCom from './components/TestCom'
-
+import SkingShopPage from './pages/SkinShopPage';
+import Footer from './components/ui/Footer';
+import TestCom from './components/TestCom';
+import { useEffect } from 'react';
 
 
 function App() {
-  return (
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+  useEffect(() => {
+    setScreenSize();
+  });
+
+  return (    
     <div className="App">
+      
+
 
       <Routes>
         <Route path='/' element={<MainPage/>}></Route>
         <Route path='/login' element={<LoginPage/>} />
-        <Route path='skin' element={<SkingShopPage/>}></Route>
-        <Route path='test' element={<TestCom></TestCom>}></Route>
+        <Route path='/skin' element={<SkingShopPage/>}></Route>
+        <Route path='/test' element={<TestCom/>}></Route>
         {/* <Route path='/:id' element={<Detail />} /> */}
       </Routes>
+      {<Footer/>}
     </div>
   );
 }

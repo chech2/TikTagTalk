@@ -1,0 +1,23 @@
+.navbarcontainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.navbarcontainer-2{
+    display: flex;
+    align-items: center;
+    height: 6vw;
+    text-align: center;
+}
+.image-container img {
+    margin: 0 5px; /* 좌우 간격을 10px로 설정 */
+}
+.p-left{
+    text-align: right;
+}
+
+.navbar-left{
+    flex: 1;
+}
+

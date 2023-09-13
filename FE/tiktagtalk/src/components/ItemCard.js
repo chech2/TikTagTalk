@@ -1,4 +1,4 @@
-import '../css/ItemCard.css'
+import './ItemCard.css'
 
 
 function ItemCard(props) {
