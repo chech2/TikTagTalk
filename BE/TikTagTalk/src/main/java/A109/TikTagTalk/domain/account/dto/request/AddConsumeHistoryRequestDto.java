@@ -1,4 +1,4 @@
-package A109.TikTagTalk.domain.account.dto;
+package A109.TikTagTalk.domain.account.dto.request;
 
 import A109.TikTagTalk.domain.tag.entity.Tag;
 import lombok.Getter;

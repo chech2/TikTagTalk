@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Entity
 public class ConsumeHistory {
 
@@ -19,6 +21,8 @@ public class ConsumeHistory {
     private String detail;
 
     private Boolean isManual;
+
+    private String storeName; //수동 등록 할때 필요
 
     @Column(nullable=false)
     private long amount;
@@ -37,15 +41,4 @@ public class ConsumeHistory {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="STORE_ID")
     private Store store;
-
-    @Builder
-    public ConsumeHistory(String detail,Boolean isManual,Long amount,Tag tag, Account account, Store store,LocalDateTime consumeTime){
-        this.detail=detail;
-        this.isManual=isManual;
-        this.amount=amount;
-        this.tag=tag;
-        this.account=account;
-        this.store=store;
-        this.consumeTime=consumeTime;
-    }
 }

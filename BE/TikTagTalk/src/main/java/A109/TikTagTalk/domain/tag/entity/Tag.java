@@ -4,8 +4,10 @@ import A109.TikTagTalk.domain.tagRoom.entity.Item;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter @Setter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Entity
 public class Tag {
 

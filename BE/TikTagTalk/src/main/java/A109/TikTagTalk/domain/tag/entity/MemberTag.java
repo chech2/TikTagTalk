@@ -7,6 +7,8 @@ import lombok.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Entity
 public class MemberTag {
 
@@ -26,10 +28,4 @@ public class MemberTag {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TAG_ID")
     private Tag tag;
-
-    @Builder
-    public MemberTag(Account account,Tag tag){
-        this.account=account;
-        this.tag=tag;
-    }
 }

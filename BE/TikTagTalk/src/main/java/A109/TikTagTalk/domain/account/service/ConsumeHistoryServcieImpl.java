@@ -1,15 +1,14 @@
 package A109.TikTagTalk.domain.account.service;
 
-import A109.TikTagTalk.domain.account.dto.AddConsumeHistoryRequestDto;
-import A109.TikTagTalk.domain.account.dto.AllConsumeHistoryResponseDto;
-import A109.TikTagTalk.domain.account.dto.CheckAccountResponseDto;
-import A109.TikTagTalk.domain.account.dto.CheckMemberTagResponseDto;
+import A109.TikTagTalk.domain.account.dto.request.AddConsumeHistoryRequestDto;
+import A109.TikTagTalk.domain.account.dto.response.AllConsumeHistoryResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.CheckAccountResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.CheckMemberTagResponseDto;
 import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.account.repository.ConsumeHistoryRepository;
 import A109.TikTagTalk.domain.tag.entity.MemberTag;
-import A109.TikTagTalk.domain.tag.entity.Store;
 import A109.TikTagTalk.domain.tag.entity.Tag;
 import A109.TikTagTalk.domain.tag.repository.MemberTagRepository;
 import A109.TikTagTalk.domain.tag.repository.StoreRepository;
@@ -18,53 +17,66 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
     private final ConsumeHistoryRepository consumeHistoryRepository;
-    @Override
-    @Transactional
-    public int addConsumeHistory(AddConsumeHistoryRequestDto requestDto) {
-        Account account=accountRepository.findById(requestDto.getAccountId()).get();
-        Tag tag=tagRepository.findById(requestDto.getTag().getId() ).get();
-        Store store=Store.builder()
-                .tag(tag)
-                .name(requestDto.getStoreName())
-                .build();
-        storeRepository.save(store);
-        ConsumeHistory consumeHistory=ConsumeHistory.builder()
-                .account(account)
-                .amount(requestDto.getAmount())
-                .detail(requestDto.getDetail())
-                .store(store)
-                .consumeTime(requestDto.getConsumeTime())
-                .tag(tag)
-                .isManual(false)
-                .build();
-        consumeHistoryRepository.save(consumeHistory);
-        return 0;
-    }
     private final AccountRepository accountRepository;
     private final TagRepository tagRepository;
     private final StoreRepository storeRepository;
     private final MemberTagRepository memberTagRepository;
-
     @Override
-    @Transactional(readOnly = true)
-    public AllConsumeHistoryResponseDto allConsumeHistoryRecently(Long accountId) {
-        List<ConsumeHistory> allConsumeHistoryList = consumeHistoryRepository.findAllRecently(accountId);
-        return new AllConsumeHistoryResponseDto(allConsumeHistoryList);
+    @Transactional
+    public int addConsumeHistory(AddConsumeHistoryRequestDto requestDto) {
+        Account account=accountRepository.findById(requestDto.getAccountId()).get();
+        Tag tag=tagRepository.findById(requestDto.getTag().getId()).get();
+
+        ConsumeHistory consumeHistory=ConsumeHistory.builder()
+                .account(account)
+                .amount(requestDto.getAmount())
+                .detail(requestDto.getDetail())
+                .consumeTime(requestDto.getConsumeTime())
+                .tag(tag)
+                .isManual(false)
+                .storeName(requestDto.getStoreName())
+                .build();
+        consumeHistoryRepository.save(consumeHistory);
+        return 0;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public AllConsumeHistoryResponseDto allConsumeHistoryHighest(Long accountId) {
+    public List<AllConsumeHistoryResponseDto> allConsumeHistoryRecently(Long accountId) {
+        List<ConsumeHistory> allConsumeHistoryList = consumeHistoryRepository.findAllRecently(accountId);
+        return allConsumeHistoryList.stream()
+                .map(nowHistory -> AllConsumeHistoryResponseDto.builder()
+                        .amount(nowHistory.getAmount())
+                        .consumeTime(nowHistory.getConsumeTime())
+                        .store(AllConsumeHistoryResponseDto.StoreDto.builder().name(nowHistory.getStore().getName()).build())
+                        .tag(AllConsumeHistoryResponseDto.TagDto.builder().name(nowHistory.getTag().getName()).build())
+                        .detail(nowHistory.getDetail())
+                        .build()
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<AllConsumeHistoryResponseDto> allConsumeHistoryHighest(Long accountId) {
         List<ConsumeHistory> allConsumeHistoryList = consumeHistoryRepository.findAllHighest(accountId);
-        return new AllConsumeHistoryResponseDto(allConsumeHistoryList);
+        return allConsumeHistoryList.stream()
+                .map(nowHistory -> AllConsumeHistoryResponseDto.builder()
+                        .amount(nowHistory.getAmount())
+                        .consumeTime(nowHistory.getConsumeTime())
+                        .store(AllConsumeHistoryResponseDto.StoreDto.builder().name(nowHistory.getStore().getName()).build())
+                        .tag(AllConsumeHistoryResponseDto.TagDto.builder().name(nowHistory.getTag().getName()).build())
+                        .detail(nowHistory.getDetail())
+                        .build()
+                )
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -76,8 +88,8 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
 
     @Override
     @Transactional
-    public void test(Long accountId) {
-        List<CheckMemberTagResponseDto> list = consumeHistoryRepository.checkTags(accountId);
+    public void makeMemberTags(Long accountId) {
+        List<CheckMemberTagResponseDto> list = consumeHistoryRepository.makeMemberTags(accountId);
         //Account는 id가 1인 애를 그냥 넣자
         Account account=accountRepository.findById(accountId).get();
 

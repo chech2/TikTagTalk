@@ -7,8 +7,10 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Entity
 public class Account {
 

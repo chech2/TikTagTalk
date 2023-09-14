@@ -1,8 +1,7 @@
 package A109.TikTagTalk.domain.account.repository;
 
-import A109.TikTagTalk.domain.account.dto.AllConsumeHistoryResponseDto;
-import A109.TikTagTalk.domain.account.dto.CheckAccountResponseDto;
-import A109.TikTagTalk.domain.account.dto.CheckMemberTagResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.CheckAccountResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.CheckMemberTagResponseDto;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 import A109.TikTagTalk.domain.account.entity.QConsumeHistory;
 import A109.TikTagTalk.domain.tag.entity.QTag;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -58,13 +56,16 @@ public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCus
                 .groupBy(consumeHistory.tag)
                 .fetch();
         for(Tuple tuple:tuples){
-            tagList.add(new CheckAccountResponseDto.TagDto(tuple.get(1, String.class),tuple.get(0,Long.class),(Math.round(((double)tuple.get(0,Long.class)/(double)totalAmount)*1000)/10.0) ));
+            tagList.add(CheckAccountResponseDto.TagDto.builder()
+                    .amount(tuple.get(0,Long.class))
+                    .name(tuple.get(1,String.class))
+                    .percent((Math.round(((double)tuple.get(0,Long.class)/(double)totalAmount)*1000))/10.0).build());
         }
         return new CheckAccountResponseDto(totalAmount,tagList);
     }
 
     @Override
-    public List<CheckMemberTagResponseDto> checkTags(Long accountId) {
+    public List<CheckMemberTagResponseDto> makeMemberTags(Long accountId) {
         List<CheckMemberTagResponseDto> list=new ArrayList<>();
         List<Tuple> tuples=queryFactory
                 .select(consumeHistory.amount.sum(),consumeHistory.amount.count(),consumeHistory.tag)
@@ -73,7 +74,11 @@ public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCus
                 .where(consumeHistory.account.id.eq(accountId))
                 .fetch();
         for(Tuple tuple:tuples){
-            list.add(new CheckMemberTagResponseDto(tuple.get(2, Tag.class),tuple.get(1, Long.class),tuple.get(0,Long.class)));
+            list.add(CheckMemberTagResponseDto.builder()
+                    .amount(tuple.get(0,Long.class))
+                    .count(tuple.get(1,Long.class))
+                    .tag(CheckMemberTagResponseDto.TagDto.builder().id(tuple.get(2, Tag.class).getId()).build())
+                    .build());
         }
         return list;
     }

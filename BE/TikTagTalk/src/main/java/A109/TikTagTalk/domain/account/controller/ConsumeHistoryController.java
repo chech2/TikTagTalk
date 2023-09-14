@@ -1,13 +1,15 @@
 package A109.TikTagTalk.domain.account.controller;
 
-import A109.TikTagTalk.domain.account.dto.AddConsumeHistoryRequestDto;
-import A109.TikTagTalk.domain.account.dto.AllConsumeHistoryResponseDto;
-import A109.TikTagTalk.domain.account.dto.CheckAccountResponseDto;
+import A109.TikTagTalk.domain.account.dto.request.AddConsumeHistoryRequestDto;
+import A109.TikTagTalk.domain.account.dto.response.AllConsumeHistoryResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.CheckAccountResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.CheckMemberTagResponseDto;
 import A109.TikTagTalk.domain.account.service.ConsumeHistoryService;
-import A109.TikTagTalk.domain.user.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,12 +19,11 @@ public class ConsumeHistoryController {
     private final ConsumeHistoryService consumeHistoryService;
 
     @GetMapping("")
-    public AllConsumeHistoryResponseDto allConsumeHistory(@RequestParam Long accountId){
-
+    public List<AllConsumeHistoryResponseDto> allConsumeHistory(@RequestParam Long accountId){
         return consumeHistoryService.allConsumeHistoryRecently(accountId);
     }
     @GetMapping("/highest")
-    public AllConsumeHistoryResponseDto allConsumeHistoryHighest(@RequestParam Long accountId){
+    public List<AllConsumeHistoryResponseDto> allConsumeHistoryHighest(@RequestParam Long accountId){
         return consumeHistoryService.allConsumeHistoryHighest(accountId);
     }
 
@@ -36,9 +37,9 @@ public class ConsumeHistoryController {
         return consumeHistoryService.addConsumeHistory(requestDto);
     }
 
-    @GetMapping("/test")
-    public void test(@RequestParam Long accountId){
-        consumeHistoryService.test(accountId);
+    @GetMapping("/makemembertags") //더미데이터에서 memberTag받기
+    public void makeMemberTags(@RequestParam Long accountId){
+        consumeHistoryService.makeMemberTags(accountId);
     }
 
 }

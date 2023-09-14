@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
-@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Entity
 public class Store {
 
@@ -17,10 +19,4 @@ public class Store {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="TAG_ID")
     private Tag tag;
-
-    @Builder
-    public Store(String name,Tag tag){
-        this.name=name;
-        this.tag=tag;
-    }
 }
