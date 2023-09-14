@@ -1,14 +1,26 @@
 import './NavBarMain.css'
-
+import { useNavigate} from 'react-router-dom'
 
 function NavBarMain() {
+    const navigate = useNavigate()
+    const handleComment = ()=>{
+        navigate('/comment')
+    }
+    const handleSkinPurchase = ()=>{
+        navigate('/skin')
+    }
+    const handleNotice =()=>{
+        navigate('/notice')
+    }
+
+
     return (
         <>
         <div className='navbarcontainer'>
             <div className='image-container'>
-                <img src="./Icon/댓글 페이지창 버튼.png" alt="" />
-                <img src="./Icon/스킨 구매창.png" alt="" />
-                <img src="/Icon/알림창 버튼.png" alt="" />
+                <img src="./Icon/댓글 페이지창 버튼.png" alt="" onClick={handleComment}/>
+                <img src="./Icon/스킨 구매창.png" alt="" onClick={handleSkinPurchase}/>
+                <img src="/Icon/알림창 버튼.png" alt="" onClick={handleNotice}/>
             </div>
             {/* 우 정렬 */}
             <div>

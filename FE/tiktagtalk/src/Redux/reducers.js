@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux';
 
 import user from './userSlice';
+import item from './itemSlice';
 // import recipeSearch from './recipeSearchSlice';
 // import streamingRegister from './streamingRegisterSlice';
 // import recipeRegister from './recipeRegisterSlice';
@@ -10,6 +11,7 @@ import user from './userSlice';
 // import objectDetect from './objectDetectSlice';
 const rootReducer = combineReducers({
   user : user.reducer,
+  item : item.reducer,
 //   recipeSearch: recipeSearch.reducer,
 //   streamingRegister:streamingRegister.reducer,
 //   recipeRegister: recipeRegister.reducer,

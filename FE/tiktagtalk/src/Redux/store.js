@@ -4,12 +4,12 @@ import { persistReducer } from "redux-persist";
 import sessionStorage from "redux-persist/es/storage/session";
 import rootReducer from "./reducers";
 import thunk from "redux-thunk";
-// import { getDefaultNormalizer } from "@testing-library/react";
+import { getDefaultNormalizer } from "@testing-library/react";
 
 const persistConfg ={
   key : 'root',
   storage : sessionStorage,
-  whitelist: ['todos'],
+  whitelist: ['user','todos','item'],
 }
 
 const persistedReducer = persistReducer(persistConfg, rootReducer);

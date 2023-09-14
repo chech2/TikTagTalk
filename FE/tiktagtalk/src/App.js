@@ -6,12 +6,16 @@ import {Routes, Route} from "react-router-dom";
 import GlobalStyle from './GlobalStyle'; 
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
+import CoinPurchasePage from './pages/CoinPurchasePage';
+import CommentPage from './pages/CommentPage';
+import NoticePage from './pages/NoticePage';
 // import GlobalStyle from './styles/GlobalStyle';
 // import  MobilePage  from './pages/MobilePage';
 import SkingShopPage from './pages/SkinShopPage';
 import Footer from './components/ui/Footer';
 import TestCom from './components/TestCom';
 import { useEffect } from 'react';
+
 
 
 function App() {
@@ -33,6 +37,9 @@ function App() {
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/skin' element={<SkingShopPage/>}></Route>
         <Route path='/test' element={<TestCom/>}></Route>
+        <Route path='/coin-purchase' element={<CoinPurchasePage/>}></Route>
+        <Route path='/comment' element={<CommentPage/>}></Route>
+        <Route path='/notice' element={<NoticePage/>}></Route>
         {/* <Route path='/:id' element={<Detail />} /> */}
       </Routes>
       {<Footer/>}
