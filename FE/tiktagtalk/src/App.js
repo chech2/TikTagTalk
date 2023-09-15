@@ -9,12 +9,16 @@ import MainPage from './pages/MainPage';
 import CoinPurchasePage from './pages/CoinPurchasePage';
 import CommentPage from './pages/CommentPage';
 import NoticePage from './pages/NoticePage';
+import FriendListPage from './pages/FriendListPage';
+import AchievementsPage from './pages/AchievementsPage';
 // import GlobalStyle from './styles/GlobalStyle';
 // import  MobilePage  from './pages/MobilePage';
 import SkingShopPage from './pages/SkinShopPage';
 import Footer from './components/ui/Footer';
 import TestCom from './components/TestCom';
 import { useEffect } from 'react';
+
+
 
 
 
@@ -40,6 +44,8 @@ function App() {
         <Route path='/coin-purchase' element={<CoinPurchasePage/>}></Route>
         <Route path='/comment' element={<CommentPage/>}></Route>
         <Route path='/notice' element={<NoticePage/>}></Route>
+        <Route path='/friend-list' element={<FriendListPage/>}></Route>
+        <Route path='/achievement' element={<AchievementsPage/>}></Route>
         {/* <Route path='/:id' element={<Detail />} /> */}
       </Routes>
       {<Footer/>}

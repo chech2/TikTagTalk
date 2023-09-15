@@ -23,8 +23,6 @@ function MainPage() {
             <div><SelectItemBox/></div>
             <div className="rectangle-true" onClick={handleBox}></div>
         </div>
-        
-        
         }
         </>
       );
