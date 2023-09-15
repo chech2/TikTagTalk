@@ -12,6 +12,7 @@ public class AllConsumeHistoryResponseDto {
     private Long amount;
     private LocalDateTime consumeTime;
     private String detail;
+    private String storeName;
     private StoreDto store;
     private TagDto tag;
 

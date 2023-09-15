@@ -1,7 +1,10 @@
 package A109.TikTagTalk.domain.account.repository;
 
+import A109.TikTagTalk.domain.account.dto.request.ModifyConsumeHistoryRequestDto;
 import A109.TikTagTalk.domain.account.dto.response.CheckAccountResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.CheckMemberTagResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.ResponseUtil;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 import A109.TikTagTalk.domain.account.entity.QConsumeHistory;
 import A109.TikTagTalk.domain.tag.entity.QTag;
@@ -81,6 +84,18 @@ public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCus
                     .build());
         }
         return list;
+    }
+
+    @Override
+    public ResponseDto modifyConsumeHistory(ConsumeHistory consumeHistoryRequest) {
+        queryFactory.update(consumeHistory)
+                .set(consumeHistory.amount,consumeHistoryRequest.getAmount())
+                .set(consumeHistory.consumeTime,consumeHistoryRequest.getConsumeTime())
+                .set(consumeHistory.tag,consumeHistoryRequest.getTag())
+                .set(consumeHistory.storeName,consumeHistoryRequest.getStoreName())
+                .where(consumeHistory.id.eq(consumeHistoryRequest.getId()))
+                .execute();
+        return ResponseUtil.Success("수동 내역 수정 성공");
     }
 
 }

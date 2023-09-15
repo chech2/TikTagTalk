@@ -2,6 +2,7 @@ package A109.TikTagTalk.domain.account.repository;
 
 import A109.TikTagTalk.domain.account.dto.response.CheckAccountResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.CheckMemberTagResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface ConsumeHistoryRepositoryCustom {
 
     List<CheckMemberTagResponseDto> makeMemberTags(Long accountId);
 
-
+    ResponseDto modifyConsumeHistory(ConsumeHistory consumeHistory);
 }

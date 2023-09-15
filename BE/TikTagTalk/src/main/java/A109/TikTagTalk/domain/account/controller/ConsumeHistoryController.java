@@ -1,9 +1,11 @@
 package A109.TikTagTalk.domain.account.controller;
 
 import A109.TikTagTalk.domain.account.dto.request.AddConsumeHistoryRequestDto;
+import A109.TikTagTalk.domain.account.dto.request.ModifyConsumeHistoryRequestDto;
 import A109.TikTagTalk.domain.account.dto.response.AllConsumeHistoryResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.CheckAccountResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.CheckMemberTagResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.account.service.ConsumeHistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +35,17 @@ public class ConsumeHistoryController {
     }
 
     @PostMapping("")
-    public int AddConsumeHistory(@RequestBody AddConsumeHistoryRequestDto requestDto){
+    public ResponseDto AddConsumeHistory(@RequestBody AddConsumeHistoryRequestDto requestDto){
         return consumeHistoryService.addConsumeHistory(requestDto);
+    }
+    @DeleteMapping("/{consumeHistoryId}")
+    public ResponseDto deleteConsumeHistory(@PathVariable Long consumeHistoryId){
+        return consumeHistoryService.deleteConsumeHistory(consumeHistoryId);
+    }
+
+    @PutMapping("/{consumeHistoryId}")
+    public ResponseDto modifyConsumeHistory(@PathVariable Long consumeHistoryId, @RequestBody ModifyConsumeHistoryRequestDto requestDto){
+        return null;
     }
 
     @GetMapping("/makemembertags") //더미데이터에서 memberTag받기
