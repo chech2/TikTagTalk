@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -85,7 +86,29 @@ public class ExchangeHistoryServiceImpl implements ExchangeHistoryService{
 
 
     @Override
-    public void exchangeAlgo(Long userId, int amount) {
+    public void exchangeAlgo(Long memberId, int amount) {
+        PointHistory pointHistory = pointHistoryRepository.findById(memberId).orElse(null);
+        CoinHistory coinHistory = coinHistoryRepository.findById(memberId).orElse(null);
+
+        //멤버 전체가 보유하고 있는 포인트 개수 p -> member 테이블에 있는 포인트 SUM
+        //서버에서 가지고있는 코인 개수 c
+
+        Optional<PointHistory> memberPoints = pointHistoryRepository.findById(memberId);
+        int totalPoints = 0;
+
+        for(PointHistory point : memberPoints){
+            totalPoints += point.getBalancePoint();
+        }
+
+        Optional<CoinHistory> memberCoins = coinHistoryRepository.findById(memberId);
+        int totalMemberCoins = 0;
+
+        for(CoinHistory coin : memberCoins){
+            totalMemberCoins += coin.getBalanceCoin();
+        }
+
+        int totalCoins = 5000;
+        //포인트 개수가 증가할수록 환율 증가
 
     }
 }
