@@ -1,4 +1,3 @@
-
 import AppBar from '../components/ui/AppBar';
 import './CoinPurchasePage.css'
 // import { useState } from "react";

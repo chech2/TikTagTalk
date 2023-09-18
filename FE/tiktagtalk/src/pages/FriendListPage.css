@@ -1,13 +1,18 @@
+.friend-container2 {
+  display: flex;
+  justify-content: center;
+}
 .friend-container {
     display: flex;
     text-align: left;
     margin-left: 30px;
     margin-bottom: 30px;
   }
-  
+
+/*   
   .search-right {
     flex: 1;
-  }
+  } */
   
   .friend-list {
     display: flex;
@@ -20,6 +25,31 @@
     flex-basis: calc(33.33% - 10px); /* 각 요소의 초기 너비를 33.33%로 설정 (3개 요소가 한 줄에 들어가도록) */
     margin-bottom: 10px; /* 요소 간 세로 여백 조정 */
   }
+
+  /* .friend-class{
+    margin :5px;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+  } */
+  .yellow-background{
+    margin :5px;
+    border-radius: 20px;
+    background-color: yellow;
+  }
+  .black-background{
+    margin :5px;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+  }
+
+
+
+  
   
   /* 필요한 스타일 추가 */
-  
+.search-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 4%;
+}
