@@ -1,6 +1,6 @@
 package A109.TikTagTalk.domain.account.repository;
 
-import A109.TikTagTalk.domain.account.dto.request.ModifyConsumeHistoryRequestDto;
+import A109.TikTagTalk.domain.account.dto.request.ConsumeHistoryRequestDto;
 import A109.TikTagTalk.domain.account.dto.response.CheckAccountResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.CheckMemberTagResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
@@ -14,6 +14,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,39 +25,78 @@ public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCus
     private final JPAQueryFactory queryFactory;
     private QConsumeHistory consumeHistory=new QConsumeHistory("consumeHistory");
     private QTag qTag=new QTag("qtag");
+
     @Override
-    public List<ConsumeHistory> findAllRecently(Long accountId) {
+    public Long tagSum(Tag tag){
+        return queryFactory.select(consumeHistory.amount.sum())
+                .from(consumeHistory)
+                .where(consumeHistory.tag.id.eq(tag.getId()))
+                .fetchOne();
+    }
+    @Override
+    public List<ConsumeHistory> findAllRecently(ConsumeHistoryRequestDto requestDto) {
+        LocalDate today;
+        LocalDate startTime;
+        LocalDate endTime;
+
+        if(requestDto.getYearAndMonth()==null) {
+            today = LocalDate.now();
+        }else{
+            today = LocalDate.parse(requestDto.getYearAndMonth()+"-01");
+        }
+        startTime = LocalDate.of(today.getYear(), today.getMonthValue(), 1);
+        endTime = LocalDate.of(today.getYear(), today.getMonthValue(), today.lengthOfMonth());
         List<ConsumeHistory> list=queryFactory
                 .selectFrom(consumeHistory)
-                .where(consumeHistory.account.id.eq(accountId))
+                .where(consumeHistory.account.id.eq(requestDto.getAccountId()),consumeHistory.consumeTime.between(startTime.atStartOfDay(),endTime.atTime(LocalTime.MAX)))
                 .orderBy(consumeHistory.consumeTime.desc())
                 .fetch();
         return list;
     }
 
     @Override
-    public List<ConsumeHistory> findAllHighest(Long accountId) {
+    public List<ConsumeHistory> findAllHighest(ConsumeHistoryRequestDto requestDto) {
+        LocalDate today;
+        LocalDate startTime;
+        LocalDate endTime;
+        if(requestDto.getYearAndMonth()==null) {
+            today = LocalDate.now();
+        }else{
+            today = LocalDate.parse(requestDto.getYearAndMonth()+"-01");
+        }
+        startTime = LocalDate.of(today.getYear(), today.getMonthValue(), 1);
+        endTime = LocalDate.of(today.getYear(), today.getMonthValue(), today.lengthOfMonth());
         List<ConsumeHistory> list=queryFactory
                 .selectFrom(consumeHistory)
-                .where(consumeHistory.account.id.eq(accountId))
+                .where(consumeHistory.account.id.eq(requestDto.getAccountId()),consumeHistory.consumeTime.between(startTime.atStartOfDay(),endTime.atTime(LocalTime.MAX)))
                 .orderBy(consumeHistory.amount.desc())
                 .fetch();
         return list;
     }
 
     @Override
-    public CheckAccountResponseDto checkAccountTagAmount(Long accountId) {
+    public CheckAccountResponseDto checkAccountTagAmount(ConsumeHistoryRequestDto requestDto) {
+        LocalDate today;
+        LocalDate startTime;
+        LocalDate endTime;
+        if(requestDto.getYearAndMonth()==null) {
+            today = LocalDate.now();
+        }else{
+            today = LocalDate.parse(requestDto.getYearAndMonth()+"-01");
+        }
+        startTime = LocalDate.of(today.getYear(), today.getMonthValue(), 1);
+        endTime = LocalDate.of(today.getYear(), today.getMonthValue(), today.lengthOfMonth());
         Long totalAmount=queryFactory
                 .select(consumeHistory.amount.sum())
                 .from(consumeHistory)
-                .where(consumeHistory.account.id.eq(accountId))
+                .where(consumeHistory.account.id.eq(requestDto.getAccountId()),consumeHistory.consumeTime.between(startTime.atStartOfDay(),endTime.atTime(LocalTime.MAX)))
                 .fetchOne();
         List<CheckAccountResponseDto.TagDto> tagList=new ArrayList<>();
         List<Tuple> tuples=queryFactory
                 .select(consumeHistory.amount.sum(),qTag.name)
                 .from(consumeHistory)
                 .join(qTag).on(consumeHistory.tag.id.eq(qTag.id))
-                .where(consumeHistory.account.id.eq(accountId))
+                .where(consumeHistory.account.id.eq(requestDto.getAccountId()),consumeHistory.consumeTime.between(startTime.atStartOfDay(),endTime.atTime(LocalTime.MAX)))
                 .groupBy(consumeHistory.tag)
                 .fetch();
         for(Tuple tuple:tuples){
@@ -68,13 +109,23 @@ public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCus
     }
 
     @Override
-    public List<CheckMemberTagResponseDto> makeMemberTags(Long accountId) {
+    public List<CheckMemberTagResponseDto> makeMemberTags(ConsumeHistoryRequestDto requestDto) {
+        LocalDate today;
+        LocalDate startTime;
+        LocalDate endTime;
+        if(requestDto.getYearAndMonth()==null) {
+            today = LocalDate.now();
+        }else{
+            today = LocalDate.parse(requestDto.getYearAndMonth()+"-01");
+        }
+        startTime = LocalDate.of(today.getYear(), today.getMonthValue(), 1);
+        endTime = LocalDate.of(today.getYear(), today.getMonthValue(), today.lengthOfMonth());
         List<CheckMemberTagResponseDto> list=new ArrayList<>();
         List<Tuple> tuples=queryFactory
                 .select(consumeHistory.amount.sum(),consumeHistory.amount.count(),consumeHistory.tag)
                 .from(consumeHistory)
+                .where(consumeHistory.account.id.eq(requestDto.getAccountId()), consumeHistory.consumeTime.between(startTime.atStartOfDay(),endTime.atTime(LocalTime.MAX)))
                 .groupBy(consumeHistory.tag)
-                .where(consumeHistory.account.id.eq(accountId))
                 .fetch();
         for(Tuple tuple:tuples){
             list.add(CheckMemberTagResponseDto.builder()
