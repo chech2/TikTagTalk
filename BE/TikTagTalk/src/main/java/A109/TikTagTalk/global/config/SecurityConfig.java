@@ -86,7 +86,9 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable) // FormLogin 사용 x
                 .sessionManagement((sessionManagement) ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 사용하지 않으므로 STATELESS로 설정
-
+                .requiresChannel((requiresChannel) -> requiresChannel
+                        .requestMatchers("/api/oauth2/authorization").requiresSecure()
+                )
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests // URL별 권한 관리 옵션
                         .requestMatchers("/api/members/sign-up").permitAll() // 화원가입 접근 가능
                         .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
@@ -95,6 +97,10 @@ public class SecurityConfig {
                 .oauth2Login((oauth2login) -> oauth2login // 소셜 로그인 설정
                         .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 대 Handler 설정
                         .failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
+                        .authorizationEndpoint((endpoint) -> endpoint
+                                .baseUri("/api/oauth2/authorization"))
+                        .redirectionEndpoint((endpoint) ->
+                                endpoint.baseUri("/login/oauth2/code/*"))
                         .userInfoEndpoint((endpoint) -> endpoint
                                 .userService(customOAuth2UserService)) // customUserService 설정
                 )

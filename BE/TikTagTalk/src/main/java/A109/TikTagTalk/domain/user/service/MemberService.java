@@ -29,7 +29,7 @@ public class MemberService {
         */
         Member member = Member.builder()
                 .userId(memberSignUpDto.getUserId())
-                .password(memberSignUpDto.getPassword())
+                .password(passwordEncoder.encode(memberSignUpDto.getPassword()))
                 .name(memberSignUpDto.getName())
                 .introduction(memberSignUpDto.getIntroduction())
                 .avatarType(memberSignUpDto.getAvatarType())

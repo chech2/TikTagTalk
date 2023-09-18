@@ -5,6 +5,7 @@ import {Routes, Route} from "react-router-dom";
 // import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle'; 
 import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 import MainPage from './pages/MainPage';
 import CoinPurchasePage from './pages/CoinPurchasePage';
 import CommentPage from './pages/CommentPage';
@@ -38,7 +39,9 @@ function App() {
 
       <Routes>
         <Route path='/' element={<MainPage/>}></Route>
+        {/* 회원 */}
         <Route path='/login' element={<LoginPage/>} />
+        <Route path='/signup' element={<SignupPage/>}></Route>
         <Route path='/skin' element={<SkingShopPage/>}></Route>
         <Route path='/test' element={<TestCom/>}></Route>
         <Route path='/coin-purchase' element={<CoinPurchasePage/>}></Route>

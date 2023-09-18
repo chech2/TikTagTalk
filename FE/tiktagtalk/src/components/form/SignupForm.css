@@ -1,0 +1,7 @@
+.sign-form-container .sign-form .sign-form-group label>.input-hidden {
+    visibility: hidden;
+}
+
+.sign-form-container .sign-form .sign-form-group label>input[type=radio]:checked + img {
+    border: 4px solid #ff0000;
+}

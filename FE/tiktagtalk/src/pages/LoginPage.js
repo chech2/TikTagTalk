@@ -1,12 +1,12 @@
-
+import LoginForm from "../components/form/LoginForm";
 
 
 function LoginPage() {
     return (
         <div>
-            <h1>로그인페이지입니다.</h1>
+            <LoginForm></LoginForm>
         </div>
-      );
-    }
+    );
+}
 
 export default LoginPage;
