@@ -1,0 +1,43 @@
+.appbarcontainer {
+    display: flex;
+    align-items: center;
+    height: 12vw;
+
+}
+
+.appbarcenter{
+    margin: 0 auto;
+    align-items: center;
+}
+.appbar-absoulte{
+    position: absolute;
+    top: 2vw; /* 위쪽으로 위치를 조정합니다. */
+    left: 0; /* 왼쪽으로 위치를 조정합니다. */
+}
+.appbar-underline{
+    border-bottom: 1px solid #000;
+    height : 12vw;  
+}
+
+
+.navbarcontainer-2{
+    display: flex;
+    align-items: center;
+    height: 6vw;
+    text-align: center;
+}
+.image-container img {
+    margin: 0 5px; /* 좌우 간격을 10px로 설정 */
+}
+.p-left{
+    text-align: right;
+}
+
+.navbar-left{
+    flex: 1;
+}
+
+.appbar-left{
+    display : flex   ;
+    align-items: center;
+}
