@@ -151,105 +151,102 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
                 saveMemberTag(account,tag,gotTime);
             }else{
                 if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
-                    deleteMemberTag(tag.getId(),amountSum,amountCount,account,tag,gotTime);
+                    deleteMemberTag(account,tag,gotTime);
                 }
             }
         } else if (tagId == 2) { //편/마/잡, 조건 : 25만원,20회
             if (amountSum >= 250000 || amountCount >= 20) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 3) { //교통, 조건 : 15만원,10회
             if (amountSum >= 150000 || amountCount >= 10) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 4) { //쇼핑, 조건 : 10만원,5회
             if (amountSum >= 100000 || amountCount >= 5) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 5) { //카페, 조건 : 35만원,30회
             if (amountSum >= 350000 || amountCount >= 30) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 6) { //보험, 조건 : 5만원
             if (amountSum >= 50000) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 7) { //취미, 조건 : 10만원,5회
             if (amountSum >= 100000 || amountCount >= 5) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 8) { //미용, 조건 : 5만원,5회
             if (amountSum >= 50000 || amountCount >= 5) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 9) { //의료, 조건 : 15만원,5회
             if (amountSum >= 150000 || amountCount >= 5) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 10) { //정기결제, 조건 :1회
             if (amountCount >= 1) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 11) { //반려동물, 조건 : 1회
             if (amountCount >= 1) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         } else if (tagId == 12) { //여행, 조건 : 1회
             if (amountCount >= 1) {
                 saveMemberTag(account,tag,gotTime);
+            }else{
+                if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
+                    deleteMemberTag(account,tag,gotTime);
+                }
             }
         }
     }
-    public void deleteMemberTag(Long tagId,Long amountSum,Long amountCount,Account account, Tag tag,LocalDate gotTime){
-        if (tagId == 1) { //식비, 조건 : 35만원,30회
-            if (amountSum < 350000 && amountCount < 30) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 2) { //편/마/잡, 조건 : 25만원,20회
-            if (amountSum < 250000 && amountCount < 20) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 3) { //교통, 조건 : 15만원,10회
-            if (amountSum < 150000 && amountCount < 10) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 4) { //쇼핑, 조건 : 10만원,5회
-            if (amountSum < 100000 && amountCount < 5) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 5) { //카페, 조건 : 35만원,30회
-            if (amountSum < 350000 && amountCount < 30) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 6) { //보험, 조건 : 5만원
-            if (amountSum < 50000) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 7) { //취미, 조건 : 10만원,5회
-            if (amountSum < 100000 && amountCount < 5) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 8) { //미용, 조건 : 5만원,5회
-            if (amountSum < 50000 && amountCount < 5) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 9) { //의료, 조건 : 15만원,5회
-            if (amountSum < 150000 && amountCount < 5) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 10) { //정기결제, 조건 :1회
-            if (amountCount < 1) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 11) { //반려동물, 조건 : 1회
-            if (amountCount < 1) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        } else if (tagId == 12) { //여행, 조건 : 1회
-            if (amountCount < 1) {
-                saveMemberTag(account,tag,gotTime);
-            }
-        }
+    public void deleteMemberTag(Account account, Tag tag,LocalDate gotTime){
+        MemberTag memberTag=memberTagRepository.findByAccountTagGotTime(account.getId(),tag.getId(),gotTime);
+        memberTagRepository.delete(memberTag);
     }
     @Override
     @Transactional
@@ -261,10 +258,9 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         if(!(consumeHistory.getIsManual())){
             consumeHistoryRepository.delete(consumeHistory);
             if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),consumeHistory.getConsumeTime().toLocalDate())){
-
+                CheckMemberTagResponseDto response=consumeHistoryRepository.calMemberTag(account,tag,consumeHistory.getConsumeTime().toLocalDate());
+                getMemberTag(response.getTag().getId(),response.getAmount(),response.getCount(),account,tag,consumeHistory.getConsumeTime().toLocalDate());
             }
-
-
             return ResponseUtil.Success("해당 소비 내역 삭제 성공");
         }
         return ResponseUtil.Failure("해당 소비 내역 삭제 실패");
