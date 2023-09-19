@@ -9,4 +9,6 @@ import java.util.List;
 public interface MemberTagRepositoryCustom {
     Boolean checkMemberTagExist(Long accountId, Long tagId, LocalDate gotTime);
     List<MemberTag> checkMemberTagList(CheckMemberTagRequestDto requestDto);
+
+    MemberTag findByAccountTagGotTime(Long accountId,Long tagId,LocalDate gotTime);
 }

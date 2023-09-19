@@ -5,6 +5,7 @@ import A109.TikTagTalk.domain.account.dto.response.CheckAccountResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.CheckMemberTagResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseUtil;
+import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 import A109.TikTagTalk.domain.account.entity.QConsumeHistory;
 import A109.TikTagTalk.domain.tag.entity.QTag;
@@ -27,11 +28,25 @@ public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCus
     private QTag qTag=new QTag("qtag");
 
     @Override
-    public Long tagSum(Tag tag){
-        return queryFactory.select(consumeHistory.amount.sum())
+    public CheckMemberTagResponseDto calMemberTag(Account account, Tag tag, LocalDate consumeTime){
+        LocalDate startTime;
+        LocalDate endTime;
+
+        startTime = LocalDate.of(consumeTime.getYear(), consumeTime.getMonthValue(), 1);
+        endTime = LocalDate.of(consumeTime.getYear(), consumeTime.getMonthValue(), consumeTime.lengthOfMonth());
+
+        Tuple tuple= queryFactory
+                .select(consumeHistory.amount.sum(),consumeHistory.amount.count())
                 .from(consumeHistory)
-                .where(consumeHistory.tag.id.eq(tag.getId()))
+                .where(consumeHistory.account.id.eq(account.getId()),consumeHistory.tag.id.eq(tag.getId()),consumeHistory.consumeTime.between(startTime.atStartOfDay(),endTime.atTime(LocalTime.MAX)))
+                .groupBy(consumeHistory.tag)
                 .fetchOne();
+
+        return CheckMemberTagResponseDto.builder()
+                .amount(tuple.get(0,Long.class))
+                .count(tuple.get(1,Long.class))
+                .tag(CheckMemberTagResponseDto.TagDto.builder().id(tag.getId()).build())
+                .build();
     }
     @Override
     public List<ConsumeHistory> findAllRecently(ConsumeHistoryRequestDto requestDto) {
@@ -109,7 +124,7 @@ public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCus
     }
 
     @Override
-    public List<CheckMemberTagResponseDto> makeMemberTags(ConsumeHistoryRequestDto requestDto) {
+    public List<CheckMemberTagResponseDto> calMemberTags(ConsumeHistoryRequestDto requestDto) {
         LocalDate today;
         LocalDate startTime;
         LocalDate endTime;

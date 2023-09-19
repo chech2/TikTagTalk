@@ -61,4 +61,11 @@ public class MemberTagRepositoryImpl implements MemberTagRepositoryCustom{
                 .fetch();
         return membertag;
     }
+
+    @Override
+    public MemberTag findByAccountTagGotTime(Long accountId, Long tagId, LocalDate gotTime) {
+        return queryFactory.selectFrom(memberTag)
+                .where(memberTag.account.id.eq(accountId),memberTag.tag.id.eq(tagId),memberTag.gotTime.eq(gotTime))
+                .fetchOne();
+    }
 }
