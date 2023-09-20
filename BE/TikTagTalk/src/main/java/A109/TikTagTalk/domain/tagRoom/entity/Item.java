@@ -14,10 +14,10 @@ public class Item {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false)
+    @Column(nullable=false,unique = true)
     private String name;
 
-    private String S3Url;
+    private String s3Url;
 
 //    @Enumerated(EnumType.STRING)
 //    private Category category;
