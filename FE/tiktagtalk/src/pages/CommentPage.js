@@ -9,40 +9,66 @@ import React, { useState} from 'react';
 
 function CommentPage(props) {
     const [isFriend,setisFriend] = useState(false)
+    
+    
+    const [comments, setComments] = useState([]);
+    const [newCommentContent, setNewCommentContent] = useState('');
+    // const isLoggedIn = useSelector(state => state.user.isLogin);
+    const isLoggedIn = useState(true) // 임시
+    // const userId=useSelector(state=>state.user.id);
+    const userId = useState(1)
+    
 
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}`;
+    };
 
+    const handleSubmitComment = ()=>{
 
+    }
+    const handleCommentChange = ()=>{
+
+    }
 
 
 
     return (
         <>
+        <AppBar title='방명록'></AppBar>
         <div>
             <div>
-                <img src="Icon/마이페이지 아이콘.png" alt="" />
+                <img className='comment-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" />
                 <h1>허주혁(이름)</h1>
                 <div>
                     <button>톡톡 버튼 예정</button>
                 </div>
+                <br />
                 {/* container아래 */}
                 <div style={{display: 'flex', justifyContent:'center' ,}}>
                     <div className='comment-box'>   
-                        <p>댓글 수</p>
-                        <p>3</p>
+                        <div>댓글 수</div>
+                        <div>3</div>
                     </div >
                     <div className='v-line'>
                     </div>
                     <div className='comment-box'>
-                        <p>톡톡 수</p>
-                        <p>5</p>
+                        <div>톡톡 수</div>
+                        <div>5</div>
                     </div>
                 </div>
                 
             </div>
             <hr />
-            {/* <div className='commentForm'>
-                    <h2>댓글</h2>
+            <tr/>
+            <div className='commentForm'>
+                    <h2>방명록</h2>
                     <ul className='comment-list'>
                         {comments.map((comment, index) => (
                         <li key={index}>
@@ -68,9 +94,9 @@ function CommentPage(props) {
                                                 <img className='comment-content-img' src={comment.commentImgUrl}></img>
                                             </div>
                                         )}
-                                    {isLoggedIn && comment.writerId === userId&& (
+                                    {/* {isLoggedIn && comment.writerId === userId&& (
                                             <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
-                                        )}
+                                        )} */}
                                 </div>
                             </div>
                             <hr></hr>
@@ -86,23 +112,17 @@ function CommentPage(props) {
                                         value={newCommentContent}
                                         onChange={handleCommentChange}
                                     />
-                                    <div className='file-input'>
+                                    {/* <div className='file-input'>
                                         <label>
                                             후기 이미지<br></br>첨부하기
                                             <input type='file' onChange={handleImageChange} style={{ display: 'none'} } />
                                         </label>
-                                    </div>                  
+                                    </div>                   */}
                                     <button type='submit'>댓글 작성</button>
                                 </div>
                             </form>
                         </div>
-
-
                 </div>
-            
-            <div>
-                <p>hi</p>
-            </div> */}
         </div>
         </>
     );

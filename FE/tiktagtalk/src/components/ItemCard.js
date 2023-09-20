@@ -8,7 +8,7 @@ function ItemCard(props) {
     // const iteminfor = useSelector((state)=>state.item)
     
     const handleModal = ()=>{
-        // console.log('정보', props)
+        console.log('정보', props)
         dispatch(itemNumber(props))
    
 

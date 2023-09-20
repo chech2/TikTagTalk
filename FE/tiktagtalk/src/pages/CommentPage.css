@@ -5,7 +5,7 @@
     height: auto;
 }
 .v-line{
-    border : solid #000;
+    border : solid 1px #000;
     height : auto;
     margin-left : 10px;
     margin-right : 10px;
@@ -367,3 +367,10 @@
     margin-right:2%;
     border-radius: 50px;
   }
+
+
+.comment-responsive-image {
+  width: 100%;
+  height: auto;
+  max-width: 40vw; /* 이미지 최대 너비 지정 */
+}
