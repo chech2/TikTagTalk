@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 
@@ -12,6 +12,15 @@ import type6 from "./avatar/type6.jfif"
 
 function SignupForm() {
 
+    const avatars = [
+        {name: 1, img: type1},
+        {name: 2, img: type2},
+        {name: 3, img: type3},
+        {name: 4, img: type4},
+        {name: 5, img: type5},
+        {name: 6, img: type6}
+    ]
+
     const navigate = useNavigate();
 
     const [userId, setUserId] = useState('');
@@ -21,13 +30,13 @@ function SignupForm() {
     const [introduction, setIntroduction] = useState('');
     const [avatarType, setAvatarType] = useState('');
 
-    const avatars = [
-        {name: 1, img: type1},
-        {name: 2, img: type2},
-        {name: 3, img: type3},
-        {name: 4, img: type4},
-        {name: 5, img: type5},
-        {name: 6, img: type6}]
+    const handleAvatarChange = (event) => {
+        setAvatarType(event.target.value);
+    };
+
+    useEffect(() => {
+        console.log(avatarType);
+    }, [avatarType]);
 
     // ---------- 회원 가입 기능 구현 ---------- //
     const handleSubmit = (e) => {
@@ -43,7 +52,7 @@ function SignupForm() {
             avatarType : avatarType
         };
 
-        axios.post(process.env.REACT_APP_BASE_URL + '/api/members/sign-up', body)
+        axios.post(process.env.REACT_APP_BASE_URL + '/members/sign-up', body)
         .then((res) => {
             if(res.status === 201) {
                 navigate('/login');
@@ -92,16 +101,15 @@ function SignupForm() {
 
                 {/* 아바타 종류 고르기 */}
                 <div className='sign-form-group'>
-                    {avatars.map(type => (
-                        <label key={type.name}>
-                            <input
-                            type='radio'
-                            className='sign-form-input input-hidden'
-                            value={type.name}
-                            checked={avatarType === `${type.name}`}
-                            onChange={e=>{setAvatarType(type.name)}}
+                    {avatars.map(avatar => (
+                        <label key={avatar.name} className='avatar-label'>
+                            <input 
+                                type='radio'
+                                value={avatar.name}
+                                checked={avatarType == avatar.name}
+                                onChange={handleAvatarChange}
                             />
-                            <img onClick={e=>{setAvatarType(type.name)}} src={type.img}></img>
+                            <img src={avatar.img} alt={`아바타 타입 ${avatar.name}`} />
                         </label>
                     ))}
                 </div>

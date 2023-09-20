@@ -1,6 +1,6 @@
 package A109.TikTagTalk.domain.user.controller;
 
-import A109.TikTagTalk.domain.user.dto.MemberSignUpDto;
+import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
 import A109.TikTagTalk.domain.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

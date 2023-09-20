@@ -1,4 +1,4 @@
-package A109.TikTagTalk.domain.user.dto;
+package A109.TikTagTalk.domain.user.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

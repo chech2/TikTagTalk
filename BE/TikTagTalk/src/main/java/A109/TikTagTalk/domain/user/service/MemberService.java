@@ -1,6 +1,6 @@
 package A109.TikTagTalk.domain.user.service;
 
-import A109.TikTagTalk.domain.user.dto.MemberSignUpDto;
+import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.entity.Role;
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
@@ -39,7 +39,6 @@ public class MemberService {
                 .point(0)
                 .build();
 
-        member.passwordEncode(passwordEncoder);
         memberRepository.save(member);
     }
 }

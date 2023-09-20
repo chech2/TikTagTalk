@@ -26,6 +26,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -90,6 +91,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/oauth2/authorization").requiresSecure()
                 )
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests // URL별 권한 관리 옵션
+                        .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/members/sign-up").permitAll() // 화원가입 접근 가능
                         .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
                 )
@@ -146,7 +148,8 @@ public class SecurityConfig {
     /**
      * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
      */
-    public AuthenticationSuccessHandler loginSuccessHandler() {
+    @Bean
+    public LoginSuccessHandler loginSuccessHandler() {
         return new LoginSuccessHandler(jwtService, memberRepository);
     }
 

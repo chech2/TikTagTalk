@@ -37,6 +37,7 @@ function LoginForm() {
         .then((res) => {
             if (res.status === 200) {
                 const accessToken = res.headers['authorization'];
+                console.log(`accessToken = ${accessToken}`);
                 axios.defaults.headers.common['Authorization'] = `${accessToken}`;
                 const data = res.data;
                 dispatch(loginUser(data))
@@ -63,10 +64,14 @@ function LoginForm() {
                     <input className='login-form-input' onChange={e=>{setPassword(e.target.value)}} type='password' id='formBasicPassword' placeholder='비밀번호를 입력해주세요.'/>
                 </div>
 
+                <br></br>
+
                 {/* 회원가입 */}
                 <div className='login-form-group' id='navigateNewPage'>
                     <span onClick={()=>{navigate('/sign-up')}}>회원가입</span>
                 </div>
+
+                <br></br>
 
                 {/* Login 버튼 */}
                 <button className='submitButton' type='submit'>Login</button>

@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.StreamUtils;
@@ -22,6 +24,7 @@ import java.util.Map;
  * Username : 회원 아이디 -> userId로 설정
  * "/api/login" 요청이 들어왔을 때 JSON 값을 매핑 처리하는 필터
  */
+@Slf4j
 public class CustomJsonUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private static final String DEFAULT_LOGIN_REQUEST_URL = "/api/login"; // "/api/login"으로 오는 요청을 처리
@@ -69,6 +72,7 @@ public class CustomJsonUsernamePasswordAuthenticationFilter extends AbstractAuth
 
         String userId = usernamePasswordMap.get(USERNAME_KEY);
         String password = usernamePasswordMap.get(PASSWORD_KEY);
+
 
         // 인증 처리 객체인 AuthenticationManager가 인증 시 사용할 인증 대상 객체
         // userId가 인증 대상 객체의 principal,

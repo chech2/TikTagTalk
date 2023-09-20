@@ -5,6 +5,7 @@ import sessionStorage from "redux-persist/es/storage/session";
 import rootReducer from "./reducers";
 import thunk from "redux-thunk";
 import { getDefaultNormalizer } from "@testing-library/react";
+import userReducer from './userSlice';
 
 const persistConfg ={
   key : 'root',

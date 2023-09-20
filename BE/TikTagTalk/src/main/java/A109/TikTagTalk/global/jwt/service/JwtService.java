@@ -27,7 +27,7 @@ public class JwtService {
     private Long accessTokenExpirationPeriod;
 
     @Value("${jwt.refresh.expiration}")
-    private String refreshTokenExpirationPeriod;
+    private Long refreshTokenExpirationPeriod;
 
     @Value("${jwt.access.header}")
     private String accessHeader;
