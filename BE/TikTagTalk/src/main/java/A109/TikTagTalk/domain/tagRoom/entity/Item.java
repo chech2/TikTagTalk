@@ -3,8 +3,10 @@ package A109.TikTagTalk.domain.tagRoom.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter @Setter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Entity
 public class Item {
 
@@ -14,6 +16,8 @@ public class Item {
 
     @Column(nullable=false)
     private String name;
+
+    private String S3Url;
 
 //    @Enumerated(EnumType.STRING)
 //    private Category category;

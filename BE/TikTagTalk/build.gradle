@@ -42,6 +42,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	//AWS S3
+	implementation("com.amazonaws:aws-java-sdk-s3:1.12.445")
 }
 
 tasks.named('test') {
