@@ -49,8 +49,8 @@ public class ConsumeHistoryController {
     }
 
     @GetMapping("/makemembertags") //더미데이터에서 memberTag받기
-    public void makeMemberTags(@RequestBody ConsumeHistoryRequestDto requestDto){
-        consumeHistoryService.makeMemberTags(requestDto);
+    public ResponseDto makeMemberTags(@RequestBody ConsumeHistoryRequestDto requestDto){
+        return consumeHistoryService.makeMemberTags(requestDto);
     }
 
 

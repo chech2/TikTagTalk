@@ -4,6 +4,8 @@ import A109.TikTagTalk.domain.tagRoom.entity.Item;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -17,7 +19,6 @@ public class Tag {
 
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ITEM_ID")
-    private Item item;
+    @OneToMany(mappedBy="tag")
+    private List<Item> itemList;
 }

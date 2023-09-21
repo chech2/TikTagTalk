@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ItemController {
     private final ItemService itemService;
 
-    @GetMapping()
+    @GetMapping() //s3에 있는 아이템 더미 데이터 삽입
     public void addItmes(){
         itemService.addItems();
     }
+
+    
 
 }

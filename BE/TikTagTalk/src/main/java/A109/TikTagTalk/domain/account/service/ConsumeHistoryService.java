@@ -17,7 +17,7 @@ public interface ConsumeHistoryService {
     CheckAccountResponseDto checkAccountTotalAccount(ConsumeHistoryRequestDto requestDto);
     ResponseDto addConsumeHistory(AddConsumeHistoryRequestDto reqestDto);
 
-    int makeMemberTags(ConsumeHistoryRequestDto requestDto);
+    ResponseDto makeMemberTags(ConsumeHistoryRequestDto requestDto);
 
     ResponseDto deleteConsumeHistory(Long consumeHistoryId);
 

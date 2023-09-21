@@ -1,5 +1,6 @@
 package A109.TikTagTalk.domain.tagRoom.entity;
 
+import A109.TikTagTalk.domain.tag.entity.Tag;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,15 @@ public class Item {
     private String name;
 
     private String s3Url;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="TAG_ID")
+    private Tag tag;
+
+    public void mappingItemAndTag(Tag tag){
+        this.tag=tag;
+        tag.getItemList().add(this);
+    }
 
 //    @Enumerated(EnumType.STRING)
 //    private Category category;

@@ -13,6 +13,9 @@ import A109.TikTagTalk.domain.tag.entity.Tag;
 import A109.TikTagTalk.domain.tag.repository.MemberTagRepository;
 import A109.TikTagTalk.domain.tag.repository.StoreRepository;
 import A109.TikTagTalk.domain.tag.repository.TagRepository;
+import A109.TikTagTalk.domain.tagRoom.entity.Item;
+import A109.TikTagTalk.domain.tagRoom.entity.MemberItem;
+import A109.TikTagTalk.domain.tagRoom.repository.MemberItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +32,7 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
     private final AccountRepository accountRepository;
     private final TagRepository tagRepository;
     private final MemberTagRepository memberTagRepository;
+    private final MemberItemRepository memberItemRepository;
     @Override
     @Transactional
     public ResponseDto addConsumeHistory(AddConsumeHistoryRequestDto requestDto) {
@@ -118,7 +122,7 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
 
     @Override
     @Transactional //더미 데이터 용 멤버태그 획득
-    public int makeMemberTags(ConsumeHistoryRequestDto requestDto) {
+    public ResponseDto makeMemberTags(ConsumeHistoryRequestDto requestDto) {
         List<CheckMemberTagResponseDto> list = consumeHistoryRepository.calMemberTags(requestDto);
         //Account는 id가 1인 애를 그냥 넣자
         Account account=accountRepository.findById(requestDto.getAccountId()).get();
@@ -135,7 +139,7 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
                 getMemberTag(list.get(i).getTag().getId(),list.get(i).getAmount(),list.get(i).getCount(),account,tag,gotTime);
             }
         }
-        return 0;
+        return ResponseUtil.Success("태그 더미 데이터 생성 성공");
     }
     public void saveMemberTag(Account account,Tag tag, LocalDate gotTime){
         MemberTag memberTag = MemberTag.builder()
@@ -196,6 +200,15 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
             }
         } else if (tagId == 7) { //취미, 조건 : 10만원,5회
             if (amountSum >= 100000 || amountCount >= 5) {
+                Item item=tag.getItemList().get(0);
+                MemberItem memberItem=MemberItem.builder()
+                        .item(item)
+                        .account(account)
+                        .positionY(5L)
+                        .positionX(5L)
+                        .positoinZ(1L)
+                        .build();
+                memberItemRepository.save(memberItem);
                 saveMemberTag(account,tag,gotTime);
             }else{
                 if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
