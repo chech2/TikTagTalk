@@ -42,7 +42,7 @@ public class JwtService {
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
     private static final String USERID_CLAIM = "userId";
-    private static final String BEARER = "Bearer";
+    private static final String BEARER = "Bearer ";
 
     private final MemberRepository memberRepository;
 
@@ -173,6 +173,7 @@ public class JwtService {
      */
     public boolean isTokenValid(String token) {
         try {
+            log.info("token={}", token);
             JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
             return true;
         } catch (Exception e) {

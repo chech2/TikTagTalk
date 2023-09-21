@@ -10,6 +10,7 @@ import axios from 'axios';
 import GlobalStyle from './GlobalStyle';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore} from 'redux-persist';
+import { CookiesProvider } from 'react-cookie';
 
 
 let persistor = persistStore(store);
@@ -21,9 +22,11 @@ root.render(
     <Provider store={store}>
       <GlobalStyle />
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <CookiesProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </CookiesProvider>
       </PersistGate>
     </Provider>
   // </React.StrictMode>

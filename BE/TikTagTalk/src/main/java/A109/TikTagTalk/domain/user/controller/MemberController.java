@@ -19,5 +19,10 @@ public class MemberController {
         memberService.singUp(memberSignUpDto);
         return new ResponseEntity<>("로그인에 성공했습니다.", HttpStatus.CREATED);
     }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> test() throws Exception {
+        return new ResponseEntity<>("테스트 성공", HttpStatus.OK);
+    }
 }
 

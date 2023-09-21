@@ -1,9 +1,8 @@
 // import logo from './logo.svg';
 import './App.css';
 // import react from 'react';
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 // import styled from 'styled-components';
-import GlobalStyle from './GlobalStyle'; 
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import MainPage from './pages/MainPage';
@@ -17,13 +16,11 @@ import AchievementsPage from './pages/AchievementsPage';
 import SkingShopPage from './pages/SkinShopPage';
 import Footer from './components/ui/Footer';
 import TestCom from './components/TestCom';
+import Test from './pages/Test';
 import { useEffect } from 'react';
 
-
-
-
-
 function App() {
+
   function setScreenSize() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -34,9 +31,6 @@ function App() {
 
   return (    
     <div className="App">
-      
-
-
       <Routes>
         <Route path='/' element={<MainPage/>}></Route>
         {/* 회원 */}
@@ -49,6 +43,7 @@ function App() {
         <Route path='/notice' element={<NoticePage/>}></Route>
         <Route path='/friend-list' element={<FriendListPage/>}></Route>
         <Route path='/achievement' element={<AchievementsPage/>}></Route>
+        <Route path='/test1' element={<Test/>}></Route>
         {/* <Route path='/:id' element={<Detail />} /> */}
       </Routes>
       {<Footer/>}
