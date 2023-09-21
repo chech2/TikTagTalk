@@ -1,10 +1,13 @@
 package A109.TikTagTalk.domain.tagRoom.service;
 
+import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.ResponseUtil;
 import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.tag.entity.Tag;
 import A109.TikTagTalk.domain.tag.repository.TagRepository;
 import A109.TikTagTalk.domain.tagRoom.dto.request.InitMemberItemRequestDto;
+import A109.TikTagTalk.domain.tagRoom.dto.request.UpdateMemberItemRequestDto;
 import A109.TikTagTalk.domain.tagRoom.dto.response.InitMemberItemResponseDto;
 import A109.TikTagTalk.domain.tagRoom.entity.Item;
 import A109.TikTagTalk.domain.tagRoom.entity.MemberItem;
@@ -94,6 +97,7 @@ public class MemberItemServiceImpl implements MemberItemService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<InitMemberItemResponseDto> findMemberItems(Long accountId) {
         Account account=accountRepository.findById(accountId).get();
         List<MemberItem> memberItemList=memberItemRepository.findMemberItem(account);
@@ -112,5 +116,14 @@ public class MemberItemServiceImpl implements MemberItemService{
                             .wall(memberItem.isWall())
                             .build();
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public ResponseDto updateMemberItem(UpdateMemberItemRequestDto requestDto) {
+        Account account=accountRepository.findById(requestDto.getAccount().getId()).get();
+        MemberItem memberItem=memberItemRepository.findByAccountItemName(account,requestDto.getItem().getName());
+        memberItemRepository.updateMemberItem(memberItem,requestDto);
+        return ResponseUtil.Success("에셋 위치 수정 성공");
     }
 }

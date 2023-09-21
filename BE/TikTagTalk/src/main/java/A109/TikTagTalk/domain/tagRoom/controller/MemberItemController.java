@@ -1,6 +1,8 @@
 package A109.TikTagTalk.domain.tagRoom.controller;
 
+import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.tagRoom.dto.request.InitMemberItemRequestDto;
+import A109.TikTagTalk.domain.tagRoom.dto.request.UpdateMemberItemRequestDto;
 import A109.TikTagTalk.domain.tagRoom.dto.response.InitMemberItemResponseDto;
 import A109.TikTagTalk.domain.tagRoom.service.MemberItemService;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +25,9 @@ public class MemberItemController {
     public List<InitMemberItemResponseDto> findMemberItems(@RequestParam Long accountId){
         return memberItemService.findMemberItems(accountId);
     }
+    @PutMapping("")
+    public ResponseDto updateMemberItem(@RequestBody UpdateMemberItemRequestDto requestDto){
+        return memberItemService.updateMemberItem(requestDto);
+    }
+
 }
