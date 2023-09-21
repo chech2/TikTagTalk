@@ -7,6 +7,7 @@ import { ScrollControls } from "@react-three/drei";
 import React, { useEffect } from "react";
 
 function App() {
+  
   return (
     <>
       <SocketManager />

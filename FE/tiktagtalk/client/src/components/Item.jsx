@@ -10,7 +10,7 @@ import { buildModeAtom } from "./UI";
 export const Item = ({ item, onClick, isDragging, dragPosition, canDrop, dragRotation }) => {
   const { name, gridPosition, size, rotation: itemRotation} = item;
   const rotation = isDragging ? dragRotation : itemRotation;
-  const { gridToVector3 } = useGrid();
+  const { gridToVector3, gridZPositions } = useGrid();
   const [map] = useAtom(mapAtom);
   const { scene } = useGLTF(`/models/items/${name}.glb`);
   // Skinned meshes cannot be re-used in threejs without cloning them
@@ -33,13 +33,6 @@ export const Item = ({ item, onClick, isDragging, dragPosition, canDrop, dragRot
   }, []);
 
   const gridNumber = item.gridNumber;
-
-  const gridZPositions = {
-    0: 0,
-    1: 0.7,
-    2: 5.1,
-    // 더 많은 그리드들...
-  };
 
   // gridZPositions에서 해당 그리드의 z-축 위치를 찾음
   const z = gridZPositions[gridNumber] || 0; // 만약 gridName이 없거나 잘못됐다면 기본값으로 0을 사용

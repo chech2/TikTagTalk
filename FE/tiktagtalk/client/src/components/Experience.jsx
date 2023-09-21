@@ -30,7 +30,7 @@ export const Experience = () => {
   // const scene = useThree((state) => state.scene);
   // const [user] = useAtom(userAtom);
 
-  const { vector3ToGrid } = useGrid();
+  const { vector3ToGrid, gridZPositions } = useGrid();
  
   const onPlaneClicked = (e) => {
     if (!buildMode) {
@@ -162,6 +162,7 @@ export const Experience = () => {
     }
   }, [buildMode]);
 
+  // 상점에서의 아이템 선택 시 TagRoom에 아이템 배치
   const onItemSelected = (item) => {
     setStoreMode(false);
 
@@ -233,36 +234,39 @@ export const Experience = () => {
         />
       ))}
 
-      { !storeMode && 
+      { !storeMode && draggedItem !== null && items[draggedItem] &&
         <mesh
           rotation-x={-Math.PI / 2}
-          position-y={-0.002}
+          position-y={gridZPositions[items[draggedItem].gridNumber]}
+          position-x={map.size[0] / 2}
+          position-z={map.size[1] / 2}
+
           onClick={onPlaneClicked}
           onPointerEnter={() => setOnFloor(true)}
           onPointerLeave={() => setOnFloor(false)}
           onPointerMove={(e) => {
             if (!buildMode) {
-              return ;
+              return;
             }
             const newPosition = vector3ToGrid(e.point);
-            if (!dragPosition || 
-              newPosition[0] != dragPosition[0] || 
-              newPosition[1] != dragPosition[1]
-              ) {
+            if (
+              !dragPosition ||
+              newPosition[0] !== dragPosition[0] ||
+              newPosition[1] !== dragPosition[1]
+            ) {
               setDragPosition(newPosition);
             }
           }}
-          position-x={map.size[0] / 2}
-          position-z={map.size[1] / 2}
+
           receiveShadow
         >
           <planeGeometry args={map.size} />
-          <meshStandardMaterial color="#f0f0f0" />
+          <meshStandardMaterial transparent={true} opacity={0.1} color="#f0f0f0" />
         </mesh>
       } 
 
       {/* Grid 1 */}
-      {buildMode && !storeMode && 
+      {buildMode && !storeMode &&
       <Grid
         name="Grid1"
         position={[0, 0, 0]} // z축 위치가 0m
@@ -272,7 +276,7 @@ export const Experience = () => {
       />}
 
       {/* Grid 2 */}
-      {buildMode && !storeMode && 
+      {buildMode && !storeMode &&
       <Grid
         name="Grid2"
         position={[0, 0.7, 0]} // z축 위치가 0.7m
@@ -282,7 +286,7 @@ export const Experience = () => {
       />}
 
       {/* Grid 3 */}
-      {buildMode && !storeMode && 
+      {buildMode && !storeMode &&
       <Grid
         name="Grid3"
         position={[0, 5.1, 0]} // z축 위치가 5.1m

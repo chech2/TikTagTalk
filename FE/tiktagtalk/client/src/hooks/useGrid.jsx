@@ -22,8 +22,16 @@ export const useGrid = () => {
     );
   };
 
+  const gridZPositions = {
+    0: 0,
+    1: 0.7,
+    2: 5.1,
+    // 더 많은 그리드들...
+  };
+
   return {
     vector3ToGrid,
     gridToVector3,
+    gridZPositions,
   };
 };
