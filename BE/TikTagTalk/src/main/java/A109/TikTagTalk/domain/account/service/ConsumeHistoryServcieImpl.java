@@ -184,6 +184,20 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
             }
         } else if (tagId == 5) { //카페, 조건 : 35만원,30회
             if (amountSum >= 350000 || amountCount >= 30) {
+                Item item=tag.getItemList().get(0);
+                MemberItem memberItem=MemberItem.builder()
+                        .item(item)
+                        .account(account)
+                        .room(false)
+                        .wall(false)
+                        .positionY(5L)
+                        .positionX(5L)
+                        .positoinZ(1L)
+//                        .sizeX()
+//                        .sizeY()
+                        .rotation(0L)
+                        .build();
+                memberItemRepository.save(memberItem);
                 saveMemberTag(account,tag,gotTime);
             }else{
                 if(memberTagRepository.checkMemberTagExist(account.getId(),tag.getId(),gotTime)){
@@ -207,6 +221,9 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
                         .positionY(5L)
                         .positionX(5L)
                         .positoinZ(1L)
+                        .rotation(0L)
+//                        .sizeX()
+//                        .sizeY()
                         .build();
                 memberItemRepository.save(memberItem);
                 saveMemberTag(account,tag,gotTime);

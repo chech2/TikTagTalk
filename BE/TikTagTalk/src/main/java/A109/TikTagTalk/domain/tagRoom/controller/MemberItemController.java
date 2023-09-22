@@ -21,7 +21,7 @@ public class MemberItemController {
     public void initMemberItem(@RequestBody InitMemberItemRequestDto requestDto){
         memberItemService.memberItemInit(requestDto);
     }
-    @GetMapping("")//accountID가 1인 애의 마이룸 조회
+    @GetMapping("")//memberitem 조회
     public List<InitMemberItemResponseDto> findMemberItems(@RequestParam Long accountId){
         return memberItemService.findMemberItems(accountId);
     }
