@@ -19,6 +19,7 @@ public class UpdateMemberItemRequestDto {
         private Long positionX;
         private Long positionY;
         private Long positionZ;
+        private Long rotation;
         private ItemDto item;
     }
     @Getter
