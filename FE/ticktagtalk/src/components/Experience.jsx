@@ -162,7 +162,7 @@ export const Experience = () => {
       // 아이템 업데이트
       updateItemsOnServer();    
     }
-  }, [buildMode]);
+  }, [items, buildMode]);
 
   const updateItemsOnServer = async () => {
     try {
@@ -171,16 +171,31 @@ export const Experience = () => {
           positionX: item.gridPosition[0],
           positionY: item.gridPosition[1],
           positionZ: item.gridNumber,
+          rotation: item.rotation,
           item: {
             name: item.name
           },
-          account: {
-            id: 1 // 아이디는 실제 로그인한 사용자의 아이디로 대체해야 합니다.
-          }
         };
       });
-  
-      await axios.put('http://localhost:8080/api/memberitem', transformedItems);
+
+      // console.log(transformedItems)
+
+      // 서버로 보낼 최종 JSON 객체를 만듭니다.
+      const payload = {
+        account: {
+          id: 1 // 아이디는 실제 로그인한 사용자의 아이디로 대체해야 합니다.
+        },
+        updateInfo: transformedItems
+      };
+
+      // console.log(payload);
+
+      // Content-Type 헤더 추가
+      const headers = {
+        'Content-Type': 'application/json'
+      };
+
+      await axios.put('http://localhost:8080/api/memberitem', payload, { headers });
       console.log('Items successfully updated.');
     } catch (error) {
       console.error('An error occurred while updating items:', error);

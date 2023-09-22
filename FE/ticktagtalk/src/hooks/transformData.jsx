@@ -17,11 +17,12 @@ export const transformToItems = (data) => {
       size: [7, 7],
       gridDivision: 2,
       items: data.map(entry => {
-        const { position_x, position_y, grid_z_number, item } = entry;
+        const { position_x, position_y, grid_z_number, item, rotation } = entry;
         return {
           ...items[item.name],
           gridPosition: [position_x, position_y],
           gridNumber: grid_z_number,
+          rotation: rotation,
         };
       }),
     };
