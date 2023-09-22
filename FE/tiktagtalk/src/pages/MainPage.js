@@ -17,7 +17,7 @@ function MainPage() {
         <div>
             <NavBarMain></NavBarMain>
             <h1>메인페이지 예정입니다.</h1>
-            <TagRoom></TagRoom>
+            {/* <TagRoom></TagRoom> */}
         </div>
 {/* 
         {!isItemBox && <div className="rectangle-false" onClick={handleBox}></div>}

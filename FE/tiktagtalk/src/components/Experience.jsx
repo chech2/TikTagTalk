@@ -171,6 +171,7 @@ export const Experience = () => {
           positionX: item.gridPosition[0],
           positionY: item.gridPosition[1],
           positionZ: item.gridNumber,
+          rotation: item.rotation,
           item: {
             name: item.name
           },
