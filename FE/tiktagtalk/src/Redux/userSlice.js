@@ -1,21 +1,36 @@
-// todoSlice.js 파일
-
 import { createSlice } from '@reduxjs/toolkit';
-// cannot redeclare block-scope variable 'todoSlice'
+
+// USER 관련
 const user = createSlice({
   name: 'user', // 슬라이스의 이름
   initialState: {
-    id:'',
+    id:'', // long
+    userId: '', // string
+    avatarType: '',
+    point: '',
+    coin: '',
+    isLogin: false
   },
 
   reducers: {
     loginUser: (state, action) => {
-      // 새로운 todo를 추가하는 리듀서
-      state.id = action.payload;
+      state.id = action.payload.id;
+      state.userId = action.payload.userId;
+      state.avatarType = action.payload.avatarType;
+      state.point = action.payload.point;
+      state.coin = action.payload.coin;
+      state.isLogin = true;
     },
-
+    clearUser: (state) => {
+      state.id = '';
+      state.userId = '';
+      state.avatarType = '';
+      state.point = '';
+      state.coin = '';
+      state.isLogin = false;
+    }
   },
 });
 
-export const { loginUser } = user.actions;
+export const { loginUser, clearUSer } = user.actions;
 export default user;
