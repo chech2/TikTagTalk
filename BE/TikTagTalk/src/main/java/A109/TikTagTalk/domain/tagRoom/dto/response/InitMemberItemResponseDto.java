@@ -15,6 +15,7 @@ public class InitMemberItemResponseDto {
     private Boolean room;
     private Boolean wall;
     private ItemDto item;
+    private Long rotation;
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

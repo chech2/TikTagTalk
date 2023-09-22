@@ -29,6 +29,7 @@ public class MemberItem {
 
     private boolean room;
     private boolean wall;
+    private Long rotation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_ID")

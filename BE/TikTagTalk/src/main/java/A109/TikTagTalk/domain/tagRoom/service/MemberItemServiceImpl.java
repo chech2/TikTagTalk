@@ -91,6 +91,7 @@ public class MemberItemServiceImpl implements MemberItemService{
                     .positoinZ(positionZ)
                     .sizeX(sizeX)
                     .sizeY(sizeY)
+                    .rotation(0L)
                     .build();
             memberItemRepository.save(memberItem);
         }
@@ -113,6 +114,7 @@ public class MemberItemServiceImpl implements MemberItemService{
                             .size_x(memberItem.getSizeX())
                             .size_y(memberItem.getSizeY())
                             .room(memberItem.isRoom())
+                            .rotation(memberItem.getRotation())
                             .wall(memberItem.isWall())
                             .build();
                 }).collect(Collectors.toList());
@@ -121,9 +123,13 @@ public class MemberItemServiceImpl implements MemberItemService{
     @Override
     @Transactional
     public ResponseDto updateMemberItem(UpdateMemberItemRequestDto requestDto) {
-        Account account=accountRepository.findById(requestDto.getAccount().getId()).get();
-        MemberItem memberItem=memberItemRepository.findByAccountItemName(account,requestDto.getItem().getName());
-        memberItemRepository.updateMemberItem(memberItem,requestDto);
+
+        Account account = accountRepository.findById(requestDto.getAccount().getId()).get();
+        List<UpdateMemberItemRequestDto.UpdateInfoDto> infoList=requestDto.getUpdateInfo();
+        for(UpdateMemberItemRequestDto.UpdateInfoDto info:infoList){
+            MemberItem memberItem=memberItemRepository.findByAccountItemName(account,info.getItem().getName());
+            memberItemRepository.updateMemberItem(memberItem,info);
+        }
         return ResponseUtil.Success("에셋 위치 수정 성공");
     }
 }
