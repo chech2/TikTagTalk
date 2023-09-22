@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 // import styled from 'styled-components';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import OAuthSignupPage from './pages/OAuthSignupPage';
 import MainPage from './pages/MainPage';
 import CoinPurchasePage from './pages/CoinPurchasePage';
 import CommentPage from './pages/CommentPage';
@@ -36,6 +37,7 @@ function App() {
         {/* 회원 */}
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/sign-up' element={<SignupPage/>}></Route>
+        <Route path='/oauth2/sign-up' element={<OAuthSignupPage/>}></Route>
         <Route path='/skin' element={<SkingShopPage/>}></Route>
         <Route path='/test' element={<TestCom/>}></Route>
         <Route path='/coin-purchase' element={<CoinPurchasePage/>}></Route>

@@ -29,5 +29,8 @@ public class MemberController {
 
         return new ResponseEntity<>(member.getUserId(), HttpStatus.OK);
     }
+
+    @PostMapping("/oauth/sign-up")
+    public ResponseEntity<>
 }
 
