@@ -31,7 +31,7 @@ public class MemberItemRepositoryImpl implements MemberItemRepositoryCustom{
     }
 
     @Override
-    public void updateMemberItem(MemberItem memberitem, UpdateMemberItemRequestDto requestDto) {
+    public void updateMemberItem(MemberItem memberitem, UpdateMemberItemRequestDto.UpdateInfoDto requestDto) {
         queryFactory.update(memberItem)
                 .set(memberItem.positionX, requestDto.getPositionX())
                 .set(memberItem.positionY, requestDto.getPositionY())

@@ -9,5 +9,5 @@ import java.util.List;
 public interface MemberItemRepositoryCustom {
     List<MemberItem> findMemberItem(Account account);
     MemberItem findByAccountItemName(Account account, String itemName);
-    void updateMemberItem(MemberItem memberItem, UpdateMemberItemRequestDto requestDto);
+    void updateMemberItem(MemberItem memberItem, UpdateMemberItemRequestDto.UpdateInfoDto requestDto);
 }

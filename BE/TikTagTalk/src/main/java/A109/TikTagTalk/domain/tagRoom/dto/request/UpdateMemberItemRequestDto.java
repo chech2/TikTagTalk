@@ -2,17 +2,25 @@ package A109.TikTagTalk.domain.tagRoom.dto.request;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
 public class UpdateMemberItemRequestDto {
-    private Long positionX;
-    private Long positionY;
-    private Long positionZ;
+    private List<UpdateInfoDto> updateInfo;
     private AccountDto account;
-    private ItemDto item;
-
+    @Getter
+    @NoArgsConstructor(access= AccessLevel.PROTECTED)
+    @Builder
+    @AllArgsConstructor
+    public static class UpdateInfoDto{
+        private Long positionX;
+        private Long positionY;
+        private Long positionZ;
+        private ItemDto item;
+    }
     @Getter
     @NoArgsConstructor(access= AccessLevel.PROTECTED)
     @Builder
