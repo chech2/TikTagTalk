@@ -2,6 +2,9 @@ import NavBarMain from "../components/ui/NavBarMain";
 import { useState } from "react";
 import './MainPage.css';
 import SelectItemBox from "../components/SelectItemBox";
+import TagRoom from '../TagRoom'
+
+
 
 function MainPage() {
     // const [isItemBox,setIsItemBox] = useState(false)
@@ -14,6 +17,7 @@ function MainPage() {
         <div>
             <NavBarMain></NavBarMain>
             <h1>메인페이지 예정입니다.</h1>
+            <TagRoom></TagRoom>
         </div>
 {/* 
         {!isItemBox && <div className="rectangle-false" onClick={handleBox}></div>}

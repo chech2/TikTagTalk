@@ -4,7 +4,7 @@ import { ReactTags } from 'react-tag-autocomplete';
 
 import { useDispatch, useSelector } from 'react-redux';
 // import { updateIngredients, requestFilteredRecipeList } from "../../redux/recipeSearchSlice";
-import useDidMountEffect from '../useDidMountEffect'
+import useDidMountEffect from '../hooks/useDidMountEffect'
 import axios from 'axios';
 
 
