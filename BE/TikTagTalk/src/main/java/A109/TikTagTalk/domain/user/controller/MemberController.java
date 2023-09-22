@@ -1,7 +1,9 @@
 package A109.TikTagTalk.domain.user.controller;
 
 import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
+import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.service.MemberService;
+import A109.TikTagTalk.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,10 @@ public class MemberController {
 
     @GetMapping("/test")
     public ResponseEntity<String> test() throws Exception {
-        return new ResponseEntity<>("테스트 성공", HttpStatus.OK);
+
+        Member member = SecurityUtil.getCurrentLoginMember();
+
+        return new ResponseEntity<>(member.getUserId(), HttpStatus.OK);
     }
 }
 

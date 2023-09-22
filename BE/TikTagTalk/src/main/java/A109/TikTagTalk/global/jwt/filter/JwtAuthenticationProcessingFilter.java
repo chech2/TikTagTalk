@@ -3,6 +3,7 @@ package A109.TikTagTalk.global.jwt.filter;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.exception.custom.ExpriedRefreshTokenException;
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
+import A109.TikTagTalk.global.entity.CustomUserDetails;
 import A109.TikTagTalk.global.jwt.service.JwtService;
 import A109.TikTagTalk.global.util.PasswordUtil;
 import jakarta.servlet.FilterChain;
@@ -141,15 +142,11 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
             password = PasswordUtil.generateRandomPassword();
         }
 
-        UserDetails userDetailsMember = User.builder()
-                .username(myMember.getUserId())
-                .password(password)
-                .roles(myMember.getRole().name())
-                .build();
+        CustomUserDetails customUserDetails = new CustomUserDetails(myMember);
 
         Authentication authentication =
-                new UsernamePasswordAuthenticationToken(userDetailsMember, null,
-                        authoritiesMapper.mapAuthorities(userDetailsMember.getAuthorities()));
+                new UsernamePasswordAuthenticationToken(customUserDetails, null,
+                        authoritiesMapper.mapAuthorities(customUserDetails.getAuthorities()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
