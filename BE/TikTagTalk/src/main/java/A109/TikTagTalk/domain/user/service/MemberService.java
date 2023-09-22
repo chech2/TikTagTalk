@@ -47,7 +47,6 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    @Transactional
     public MemberLoginResponseDTO oauthSignUp(HttpServletResponse response, Member member, MemberOAuthSignUpDto memberOAuthSignUpDto) throws Exception {
 
         // 받은 정보로 수정
@@ -66,5 +65,10 @@ public class MemberService {
         jwtService.updateRefreshToken(member.getUserId(), refreshToken);
 
         return MemberLoginResponseDTO.toDTO(member);
+    }
+
+    public MemberLoginResponseDTO oauthLoginSuccess(HttpServletResponse response, Member member) {
+
+        return null;
     }
 }

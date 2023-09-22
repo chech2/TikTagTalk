@@ -39,12 +39,20 @@ public class MemberController {
     public ResponseEntity<MemberLoginResponseDTO> oauthSignUp(HttpServletResponse response, @RequestBody MemberOAuthSignUpDto memberOAuthSignUpDto) throws Exception {
 
         Member member = SecurityUtil.getCurrentLoginMember();
-        log.info("memer id={}", member.getId());
-        log.info(memberOAuthSignUpDto.getUserId());
 
         MemberLoginResponseDTO memberLoginResponseDTO = memberService.oauthSignUp(response, member, memberOAuthSignUpDto);
 
         return new ResponseEntity<>(memberLoginResponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/oauth/success")
+    public ResponseEntity<MemberLoginResponseDTO> oauthLoginSuccess(HttpServletResponse response) throws Exception {
+
+        Member member = SecurityUtil.getCurrentLoginMember();
+
+        MemberLoginResponseDTO memberLoginResponseDTO = memberService.oauthLoginSuccess(response, member);
+
+        return null;
     }
 }
 

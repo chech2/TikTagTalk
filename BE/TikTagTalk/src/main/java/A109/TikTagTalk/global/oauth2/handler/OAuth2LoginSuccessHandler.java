@@ -52,7 +52,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         String accessToken = jwtService.createAccessToken(oAuth2User.getUserId());
         String refreshToken = jwtService.createRefreshToken();
 
-        String redirectUrl = UriComponentsBuilder.fromUriString(frontBaseURL + "/oauth/redirect")
+        String redirectUrl = UriComponentsBuilder.fromUriString(frontBaseURL + "/oauth/redirect/" + accessToken)
                 .build().toUriString();
 
         if(oAuth2User.getRole() == Role.GUEST) {
