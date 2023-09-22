@@ -1,16 +1,21 @@
 package A109.TikTagTalk.domain.user.controller;
 
+import A109.TikTagTalk.domain.user.dto.request.MemberOAuthSignUpDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
+import A109.TikTagTalk.domain.user.dto.response.MemberLoginResponseDTO;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.service.MemberService;
 import A109.TikTagTalk.global.util.SecurityUtil;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/api/members")
 public class MemberController {
 
@@ -31,6 +36,15 @@ public class MemberController {
     }
 
     @PostMapping("/oauth/sign-up")
-    public ResponseEntity<>
+    public ResponseEntity<MemberLoginResponseDTO> oauthSignUp(HttpServletResponse response, @RequestBody MemberOAuthSignUpDto memberOAuthSignUpDto) throws Exception {
+
+        Member member = SecurityUtil.getCurrentLoginMember();
+        log.info("memer id={}", member.getId());
+        log.info(memberOAuthSignUpDto.getUserId());
+
+        MemberLoginResponseDTO memberLoginResponseDTO = memberService.oauthSignUp(response, member, memberOAuthSignUpDto);
+
+        return new ResponseEntity<>(memberLoginResponseDTO, HttpStatus.OK);
+    }
 }
 

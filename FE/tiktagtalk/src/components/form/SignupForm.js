@@ -39,7 +39,7 @@ function SignupForm() {
     }, [avatarType]);
 
     // ---------- 회원 가입 기능 구현 ---------- //
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // 예외처리 필요
@@ -52,7 +52,7 @@ function SignupForm() {
             avatarType : avatarType
         };
 
-        axios.post(process.env.REACT_APP_BASE_URL + '/members/sign-up', body)
+        await axios.post(process.env.REACT_APP_BASE_URL + '/members/sign-up', body)
         .then((res) => {
             if(res.status === 201) {
                 navigate('/login');

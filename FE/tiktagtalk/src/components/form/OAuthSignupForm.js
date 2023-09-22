@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { customAxios } from '../../CustomAxios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useCookies } from 'react-cookie';
+import { useDispatch} from 'react-redux';
+import { loginUser } from '../../redux/userSlice';
 
 import "./SignupForm.css"
 import type1 from "./avatar/type1.jfif"
@@ -22,34 +25,50 @@ function SignupForm() {
     ]
 
     const navigate = useNavigate();
+    const params = useParams();
+    const dispatch = useDispatch();
 
+    const [userId, setUserId] = useState('');
     const [name, setName] = useState('');
     const [introduction, setIntroduction] = useState('');
     const [avatarType, setAvatarType] = useState('');
+    const [cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
 
     const handleAvatarChange = (event) => {
         setAvatarType(event.target.value);
     };
 
     useEffect(() => {
-        console.log(avatarType);
-    }, [avatarType]);
+        setCookie('accessToken', params.token, { path: '/' });
+    }, []);
 
     // ---------- 회원 가입 기능 구현 ---------- //
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+
+        // Reload 막기
         e.preventDefault();
 
         // 예외처리 필요
 
         let body = {
+            userId: userId,
             name : name,
             introduction : introduction,
             avatarType : avatarType
         };
 
-        customAxios.post(process.env.REACT_APP_BASE_URL + '/members/oauth/sign-up', body)
+        await customAxios.post(process.env.REACT_APP_BASE_URL + '/members/oauth/sign-up', body)
         .then((res) => {
             if(res.status === 200) {
+                const accessToken = res.headers['authorization'];
+                const refreshToken = res.headers['authorization-refresh'];
+                
+                // 쿠키에 토큰 저장
+                setCookie('accessToken', accessToken, { path: '/' });
+                setCookie('refreshToken', refreshToken, { path: '/' });
+
+                const data = res.data;
+                dispatch(loginUser(data))
                 navigate('/');
                 alert("정보 입력이 완료되었습니다.");
             }
@@ -63,6 +82,12 @@ function SignupForm() {
         <div className="oauth-sign-form-container">
             <form className="oauth-sign-form">
                 <div className="oauth-sign-form-title">회원가입</div>
+
+                {/* 아이디 입력 */}
+                {/* 아이디 입력 시 중복 체크 필요 */}
+                <div className="sign-form-group">
+                    <input className="sign-form-input" onChange={e=>{setUserId(e.target.value)}} type='id' id='form-userId' placeholder='아이디를 입력해주세요.' required ></input>
+                </div>
 
                 {/* 닉네임 입력 */}
                 {/* nullable */}

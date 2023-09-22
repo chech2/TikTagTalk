@@ -37,7 +37,9 @@ function App() {
         {/* 회원 */}
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/sign-up' element={<SignupPage/>}></Route>
-        <Route path='/oauth2/sign-up' element={<OAuthSignupPage/>}></Route>
+        <Route path='/oauth2/sign-up/:token' element={<OAuthSignupPage/>}></Route>
+        <Route path='/oauth2/sign-up/:token' element={<OAuthSignupPage/>}></Route>
+
         <Route path='/skin' element={<SkingShopPage/>}></Route>
         <Route path='/test' element={<TestCom/>}></Route>
         <Route path='/coin-purchase' element={<CoinPurchasePage/>}></Route>
