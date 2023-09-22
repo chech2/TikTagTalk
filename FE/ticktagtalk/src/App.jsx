@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./components/Experience";
-import { SocketManager } from "./components/SocketManager";
+import { DataManager } from "./components/DataManager";
 import { UI } from "./components/UI";
 import { ScrollControls } from "@react-three/drei";
 
@@ -10,7 +10,7 @@ function App() {
   
   return (
     <>
-      <SocketManager />
+      <DataManager />
       <Canvas shadows camera={{ position: [30, 23, 30], fov: 31 }}>
         <color attach="background" args={["#ececec"]} />
         <ScrollControls pages={8}>

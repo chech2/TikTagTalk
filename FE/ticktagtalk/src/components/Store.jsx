@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { itemsAtom, mapAtom } from "./SocketManager";
+import { itemsAtom, mapAtom } from "./DataManager";
 import { useMemo, useRef, useEffect } from "react";
 import { useScroll, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";

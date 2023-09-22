@@ -5,9 +5,11 @@ import { useAtom } from "jotai";
 import { useState, useEffect, useRef} from "react";
 import { useGrid } from "../hooks/useGrid";
 import { Item } from "./Item";
-import { mapAtom, socket, userAtom } from "./SocketManager";
+import { mapAtom, userAtom } from "./DataManager";
 import { buildModeAtom, storeModeAtom, draggedItemAtom, draggedItemRotationAtom, gridUpItemAtom, gridDownItemAtom } from "./UI";
 import { Store } from "./Store";
+
+import axios from 'axios';
 
 export const Experience = () => {
   const [buildMode, setBuildMode] = useAtom(buildModeAtom);
@@ -158,9 +160,32 @@ export const Experience = () => {
       controls.current.enabled = true;
 
       // 아이템 업데이트
-      socket.emit("itemsUpdate", items);
+      updateItemsOnServer();    
     }
   }, [buildMode]);
+
+  const updateItemsOnServer = async () => {
+    try {
+      const transformedItems = items.map(item => {
+        return {
+          positionX: item.gridPosition[0],
+          positionY: item.gridPosition[1],
+          positionZ: item.gridNumber,
+          item: {
+            name: item.name
+          },
+          account: {
+            id: 1 // 아이디는 실제 로그인한 사용자의 아이디로 대체해야 합니다.
+          }
+        };
+      });
+  
+      await axios.put('http://localhost:8080/api/memberitem', transformedItems);
+      console.log('Items successfully updated.');
+    } catch (error) {
+      console.error('An error occurred while updating items:', error);
+    }
+  };
 
   // 상점에서의 아이템 선택 시 TagRoom에 아이템 배치
   const onItemSelected = (item) => {
