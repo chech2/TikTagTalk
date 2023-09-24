@@ -1,7 +1,5 @@
 package A109.TikTagTalk.domain.account.repository;
 
-import A109.TikTagTalk.domain.account.dto.request.InsertConsumePlanRequestDto;
-import A109.TikTagTalk.domain.account.dto.response.InsertConsumePlanReponseDto;
 import A109.TikTagTalk.domain.account.entity.QConsumePlan;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +10,5 @@ import org.springframework.stereotype.Repository;
 public class ConsumePlanRepositoryImpl implements ConsumePlanRepositoryCustom {
     private final JPAQueryFactory queryFactory;
     private QConsumePlan consumePlan=new QConsumePlan("consumePlan");
-    @Override
-    public InsertConsumePlanReponseDto insertConsumePlan(InsertConsumePlanRequestDto requestDto) {
 
-        return null;
-    }
 }

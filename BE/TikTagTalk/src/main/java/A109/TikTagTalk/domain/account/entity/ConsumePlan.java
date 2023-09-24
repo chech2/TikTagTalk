@@ -15,7 +15,7 @@ public class ConsumePlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate yearAndMonth;
+    private String yearAndMonth;
     private Long totalAmount;
     private Long eatAmount;
     private Long groceryAmount;

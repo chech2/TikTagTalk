@@ -1,31 +1,33 @@
 package A109.TikTagTalk.domain.account.dto.request;
 
 import lombok.*;
-import org.joda.time.LocalDate;
+
+import java.time.LocalDate;
 
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class InsertConsumePlanRequestDto {
-    private LocalDate yearAndMonth;
+    private String yearAndMonth;
     private Long totalAmount;
-    private double eatPercent;
-    private double groceryPercent;
-    private double ridePercent;
-    private double shoppingPercent;
-    private double snackPercent;
-    private double insurancePercent;
-    private double hobbyPercent;
-    private double hairPercent;
-    private double healthPercent;
-    private double ottPercent;
-    private double petPercent;
-    private double travelPercent;
+    private Integer eatPercent;
+    private Integer groceryPercent;
+    private Integer ridePercent;
+    private Integer shoppingPercent;
+    private Integer snackPercent;
+    private Integer insurancePercent;
+    private Integer hobbyPercent;
+    private Integer hairPercent;
+    private Integer healthPercent;
+    private Integer ottPercent;
+    private Integer petPercent;
+    private Integer travelPercent;
     private AccountDto account;
+
     @Getter
+    @NoArgsConstructor(access= AccessLevel.PROTECTED)
     @Builder
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor
     public static class AccountDto{
         private Long id;
