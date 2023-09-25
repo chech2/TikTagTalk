@@ -44,7 +44,7 @@ function App() {
         <Route path='/skin' element={<SkingShopPage/>}></Route>
         <Route path='/test' element={<TestCom/>}></Route>
         <Route path='/coin-purchase' element={<CoinPurchasePage/>}></Route>
-        <Route path='/comment' element={<CommentPage/>}></Route>
+        <Route path='/comment/:id' element={<CommentPage/>}></Route>
         <Route path='/notice' element={<NoticePage/>}></Route>
         <Route path='/friend-list' element={<FriendListPage/>}></Route>
         <Route path='/achievement' element={<AchievementsPage/>}></Route>

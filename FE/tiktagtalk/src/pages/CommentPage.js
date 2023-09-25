@@ -1,6 +1,8 @@
 import AppBar from '../components/ui/AppBar';
 import './CommentPage.css'
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router';
 
 // import { useState } from "react";
 // import { useSelector } from 'react-redux';
@@ -8,17 +10,19 @@ import React, { useState} from 'react';
 // import ItemModal from '../components/ItemModal';
 
 function CommentPage(props) {
+    const {id} = useParams();
+
     const [isFriend,setisFriend] = useState(false)
-    
-    
     const [comments, setComments] = useState([]);
     const [newCommentContent, setNewCommentContent] = useState('');
     // const isLoggedIn = useSelector(state => state.user.isLogin);
     const isLoggedIn = useState(true) // 임시
     // const userId=useSelector(state=>state.user.id);
-    const userId = useState(1)
-    
 
+    const [friendNums,setfriendNums] = useState(0)
+    const [userName, setuserName] = useState('허')
+    const [userId, setuserId] = useState(1)
+    const [userAvatarType, setuserAvatarType] = useState(1)
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -29,6 +33,15 @@ function CommentPage(props) {
         const minutes = String(date.getMinutes()).padStart(2, '0');
         return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
+    const handleAddTalk = ()=>{
+        axios.post(process.env.REACT_APP_BASE_URL + '/api/talk-talks',id)
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch((err)=>{
+            // console.log(err)
+        })
+    } 
 
     const handleSubmitComment = ()=>{
 
@@ -37,6 +50,15 @@ function CommentPage(props) {
 
     }
 
+    useEffect(()=>{
+        axios.get(process.env.REACT_APP_BASE_URL + '/api/talk-talk')
+        .then((res)=>{
+        console.log(res)
+        setfriendNums(res.members.length)
+        setuserName(res.userId)
+        setuserId(res.id)
+    })
+    })
 
 
     return (
@@ -44,23 +66,26 @@ function CommentPage(props) {
         <AppBar title='방명록'></AppBar>
         <div>
             <div>
-                <img className='comment-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" />
-                <h1>허주혁(이름)</h1>
+                {/* 마이페이지 아이콘 변경해야됨 */}
+                <img className='comment-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" /> 
+                <h1>{userName}</h1>
+                { id === userId ? ( null) :(
                 <div>
-                    <button>톡톡 버튼 예정</button>
+                    <button onClick={handleAddTalk}>톡톡 버튼</button>
                 </div>
+                ) }
                 <br />
                 {/* container아래 */}
                 <div style={{display: 'flex', justifyContent:'center' ,}}>
                     <div className='comment-box'>   
                         <div>댓글 수</div>
-                        <div>3</div>
+                        <div>{friendNums}</div>
                     </div >
                     <div className='v-line'>
                     </div>
                     <div className='comment-box'>
                         <div>톡톡 수</div>
-                        <div>5</div>
+                        <div>{friendNums}</div>
                     </div>
                 </div>
                 
@@ -73,9 +98,9 @@ function CommentPage(props) {
                         {comments.map((comment, index) => (
                         <li key={index}>
                             <div className='comment-container'>
-                                <div className='comment-profile-img'>
+                                {/* <div className='comment-profile-img'>
                                     <img src={comment.profileUrl}></img>
-                                </div>
+                                </div> */}
                                 <div className='comment-form-content'>
                                     <div className='comment-info'>
                                         <div className='comment-writer-info'>
