@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
+import { customAxios } from '../../CustomAxios'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useCookies } from 'react-cookie';
+import { useDispatch} from 'react-redux';
+import { loginUser } from '../../redux/userSlice';
 
 import "./SignupForm.css"
 import type1 from "./avatar/type1.jfif"
@@ -22,52 +25,63 @@ function SignupForm() {
     ]
 
     const navigate = useNavigate();
+    const params = useParams();
+    const dispatch = useDispatch();
 
     const [userId, setUserId] = useState('');
-    const [password1, setPassword1] = useState('');
-    const [password2, setPassword2] = useState('');
     const [name, setName] = useState('');
     const [introduction, setIntroduction] = useState('');
     const [avatarType, setAvatarType] = useState('');
+    const [cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
 
     const handleAvatarChange = (event) => {
         setAvatarType(event.target.value);
     };
 
     useEffect(() => {
-        console.log(avatarType);
-    }, [avatarType]);
+        setCookie('accessToken', params.token, { path: '/' });
+    }, []);
 
     // ---------- 회원 가입 기능 구현 ---------- //
     const handleSubmit = async (e) => {
+
+        // Reload 막기
         e.preventDefault();
 
         // 예외처리 필요
 
         let body = {
-            userId : userId,
-            password : password1,
+            userId: userId,
             name : name,
             introduction : introduction,
             avatarType : avatarType
         };
 
-        await axios.post(process.env.REACT_APP_BASE_URL + '/members/sign-up', body)
+        await customAxios.post(process.env.REACT_APP_BASE_URL + '/members/oauth/sign-up', body)
         .then((res) => {
-            if(res.status === 201) {
-                navigate('/login');
-                alert("회원 가입에 성공했습니다.");
+            if(res.status === 200) {
+                const accessToken = res.headers['authorization'];
+                const refreshToken = res.headers['authorization-refresh'];
+                
+                // 쿠키에 토큰 저장
+                setCookie('accessToken', accessToken, { path: '/' });
+                setCookie('refreshToken', refreshToken, { path: '/' });
+
+                const data = res.data;
+                dispatch(loginUser(data))
+                navigate('/');
+                alert("정보 입력이 완료되었습니다.");
             }
         })
         .catch((res) => {
-            alert("회원가입에 실패했습니다.");
+            alert("정보 입력에 실패했습니다.");
         })
     }
 
     return (
-        <div className="sign-form-container">
-            <form className="sign-form">
-                <div className="sign-form-title">회원가입</div>
+        <div className="oauth-sign-form-container">
+            <form className="oauth-sign-form">
+                <div className="oauth-sign-form-title">회원가입</div>
 
                 {/* 아이디 입력 */}
                 {/* 아이디 입력 시 중복 체크 필요 */}
@@ -75,27 +89,15 @@ function SignupForm() {
                     <input className="sign-form-input" onChange={e=>{setUserId(e.target.value)}} type='id' id='form-userId' placeholder='아이디를 입력해주세요.' required ></input>
                 </div>
 
-                {/* 비밀번호1 입력 */}
-                {/* 비밀번호1 입력 시 양식 체크 필요 */}
-                <div className='sign-form-group'>
-                    <input className='sign-form-input' onChange={e=>{setPassword1(e.target.value)}} type='password' id='form-password1' placeholder='비밀번호를 입력해주세요.'></input>
-                </div>
-
-                {/* 비밀번호2 입력 */}
-                {/* 비밀번호1과 동일한지 체크 필요 */}
-                <div className='sign-form-group'>
-                    <input className='sign-form-input' onChange={e=>{setPassword2(e.target.value)}} type='password' id='form-password2' placeholder="비밀번호를 다시 입력해주세요."></input>
-                </div>
-
                 {/* 닉네임 입력 */}
                 {/* nullable */}
-                <div className='sign-form-group'>
-                    <input className='sign-form-input' onChange={e=>{setName(e.target.value)}} type='text' id='form-name' placeholder='회원님을 알아볼 수 있는 이름을 입력해주세요.'></input>
+                <div className='oauth-sign-form-group'>
+                    <input className='pauth-sign-form-input' onChange={e=>{setName(e.target.value)}} type='text' id='form-name' placeholder='회원님을 알아볼 수 있는 이름을 입력해주세요.'></input>
                 </div>
 
                 {/* 소개글 입력 */}
                 {/* nullable */}
-                <div className='sign-form-group'>
+                <div className='oauth-sign-form-group'>
                     <input className='sign-form-input' onChange={e=>{setIntroduction(e.target.value)}} type='text' id='form-introduction' placeholder='회원님을 소개해주세요.'></input>
                 </div>
 
@@ -114,9 +116,9 @@ function SignupForm() {
                     ))}
                 </div>
 
-                {/* Signup 버튼 */}
-                <button onClick={handleSubmit} className='signup-submit-button' type='submit'>
-                    SIGNUP
+                {/* Submit 버튼 */}
+                <button onClick={handleSubmit} className='save-submit-button' type='submit'>
+                    저장
                 </button>
             </form>
         </div>

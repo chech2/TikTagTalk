@@ -1,9 +1,13 @@
 package A109.TikTagTalk.domain.user.service;
 
+import A109.TikTagTalk.domain.user.dto.request.MemberOAuthSignUpDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
+import A109.TikTagTalk.domain.user.dto.response.MemberLoginResponseDTO;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.entity.Role;
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
+import A109.TikTagTalk.global.jwt.service.JwtService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +20,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder; // SecurityCongfig에서 Bean 등록해줌
+    private final JwtService jwtService;
 
     public void singUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
@@ -40,5 +45,37 @@ public class MemberService {
                 .build();
 
         memberRepository.save(member);
+    }
+
+    public MemberLoginResponseDTO oauthSignUp(HttpServletResponse response, Member member, MemberOAuthSignUpDto memberOAuthSignUpDto) throws Exception {
+
+        // 받은 정보로 수정
+        member.setUserId(memberOAuthSignUpDto.getUserId());
+        member.setName(memberOAuthSignUpDto.getName());
+        member.setIntroduction(memberOAuthSignUpDto.getIntroduction());
+        member.setAvatarType(memberOAuthSignUpDto.getAvatarType());
+        member.setRole(Role.USER);
+        memberRepository.save(member);
+
+        // accessToken과 refreshToken 재발급 후 보내주기
+        String accessToken = jwtService.createAccessToken(member.getUserId());
+        String refreshToken = jwtService.createRefreshToken();
+
+        jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
+        jwtService.updateRefreshToken(member.getUserId(), refreshToken);
+
+        return MemberLoginResponseDTO.toDTO(member);
+    }
+
+    public MemberLoginResponseDTO oauthLoginSuccess(HttpServletResponse response, Member member) {
+
+        // accessToken과 refreshToken 재발급 후 보내주기
+        String accessToken = jwtService.createAccessToken(member.getUserId());
+        String refreshToken = jwtService.createRefreshToken();
+
+        jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
+        jwtService.updateRefreshToken(member.getUserId(), refreshToken);
+
+        return MemberLoginResponseDTO.toDTO(member);
     }
 }

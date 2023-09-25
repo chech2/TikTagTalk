@@ -75,16 +75,6 @@ public class JwtService {
     }
 
     /**
-     * AccessToken 헤더에 실어서 보내기
-     */
-    public void sendAccessToken(HttpServletResponse response, String accessToken) {
-        response.setStatus(HttpServletResponse.SC_OK);
-
-        response.setHeader(accessHeader, accessToken);
-        log.info("재발급된 Access Token : {}", accessToken);
-    }
-
-    /**
      * AccessToken + RefreshToken 헤더에 실어서 보내기
      */
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
@@ -173,7 +163,6 @@ public class JwtService {
      */
     public boolean isTokenValid(String token) {
         try {
-            log.info("token={}", token);
             JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
             return true;
         } catch (Exception e) {
