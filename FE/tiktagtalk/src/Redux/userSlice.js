@@ -32,5 +32,5 @@ const user = createSlice({
   },
 });
 
-export const { loginUser, clearUSer } = user.actions;
+export const { loginUser, clearUser } = user.actions;
 export default user;

@@ -69,6 +69,13 @@ public class MemberService {
 
     public MemberLoginResponseDTO oauthLoginSuccess(HttpServletResponse response, Member member) {
 
-        return null;
+        // accessToken과 refreshToken 재발급 후 보내주기
+        String accessToken = jwtService.createAccessToken(member.getUserId());
+        String refreshToken = jwtService.createRefreshToken();
+
+        jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
+        jwtService.updateRefreshToken(member.getUserId(), refreshToken);
+
+        return MemberLoginResponseDTO.toDTO(member);
     }
 }

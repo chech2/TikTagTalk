@@ -52,7 +52,7 @@ public class MemberController {
 
         MemberLoginResponseDTO memberLoginResponseDTO = memberService.oauthLoginSuccess(response, member);
 
-        return null;
+        return new ResponseEntity<>(memberLoginResponseDTO, HttpStatus.OK);
     }
 }
 

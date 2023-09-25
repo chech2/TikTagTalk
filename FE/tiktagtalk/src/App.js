@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import OAuthSignupPage from './pages/OAuthSignupPage';
 import OAuthRedirectPage from './pages/OAuthRedirectPage';
+import LogoutHandler from './components/form/LogoutHandler';
 import MainPage from './pages/MainPage';
 import CoinPurchasePage from './pages/CoinPurchasePage';
 import CommentPage from './pages/CommentPage';
@@ -40,6 +41,7 @@ function App() {
         <Route path='/sign-up' element={<SignupPage/>}></Route>
         <Route path='/oauth2/sign-up/:token' element={<OAuthSignupPage/>}></Route>
         <Route path='/oauth/redirect/:token' element={<OAuthRedirectPage/>}></Route>
+        <Route path='/logout' element={<LogoutHandler/>}></Route>
 
         <Route path='/skin' element={<SkingShopPage/>}></Route>
         <Route path='/test' element={<TestCom/>}></Route>
