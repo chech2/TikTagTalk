@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 
 function Footer() {
     const navigate = useNavigate()
-    const myimage = useSelector((state)=>state.user.avatarType)
-
+    const myimage = useSelector((state)=>state.user.avatarType);
+    const id = useSelector((state)=>state.user.id);
     
     const handleHomeClick = ()=>{
-        navigate('/')
+        navigate(`/main/${id}`)
     }
     const handleFriendClick =()=>{
         navigate('./friend-list')

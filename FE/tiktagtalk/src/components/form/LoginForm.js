@@ -49,7 +49,7 @@ function LoginForm() {
                 
                 const data = res.data;
                 dispatch(loginUser(data))
-                navigate("/");
+                navigate(`/main/${data.id}`);
             }
         })
         .catch((res) => {

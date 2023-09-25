@@ -6,8 +6,10 @@ import SelectItemBox from "../components/SelectItemBox";
 import NavBarMain from "../components/ui/NavBarMain";
 import {loginUser} from '../redux/userSlice';
 import TagRoom from '../TagRoom'
+import { useParams } from "react-router-dom";
 
 function MainPage() {
+    const { id } = useParams();
     const myimage = useSelector((state) => state.user.avatarType);
     const dispatch = useDispatch();
     useEffect(() => {
