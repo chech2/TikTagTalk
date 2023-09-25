@@ -1,10 +1,10 @@
 import './NavBarMain.css'
 import {useNavigate} from 'react-router-dom'
 
-function NavBarMain() {
+function NavBarMain(props) {
     const navigate = useNavigate()
     const handleComment = ()=>{
-        navigate('/comment')
+        navigate(`/comment/${props.Nav_id}`)
     }
     const handleSkinPurchase = ()=>{
         navigate('/skin')

@@ -47,6 +47,7 @@ function LoginForm() {
                 
                 const data = res.data;
                 dispatch(loginUser(data))
+                
                 navigate(`/main/${data.id}`);
             }
         })

@@ -24,12 +24,13 @@ import Test from './pages/Test';
 import { useEffect } from 'react';
 import LoginForm from './components/form/LoginForm'
 import SignupForm from './components/form/SignupForm';
+import StartPage from './pages/StartPage';
 
 
 
 function App() {
   const currentPath = window.location.pathname;
-  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up';
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main';
 
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;
@@ -46,7 +47,7 @@ function App() {
     <div className="App">
 
       <Routes>
-        <Route path='/' element={<LoginPage/>}></Route>
+        <Route path='/' element={<StartPage/>}></Route>
         {/* 회원 */}
         <Route path='/main/:id' element={<MainPage/>}></Route>
         <Route path='/login' element={<LoginPage/>} />

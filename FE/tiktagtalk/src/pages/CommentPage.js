@@ -34,7 +34,7 @@ function CommentPage(props) {
         return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
     const handleAddTalk = ()=>{
-        axios.post(process.env.REACT_APP_BASE_URL + '/api/talk-talks',id)
+        axios.post(process.env.REACT_APP_BASE_URL + '/talk-talks',id)
         .then((res)=>{
             console.log(res)
         })
@@ -50,15 +50,15 @@ function CommentPage(props) {
 
     }
 
-    useEffect(()=>{
-        axios.get(process.env.REACT_APP_BASE_URL + '/api/talk-talk')
-        .then((res)=>{
-        console.log(res)
-        setfriendNums(res.members.length)
-        setuserName(res.userId)
-        setuserId(res.id)
-    })
-    })
+    // useEffect(()=>{
+    //     axios.get(process.env.REACT_APP_BASE_URL + '/talk-talk')
+    //     .then((res)=>{
+    //     console.log(res)
+    //     setfriendNums(res.members.length)
+    //     setuserName(res.userId)
+    //     setuserId(res.id)
+    // })
+    // })
 
 
     return (

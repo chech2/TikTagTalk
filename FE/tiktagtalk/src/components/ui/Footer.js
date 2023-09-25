@@ -28,8 +28,8 @@ function Footer() {
             <img className="responsive-image" src="/Icon/Home.png" alt="" onClick={handleHomeClick} />
             <img className="responsive-image" src="/Icon/Group.png" alt="" onClick={handleAchievementClick} />
             <img className="responsive-image" src="/Icon/Social.png" alt="" onClick={handleFriendClick} />
-            {/* <img className="responsive-image" src="/Icon/마이페이지 아이콘.png" alt="" onClick={handleExchangeClick}/> */}
-            <img src={myimage} alt="" />
+            <img className="responsive-image" src="/Icon/마이페이지 아이콘.png" alt="" onClick={handleExchangeClick}/>
+            {/* <img src={myimage} alt="" /> */}
         </div>
         </>
       );
