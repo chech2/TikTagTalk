@@ -1,0 +1,113 @@
+pipeline {
+    // 환경 설정
+    agent any
+
+    // 사용할 플러그인 명시
+    tools {
+        gradle 'gradle'
+        dockerTool 'docker'
+        nodejs 'NodeJS'
+
+    }
+    
+     environment {
+        // 생성될 리액트 도커 이미지 이름
+        reactImageName = "chelim/tiktagtalk-frontend"
+        registryCredential = "dockerhub-token"
+        
+        // 젠킨스가 접속할 서버 정보 (ec2)
+        releaseServerAccount = 'ubuntu'
+        releaseServerUri = '43.201.248.189'
+        reactReleasePort = '3000'
+    }
+
+    stages {
+        //현 디렉토리의 모든 파일 삭제
+        stage('Clear current directory') {
+            steps {
+                sh'''
+                    rm -rf *
+                '''
+            }
+        }
+        // Git Clone 진행
+        stage('git clone') {
+            steps {
+                sh "pwd"
+                // checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/22JH/pingking-Typesciprt.git']])
+                checkout scmGit(branches: [[name: '*/feature-cicd-test']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
+            }
+        }
+
+        // 프론트엔드 빌드 진행
+        stage('fe-build') {
+            steps {
+                dir("FE/tiktagtalk") {
+                    sh "pwd"
+                    nodejs(nodeJSInstallationName: 'NodeJS') {
+                        sh 'npm install && npm run build'
+                    }
+                }
+            }
+        }
+
+        // 기존 docker service 중단 밎 이미지 삭제 (react, spring)
+        stage('Before Service Stop') {
+            steps {
+                sshagent(credentials:['ubuntu']) {
+                    // 프론트 도커 이미지가 존재하는 경우, 기존 도커 이미지 컨테이너 중지 -> 도커 이미지 삭제 -> 도커 컨테이너 삭제 
+                    sh '''
+                    if test "`ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "docker ps -aq --filter ancestor=$reactImageName:latest"`"; then
+                    ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "docker stop $(docker ps -aq --filter ancestor=$reactImageName:latest)"
+                    ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "docker rm -f $(docker ps -aq --filter ancestor=$reactImageName:latest)"
+                    ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "docker rmi $reactImageName:latest"
+                    fi
+                    '''
+                }
+            }
+        }
+
+        // 프론트엔드 빌드
+            // 프론트엔드 코드로 도커 이미지 빌드, 해당 이미지를 도커 허브에 푸시
+        stage('React Docker Build and Push') {
+            steps {
+                dir("FE/tiktagtalk") {
+                    script {
+                        //  docker.withRegistry('', registryCredential) {
+                            sh "pwd"
+                            sh "ls -al"
+                            sh "chmod +x Dockerfile"
+                            sh "docker build -t $reactImageName:$BUILD_NUMBER -f Dockerfile ."
+                            // sh "docker push $reactImageName:$BUILD_NUMBER"
+                            sh "docker tag $reactImageName:$BUILD_NUMBER $reactImageName:latest"
+                            // sh "docker push $reactImageName:latest"
+                            sh "docker rmi $reactImageName:$BUILD_NUMBER"
+                        //  }
+                    }
+                }
+            }
+        }
+
+        // 도커 허브에서 AWS EC2에 도커 이미지 가져오기 (react, spring)
+        // stage('DockerHub Pull') {
+        //     steps {
+        //         sshagent(credentials: ['ubuntu']) {
+        //             sh "ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri 'sudo docker pull $reactImageName:latest'"
+        //             sh "ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri 'sudo docker pull $springImageName:latest'"
+        //         }
+        //     }
+        // }
+
+        // 서버 실행 (react, spring)
+        stage('Service Start') {
+            steps {
+                sshagent(credentials: ['ubuntu']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "sudo docker run -i -e TZ=Asia/Seoul --name react -p $reactReleasePort:$reactReleasePort -d $reactImageName:latest"
+                    '''
+                }
+            }
+        }
+        
+    }
+}
