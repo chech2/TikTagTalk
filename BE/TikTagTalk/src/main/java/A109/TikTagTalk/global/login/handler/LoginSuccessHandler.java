@@ -6,7 +6,6 @@ import A109.TikTagTalk.domain.user.exception.custom.NoSuchUserException;
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
 import A109.TikTagTalk.global.jwt.service.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -50,7 +50,6 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(request.getRequestURI().equals(NO_CHECK_URL)) {
-            log.info("다음 필터 호출");
             filterChain.doFilter(request, response); // "/api/login" 요청이 들어오면, 다음 필터 호출
             return; // return으로 이후 현재 필터 진행 막기 (안해주면 아래로 내려가서 계속 필터 진행시킴)
         }
@@ -78,8 +77,6 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         String refreshToken = jwtService.extractRefreshToken(request)
                 .filter(jwtService::isTokenValid)
                 .orElseThrow(() -> new ExpriedRefreshTokenException());
-
-        log.info("refresh token={}", refreshToken);
 
         memberRepository.findByRefreshToken(refreshToken)
                 .ifPresent(member -> {
@@ -109,7 +106,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
      * 그 후 다음 인증 필터로 진행
      */
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("checkAccessTokenAndAuthentication() 호출");
+
         jwtService.extractAccessToken(request)
                 .filter(jwtService::isTokenValid)
                 .ifPresent(accessToken ->

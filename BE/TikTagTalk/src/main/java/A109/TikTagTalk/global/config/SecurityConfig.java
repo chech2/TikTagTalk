@@ -108,6 +108,14 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService)) // customUserService 설정
                 )
 
+                .logout((logout) -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout")) // 로그아웃 요청의 매칭 패턴 지정
+                        .logoutSuccessHandler((request, response, authentication) -> { // 로그아웃 성공 시 호출되는 핸들러
+                            return; // 특별한 동작 없이 그냥 리턴
+                        })
+                        .invalidateHttpSession(true) // HttpSession을 무효화 -> 이때 SecurityContextHolder가 비워짐
+                )
+
                 .exceptionHandling((handling -> handling
                         .authenticationEntryPoint(new AuthenticationEntryPoint() {
                             @Override

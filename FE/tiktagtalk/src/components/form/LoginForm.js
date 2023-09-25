@@ -40,12 +40,10 @@ function LoginForm() {
             if (res.status === 200) {
                 const accessToken = res.headers['authorization'];
                 const refreshToken = res.headers['authorization-refresh'];
-                console.log(`accessToken = ${accessToken}`);
-                console.log(`refreshToken = ${refreshToken}`);
                 
                 // 쿠키에 토큰 저장
-                setCookie('accessToken', accessToken);
-                setCookie('refreshToken', refreshToken);
+                setCookie('accessToken', accessToken, { path: '/' });
+                setCookie('refreshToken', refreshToken, { path: '/' });
                 
                 const data = res.data;
                 dispatch(loginUser(data))
