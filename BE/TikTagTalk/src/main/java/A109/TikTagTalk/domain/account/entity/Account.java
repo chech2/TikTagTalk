@@ -1,5 +1,6 @@
 package A109.TikTagTalk.domain.account.entity;
 
+import A109.TikTagTalk.domain.tagRoom.entity.Comment;
 import A109.TikTagTalk.domain.user.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,4 +27,8 @@ public class Account {
 
     @OneToMany(mappedBy="account")
     private List<ConsumeHistory> consumeHistoryList=new ArrayList<>();
+
+    //임시임. comment
+    @OneToMany(mappedBy = "account")
+    private List<Comment> comments=new ArrayList<>();
 }
