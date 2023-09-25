@@ -4,10 +4,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const user = createSlice({
   name: 'user', // 슬라이스의 이름
   initialState: {
-    id:'', // long
-    userId: '', // string
-    avatarType: '',
-    point: '',
+    id:'', // long  ## pk 
+    userId: '', // string ## user 가 작성하는 id
+    avatarType: '',   // 프로필 이미지 ?  
+    point: '',        // 
     coin: '',
     isLogin: false
   },
