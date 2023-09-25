@@ -4,7 +4,6 @@ pipeline {
 
     // 사용할 플러그인 명시
     tools {
-        gradle 'gradle'
         dockerTool 'docker'
         nodejs 'NodeJS'
 
@@ -45,7 +44,7 @@ pipeline {
                 dir("FE/tiktagtalk") {
                     sh "pwd"
                     nodejs(nodeJSInstallationName: 'NodeJS') {
-                        sh 'npm install && npm run build'
+                        sh 'yarn && yarn build'
                     }
                 }
             }
