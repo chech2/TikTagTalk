@@ -79,11 +79,12 @@ pipeline {
                             sh "pwd"
                             sh "ls -al"
                             sh "chmod +x Dockerfile"
-                            sh "docker images"
                             sh "docker build -t $reactImageName:$BUILD_NUMBER -f Dockerfile ."
                             // sh "docker push $reactImageName:$BUILD_NUMBER"
                             sh "docker tag $reactImageName:$BUILD_NUMBER $reactImageName:latest"
+                            sh "docker images"
                             sh "docker rmi $reactImageName:$BUILD_NUMBER"
+                            sh "docker images"
                             // sh "docker push $reactImageName:latest"
                         //  }
                     }
