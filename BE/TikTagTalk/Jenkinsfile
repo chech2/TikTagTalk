@@ -56,7 +56,7 @@ pipeline {
                 dir("BE/TikTagTalk") {
                     sh "pwd"
                     sh "chmod +x ./gradlew"
-                    sh "./gradlew clean build --warning-mode all --continue"
+//                     sh "./gradlew clean build --warning-mode all --continue"
                     sh "./gradlew test --stacktrace"
                     // sh "./gradlew clean build"
                 }
