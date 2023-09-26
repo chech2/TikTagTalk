@@ -3,7 +3,7 @@ import './CommentPage.css'
 import React, { useState,useEffect} from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
-
+import { customAxios } from '../CustomAxios';
 // import { useState } from "react";
 // import { useSelector } from 'react-redux';
 // import Modal from '../components/ui/Modal';
@@ -34,7 +34,7 @@ function CommentPage(props) {
         return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
     const handleAddTalk = ()=>{
-        axios.post(process.env.REACT_APP_BASE_URL + '/talk-talks',id)
+        customAxios.post(process.env.REACT_APP_BASE_URL + '/talk-talks',id)
         .then((res)=>{
             console.log(res)
         })

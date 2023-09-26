@@ -1,8 +1,11 @@
+import { useEffect } from 'react'
 import './NavBarMain.css'
 import {useNavigate} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 function NavBarMain(props) {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const handleComment = ()=>{
         navigate(`/comment/${props.Nav_id}`)
     }
@@ -12,6 +15,10 @@ function NavBarMain(props) {
     const handleNotice =()=>{
         navigate('/notice')
     }
+
+    const mypoint = useSelector((state)=>state.user.point)
+    const mycoin = useSelector((state)=> state.user.coin)
+
 
 
     return (
@@ -29,11 +36,11 @@ function NavBarMain(props) {
             <div className='image-container2'>
                 <div className='image-container2-1'>
                     <img className='responsive-image2' src="/Icon/포인트 아이콘.png" alt="" />
-                    <div>500</div>
+                    <div>{mypoint}</div>
                 </div>
                 <div className='image-container2-1'>
                     <img className='responsive-image2' src="/Icon/Coin.png" alt="" />
-                    <div>20000000</div>
+                    <div>{mycoin}</div>
                     <img className='responsive-image2' src="/Icon/코인 구매창.png" alt="" />
                 </div>
             </div>

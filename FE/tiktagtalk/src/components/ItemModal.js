@@ -1,17 +1,13 @@
 import './ItemModal.css'
 import ItemCard from './ItemCard';
-function ItemModal(props) {
+function ItemModal({ item }) {
 
     return (
         <>
         <div>
-            {/* <ItemCard
-            item_url={props.item_url}
-            item_name={props.item_name}>
-            </ItemCard> */}
-            <div>
-                <img src="./Icon/Coin.png" alt="" />
-                <p>{props.price} 구매하실?</p>
+            <div className='modal-flex'>
+                <img className='modal-responsive' src="./Icon/Coin.png" alt="" />
+                <p>{item.item_price} 구매하실?</p>
                 </div>
             <div>
                 <button>구매</button>
