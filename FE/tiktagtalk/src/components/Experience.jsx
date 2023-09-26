@@ -8,6 +8,7 @@ import { Item } from "./Item";
 import { mapAtom, userAtom } from "./DataManager";
 import { buildModeAtom, storeModeAtom, draggedItemAtom, draggedItemRotationAtom, gridUpItemAtom, gridDownItemAtom } from "./UI";
 import { Store } from "./Store";
+import { customAxios } from "../CustomAxios"
 
 import axios from 'axios';
 
@@ -195,7 +196,7 @@ export const Experience = () => {
         'Content-Type': 'application/json'
       };
 
-      await axios.put('http://localhost:8080/api/memberitem', payload, { headers });
+      await customAxios.put('http://localhost:8080/api/memberitem', payload, { headers });
       console.log('Items successfully updated.');
     } catch (error) {
       console.error('An error occurred while updating items:', error);

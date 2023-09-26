@@ -61,9 +61,9 @@ public class TalkTalkController {
     @Operation(summary = "agree to talk-talk request", description = "톡톡 친구 요청 수락")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "", description = "존재하지 않는 요청입니다."),
-            @ApiResponse(responseCode = "", description = "권한이 없습니다."),
-            @ApiResponse(responseCode = "", description = "이미 톡톡 친구 관계입니다.")
+            @ApiResponse(responseCode = "457", description = "존재하지 않는 요청입니다."),
+            @ApiResponse(responseCode = "458", description = "권한이 없습니다."),
+            @ApiResponse(responseCode = "454", description = "이미 톡톡 친구 관계입니다.")
     })
     public ResponseEntity<String> agreeRequest(@PathVariable(name = "id") Long id) {
         return null;
