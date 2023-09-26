@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 
 function Footer() {
     const navigate = useNavigate()
-    const myimage = useSelector((state)=>state.user.avatarType)
-
+    const myimage = useSelector((state)=>state.user.avatarType);
+    const id = useSelector((state)=>state.user.id);
     
     const handleHomeClick = ()=>{
-        navigate('/')
+        navigate(`/main/${id}`)
     }
     const handleFriendClick =()=>{
         navigate('./friend-list')
@@ -28,8 +28,8 @@ function Footer() {
             <img className="responsive-image" src="/Icon/Home.png" alt="" onClick={handleHomeClick} />
             <img className="responsive-image" src="/Icon/Group.png" alt="" onClick={handleAchievementClick} />
             <img className="responsive-image" src="/Icon/Social.png" alt="" onClick={handleFriendClick} />
-            {/* <img className="responsive-image" src="/Icon/마이페이지 아이콘.png" alt="" onClick={handleExchangeClick}/> */}
-            <img src={myimage} alt="" />
+            <img className="responsive-image" src="/Icon/마이페이지 아이콘.png" alt="" onClick={handleExchangeClick}/>
+            {/* <img src={myimage} alt="" /> */}
         </div>
         </>
       );

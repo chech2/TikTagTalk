@@ -6,23 +6,15 @@ import SelectItemBox from "../components/SelectItemBox";
 import NavBarMain from "../components/ui/NavBarMain";
 import {loginUser} from '../redux/userSlice';
 import TagRoom from '../TagRoom'
+import { useParams } from "react-router-dom";
 
 function MainPage() {
-    const myimage = useSelector((state) => state.user.avatarType);
+    const { id } = useParams();
     const dispatch = useDispatch();
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const res = await axios.get(process.env.REACT_APP_BASE_URL + '/api/members/sign-up');
-            console.log('로그인정보', res);
-            dispatch(loginUser(res));
-          } catch (err) {
-            console.error('에러 발생', err);
-          }
-        };
     
-        fetchData(); // fetchData 함수를 호출하여 비동기 작업을 수행
-      }, []); // 의존성 배열은 빈 배열로 설정
+    
+    
+    // 의존성 배열은 빈 배열로 설정
     // useEffect(()=>{
     //     axios.get(process.env.REACT_APP_BASE_URL + '/api/members/sign-up')
     //     .then((res)=>{
@@ -36,10 +28,8 @@ function MainPage() {
     //     // setIsModalOpen(params.open);
     //   },[])
 
-
-
-
     let user = useSelector((state) => state.user);
+    console.log('리덕스유저',user)
 
     // const handleBox  = ()=>{
     //     setIsItemBox(!isItemBox)
@@ -48,14 +38,19 @@ function MainPage() {
     return (
         <>
             {
-                !user.isLogin ? (
+                user.isLogin ? (
                     <div>
-                        <NavBarMain></NavBarMain>
+                        <NavBarMain 
+                        Nav_id = {id}
+                        ></NavBarMain>
                         <h1>메인페이지 예정입니다.</h1>
-                        {/* <TagRoom></TagRoom> */}
+                        <TagRoom></TagRoom>
                     </div>
                 ) : (
-                    <div>{user.userId}</div>
+                    <div>{user.userId},{user.isLogin}</div>
+
+
+
                 )
             }
 {/* 

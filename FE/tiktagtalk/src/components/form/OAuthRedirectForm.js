@@ -28,12 +28,12 @@ function OAuthRedirectForm() {
 
                 const data = res.data;
                 dispatch(loginUser(data))
-                window.location.replace('/');
+                window.location.replace(`/main/${data.id}`);
                 alert("로그인이 완료되었습니다.");
             }
         })
         .catch((res) => {
-            window.location.replace('/');
+            window.location.replace('/login');
             alert("로그인에 실패했습니다.");
         })
     }, []);

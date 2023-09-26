@@ -22,10 +22,16 @@ import Footer from './components/ui/Footer';
 import TestCom from './components/TestCom';
 import Test from './pages/Test';
 import { useEffect } from 'react';
+import LoginForm from './components/form/LoginForm'
+import SignupForm from './components/form/SignupForm';
+import StartPage from './pages/StartPage';
 
 
 
 function App() {
+  const currentPath = window.location.pathname;
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main';
+
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -39,9 +45,11 @@ function App() {
 
   return (    
     <div className="App">
+
       <Routes>
-        <Route path='/' element={<MainPage/>}></Route>
+        <Route path='/' element={<StartPage/>}></Route>
         {/* 회원 */}
+        <Route path='/main/:id' element={<MainPage/>}></Route>
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/sign-up' element={<SignupPage/>}></Route>
         <Route path='/oauth2/sign-up/:token' element={<OAuthSignupPage/>}></Route>
@@ -59,7 +67,7 @@ function App() {
         {/* <Route path='/:id' element={<Detail />} /> */}
         <Route path='/exchange' element={<ExchangePage/>}></Route>
       </Routes>
-      {<Footer/>}
+      {shouldRenderFooter && <Footer/>}
     </div>
   );
 }
