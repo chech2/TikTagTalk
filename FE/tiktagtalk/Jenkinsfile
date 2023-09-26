@@ -44,7 +44,10 @@ pipeline {
                 dir("FE/tiktagtalk") {
                     sh "pwd"
                     nodejs(nodeJSInstallationName: 'NodeJS') {
-                        sh 'yarn && yarn build'
+                        // sh "npm install"
+                        sh "which node"
+                        sh "npm install"
+                        sh "npm run build"
                     }
                 }
             }

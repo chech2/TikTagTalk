@@ -195,7 +195,7 @@ export const Experience = () => {
         'Content-Type': 'application/json'
       };
 
-      await customAxios.put('http://localhost:8080/api/memberitem', payload);
+      await customAxios.put('http://localhost:8080/api/memberitem', payload, { headers });
       console.log('Items successfully updated.');
     } catch (error) {
       console.error('An error occurred while updating items:', error);

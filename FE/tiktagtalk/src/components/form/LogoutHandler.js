@@ -23,7 +23,7 @@ const LogoutHandler = () => {
                 removeCookie('accessToken');
                 removeCookie('refreshToken');
                 dispatch(clearUser());
-                window.location.replace('/');
+                window.location.replace('/login');
                 alert("로그아웃 되었습니다.");
             }
         })
