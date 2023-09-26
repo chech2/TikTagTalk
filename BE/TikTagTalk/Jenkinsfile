@@ -40,8 +40,10 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'application-oauth.properties', variable: 'oauth'),
                                 file(credentialsId: 'application-jwt.properties', variable: 'jwt'),
-                                file(credentialsId: 'application-rds.properties', variable: 'rds')]) {
+                                file(credentialsId: 'application-rds.properties', variable: 'rds'),
+                                file(credentialsId: 'application-aws.properties', variable: 'aws')]) {
                     script {
+                        sh 'cp $aws BE/TikTagTalk/src/main/resources/application-aws.properties'
                         sh 'cp $oauth BE/TikTagTalk/src/main/resources/application-oauth.properties'
                         sh 'cp $jwt BE/TikTagTalk/src/main/resources/application-jwt.properties'
                         sh 'cp $rds BE/TikTagTalk/src/main/resources/application-rds.properties'
