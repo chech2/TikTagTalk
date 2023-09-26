@@ -7,13 +7,15 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Entity
 public class Account {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     private Long accountNumber;

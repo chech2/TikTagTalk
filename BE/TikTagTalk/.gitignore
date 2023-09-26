@@ -37,3 +37,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# AWS S3 Access Key
+application-aws-credentials.properties

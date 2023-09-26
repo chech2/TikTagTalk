@@ -2,22 +2,37 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    
 }
-.navbarcontainer-2{
+
+.image-container{
     display: flex;
+    width: 30vw;
+    justify-content: space-around;
+    background-color: aquamarine;
+    height: auto; 
+}
+.image-container2{
+    display: flex-end;
+    width: 30vw;
     align-items: center;
-    height: 6vw;
     text-align: center;
+    height: auto;
+    background-color: chartreuse;
 }
-.image-container img {
-    margin: 0 5px; /* 좌우 간격을 10px로 설정 */
-}
-.p-left{
-    text-align: right;
+.image-container2-1{
+    display: flex;
 }
 
-.navbar-left{
-    flex: 1;
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+    max-width: 8vw; /* 이미지 최대 너비 지정 */
+  }
+.responsive-image2 {
+width: 20%;
+height: auto;
+max-width: 5vw;
 }
 

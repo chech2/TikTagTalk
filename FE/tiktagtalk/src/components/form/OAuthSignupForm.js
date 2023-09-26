@@ -69,7 +69,7 @@ function SignupForm() {
 
                 const data = res.data;
                 dispatch(loginUser(data))
-                navigate('/');
+                navigate(`/main/${data.id}`);
                 alert("정보 입력이 완료되었습니다.");
             }
         })

@@ -1,10 +1,23 @@
 import './FriendListPage.css'
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import RecommendFriendPage from './RecommendFriendPage';
+import SearchFriendPage from './SearchFriendPage';
 
 
 
 function FriendListPage(){
+    const [showFriend, setShowFriend] = useState(1)
+    const hanldeMyfriend = ()=>{
+        setShowFriend(1)
+    }
+    const hanldeRecommendfriend = ()=>{
+        setShowFriend(2)
+    }
+    const handleSearchfriend = ()=>{
+        setShowFriend(3)
+    }
+    const [usernameList, setusernameList] = useState([])
 
     const [friendList, setFriendList] = useState([{
         id : 1,
@@ -44,15 +57,21 @@ function FriendListPage(){
         })
     },[])
 
-
     return(
         <>
             <div className='friend-container'>
-                <h1 className='search-right' >친구목록</h1>
+                <h1>친구</h1>
                 {/* <img src="./Icon/Search.png" alt="" className='search-icon' /> */}
-                <button>검색</button>
             </div>
-            {friendList.length === 0 ? (
+            <div className='friend-container'>
+                <div className={showFriend === 1 ? 'yellow-background' : 'black-background'} onClick={hanldeMyfriend}>My Talk</div>
+                <div className={showFriend === 2 ? 'yellow-background' : 'black-background'} onClick={hanldeRecommendfriend}>Recommend Talk</div>
+                <div className={showFriend === 3 ? 'yellow-background' : 'black-background'} onClick={handleSearchfriend}>Search Talk</div>    
+            </div>
+            {/* {`friend-class${showFriend}`} */}
+
+            {showFriend === 1 ?  
+            (friendList.length === 0 ? (
                 // friendList 배열이 비어있는 경우
                 <div>
                     <img src="/Icon/No friends.png" alt="" />
@@ -72,14 +91,19 @@ function FriendListPage(){
                         </div>
                     ))}
                 </div>
-            )}
+            )) : showFriend === 2 ?   (
+                <div className='friend-container2'> 
+                    <RecommendFriendPage></RecommendFriendPage>
+                </div>
+            ) : (
+                <div>
+                    <SearchFriendPage data={usernameList}></SearchFriendPage>
+                </div>
+            )}       
 
 
-
-
-
+            {/* FILTER 된 친구 목록 보여주어야 함*/}
         </>
     )
 }
-
 export default FriendListPage;

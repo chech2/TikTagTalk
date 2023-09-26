@@ -13,12 +13,12 @@ function SkinShopPage(props) {
 
     const [ItemLists, setItemLists] = useState([
         { item_key : 0, item_url: '', item_name: '선풍기0', item_price: 100 },
-        { item_key : 1, item_url: '', item_name: '선풍기1', item_price: 100 },
-        { item_key : 2, item_url: '', item_name: '선풍기2', item_price: 100 },
+        { item_key : 1, item_url: '', item_name: '선풍기1', item_price: 200 },
+        { item_key : 2, item_url: '', item_name: '선풍기2', item_price: 350 },
         { item_key : 3, item_url: '', item_name: '선풍기3', item_price: 100 },
-        { item_key : 4, item_url: '', item_name: '선풍기4', item_price: 100 },
-        { item_key : 5, item_url: '', item_name: '선풍기5', item_price: 100 },
-        { item_key : 6, item_url: '', item_name: '선풍기6', item_price: 100 }
+        { item_key : 4, item_url: '', item_name: '선풍기4', item_price: 200 },
+        { item_key : 5, item_url: '', item_name: '선풍기5', item_price: 700 },
+        { item_key : 6, item_url: '', item_name: '선풍기6', item_price: 200 }
     ]);
 
     return (

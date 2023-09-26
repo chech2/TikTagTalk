@@ -1,20 +1,34 @@
 package A109.TikTagTalk.domain.tagRoom.entity;
 
+import A109.TikTagTalk.domain.tag.entity.Tag;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter @Setter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Entity
 public class Item {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false)
+    @Column(nullable=false,unique = true)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
+    private String s3Url;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="TAG_ID")
+    private Tag tag;
+
+    public void mappingItemAndTag(Tag tag){
+        this.tag=tag;
+        tag.getItemList().add(this);
+    }
+
+//    @Enumerated(EnumType.STRING)
+//    private Category category;
 }

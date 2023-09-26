@@ -13,6 +13,9 @@
     position: absolute;
     top: 2vw; /* 위쪽으로 위치를 조정합니다. */
     left: 0; /* 왼쪽으로 위치를 조정합니다. */
+    width: 100%;
+    height: auto;
+    max-width: 8vw; /* 이미지 최대 너비 지정 */
 }
 .appbar-underline{
     border-bottom: 1px solid #000;
@@ -41,3 +44,10 @@
     display : flex   ;
     align-items: center;
 }
+
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+    max-width: 8vw; /* 이미지 최대 너비 지정 */
+  }
