@@ -1,0 +1,27 @@
+.rectangle-false {
+    width: 100%; /* 원하는 너비 설정 */
+    height: 100px; /* 높이 설정 (이 예에서는 100px로 설정) */
+    background-color: #FF16CD; /* 배경색 설정 */
+    position: absolute;
+    bottom: 0; /* 맨 아래로 위치시킵니다. */
+    border-radius: 30px 30px 0 0;
+}
+
+.rectangle-true {
+    width: 100%; /* 원하는 너비 설정 */
+    height: 50px; /* 높이 설정 (이 예에서는 100px로 설정) */
+    background-color: #FF16CD; /* 배경색 설정 */
+    border-radius: 30px 30px 0 0;
+    position: relative;
+    top: -250px;
+    
+}
+
+
+.test1{
+    width: 100%; /* 원하는 너비 설정 */
+    /* height: 15%; */
+    position: absolute;
+    bottom: 0; /* 맨 아래로 위치시킵니다. */
+}
+
