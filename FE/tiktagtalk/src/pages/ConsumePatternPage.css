@@ -1,0 +1,10 @@
+.appbar-container{
+    display:flex;
+}
+
+
+.consume-pattern{
+    width : 100%;
+    align-items: center;
+    justify-content: center;
+}
