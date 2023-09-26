@@ -2,6 +2,7 @@ package A109.TikTagTalk.domain.wallet.controller;
 
 import A109.TikTagTalk.domain.wallet.dto.response.PointListResponse;
 import A109.TikTagTalk.domain.wallet.service.PointHistoryService;
+import A109.TikTagTalk.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +22,11 @@ import java.util.List;
 public class PointHistoryController {
     //포인트 전체 조회
     private final PointHistoryService pointHistoryService;
-    private final JwtService jwtService;
 
     @GetMapping
     public ResponseEntity<List<PointListResponse>> getAllPoints(@RequestHeader(required = true, name = "Authorization") String token) throws NullPointerException{
 
-        String userId = jwtService.extractUserIdTest(token);
+        String userId = SecurityUtil.getCurrentLoginMember().getUserId();
         if(userId == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -42,7 +42,7 @@ public class PointHistoryController {
     //포인트 내역 조회
     @GetMapping("/list")
     public ResponseEntity<List<PointListResponse>> pointList(@RequestHeader(required = true, name = "Authorization") String token, @RequestParam String start, @RequestParam String end){
-        String userId = jwtService.extractUserIdTest(token);
+        String userId = SecurityUtil.getCurrentLoginMember().getUserId();
         if(userId == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

@@ -1,4 +1,13 @@
 package A109.TikTagTalk.domain.skin.repository;
 
-public interface MemeberSkinRepository {
+import A109.TikTagTalk.domain.skin.entity.MemberSkin;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface MemeberSkinRepository extends JpaRepository {
+
+    List<MemberSkin> findAll(Long memberId);
 }

@@ -20,8 +20,6 @@ public class ExchangeHistoryController {
 
     @Autowired
     private final ExchangeHistoryService exchangeHistoryService;
-    @Autowired
-    private final JwtService jwtService;
 
 
     @PostMapping("/{cnt}")

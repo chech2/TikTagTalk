@@ -4,6 +4,8 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+application-jwt.properties
+application-oauth.properties
 
 ### STS ###
 .apt_generated
@@ -35,3 +37,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# AWS S3 Access Key
+application-aws-credentials.properties

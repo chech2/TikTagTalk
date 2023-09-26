@@ -1,6 +1,7 @@
 package A109.TikTagTalk.domain.wallet.service;
 
 import A109.TikTagTalk.domain.user.entity.Member;
+import A109.TikTagTalk.domain.user.repository.MemberRepository;
 import A109.TikTagTalk.domain.wallet.dto.response.CoinListResponse;
 import A109.TikTagTalk.domain.wallet.entity.CoinHistory;
 import A109.TikTagTalk.domain.wallet.entity.PointHistory;
