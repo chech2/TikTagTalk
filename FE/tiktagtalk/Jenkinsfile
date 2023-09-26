@@ -45,6 +45,7 @@ pipeline {
                     sh "pwd"
                     nodejs(nodeJSInstallationName: 'NodeJS') {
                         sh "npm install"
+                        sh "which node"
                         sh "yarn"
                         sh "yarn build"
                     }
