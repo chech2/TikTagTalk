@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { customAxios } from '../../CustomAxios'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useCookies } from 'react-cookie';
 import { useDispatch} from 'react-redux';
 import { loginUser } from '../../redux/userSlice';
 
@@ -11,10 +10,8 @@ function OAuthRedirectForm() {
     const params = useParams();
     const dispatch = useDispatch();
 
-    const [cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
-
     useEffect(async () => {
-        setCookie('accessToken', params.token, { path: '/' });
+        localStorage.setItem("accessToken", params.token);
 
         await customAxios.get(process.env.REACT_APP_BASE_URL + '/members/oauth/success', {})
         .then((res) => {
@@ -22,9 +19,9 @@ function OAuthRedirectForm() {
                 const accessToken = res.headers['authorization'];
                 const refreshToken = res.headers['authorization-refresh'];
                 
-                // 쿠키에 토큰 저장
-                setCookie('accessToken', accessToken, { path: '/' });
-                setCookie('refreshToken', refreshToken, { path: '/' });
+                // LocalStorage에 토큰 저장
+                localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
 
                 const data = res.data;
                 dispatch(loginUser(data))

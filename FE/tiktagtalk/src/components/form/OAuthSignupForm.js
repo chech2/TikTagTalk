@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { customAxios } from '../../CustomAxios'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useCookies } from 'react-cookie';
 import { useDispatch} from 'react-redux';
 import { loginUser } from '../../redux/userSlice';
 
@@ -32,14 +31,13 @@ function SignupForm() {
     const [name, setName] = useState('');
     const [introduction, setIntroduction] = useState('');
     const [avatarType, setAvatarType] = useState('');
-    const [cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
 
     const handleAvatarChange = (event) => {
         setAvatarType(event.target.value);
     };
 
     useEffect(() => {
-        setCookie('accessToken', params.token, { path: '/' });
+        localStorage.setItem("accessToken", params.token);
     }, []);
 
     // ---------- 회원 가입 기능 구현 ---------- //
@@ -63,9 +61,9 @@ function SignupForm() {
                 const accessToken = res.headers['authorization'];
                 const refreshToken = res.headers['authorization-refresh'];
                 
-                // 쿠키에 토큰 저장
-                setCookie('accessToken', accessToken, { path: '/' });
-                setCookie('refreshToken', refreshToken, { path: '/' });
+                // LocalStorage에 토큰 저장
+                localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
 
                 const data = res.data;
                 dispatch(loginUser(data))

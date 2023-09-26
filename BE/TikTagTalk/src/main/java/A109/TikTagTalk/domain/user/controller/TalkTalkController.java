@@ -1,5 +1,6 @@
 package A109.TikTagTalk.domain.user.controller;
 
+import A109.TikTagTalk.domain.user.dto.request.TalkTalkRequestDto;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.exception.ExceptionCode;
 import A109.TikTagTalk.domain.user.exception.custom.AlreadyExistingTalkTalkException;
@@ -37,14 +38,15 @@ public class TalkTalkController {
             @ApiResponse(responseCode = "452", description = "존재하지 않는 사용자입니다."),
             @ApiResponse(responseCode = "454", description = "이미 톡톡 친구 관계입니다."),
             @ApiResponse(responseCode = "455", description = "이미 요청을 보냈습니다."),
-            @ApiResponse(responseCode = "456", description = "상대방이 이미 요청을 보냈습니다.")
+            @ApiResponse(responseCode = "456", description = "상대방이 이미 요청을 보냈습니다."),
+            @ApiResponse(responseCode = "459", description = "본인에게 톡톡 요청을 보낼 수 없습니다.")
     })
-    public ResponseEntity<String> talkTalkRequest(@RequestBody Map<String, Long> request) {
+    public ResponseEntity<String> talkTalkRequest(@RequestBody TalkTalkRequestDto talkTalkRequestDto) {
 
         Member member = SecurityUtil.getCurrentLoginMember();
 
         try {
-            talkTalkService.talkTalkRequest(member, request.get("memberId"));
+            talkTalkService.talkTalkRequest(member, talkTalkRequestDto.getMemberId());
             return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
         } catch (NoSuchUserException e) {
             return new ResponseEntity<>(ExceptionCode.NO_SUCH_USER_EXCEPTION.getErrorMessage(), HttpStatusCode.valueOf(ExceptionCode.NO_SUCH_USER_EXCEPTION.getErrorCode()));
