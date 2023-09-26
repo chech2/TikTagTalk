@@ -45,8 +45,6 @@ pipeline {
                     sh "pwd"
                     nodejs(nodeJSInstallationName: 'NodeJS') {
                         sh "yarn && yarn build"
-                        sh "yarn global add serve"
-                        sh "npx serve -s  ./build"
                     }
                 }
             }
