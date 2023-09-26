@@ -15,7 +15,7 @@ import { CookiesProvider } from 'react-cookie';
 
 let persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById('root'));
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 root.render(
   // <React.StrictMode>
