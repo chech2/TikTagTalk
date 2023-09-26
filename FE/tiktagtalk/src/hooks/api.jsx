@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { transformToItems, transformToMap} from './transformData'
+import { transformToItems, transformToMap} from './transformData';
+import { customAxios } from "../CustomAxios"
 
 export const fetchData = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/memberitem?accountId=1');
+    const response = await customAxios.get('http://localhost:8080/api/memberitem?accountId=1');
     const data = response.data;
     
     const items = transformToItems(data);

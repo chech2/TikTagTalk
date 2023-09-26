@@ -6,6 +6,11 @@ import A109.TikTagTalk.domain.user.dto.response.MemberLoginResponseDTO;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.service.MemberService;
 import A109.TikTagTalk.global.util.SecurityUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +22,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/members")
+@Tag(name="Member Controller", description = "멤버 API")
 public class MemberController {
 
     private final MemberService memberService;
 
+    @Operation(summary = "sign up", description = "자체 회원가입")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "CREATED")
+    })
     @PostMapping("/sign-up") // 자체 회원 가입
     public ResponseEntity<String> signUp(@RequestBody MemberSignUpDto memberSignUpDto) throws Exception {
         memberService.singUp(memberSignUpDto);
