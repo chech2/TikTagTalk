@@ -166,6 +166,7 @@ public class JwtService {
      */
     public boolean isTokenValid(String token) {
         try {
+            log.info("accessToken={}", token);
             JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
             return true;
         } catch (Exception e) {
