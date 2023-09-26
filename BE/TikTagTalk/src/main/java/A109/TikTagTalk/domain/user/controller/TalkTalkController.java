@@ -3,10 +3,7 @@ package A109.TikTagTalk.domain.user.controller;
 import A109.TikTagTalk.domain.user.dto.request.TalkTalkRequestDto;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.exception.ExceptionCode;
-import A109.TikTagTalk.domain.user.exception.custom.AlreadyExistingTalkTalkException;
-import A109.TikTagTalk.domain.user.exception.custom.AlreadySentRequestException;
-import A109.TikTagTalk.domain.user.exception.custom.NoSuchUserException;
-import A109.TikTagTalk.domain.user.exception.custom.OtherPartyAlreadySentRequestException;
+import A109.TikTagTalk.domain.user.exception.custom.*;
 import A109.TikTagTalk.domain.user.service.TalkTalkService;
 import A109.TikTagTalk.global.util.SecurityUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,6 +45,8 @@ public class TalkTalkController {
         try {
             talkTalkService.talkTalkRequest(member, talkTalkRequestDto.getMemberId());
             return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
+        } catch (SendTalktalkRequestYourself e) {
+            return new ResponseEntity<>(ExceptionCode.SEND_TALKTALK_REQUEST_YOURSELF.getErrorMessage(), HttpStatusCode.valueOf(ExceptionCode.SEND_TALKTALK_REQUEST_YOURSELF.getErrorCode()));
         } catch (NoSuchUserException e) {
             return new ResponseEntity<>(ExceptionCode.NO_SUCH_USER_EXCEPTION.getErrorMessage(), HttpStatusCode.valueOf(ExceptionCode.NO_SUCH_USER_EXCEPTION.getErrorCode()));
         } catch (AlreadyExistingTalkTalkException e) {
