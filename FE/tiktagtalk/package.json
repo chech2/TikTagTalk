@@ -2,7 +2,6 @@
   "name": "tiktagtalk",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://j9a109.p.ssafy.io",
   "dependencies": {
     "@mediapipe/tasks-vision": "^0.10.6",
     "@react-three/drei": "^9.83.9",
