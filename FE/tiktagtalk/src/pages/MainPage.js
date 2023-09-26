@@ -44,7 +44,7 @@ function MainPage() {
                         Nav_id = {id}
                         ></NavBarMain>
                         <h1>메인페이지 예정입니다.</h1>
-                        {/* <TagRoom></TagRoom> */}
+                        <TagRoom></TagRoom>
                     </div>
                 ) : (
                     <div>{user.userId},{user.isLogin}</div>

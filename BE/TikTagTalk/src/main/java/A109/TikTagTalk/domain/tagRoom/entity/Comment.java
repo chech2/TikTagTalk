@@ -21,10 +21,6 @@ public class Comment {
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY) //임시로 account로 한거임. 멤버로 바꿔
-    @JoinColumn(name="ACCOUNT_ID")
-    private Account account;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TAGROOM_ID")
     private TagRoom tagRoom;
@@ -32,10 +28,10 @@ public class Comment {
     private String content;
     private LocalDateTime writtenTime;
 
-    public void mappingTagRoomAndAccountAndComment(TagRoom tagRoom, Account account){
-        this.account=account;
+    public void mappingMemberAndTagRoomAndComment(Member member,TagRoom tagRoom){
+        this.member=member;
         this.tagRoom=tagRoom;
-        account.getComments().add(this);
+        member.getComments().add(this);
         tagRoom.getComments().add(this);
     }
 

@@ -7,6 +7,7 @@ import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.entity.ConsumePlan;
 import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.account.repository.ConsumePlanRepository;
+import A109.TikTagTalk.domain.user.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +19,8 @@ public class ConsumePlanServiceImpl implements ConsumePlanService{
     private final ConsumePlanRepository consumePlanRepository;
     @Override
     @Transactional
-    public ResponseDto insertConsumePlan(InsertConsumePlanRequestDto requestDto) {
-        Account account = accountRepository.findById(requestDto.getAccount().getId()).get();
+    public ResponseDto insertConsumePlan(InsertConsumePlanRequestDto requestDto, Member member) {
+        Account account = member.getAccount();
         Long totalAmount= requestDto.getTotalAmount();
         ConsumePlan consumePlan= ConsumePlan.builder()
                 .totalAmount(totalAmount)

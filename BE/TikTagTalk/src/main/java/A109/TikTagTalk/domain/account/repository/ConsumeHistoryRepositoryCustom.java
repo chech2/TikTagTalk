@@ -12,13 +12,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ConsumeHistoryRepositoryCustom {
-    List<ConsumeHistory> findAllRecently(ConsumeHistoryRequestDto requestDto);
-    List<ConsumeHistory> findAllHighest(ConsumeHistoryRequestDto requestDto);
+    List<ConsumeHistory> findAllRecently(ConsumeHistoryRequestDto requestDto,Account account);
+    List<ConsumeHistory> findAllHighest(ConsumeHistoryRequestDto requestDto,Account account);
 
-    CheckAccountResponseDto checkAccountTagAmount(ConsumeHistoryRequestDto requestDto);
+    CheckAccountResponseDto checkAccountTagAmount(ConsumeHistoryRequestDto requestDto,Account account);
 
-    List<CheckMemberTagResponseDto> calMemberTags(ConsumeHistoryRequestDto requestDto);
+    List<CheckMemberTagResponseDto> calMemberTags(ConsumeHistoryRequestDto requestDto,Account account);
 
     ResponseDto modifyConsumeHistory(ConsumeHistory consumeHistory);
     CheckMemberTagResponseDto calMemberTag(Account account, Tag tag, LocalDate consumeTime);
+
+    List<ConsumeHistory> copyAllConsumeHistory(Account account);
 }

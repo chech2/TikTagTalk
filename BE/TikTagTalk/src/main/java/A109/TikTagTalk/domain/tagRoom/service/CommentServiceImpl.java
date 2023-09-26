@@ -10,6 +10,7 @@ import A109.TikTagTalk.domain.tagRoom.entity.Comment;
 import A109.TikTagTalk.domain.tagRoom.entity.TagRoom;
 import A109.TikTagTalk.domain.tagRoom.repository.CommentRepository;
 import A109.TikTagTalk.domain.tagRoom.repository.TagRoomRepository;
+import A109.TikTagTalk.domain.user.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,20 +23,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
-    private final AccountRepository accountRepository;
     private final TagRoomRepository tagRoomRepository;
     @Override
     @Transactional
-    public ResponseDto insertComment(InsertCommentRequestDto requestDto) {
-        Account account=accountRepository.findById(requestDto.getAccount().getId()).get();
+    public ResponseDto insertComment(InsertCommentRequestDto requestDto, Member member) {
         TagRoom tagRoom=tagRoomRepository.findById(requestDto.getTagRoom().getId()).get();
         Comment comment=Comment.builder()
-                .account(account)
+                .member(member)
                 .tagRoom(tagRoom)
                 .content(requestDto.getContent())
                 .writtenTime(LocalDateTime.now())
                 .build();
-        comment.mappingTagRoomAndAccountAndComment(tagRoom,account);
+        comment.mappingMemberAndTagRoomAndComment(member,tagRoom);
         commentRepository.save(comment);
         return ResponseUtil.Success("댓글 삽입 성공");
     }
@@ -48,11 +47,11 @@ public class CommentServiceImpl implements CommentService{
                 .map(comment -> {
                     AllCommentsResponseDto.TagRoomDto tagRoomDto=AllCommentsResponseDto.TagRoomDto.builder()
                             .id(comment.getTagRoom().getId()).build();
-                    AllCommentsResponseDto.AccountDto accountDto=AllCommentsResponseDto.AccountDto.builder()
-                            .id(comment.getAccount().getId()).build();
+                    AllCommentsResponseDto.MemberDto memberDto=AllCommentsResponseDto.MemberDto.builder()
+                            .id(comment.getMember().getId()).build();
                     return AllCommentsResponseDto.builder()
                             .tagRoom(tagRoomDto)
-                            .account(accountDto)
+                            .member(memberDto)
                             .writtenTime(comment.getWrittenTime())
                             .content(comment.getContent())
                             .build();

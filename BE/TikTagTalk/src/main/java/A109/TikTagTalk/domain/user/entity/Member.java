@@ -72,7 +72,8 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<MemberSkin> skinList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ACCOUNT_ID")
     private Account account;
 
     @OneToMany(mappedBy = "member")

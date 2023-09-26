@@ -10,15 +10,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class InsertCommentRequestDto {
     private String content;
-    private AccountDto account; //멤버로 바꿔
+    private MemberDto member;
     private TagRoomDto tagRoom;
 
-    //멤버로 바꿔
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor
-    public static class AccountDto{
+    public static class MemberDto{
         private Long id;
     }
     @Getter

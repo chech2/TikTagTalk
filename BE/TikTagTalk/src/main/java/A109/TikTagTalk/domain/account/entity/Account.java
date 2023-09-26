@@ -21,14 +21,10 @@ public class Account {
 
     private Long accountNumber;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="MEMBER_ID")
+    @OneToOne(mappedBy = "account")
     private Member member;
 
     @OneToMany(mappedBy="account")
     private List<ConsumeHistory> consumeHistoryList=new ArrayList<>();
 
-    //임시임. comment
-    @OneToMany(mappedBy = "account")
-    private List<Comment> comments=new ArrayList<>();
 }

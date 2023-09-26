@@ -4,6 +4,8 @@ import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.tagRoom.dto.request.InsertCommentRequestDto;
 import A109.TikTagTalk.domain.tagRoom.dto.response.AllCommentsResponseDto;
 import A109.TikTagTalk.domain.tagRoom.service.CommentService;
+import A109.TikTagTalk.domain.user.entity.Member;
+import A109.TikTagTalk.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,8 @@ public class CommentController {
 
     @PostMapping("")
     public ResponseDto insertComment(@RequestBody InsertCommentRequestDto requestDto){
-        return commentService.insertComment(requestDto);
+        Member member= SecurityUtil.getCurrentLoginMember();
+        return commentService.insertComment(requestDto,member);
     }
     @GetMapping("/{tagRoomId}")
     public List<AllCommentsResponseDto> allComments(@PathVariable Long tagRoomId){

@@ -23,13 +23,4 @@ public class InsertConsumePlanRequestDto {
     private Integer ottPercent;
     private Integer petPercent;
     private Integer travelPercent;
-    private AccountDto account;
-
-    @Getter
-    @NoArgsConstructor(access= AccessLevel.PROTECTED)
-    @Builder
-    @AllArgsConstructor
-    public static class AccountDto{
-        private Long id;
-    }
 }
