@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh "pwd"
                 // checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/22JH/pingking-Typesciprt.git']])
-                checkout scmGit(branches: [[name: '*/feature-cicd-test']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
+                checkout scmGit(branches: [[name: 'develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
             }
         }
 
