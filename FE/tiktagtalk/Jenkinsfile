@@ -96,7 +96,7 @@ pipeline {
                 sshagent(credentials: ['ubuntu']) {
                     sh "docker images"
                     sh "docker ps -a"
-                    sh "docker rm -f react"
+                    // sh "docker rm -f react"
                     sh '''
                         ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "sudo docker run -i -e TZ=Asia/Seoul --name react -p $reactReleasePort:$reactReleasePort -d $reactImageName:latest"
                     '''
