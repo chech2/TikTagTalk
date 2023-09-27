@@ -7,7 +7,6 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class InitMemberItemRequestDto {
-    private Long accountId;
     private TagDto tag;
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -7,6 +7,5 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class CheckMemberTagRequestDto {
-    private Long accountId;
     private String yearAndMonth;
 }

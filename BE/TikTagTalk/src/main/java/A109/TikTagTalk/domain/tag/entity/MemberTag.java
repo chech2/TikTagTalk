@@ -23,11 +23,6 @@ public class MemberTag {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_ID")
     private Member member;
-
-    //지금은 member가 없으니 걍 account로 하자
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="ACCOUNT_ID")
-    private Account account;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TAG_ID")
