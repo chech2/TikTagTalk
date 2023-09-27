@@ -84,13 +84,13 @@ pipeline {
                             sh "docker tag $reactImageName:$BUILD_NUMBER $reactImageName:latest"
                             sh "docker images"
                             sh "docker ps -a"
-                            '''
-                            if docker image inspect $reactImageName:$BUILD_NUMBER > /dev/null 2>&1; then
-                                docker rmi $reactImageName:$BUILD_NUMBER
-                            fi
-                            '''
-                            //sh "docker rmi $(docker images -f "dangling=true" -q)" 
-                            //sh "docker rmi $reactImageName:$BUILD_NUMBER"
+                            // '''
+                            // if docker image inspect $reactImageName:$BUILD_NUMBER > /dev/null 2>&1; then
+                            //     docker rmi $reactImageName:$BUILD_NUMBER
+                            // fi
+                            // '''
+                            sh "docker rmi $reactImageName:$BUILD_NUMBER"
+                            sh "docker rmi $(docker images -f "dangling=true" -q)" 
                             // sh "docker rmi react"
                             sh "docker images"
                             // sh "docker push $reactImageName:latest"
