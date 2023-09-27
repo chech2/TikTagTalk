@@ -4,6 +4,7 @@ import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.tagRoom.dto.request.UpdateMemberItemRequestDto;
 import A109.TikTagTalk.domain.tagRoom.entity.MemberItem;
 import A109.TikTagTalk.domain.tagRoom.entity.QMemberItem;
+import A109.TikTagTalk.domain.user.entity.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -17,16 +18,16 @@ public class MemberItemRepositoryImpl implements MemberItemRepositoryCustom{
     private QMemberItem memberItem=new QMemberItem("memberItem");
 
     @Override
-    public List<MemberItem> findMemberItem(Account account) {
+    public List<MemberItem> findMemberItem(Member member) {
         return queryFactory.selectFrom(memberItem)
-                .where(memberItem.account.eq(account))
+                .where(memberItem.member.eq(member))
                 .fetch();
     }
 
     @Override
-    public MemberItem findByAccountItemName(Account account, String itemName) {
+    public MemberItem findByMemberItemName(Member member, String itemName) {
         return queryFactory.selectFrom(memberItem)
-                .where(memberItem.account.eq(account),memberItem.item.name.eq(itemName))
+                .where(memberItem.member.eq(member),memberItem.item.name.eq(itemName))
                 .fetchOne();
     }
 

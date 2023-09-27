@@ -29,6 +29,4 @@ public class Item {
         tag.getItemList().add(this);
     }
 
-//    @Enumerated(EnumType.STRING)
-//    private Category category;
 }
