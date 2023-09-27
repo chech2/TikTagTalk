@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,6 +95,17 @@ public class TalkTalkService {
 
     public List<FindTalkTalkListResponseDto> findTalkTalkList(Member loginMember) {
 
-        return null;
+        List<FindTalkTalkListResponseDto> response = new ArrayList<>();
+
+        List<TalkTalk> talkTalkList = talkTalkRepository.findBySenderIdAndReceiverId(loginMember.getId());
+        for (TalkTalk talktalk : talkTalkList) {
+            if(talktalk.getSender().getId() == loginMember.getId()) { // loginMember가 sender인 경우
+                response.add(FindTalkTalkListResponseDto.toDTO(talktalk.getId(), talktalk.getStatus(), true, talktalk.getReceiver()));
+            } else { // loginMember가 receiver인 경우
+                response.add(FindTalkTalkListResponseDto.toDTO(talktalk.getId(), talktalk.getStatus(), false, talktalk.getSender()));
+            }
+        }
+
+        return response;
     }
 }
