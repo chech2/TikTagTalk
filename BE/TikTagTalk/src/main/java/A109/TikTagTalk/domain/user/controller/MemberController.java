@@ -1,7 +1,9 @@
 package A109.TikTagTalk.domain.user.controller;
 
+import A109.TikTagTalk.domain.user.dto.request.FindMemberRequestDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberOAuthSignUpDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
+import A109.TikTagTalk.domain.user.dto.response.FindMemberResponseDto;
 import A109.TikTagTalk.domain.user.dto.response.MemberLoginResponseDTO;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.service.MemberService;
@@ -17,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -63,6 +67,33 @@ public class MemberController {
         MemberLoginResponseDTO memberLoginResponseDTO = memberService.oauthLoginSuccess(response, member);
 
         return new ResponseEntity<>(memberLoginResponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "find member by userId", description = "아이디(userId)로 멤버 찾기 : 톡톡 친구 찾기")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "userId를 앞에 포함하는 모든 멤버 리스트 반환(like userId%)")
+    })
+    public ResponseEntity<List<FindMemberResponseDto>> findMember(@RequestBody FindMemberRequestDto requestDto) {
+
+        Member loginMember = SecurityUtil.getCurrentLoginMember();
+
+        List<FindMemberResponseDto> responseDtoList = memberService.findMemberByUserId(loginMember.getId(), requestDto.getUserId());
+
+        return new ResponseEntity<>(responseDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/recommendation")
+    @Operation(summary = "recommed member", description = "추천 친구 리스트(아직 추천 알고리즘 없음. 모든 멤버 반환됨)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "추천 멤버 리스트 반환")
+    })
+    public ResponseEntity<List<FindMemberResponseDto>> recommendMemberList() {
+
+        Member loginMember = SecurityUtil.getCurrentLoginMember();
+
+        List<FindMemberResponseDto> findMemberResponseDtos = memberService.recommendMemberList(loginMember);
+        return new ResponseEntity<>(findMemberResponseDtos, HttpStatus.OK);
     }
 }
 
