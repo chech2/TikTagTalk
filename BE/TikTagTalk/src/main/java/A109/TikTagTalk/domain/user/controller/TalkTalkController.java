@@ -1,6 +1,7 @@
 package A109.TikTagTalk.domain.user.controller;
 
 import A109.TikTagTalk.domain.user.dto.request.TalkTalkRequestDto;
+import A109.TikTagTalk.domain.user.dto.response.FindMemberResponseDto;
 import A109.TikTagTalk.domain.user.dto.response.FindTalkTalkListResponseDto;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.exception.ExceptionCode;
