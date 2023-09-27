@@ -1,6 +1,6 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { transformToItems, transformToMap} from './transformData';
-import { customAxios } from "../CustomAxios"
+import { customAxios } from "../../CustomAxios"
 
 export const fetchData = async () => {
   try {
