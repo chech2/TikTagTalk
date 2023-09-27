@@ -171,6 +171,7 @@ public class JwtService {
             return true;
         } catch (Exception e) {
             log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
+            log.info("token={}", token);
             return false;
         }
     }

@@ -1,11 +1,10 @@
 package A109.TikTagTalk.domain.user.controller;
 
+import A109.TikTagTalk.domain.user.dto.request.TalkTalkRequestDto;
+import A109.TikTagTalk.domain.user.dto.response.FindTalkTalkListResponseDto;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.exception.ExceptionCode;
-import A109.TikTagTalk.domain.user.exception.custom.AlreadyExistingTalkTalkException;
-import A109.TikTagTalk.domain.user.exception.custom.AlreadySentRequestException;
-import A109.TikTagTalk.domain.user.exception.custom.NoSuchUserException;
-import A109.TikTagTalk.domain.user.exception.custom.OtherPartyAlreadySentRequestException;
+import A109.TikTagTalk.domain.user.exception.custom.*;
 import A109.TikTagTalk.domain.user.service.TalkTalkService;
 import A109.TikTagTalk.global.util.SecurityUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +18,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,16 +36,19 @@ public class TalkTalkController {
             @ApiResponse(responseCode = "201", description = "CREATED"),
             @ApiResponse(responseCode = "452", description = "존재하지 않는 사용자입니다."),
             @ApiResponse(responseCode = "454", description = "이미 톡톡 친구 관계입니다."),
-            @ApiResponse(responseCode = "455", description = "이미 요청을 보냈습니다."),
-            @ApiResponse(responseCode = "456", description = "상대방이 이미 요청을 보냈습니다.")
+            @ApiResponse(responseCode = "455", description = "이미 톡톡 친구 요청을 보냈습니다."),
+            @ApiResponse(responseCode = "456", description = "상대방이 이미 톡톡 친구 요청을 보냈습니다."),
+            @ApiResponse(responseCode = "459", description = "본인에게 톡톡 친구 요청을 보낼 수 없습니다.")
     })
-    public ResponseEntity<String> talkTalkRequest(@RequestBody Map<String, Long> request) {
+    public ResponseEntity<String> talkTalkRequest(@RequestBody TalkTalkRequestDto talkTalkRequestDto) {
 
-        Member member = SecurityUtil.getCurrentLoginMember();
+        Member loginMember = SecurityUtil.getCurrentLoginMember();
 
         try {
-            talkTalkService.talkTalkRequest(member, request.get("memberId"));
-            return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
+            talkTalkService.talkTalkRequest(loginMember, talkTalkRequestDto.getMemberId());
+            return new ResponseEntity<>("톡톡 친구 요청을 보냈습니다.", HttpStatus.CREATED);
+        } catch (SendTalktalkRequestYourself e) {
+            return new ResponseEntity<>(ExceptionCode.SEND_TALKTALK_REQUEST_YOURSELF.getErrorMessage(), HttpStatusCode.valueOf(ExceptionCode.SEND_TALKTALK_REQUEST_YOURSELF.getErrorCode()));
         } catch (NoSuchUserException e) {
             return new ResponseEntity<>(ExceptionCode.NO_SUCH_USER_EXCEPTION.getErrorMessage(), HttpStatusCode.valueOf(ExceptionCode.NO_SUCH_USER_EXCEPTION.getErrorCode()));
         } catch (AlreadyExistingTalkTalkException e) {
@@ -60,12 +63,33 @@ public class TalkTalkController {
     @PutMapping("/{id}")
     @Operation(summary = "agree to talk-talk request", description = "톡톡 친구 요청 수락")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "457", description = "존재하지 않는 요청입니다."),
-            @ApiResponse(responseCode = "458", description = "권한이 없습니다."),
+            @ApiResponse(responseCode = "200", description = "톡톡 친구 요청을 수락했습니다!"),
+            @ApiResponse(responseCode = "457", description = "존재하지 않는 톡톡 친구 요청입니다."),
+            @ApiResponse(responseCode = "458", description = "톡톡 친구 신청 수락 권한이 없습니다."),
             @ApiResponse(responseCode = "454", description = "이미 톡톡 친구 관계입니다.")
     })
     public ResponseEntity<String> agreeRequest(@PathVariable(name = "id") Long id) {
+
+        Member loginMember = SecurityUtil.getCurrentLoginMember();
+
+        try {
+            talkTalkService.agreeRequest(loginMember, id);
+            return new ResponseEntity<>("톡톡 친구 요청을 수락했습니다!", HttpStatus.OK);
+        } catch (NotExistRequestException e) {
+            return new ResponseEntity<>(ExceptionCode.NOT_EXIST_REQUEST.getErrorMessage(), HttpStatusCode.valueOf(ExceptionCode.NOT_EXIST_REQUEST.getErrorCode()));
+        } catch (DoNotHavePremissionException e) {
+            return new ResponseEntity<>(ExceptionCode.DO_NOT_HAVE_PREMISSION.getErrorMessage(), HttpStatusCode.valueOf(ExceptionCode.DO_NOT_HAVE_PREMISSION.getErrorCode()));
+        } catch (AlreadyExistingTalkTalkException e) {
+            return new ResponseEntity<>(ExceptionCode.ALREADY_EXISTING_TALKTALK.getErrorMessage(), HttpStatusCode.valueOf(ExceptionCode.ALREADY_EXISTING_TALKTALK.getErrorCode()));
+        }
+    }
+
+    public ResponseEntity<List<FindTalkTalkListResponseDto>> findTalkTalkList() {
+
+        Member loginMember = SecurityUtil.getCurrentLoginMember();
+
+        talkTalkService.findTalkTalkList(loginMember);
+
         return null;
     }
 }

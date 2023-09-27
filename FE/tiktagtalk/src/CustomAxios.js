@@ -1,14 +1,13 @@
 import axios, { AxiosInstance } from "axios";
-import { Cookies } from 'react-cookie';
 
 // 토큰을 함께 보내는 axios instance
 export const  customAxios =  axios.create({ baseURL: `${process.env.REACT_APP_BASE_URL}` });
 
-// Axios 요청을 보낼 때마다 쿠키에서 accessToken을 가져와 Authorization 헤더에 추가
+// Axios 요청을 보낼 때마다 LocalStorage에서 accessToken을 가져와 Authorization 헤더에 추가
 // (access token 만료 시, refresh token으로 access token을 다시 요청하고 이를 이전 요청의 header에 반영해주기 위해 구현)
 customAxios.interceptors.request.use((config) => {
-    const cookies = new Cookies();
-    const accessToken = cookies.get("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
 
     config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
@@ -18,8 +17,7 @@ customAxios.interceptors.request.use((config) => {
 customAxios.interceptors.response.use(function (response) {
         return response;
     }, async function (error) {
-        const cookies = new Cookies();
-        const accessToken = cookies.get("accessToken");
+        const accessToken = localStorage.getItem("accessToken");
 
         const { config, response: { status } } = error;
 
@@ -27,8 +25,8 @@ customAxios.interceptors.response.use(function (response) {
 
             const originRequest = config;
 
-            // 쿠키에서 refreshToken 가져오기
-            const refreshToken = cookies.get("refreshToken");
+            // LocalStorage에서 refreshToken 가져오기
+            const refreshToken = localStorage.getItem("refreshToken");
 
             if (!refreshToken) {
                 // refreshToken이 없으면 로그인 페이지로 리다이렉트
@@ -48,8 +46,8 @@ customAxios.interceptors.response.use(function (response) {
                 const newRefreshToken = refreshResponse.headers['authorization-refresh'];
                 console.log("newAccessToken=" + newAccessToken);
                 console.log("newRefreshToken=" + newRefreshToken);
-                cookies.set("accessToken", newAccessToken);
-                cookies.set("refreshToken", newRefreshToken);
+                localStorage.setItem("accessToken", newAccessToken);
+                localStorage.setItem("refreshToken", newRefreshToken);
 
                 // 이전 요청을 재시도
                 originRequest.headers.Authorization = `Bearer ${newAccessToken}`;
