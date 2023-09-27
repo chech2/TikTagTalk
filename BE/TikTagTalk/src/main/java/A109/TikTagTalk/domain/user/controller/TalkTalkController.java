@@ -98,12 +98,12 @@ public class TalkTalkController {
         return new ResponseEntity<>(talkTalkList, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "delete talk-talk", description = "톡톡 친구 끊기 & 톡톡 친구 요청 취소")
-    @ApiResponses({
-            @ApiResponse(responseCode = HttpStatus.)
-    })
-    public ResponseEntity<String> deleteTalkTalk(@PathVariable(name = "id") Long id) {
-
-    }
+//    @DeleteMapping("/{id}")
+//    @Operation(summary = "delete talk-talk", description = "톡톡 친구 끊기 & 톡톡 친구 요청 취소")
+//    @ApiResponses({
+//            @ApiResponse(responseCode = HttpStatus.)
+//    })
+//    public ResponseEntity<String> deleteTalkTalk(@PathVariable(name = "id") Long id) {
+//
+//    }
 }

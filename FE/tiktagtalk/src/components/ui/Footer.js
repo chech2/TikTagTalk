@@ -24,20 +24,18 @@ function Footer() {
     const handleAchievementClick=()=>{
         navigate('./achievement')
     }
-    const handleExchangeClick =()=>{
-        navigate('./exchange')
-    }
+
 
     
     return (
         <>
         <nav className="footercontainer">
-            <div className="nav-navigate">
+            {/* <div className="nav-navigate">
                 <FontAwesomeIcon 
                     icon={faMoneyBillWave} 
                     onClick={handleExchangeClick}
                 />
-            </div>
+            </div> */}
 
             <div className="nav-navigate">
                 <FontAwesomeIcon 
@@ -67,6 +65,12 @@ function Footer() {
                 />
             </div>
         </nav>
+        {/* <div className='footercontainer'>
+            <img className="responsive-image" src="/Icon/마이페이지 아이콘.png" onClick={handleConsumeClick} alt="" />
+            <img className="responsive-image" src="/Icon/Group.png" alt="" onClick={handleAchievementClick} />
+            <img className="responsive-image" src="/Icon/Home.png" alt="" onClick={handleHomeClick} />
+            <img className="responsive-image" src="/Icon/Social.png" alt="" onClick={handleFriendClick} />
+        </div> */}
         </>
       );
     }
