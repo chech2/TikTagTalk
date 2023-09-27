@@ -90,7 +90,7 @@ pipeline {
                             // fi
                             // '''
                             sh "docker rmi $reactImageName:$BUILD_NUMBER"
-                            sh "docker rmi $(docker images -f "dangling=true" -q)" 
+                            sh 'docker rmi $(docker images -f "dangling=true" -q)'
                             // sh "docker rmi react"
                             sh "docker images"
                             // sh "docker push $reactImageName:latest"
