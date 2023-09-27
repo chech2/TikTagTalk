@@ -1,10 +1,13 @@
+import { useSelector } from 'react-redux'
 import './AppBar.css'
-import { useNavigate} from 'react-router-dom'
+import { useNavigate, useParams} from 'react-router-dom'
+
+
 
 function AppBar(props) {
     const navigate = useNavigate()
     const handleBack = ()=>{
-        navigate('/')
+        navigate(`/main/${props.id}`)
     }
 
 
@@ -15,6 +18,7 @@ function AppBar(props) {
             <img src="./Icon/뒤로가기.png" alt="" className='appbar-absoulte' onClick={handleBack}/>
             <div className='appbarcontainer'>
                 <p className='appbarcenter'> {props.title} </p>
+
             </div>
         </div>
         </>

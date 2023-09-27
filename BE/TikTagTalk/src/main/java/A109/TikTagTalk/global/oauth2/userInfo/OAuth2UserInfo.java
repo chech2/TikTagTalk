@@ -1,7 +1,6 @@
 package A109.TikTagTalk.global.oauth2.userInfo;
 
 import java.util.Map;
-import java.util.Objects;
 
 public abstract class OAuth2UserInfo {
 

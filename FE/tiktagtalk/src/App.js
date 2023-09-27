@@ -5,6 +5,9 @@ import { Routes, Route } from "react-router-dom";
 // import styled from 'styled-components';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import OAuthSignupPage from './pages/OAuthSignupPage';
+import OAuthRedirectPage from './pages/OAuthRedirectPage';
+import LogoutHandler from './components/form/LogoutHandler';
 import MainPage from './pages/MainPage';
 import CoinPurchasePage from './pages/CoinPurchasePage';
 import CommentPage from './pages/CommentPage';
@@ -19,10 +22,17 @@ import Footer from './components/ui/Footer';
 import TestCom from './components/TestCom';
 import Test from './pages/Test';
 import { useEffect } from 'react';
+import LoginForm from './components/form/LoginForm'
+import SignupForm from './components/form/SignupForm';
+import StartPage from './pages/StartPage';
+import ConsumePatternPage from './pages/ConsumePatternPage';
 
 
 
 function App() {
+  const currentPath = window.location.pathname;
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main';
+
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -36,23 +46,30 @@ function App() {
 
   return (    
     <div className="App">
+
       <Routes>
-        <Route path='/' element={<MainPage/>}></Route>
+        <Route path='/' element={<StartPage/>}></Route>
         {/* 회원 */}
+        <Route path='/main/:id' element={<MainPage/>}></Route>
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/sign-up' element={<SignupPage/>}></Route>
+        <Route path='/oauth2/sign-up/:token' element={<OAuthSignupPage/>}></Route>
+        <Route path='/oauth/redirect/:token' element={<OAuthRedirectPage/>}></Route>
+        <Route path='/logout' element={<LogoutHandler/>}></Route>
+
         <Route path='/skin' element={<SkingShopPage/>}></Route>
         <Route path='/test' element={<TestCom/>}></Route>
         <Route path='/coin-purchase' element={<CoinPurchasePage/>}></Route>
-        <Route path='/comment' element={<CommentPage/>}></Route>
+        <Route path='/comment/:id' element={<CommentPage/>}></Route>
         <Route path='/notice' element={<NoticePage/>}></Route>
         <Route path='/friend-list' element={<FriendListPage/>}></Route>
         <Route path='/achievement' element={<AchievementsPage/>}></Route>
         <Route path='/test1' element={<Test/>}></Route>
         {/* <Route path='/:id' element={<Detail />} /> */}
         <Route path='/exchange' element={<ExchangePage/>}></Route>
+        <Route path='/consume-pattern' element={<ConsumePatternPage/>}></Route>
       </Routes>
-      {<Footer/>}
+      {shouldRenderFooter && <Footer/>}
     </div>
   );
 }

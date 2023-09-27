@@ -75,20 +75,13 @@ public class JwtService {
     }
 
     /**
-     * AccessToken 헤더에 실어서 보내기
-     */
-    public void sendAccessToken(HttpServletResponse response, String accessToken) {
-        response.setStatus(HttpServletResponse.SC_OK);
-
-        response.setHeader(accessHeader, accessToken);
-        log.info("재발급된 Access Token : {}", accessToken);
-    }
-
-    /**
      * AccessToken + RefreshToken 헤더에 실어서 보내기
      */
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setStatus(HttpServletResponse.SC_OK);
+
+        log.info("accessToken={}", accessToken);
+        log.info("refreshToken={}", refreshToken);
 
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
@@ -173,11 +166,12 @@ public class JwtService {
      */
     public boolean isTokenValid(String token) {
         try {
-            log.info("token={}", token);
+            log.info("accessToken={}", token);
             JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
             return true;
         } catch (Exception e) {
             log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
+            log.info("token={}", token);
             return false;
         }
     }

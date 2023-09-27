@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -6,6 +7,8 @@
   height: 40vmin;
   pointer-events: none;
 }
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -40,4 +43,8 @@
 
 .element {
   height: calc(100 * var(--vh)); /* 화면 높이의 100%로 설정 */
+}
+
+:root {
+  --vh: 100%;
 }
