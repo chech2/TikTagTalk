@@ -5,7 +5,10 @@ FROM openjdk:17
 
 # jar 파일 위치를 변수로 설정
 ARG JAR_FILE=build/libs/*-SNAPSHOT.jar
-CMD ["pwd"]
+
+# 현재 위치와 JAR_FILE 디렉토리의 파일 목록 출력
+RUN pwd && ls -l build/libs/
+
 # jar 파일을 컨테이너 내부에 복사
 COPY ${JAR_FILE} app.jar
 
