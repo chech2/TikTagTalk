@@ -8,8 +8,8 @@ import { Item } from "./Item";
 import { mapAtom, userAtom } from "./DataManager";
 import { buildModeAtom, storeModeAtom, draggedItemAtom, draggedItemRotationAtom, gridUpItemAtom, gridDownItemAtom } from "./UI";
 import { Store } from "./Store";
-import { customAxios } from "../CustomAxios";
-import axios from 'axios';
+import { customAxios } from "../../CustomAxios";
+// import axios from 'axios';
 
 export const Experience = () => {
   const [buildMode, setBuildMode] = useAtom(buildModeAtom);
