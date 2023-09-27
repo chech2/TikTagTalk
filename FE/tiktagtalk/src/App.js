@@ -37,12 +37,11 @@ function App() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
+  setViewportHeight();
+
   // 페이지 로드 시와 화면 크기 변경 시에 뷰포트 높이를 설정
   window.addEventListener('resize', setViewportHeight);
   window.addEventListener('orientationchange', setViewportHeight);
-
-  // 초기 설정
-  setViewportHeight();
 
   return (    
     <div className="App">
