@@ -82,7 +82,7 @@ pipeline {
         }
 
         // 백엔드 빌드
-            //  백엔드 코드로 도커 이미지 빌드, 해당 이미지를 도커 허브에 푸시
+            //  백엔드 코드로 도커 이미지 빌드, 해당 이미지를 도커 허브에 푸시, 도커 허브 사용하지 않을 예정
         stage('Spring Docker Build and Push') {
             steps {
                 dir("BE/TikTagTalk") {
