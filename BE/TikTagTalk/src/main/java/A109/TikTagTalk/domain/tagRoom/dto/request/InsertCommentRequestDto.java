@@ -10,16 +10,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class InsertCommentRequestDto {
     private String content;
-    private MemberDto member;
     private TagRoomDto tagRoom;
 
-    @Getter
-    @Builder
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    @AllArgsConstructor
-    public static class MemberDto{
-        private Long id;
-    }
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

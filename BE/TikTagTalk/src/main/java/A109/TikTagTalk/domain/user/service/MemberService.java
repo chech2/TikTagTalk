@@ -4,6 +4,8 @@ import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.account.repository.ConsumeHistoryRepository;
+import A109.TikTagTalk.domain.tagRoom.entity.TagRoom;
+import A109.TikTagTalk.domain.tagRoom.repository.TagRoomRepository;
 import A109.TikTagTalk.domain.user.dto.request.MemberOAuthSignUpDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
 import A109.TikTagTalk.domain.user.dto.response.MemberLoginResponseDTO;
@@ -31,7 +33,7 @@ public class MemberService {
     private final ConsumeHistoryRepository consumeHistoryRepository;
     private final PasswordEncoder passwordEncoder; // SecurityCongfig에서 Bean 등록해줌
     private final JwtService jwtService;
-
+    private final TagRoomRepository tagRoomRepository;
     public void singUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
         if(memberRepository.findByUserId(memberSignUpDto.getUserId()).isPresent()) {
@@ -84,7 +86,11 @@ public class MemberService {
                 .point(0)
                 .account(account)
                 .build();
-
+        TagRoom tagRoom=TagRoom.builder()
+                .account(account)
+                .member(member)
+                .build();
+        tagRoomRepository.save(tagRoom);
         memberRepository.save(member);
     }
 
