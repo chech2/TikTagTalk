@@ -84,12 +84,26 @@ public class TalkTalkController {
         }
     }
 
+    @GetMapping
+    @Operation(summary = "get talk-talk list", description = "모든 톡톡 친구 목록 불러오기(요청 중, 수락 대기 중, 톡톡 친구)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "톡톡 친구 목록")
+    })
     public ResponseEntity<List<FindTalkTalkListResponseDto>> findTalkTalkList() {
 
         Member loginMember = SecurityUtil.getCurrentLoginMember();
 
-        talkTalkService.findTalkTalkList(loginMember);
+        List<FindTalkTalkListResponseDto> talkTalkList = talkTalkService.findTalkTalkList(loginMember);
 
-        return null;
+        return new ResponseEntity<>(talkTalkList, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "delete talk-talk", description = "톡톡 친구 끊기 & 톡톡 친구 요청 취소")
+    @ApiResponses({
+            @ApiResponse(responseCode = HttpStatus.)
+    })
+    public ResponseEntity<String> deleteTalkTalk(@PathVariable(name = "id") Long id) {
+
     }
 }
