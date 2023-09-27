@@ -1,6 +1,8 @@
 package A109.TikTagTalk.domain.account.service;
 
+import A109.TikTagTalk.domain.account.dto.request.AllConsumePlanRequestDto;
 import A109.TikTagTalk.domain.account.dto.request.InsertConsumePlanRequestDto;
+import A109.TikTagTalk.domain.account.dto.response.AllConsumePlanResonseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseUtil;
 import A109.TikTagTalk.domain.account.entity.Account;
@@ -41,5 +43,26 @@ public class ConsumePlanServiceImpl implements ConsumePlanService{
                 .build();
         consumePlanRepository.save(consumePlan);
         return ResponseUtil.Success("consumeplan 삽입 성공");
+    }
+
+    @Override
+    public AllConsumePlanResonseDto allConsumePlan(AllConsumePlanRequestDto requestDto,Member member) {
+        ConsumePlan consumePlan=consumePlanRepository.findByMemberId(member.getId());
+        AllConsumePlanResonseDto resonse=AllConsumePlanResonseDto.builder()
+                .eatAmount(consumePlan.getEatAmount())
+                .groceryAmount(consumePlan.getGroceryAmount())
+                .hairAmount(consumePlan.getHairAmount())
+                .healthAmount(consumePlan.getHealthAmount())
+                .hobbyAmount(consumePlan.getHobbyAmount())
+                .insuranceAmount(consumePlan.getInsuranceAmount())
+                .ottAmount(consumePlan.getOttAmount())
+                .petAmount(consumePlan.getPetAmount())
+                .rideAmount(consumePlan.getRideAmount())
+                .shoppingAmount(consumePlan.getShoppingAmount())
+                .snackAmount(consumePlan.getSnackAmount())
+                .travelAmount(consumePlan.getTravelAmount())
+                .totalAmount(consumePlan.getTotalAmount())
+                .yearAndMonth(consumePlan.getYearAndMonth()).build();
+        return resonse;
     }
 }

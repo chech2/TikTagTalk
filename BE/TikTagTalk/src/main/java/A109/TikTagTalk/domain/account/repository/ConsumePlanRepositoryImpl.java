@@ -1,5 +1,6 @@
 package A109.TikTagTalk.domain.account.repository;
 
+import A109.TikTagTalk.domain.account.entity.ConsumePlan;
 import A109.TikTagTalk.domain.account.entity.QConsumePlan;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
