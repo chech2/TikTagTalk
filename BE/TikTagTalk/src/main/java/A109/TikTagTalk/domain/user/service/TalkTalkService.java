@@ -1,12 +1,10 @@
 package A109.TikTagTalk.domain.user.service;
 
+import A109.TikTagTalk.domain.user.dto.response.FindTalkTalkListResponseDto;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.entity.TalkTalk;
 import A109.TikTagTalk.domain.user.entity.TalkTalkStatus;
-import A109.TikTagTalk.domain.user.exception.custom.AlreadyExistingTalkTalkException;
-import A109.TikTagTalk.domain.user.exception.custom.AlreadySentRequestException;
-import A109.TikTagTalk.domain.user.exception.custom.NoSuchUserException;
-import A109.TikTagTalk.domain.user.exception.custom.OtherPartyAlreadySentRequestException;
+import A109.TikTagTalk.domain.user.exception.custom.*;
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
 import A109.TikTagTalk.domain.user.repository.TalkTalkRepository;
 import jakarta.transaction.Transactional;
@@ -14,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +25,11 @@ public class TalkTalkService {
 
     @Transactional
     public void talkTalkRequest(Member member1, Long member2Id) {
+
+        // 본인에게 톡톡 요청을 보낸 경우 예외처리
+        if(member1.getId() == member2Id) {
+            throw new SendTalktalkRequestYourself();
+        }
 
         // 신청하려는 member가 없는 멤버라면 Exception 발생
         Member member2 = memberRepository.findById(member2Id).orElseThrow(() -> new NoSuchUserException());
@@ -66,5 +70,30 @@ public class TalkTalkService {
                 .build();
 
         talkTalkRepository.save(talkTalk);
+    }
+
+    @Transactional
+    public void agreeRequest(Member loginMember, Long id) {
+
+        // talktalk 관계 찾아오기(해당 talktalk이 없다면 에러)
+        TalkTalk talkTalk = talkTalkRepository.findById(id).orElseThrow(() -> new NotExistRequestException());
+
+        // 내가 받은 요청이 아니라면 요청을 수락할 권한이 없음
+        if(talkTalk.getReceiver().getId() != loginMember.getId()) {
+            throw new DoNotHavePremissionException();
+        }
+
+        // 이미 톡톡 친구 관계라면 예외 발생
+        if(talkTalk.getStatus() == TalkTalkStatus.TALK_TALK) {
+            throw new AlreadyExistingTalkTalkException();
+        }
+
+        // 톡톡 친구 수락
+        talkTalk.setStatus(TalkTalkStatus.TALK_TALK);
+    }
+
+    public List<FindTalkTalkListResponseDto> findTalkTalkList(Member loginMember) {
+
+        return null;
     }
 }

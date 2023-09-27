@@ -1,6 +1,5 @@
 package A109.TikTagTalk.domain.user.repository;
 
-import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.entity.TalkTalk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +12,9 @@ public interface TalkTalkRepository extends JpaRepository<TalkTalk, Long> {
             "WHERE t.sender.id = :senderId " +
             "AND t.receiver.id = :receiverId")
     Optional<TalkTalk> findBySenderIdAndReceiverId(Long senderId, Long receiverId);
+
+//    @Query("SELECT t FROM TalkTalk t " +
+//            "JOIN FETCH t.receiver r " +
+//            "WHERE t.id = :id")
+//    Optional<TalkTalk> findById(Long id);
 }

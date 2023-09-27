@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh "pwd"
                 // checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/22JH/pingking-Typesciprt.git']])
-                checkout scmGit(branches: [[name: '*/feature-cicd-test']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
+                checkout scmGit(branches: [[name: 'develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
             }
         }
 
@@ -82,9 +82,12 @@ pipeline {
                             sh "docker build -t $reactImageName:$BUILD_NUMBER -f Dockerfile ."
                             // sh "docker push $reactImageName:$BUILD_NUMBER"
                             sh "docker tag $reactImageName:$BUILD_NUMBER $reactImageName:latest"
-                            // sh "docker push $reactImageName:latest"
+                            sh "docker images"
                             sh "docker rmi $reactImageName:$BUILD_NUMBER"
+                            sh "docker images"
+                            // sh "docker push $reactImageName:latest"
                         //  }
+
                     }
                 }
             }

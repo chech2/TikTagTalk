@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useDispatch} from 'react-redux';
 import axios from 'axios';
 import { loginUser } from '../../redux/userSlice';
-import { useCookies } from 'react-cookie';
 
 import SocialLogin from '../social/SocialLogin';
 
@@ -14,7 +13,6 @@ function LoginForm() {
 
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-    const [cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
 
     // ---------- 로그인 기능 구현 ---------- //
     const handleLogin = async (e) => {
@@ -41,9 +39,9 @@ function LoginForm() {
                 const accessToken = res.headers['authorization'];
                 const refreshToken = res.headers['authorization-refresh'];
                 
-                // 쿠키에 토큰 저장
-                setCookie('accessToken', accessToken, { path: '/' });
-                setCookie('refreshToken', refreshToken, { path: '/' });
+                // LocalStorage에 토큰 저장
+                localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
                 
                 const data = res.data;
                 dispatch(loginUser(data))
