@@ -83,7 +83,13 @@ pipeline {
                             // sh "docker push $reactImageName:$BUILD_NUMBER"
                             sh "docker tag $reactImageName:$BUILD_NUMBER $reactImageName:latest"
                             sh "docker images"
+                            '''
+                            if docker image inspect $reactImageName:$BUILD_NUMBER > /dev/null 2>&1; then
+                                docker rmi $reactImageName:$BUILD_NUMBER
+                            fi
+                            '''
                             sh "docker rmi $reactImageName:$BUILD_NUMBER"
+                            sh "docker rmi react"
                             sh "docker images"
                             // sh "docker push $reactImageName:latest"
                         //  }
@@ -113,6 +119,7 @@ pipeline {
                 }
             }
         }
+        
         
     }
 }
