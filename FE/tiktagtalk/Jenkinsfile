@@ -83,6 +83,7 @@ pipeline {
                             // sh "docker push $reactImageName:$BUILD_NUMBER"
                             sh "docker tag $reactImageName:$BUILD_NUMBER $reactImageName:latest"
                             sh "docker images"
+                            sh "docker ps -a"
                             '''
                             if docker image inspect $reactImageName:$BUILD_NUMBER > /dev/null 2>&1; then
                                 docker rmi $reactImageName:$BUILD_NUMBER
@@ -91,7 +92,7 @@ pipeline {
                             //sh "docker rmi $(docker images -f "dangling=true" -q)" 
                             //sh "docker rmi $reactImageName:$BUILD_NUMBER"
                             // sh "docker rmi react"
-                            sh "docker ps"
+                            sh "docker images"
                             // sh "docker push $reactImageName:latest"
                         //  }
 
@@ -115,7 +116,7 @@ pipeline {
             steps {
                 sshagent(credentials: ['ubuntu']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "sudo docker run -i -e TZ=Asia/Seoul --name react -p $reactReleasePort:$reactReleasePort -d $reactImageName:latest"
+                        ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "sudo docker run -i -e TZ=Asia/Seoul --name reactimage -p $reactReleasePort:$reactReleasePort -d c"
                     '''
                 }
             }
