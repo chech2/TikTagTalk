@@ -90,7 +90,7 @@ pipeline {
                             '''
                             sh "docker rmi $reactImageName:$BUILD_NUMBER"
                             // sh "docker rmi react"
-                            sh "docker images"
+                            sh "docker ps"
                             // sh "docker push $reactImageName:latest"
                         //  }
 
