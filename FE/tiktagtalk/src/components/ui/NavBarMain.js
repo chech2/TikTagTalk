@@ -15,6 +15,9 @@ function NavBarMain(props) {
     const handleNotice =()=>{
         navigate('/notice')
     }
+    const handleExchange = ()=>{
+        navigate('/exchange')
+    }
 
     const mypoint = useSelector((state)=>state.user.point)
     const mycoin = useSelector((state)=> state.user.coin)
@@ -41,7 +44,7 @@ function NavBarMain(props) {
                 <div className='image-container2-1'>
                     <img className='responsive-image2' src="/Icon/Coin.png" alt="" />
                     <div>{mycoin}</div>
-                    <img className='responsive-image2' src="/Icon/코인 구매창.png" alt="" />
+                    <img className='responsive-image2' src="/Icon/코인 구매창.png" alt="" onClick={handleExchange}/>
                 </div>
             </div>
         </div>

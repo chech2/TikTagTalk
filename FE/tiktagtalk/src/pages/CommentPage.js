@@ -22,8 +22,8 @@ function CommentPage(props) {
 
     const [friendNums,setfriendNums] = useState(0)
     // const [userName, setuserName] = useState('허')
-    const [userId, setuserId] = useState(1)
-    const [userAvatarType, setuserAvatarType] = useState(1)
+    // const [userId, setuserId] = useState(1)
+    // const [userAvatarType, setuserAvatarType] = useState(1)
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -34,8 +34,11 @@ function CommentPage(props) {
         const minutes = String(date.getMinutes()).padStart(2, '0');
         return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
+    let body = {memberId : id}
+
     const handleAddTalk = ()=>{
-        customAxios.post(process.env.REACT_APP_BASE_URL + '/talk-talks',id)
+        console.log('id임:',id)
+        customAxios.post(process.env.REACT_APP_BASE_URL + '/talk-talks', {'memberId':`${id}`})
         .then((res)=>{
             console.log(res)
         })
@@ -69,8 +72,8 @@ function CommentPage(props) {
             <div>
                 {/* 마이페이지 아이콘 변경해야됨 */}
                 <img className='comment-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" /> 
-                <h1>{user.userId}</h1>
-                { id === userId ? ( null) :(
+                <h1>{id}</h1>
+                { id == user.id ? (null) :(
                 <div>
                     <button onClick={handleAddTalk}>톡톡 버튼</button>
                 </div>
