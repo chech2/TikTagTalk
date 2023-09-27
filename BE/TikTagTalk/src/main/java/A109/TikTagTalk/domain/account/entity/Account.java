@@ -1,5 +1,6 @@
 package A109.TikTagTalk.domain.account.entity;
 
+import A109.TikTagTalk.domain.tagRoom.entity.Comment;
 import A109.TikTagTalk.domain.user.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,10 +21,10 @@ public class Account {
 
     private Long accountNumber;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="MEMBER_ID")
+    @OneToOne(mappedBy = "account")
     private Member member;
 
     @OneToMany(mappedBy="account")
     private List<ConsumeHistory> consumeHistoryList=new ArrayList<>();
+
 }

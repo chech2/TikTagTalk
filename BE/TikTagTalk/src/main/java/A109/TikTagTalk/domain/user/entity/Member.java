@@ -4,6 +4,7 @@ import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.debt.entity.Debt;
 import A109.TikTagTalk.domain.skin.entity.MemberSkin;
 import A109.TikTagTalk.domain.tag.entity.MemberTag;
+import A109.TikTagTalk.domain.tagRoom.entity.Comment;
 import A109.TikTagTalk.domain.tagRoom.entity.MemberItem;
 import jakarta.persistence.*;
 import lombok.*;
@@ -71,7 +72,8 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<MemberSkin> skinList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ACCOUNT_ID")
     private Account account;
 
     @OneToMany(mappedBy = "member")
@@ -86,6 +88,10 @@ public class Member {
     @OneToMany(mappedBy = "lender") // 내가 돈 받아야 하는 차용증 리스트
     private List<Debt> debtors = new ArrayList<>();
 
+
+    @OneToMany(mappedBy = "member")
+    private List<Comment> comments=new ArrayList<>();
+
     // 유저 권한 설정 메소드
     public void authorizeUser() {
         this.role = Role.USER;
@@ -99,4 +105,5 @@ public class Member {
     public void updateRefreshToken(String updateRefreshToken) {
         this.refreshToken = updateRefreshToken;
     }
+
 }

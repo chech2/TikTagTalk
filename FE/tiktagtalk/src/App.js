@@ -25,6 +25,7 @@ import { useEffect } from 'react';
 import LoginForm from './components/form/LoginForm'
 import SignupForm from './components/form/SignupForm';
 import StartPage from './pages/StartPage';
+import ConsumePatternPage from './pages/ConsumePatternPage';
 
 
 
@@ -66,6 +67,7 @@ function App() {
         <Route path='/test1' element={<Test/>}></Route>
         {/* <Route path='/:id' element={<Detail />} /> */}
         <Route path='/exchange' element={<ExchangePage/>}></Route>
+        <Route path='/consume-pattern' element={<ConsumePatternPage/>}></Route>
       </Routes>
       {shouldRenderFooter && <Footer/>}
     </div>

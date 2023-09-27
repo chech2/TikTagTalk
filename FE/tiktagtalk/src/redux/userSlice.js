@@ -18,7 +18,7 @@ const user = createSlice({
       state.userId = action.payload.userId;
       state.avatarType = action.payload.avatarType;
       state.point = action.payload.point;
-      state.coin = action.payload.coin;
+      state.coin = action.payload.coin; 
       state.isLogin = true;
     },
     clearUser: (state) => {

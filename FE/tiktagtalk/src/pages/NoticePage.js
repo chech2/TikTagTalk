@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import AppBar from '../components/ui/AppBar';
 import './NoticePage.css'
 // import { useState } from "react";
@@ -11,6 +12,18 @@ import './NoticePage.css'
 // 나를 추가한 것에 차이가 생길 때 마다 
 
 function NoticePage(props) {
+    const user = useSelector((state)=>state.user)
+    const userid = user.id
+
+    // useEffect(
+    //     customAxios.post(process.env.REACT_APP_BASE_URL + '/talk-talks'          )
+    //     .then((res)=>{
+    //         console.log(res)
+    //     })
+    //     .catch((err)=>{
+    //         // console.log(err)
+    //     })
+    // )
 
     return (
         <>
