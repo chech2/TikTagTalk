@@ -21,7 +21,7 @@ function ConsumePatternPage() {
     }
 
     useEffect(()=>{
-        customAxios.get(process.env.REACT_APP_BASE_URL + '/api/consume/checkaccount/',{ yearAndMonth : requestmonth }
+        customAxios.get(process.env.REACT_APP_BASE_URL + '/api/consume/checkaccount/',{ yearAndMonth : requestmonth },
           )
         .then((res)=>{
             console.log('거래내역',res)
