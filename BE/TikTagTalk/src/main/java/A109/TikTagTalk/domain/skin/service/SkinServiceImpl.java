@@ -53,7 +53,7 @@ public class SkinServiceImpl implements SkinService{
 
         CoinHistory coinHistory2 = buyRequest.toEntity();
 
-        c.save(coinHistory2);
+        //c.save(coinHistory2); //어디에다가 save 해야하나
 
 
         CoinHistory coinHistory = new CoinHistory();

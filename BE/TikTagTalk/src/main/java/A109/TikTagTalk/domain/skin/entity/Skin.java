@@ -18,10 +18,10 @@ public class Skin {
     @Column(nullable=false)
     private String name;
 
-    @Builder
-    public Skin(Long id, int price, String name){
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
+//    @Builder
+//    public Skin(Long id, int price, String name){
+//        this.id = id;
+//        this.name = name;
+//        this.price = price;
+//    }
 }

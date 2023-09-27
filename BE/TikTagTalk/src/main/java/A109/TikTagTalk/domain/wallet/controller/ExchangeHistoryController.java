@@ -22,12 +22,12 @@ public class ExchangeHistoryController {
     private final ExchangeHistoryService exchangeHistoryService;
 
 
-    @PostMapping("/{cnt}")
-    public ResponseEntity<ExchangeResponse> exchange(@RequestHeader(required = true, name = "Authorization") String token, @PathVariable("itemId")Long itemId) {
-        LocalDateTime now = LocalDateTime.now();
-
-        ExchangeResponse exchangeResponse = exchangeHistoryService.exchangeCoin()
-
-    }
+//    @PostMapping("/{cnt}")
+//    public ResponseEntity<ExchangeResponse> exchange(@RequestHeader(required = true, name = "Authorization") String token, @PathVariable("itemId")Long itemId) {
+//        LocalDateTime now = LocalDateTime.now();
+//
+//        ExchangeResponse exchangeResponse = exchangeHistoryService.exchangeCoin()
+//
+//    }
 
 }
