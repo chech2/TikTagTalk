@@ -111,17 +111,21 @@ pipeline {
         //     }
         // }
 
-        // 서버 실행 (react, spring)
+        //서버 실행
         stage('Service Start') {
-            steps {
-                sshagent(credentials: ['ubuntu']) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "sudo docker run -i -e TZ=Asia/Seoul --name reactimage -p $reactReleasePort:$reactReleasePort -d c"
-                    '''
-                }
-            }
+                    steps {
+                        sshagent(credentials: ['ubuntu']) {
+                            sh "docker images"
+                            sh "docker ps -a"
+                            sh '''
+                                ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "sudo docker run -i -e TZ=Asia/Seoul --name react -p $reactReleasePort:$reactReleasePort -d $reactImageName:latest"
+                            '''
+                        }
+                    }
         }
         
         
     }
 }
+
+
