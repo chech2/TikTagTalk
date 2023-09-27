@@ -2,7 +2,9 @@
 FROM node:18.17.0
 WORKDIR /FE/tiktagtalk
 COPY package.json .
+RUN npm i
 RUN yarn 
+RUN yarn global add serve
 COPY . ./
 EXPOSE 3000
-CMD ["yarn start"]
+CMD ["npx", "serve", "-s", "./build"]

@@ -5,7 +5,7 @@ import './MainPage.css';
 import SelectItemBox from "../components/SelectItemBox";
 import NavBarMain from "../components/ui/NavBarMain";
 import {loginUser} from '../redux/userSlice';
-import TagRoom from '../TagRoom'
+import TagRoom from '../tagroom/TagRoom'
 import { useParams } from "react-router-dom";
 
 function MainPage() {
@@ -44,7 +44,7 @@ function MainPage() {
                         Nav_id = {id}
                         ></NavBarMain>
                         <h1>메인페이지 예정입니다.</h1>
-                        <TagRoom></TagRoom>
+                        {/* <TagRoom></TagRoom> */}
                     </div>
                 ) : (
                     <div>{user.userId},{user.isLogin}</div>

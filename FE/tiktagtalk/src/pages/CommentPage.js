@@ -3,7 +3,8 @@ import './CommentPage.css'
 import React, { useState,useEffect} from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
-
+import { customAxios } from '../CustomAxios';
+import { useSelector } from 'react-redux';
 // import { useState } from "react";
 // import { useSelector } from 'react-redux';
 // import Modal from '../components/ui/Modal';
@@ -11,7 +12,7 @@ import { useParams } from 'react-router';
 
 function CommentPage(props) {
     const {id} = useParams();
-
+    const user = useSelector((state)=> state.user)
     const [isFriend,setisFriend] = useState(false)
     const [comments, setComments] = useState([]);
     const [newCommentContent, setNewCommentContent] = useState('');
@@ -20,7 +21,7 @@ function CommentPage(props) {
     // const userId=useSelector(state=>state.user.id);
 
     const [friendNums,setfriendNums] = useState(0)
-    const [userName, setuserName] = useState('허')
+    // const [userName, setuserName] = useState('허')
     const [userId, setuserId] = useState(1)
     const [userAvatarType, setuserAvatarType] = useState(1)
 
@@ -34,7 +35,7 @@ function CommentPage(props) {
         return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
     const handleAddTalk = ()=>{
-        axios.post(process.env.REACT_APP_BASE_URL + '/talk-talks',id)
+        customAxios.post(process.env.REACT_APP_BASE_URL + '/talk-talks',id)
         .then((res)=>{
             console.log(res)
         })
@@ -68,7 +69,7 @@ function CommentPage(props) {
             <div>
                 {/* 마이페이지 아이콘 변경해야됨 */}
                 <img className='comment-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" /> 
-                <h1>{userName}</h1>
+                <h1>{user.userId}</h1>
                 { id === userId ? ( null) :(
                 <div>
                     <button onClick={handleAddTalk}>톡톡 버튼</button>

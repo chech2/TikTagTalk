@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RecommendFriendPage from './RecommendFriendPage';
 import SearchFriendPage from './SearchFriendPage';
+import { customAxios } from '../CustomAxios';
 
 
 
@@ -48,7 +49,7 @@ function FriendListPage(){
     
 
     useEffect(()=>{
-        axios.get('/api/talk-talk')
+        customAxios.get('/api/talk-talk')
         .then((res)=>{
             setFriendList(res.data)
         })

@@ -1,7 +1,8 @@
 import AppBar from '../components/ui/AppBar';
 import './ExchangePage.css'
+
 // import { useState } from "react";
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import Modal from '../components/ui/Modal';
 // import ItemModal from '../components/ItemModal';
 
@@ -11,6 +12,8 @@ import './ExchangePage.css'
 // 나를 추가한 것에 차이가 생길 때 마다 
 
 function ExchangePage(props) {
+    let user = useSelector((state) => state.user);
+
 
     return (
         <>
@@ -22,17 +25,18 @@ function ExchangePage(props) {
                     <img className='exchange-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" />
                 </div>
                 <div className='exchange-container-33'>
-                    허주혁(이름)
+                    허주혁(이름) 
+                    {/* {user.userId} */}
                 </div>
                 <div className='exchange-container-33'>
                     <div>
                         <div className='exchange-container-33-2' >
                             <img className='exchange-responsive-image2' src="./Icon/포인트 아이콘.png" alt="" />
-                            <div>5000</div>
+                            <div>{user.point}</div>
                         </div>
                         <div className='exchange-container-33-2' >
                             <img className='exchange-responsive-image2' src="./Icon/Coin.png" alt="" />
-                            <div>3</div>
+                            <div>{user.coin}</div>
                             <img className='exchange-responsive-image2' src="./Icon/코인 구매창.png" alt="" />
                         </div>
                     </div>
