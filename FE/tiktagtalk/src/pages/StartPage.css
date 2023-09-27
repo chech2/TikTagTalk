@@ -1,0 +1,54 @@
+.start-page-container {
+    width: 100vw;
+    max-width: 580px;
+    height: calc(var(--vh, 1vh) * 100);
+    overflow: hidden; /* 스크롤 방지 */
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column; /* 세로 정렬을 위해 추가 */
+    align-items: center; /* 가로 중앙 정렬을 위해 추가 */
+    background: #1B0536;
+}
+
+.start-logo-container {
+    position: relative;
+    width: 75vw;
+    height: 75vw;
+    margin-top: 30%;
+    margin-bottom: 20%;
+}
+
+.start-logo-container .start-logo {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.start-logo-container img:nth-child(1) {
+    z-index: 1;
+}
+
+.start-logo-container img:nth-child(2) {
+    z-index: 2;
+}
+
+.start-logo-container img:nth-child(3) {
+    z-index: 3;
+}
+
+.start-login {
+    background: rgb(255,207,72);
+    background: linear-gradient(90deg, rgba(255,207,72,1) 19%, rgba(255,0,255,1) 100%);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px; /* 원하는 자간 값으로 조절하세요 */
+    color: #241823;
+    border: none; /* 예시로 테두리를 없앴지만, 필요에 따라 설정하세요 */
+    border-radius: 5px; /* 예시로 둥근 테두리를 추가, 필요에 따라 조절하세요 */
+    cursor: pointer;
+    width: 70vw;
+    height: 12vw;
+}
