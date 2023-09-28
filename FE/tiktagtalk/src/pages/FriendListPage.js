@@ -19,7 +19,7 @@ function FriendListPage(){
         setShowFriend(3)
     }
     const [usernameList, setusernameList] = useState([])
-
+    const [FriendList, setFreiendList] = useState([])
     const [friendList, setFriendList] = useState([{
         id : 1,
         userId : '1',
@@ -49,14 +49,29 @@ function FriendListPage(){
     
 
     useEffect(()=>{
-        customAxios.get('/api/talk-talk')
+        customAxios.get(process.env.REACT_APP_BASE_URL + '/api/talk-talks')
         .then((res)=>{
-            setFriendList(res.data)
+            setFreiendList(res)
         })
         .catch((err)=>{
             console.log('친구리스트 받기 에러',err)
         })
     },[])
+
+
+    // useEffect(()=>{
+    //     customAxios.get('/api/talk-talks')
+    //     .then((res)=>{
+    //         console.log('톡톡친구 요청/대기 가져오기',res)
+    //     })
+    //     .catch((err)=>{
+    //         console.log('친구리스트 받기 에러',err)
+    //     })
+    // },[])
+
+
+
+
 
     return(
         <>
@@ -81,6 +96,13 @@ function FriendListPage(){
                 // friendList 배열에 친구가 있는 경우
                 <>
                 <div>받은 친구 </div>
+
+
+
+
+
+
+
                 <div>보낸 친구</div>
                 <div>친구목록
                 <div className='friend-list'>
