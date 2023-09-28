@@ -3,8 +3,9 @@ import { customAxios } from "../CustomAxios";
 
 function Test() {
 
+
     useEffect(() => {
-        customAxios.put(process.env.REACT_APP_BASE_URL + "/members/test")
+        customAxios.get(process.env.REACT_APP_BASE_URL + "/talk-talks")
     })
 }
 

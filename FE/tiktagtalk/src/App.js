@@ -62,7 +62,7 @@ function App() {
         <Route path='/notice' element={<NoticePage/>}></Route>
         <Route path='/friend-list' element={<FriendListPage/>}></Route>
         <Route path='/achievement' element={<AchievementsPage/>}></Route>
-        <Route path='/test1' element={<Test/>}></Route>
+        <Route path='/test/1' element={<Test/>}></Route>
         {/* <Route path='/:id' element={<Detail />} /> */}
         <Route path='/exchange' element={<ExchangePage/>}></Route>
         <Route path='/consume-pattern' element={<ConsumePatternPage/>}></Route>

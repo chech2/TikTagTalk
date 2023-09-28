@@ -41,10 +41,11 @@ public class MemberController {
         return new ResponseEntity<>("로그인에 성공했습니다.", HttpStatus.CREATED);
     }
 
-    @PutMapping("/test")
+    @GetMapping("/test")
     public ResponseEntity<String> test() throws Exception {
 
         Member member = SecurityUtil.getCurrentLoginMember();
+        log.info("memberId={}", member.getId());
 
         return new ResponseEntity<>(member.getUserId(), HttpStatus.OK);
     }
