@@ -12,16 +12,17 @@ import { customAxios } from '../CustomAxios';
 function ConsumePatternPage() {
     let user = useSelector((state)=>state.user)
     const [mymonth, setmymonth] = useState('');
-    const [requestmonth, setrequestmonth] = useState({yearAndMonth:''})
-    console.log('redux임',user)
+    const [requestmonth, setrequestmonth] = useState({yearAndMonth:'2023-08'})
+    // console.log('redux임',user)
     const handleData = (data) =>{
         setmymonth(data)
+        console.log('월데이터?', mymonth)
         setrequestmonth(data.slice(0,4)+'-0'+data.slice(6,7))
         console.log('payload:',requestmonth)
     }
 
     useEffect(()=>{
-        customAxios.get(process.env.REACT_APP_BASE_URL + '/api/consume/checkaccount/',{ yearAndMonth : requestmonth },
+        customAxios.get(process.env.REACT_APP_BASE_URL + '/api/consume/checkaccount',{ 'yearAndMonth' : `${requestmonth}` },
           )
         .then((res)=>{
             console.log('거래내역',res)
