@@ -1,9 +1,9 @@
 package A109.TikTagTalk.domain.account.entity;
 
+import A109.TikTagTalk.domain.user.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,6 +31,6 @@ public class ConsumePlan {
     private Long travelAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ACCOUNT_ID")
-    private Account account;
+    @JoinColumn(name="MEMBER_ID")
+    private Member member;
 }

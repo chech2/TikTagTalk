@@ -1,9 +1,10 @@
 package A109.TikTagTalk.domain.account.controller;
 
 import A109.TikTagTalk.domain.account.dto.request.AllConsumePlanRequestDto;
-import A109.TikTagTalk.domain.account.dto.request.InsertConsumePlanRequestDto;
+import A109.TikTagTalk.domain.account.dto.request.ConsumePlanRequestDto;
 import A109.TikTagTalk.domain.account.dto.response.AllConsumePlanResonseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
+import A109.TikTagTalk.domain.account.exception.NotExistException;
 import A109.TikTagTalk.domain.account.service.ConsumePlanService;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.global.util.SecurityUtil;
@@ -19,7 +20,7 @@ public class ConsumePlanController {
     private final ConsumePlanService consumePlanService;
 
     @PostMapping("")
-    public ResponseDto insertConsumePlan(@RequestBody InsertConsumePlanRequestDto requestDto){
+    public ResponseDto insertConsumePlan(@RequestBody ConsumePlanRequestDto requestDto){
         Member member= SecurityUtil.getCurrentLoginMember();
         return consumePlanService.insertConsumePlan(requestDto,member);
     }
@@ -27,7 +28,20 @@ public class ConsumePlanController {
     @GetMapping("")
     public AllConsumePlanResonseDto allConsumePlan(@RequestBody AllConsumePlanRequestDto requestDto){
         Member member=SecurityUtil.getCurrentLoginMember();
-        return consumePlanService.allConsumePlan(requestDto,member);
+        try{
+            return consumePlanService.allConsumePlan(requestDto,member);
+        }catch (NotExistException ne){
+            return AllConsumePlanResonseDto.builder()
+                    .statusCode(ne.getStatusCode())
+                    .errorMessage(ne.getMessage())
+                    .build();
+        }
+
     }
+
+//    @PutMapping("")
+//    public ResponseDto modifyConsumePlan(@RequestBody ConsumePlanRequestDto requestDto){
+//
+//    }
 
 }

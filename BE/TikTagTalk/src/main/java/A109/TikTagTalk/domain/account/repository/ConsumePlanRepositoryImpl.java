@@ -12,4 +12,10 @@ public class ConsumePlanRepositoryImpl implements ConsumePlanRepositoryCustom {
     private final JPAQueryFactory queryFactory;
     private QConsumePlan consumePlan=new QConsumePlan("consumePlan");
 
+    @Override
+    public ConsumePlan findByMemberIdAndYearAndMonth(Long memberId, String yearAndMonth) {
+        return queryFactory.selectFrom(consumePlan)
+                .where(consumePlan.member.id.eq(memberId),consumePlan.yearAndMonth.eq(yearAndMonth))
+                .fetchOne();
+    }
 }

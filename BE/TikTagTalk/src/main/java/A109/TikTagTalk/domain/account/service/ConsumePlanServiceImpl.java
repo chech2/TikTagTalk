@@ -1,16 +1,17 @@
 package A109.TikTagTalk.domain.account.service;
 
 import A109.TikTagTalk.domain.account.dto.request.AllConsumePlanRequestDto;
-import A109.TikTagTalk.domain.account.dto.request.InsertConsumePlanRequestDto;
+import A109.TikTagTalk.domain.account.dto.request.ConsumePlanRequestDto;
 import A109.TikTagTalk.domain.account.dto.response.AllConsumePlanResonseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseUtil;
-import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.entity.ConsumePlan;
+import A109.TikTagTalk.domain.account.exception.NotExistException;
 import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.account.repository.ConsumePlanRepository;
 import A109.TikTagTalk.domain.user.entity.Member;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +22,11 @@ public class ConsumePlanServiceImpl implements ConsumePlanService{
     private final ConsumePlanRepository consumePlanRepository;
     @Override
     @Transactional
-    public ResponseDto insertConsumePlan(InsertConsumePlanRequestDto requestDto, Member member) {
-        Account account = member.getAccount();
+    public ResponseDto insertConsumePlan(ConsumePlanRequestDto requestDto, Member member) {
         Long totalAmount= requestDto.getTotalAmount();
         ConsumePlan consumePlan= ConsumePlan.builder()
                 .totalAmount(totalAmount)
-                .account(account)
+                .member(member)
                 .yearAndMonth(requestDto.getYearAndMonth())
                 .eatAmount((long)(totalAmount*((requestDto.getEatPercent())*1.0/100.0)))
                 .groceryAmount((long)(totalAmount*((requestDto.getGroceryPercent())*1.0/100.0)))
@@ -47,7 +47,10 @@ public class ConsumePlanServiceImpl implements ConsumePlanService{
 
     @Override
     public AllConsumePlanResonseDto allConsumePlan(AllConsumePlanRequestDto requestDto,Member member) {
-        ConsumePlan consumePlan=consumePlanRepository.findByMemberId(member.getId());
+        ConsumePlan consumePlan=consumePlanRepository.findByMemberIdAndYearAndMonth(member.getId(),requestDto.getYearAndMonth());
+        if(consumePlan==null){
+            throw new NotExistException(HttpStatus.SC_INTERNAL_SERVER_ERROR,"해당 consumeplan을 찾을 수 없습니다.");
+        }
         AllConsumePlanResonseDto resonse=AllConsumePlanResonseDto.builder()
                 .eatAmount(consumePlan.getEatAmount())
                 .groceryAmount(consumePlan.getGroceryAmount())
@@ -64,5 +67,10 @@ public class ConsumePlanServiceImpl implements ConsumePlanService{
                 .totalAmount(consumePlan.getTotalAmount())
                 .yearAndMonth(consumePlan.getYearAndMonth()).build();
         return resonse;
+    }
+
+    @Override
+    public ResponseDto modifyConsumePlan(ConsumePlanRequestDto requestDto, Member member) {
+        return null;
     }
 }

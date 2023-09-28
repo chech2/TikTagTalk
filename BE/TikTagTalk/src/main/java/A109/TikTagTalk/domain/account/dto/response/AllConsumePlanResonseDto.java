@@ -7,6 +7,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class AllConsumePlanResonseDto {
+    private int statusCode;
+    private String errorMessage;
     private String yearAndMonth;
     private Long totalAmount;
     private Long eatAmount;
