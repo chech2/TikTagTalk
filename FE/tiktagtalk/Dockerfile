@@ -1,6 +1,6 @@
 #!/bin/bash
 # nginx 이미지 pull
-FROM nginx
+FROM nginx:1.15-alpine
 # app 디렉토리 생성
 WORKDIR /app
 # workdir에 build 폴더 생성 /app/build
