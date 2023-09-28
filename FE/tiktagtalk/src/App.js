@@ -22,7 +22,6 @@ import Footer from './components/ui/Footer';
 import TestCom from './components/TestCom';
 import Test from './pages/Test';
 import { useEffect } from 'react';
-import LoginForm from './components/form/LoginForm'
 import SignupForm from './components/form/SignupForm';
 import StartPage from './pages/StartPage';
 import ConsumePatternPage from './pages/ConsumePatternPage';
@@ -31,7 +30,7 @@ import ConsumePatternPage from './pages/ConsumePatternPage';
 
 function App() {
   const currentPath = window.location.pathname;
-  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main';
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main' && currentPath !=='/login';
 
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;
