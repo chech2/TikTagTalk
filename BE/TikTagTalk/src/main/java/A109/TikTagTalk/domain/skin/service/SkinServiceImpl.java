@@ -1,7 +1,6 @@
 package A109.TikTagTalk.domain.skin.service;
 
 import A109.TikTagTalk.domain.skin.dto.request.BuyRequest;
-import A109.TikTagTalk.domain.skin.dto.response.AllSkinResponse;
 import A109.TikTagTalk.domain.skin.dto.response.BuyResponse;
 import A109.TikTagTalk.domain.skin.entity.Skin;
 import A109.TikTagTalk.domain.skin.repository.SkinRepository;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class SkinServiceImpl implements SkinService{
     private final CoinHistoryRepository coinHistoryRepository;
 
     @Override
-    public List<AllSkinResponse> selectAllSkins() {
+    public List<Skin> selectAllSkins() {
         return skinRepository.findAll();
     }
 

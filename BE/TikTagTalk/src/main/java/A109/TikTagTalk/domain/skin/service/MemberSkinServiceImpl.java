@@ -16,6 +16,6 @@ public class MemberSkinServiceImpl implements MemberSkinService{
     public List<MemberSkin> memberSkinList(Member member) {
 
 
-        return memberSkinRepository.findAll(member.getId());
+        return memberSkinRepository.findAllByMemberId(member.getId());
     }
 }

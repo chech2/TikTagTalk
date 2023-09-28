@@ -16,9 +16,9 @@ public class CurrencyConverterServiceImpl implements CurrencyConverterService{
     public Double getCurrencyRate(String receiveCountry) {
         CurrencyDto currency = currencyAPIService.getCurrency();
         String sendReceiveCountry = sendCountry + receiveCountry;
-
+//        String sendReceiveCountry = "USDKRW";
         Double convertedCurrency = currency.getQuotes().get(sendReceiveCountry);
-
+        System.out.println(convertedCurrency);
         return convertedCurrency;
     }
 }

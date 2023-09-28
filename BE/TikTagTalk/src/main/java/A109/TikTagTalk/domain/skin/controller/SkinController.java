@@ -1,7 +1,7 @@
 package A109.TikTagTalk.domain.skin.controller;
 
-import A109.TikTagTalk.domain.skin.dto.response.AllSkinResponse;
 import A109.TikTagTalk.domain.skin.dto.response.BuyResponse;
+import A109.TikTagTalk.domain.skin.entity.Skin;
 import A109.TikTagTalk.domain.skin.service.SkinService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class SkinController {
 
     //모든 스킨 조회(GET)
     @GetMapping
-    public ResponseEntity<List<AllSkinResponse>> list() {
-        List<AllSkinResponse> skinList = skinService.selectAllSkins();
+    public ResponseEntity<List<Skin>> list() {
+        List<Skin> skinList = skinService.selectAllSkins();
         return ResponseEntity.status(HttpStatus.OK).body(skinList);
     }
 

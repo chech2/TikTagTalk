@@ -20,6 +20,7 @@ public interface PointHistoryRepository extends JpaRepository<PointHistory, Long
     @Query("SELECT SUM(p.point) FROM PointHistory p WHERE p.pointTime <= :theDate AND p.member.id = :memberId")
     Integer selectBalancePoint(@Param("theDate") Timestamp theDate, @Param("memberId") Long memberId);
 
+    @Query("select p from PointHistory p where p.member.id = : memberId")
     List<PointHistory> findAllByMember_MemberId(Long memberId);
 
     List<PointHistory> findByMember(Member member);

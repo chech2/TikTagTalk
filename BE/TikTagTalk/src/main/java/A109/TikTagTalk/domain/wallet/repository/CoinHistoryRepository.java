@@ -20,6 +20,7 @@ public interface CoinHistoryRepository extends JpaRepository<CoinHistory, Long> 
     @Query("select SUM(c.coin) FROM CoinHistory c WHERE c.coinTime <= :theDate AND c.member.id = :memberId")
     Integer selectBalanceCoin(@Param("theDate") Timestamp theDate, @Param("memberId") Long memberId);
 
+    @Query("select c from CoinHistory c where c.member.id = : memberId")
     List<CoinHistory> findAllByMember_Memberid(Long memberId);
 
 }

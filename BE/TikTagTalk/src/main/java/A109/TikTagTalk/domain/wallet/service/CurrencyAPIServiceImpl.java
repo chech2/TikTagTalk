@@ -33,8 +33,9 @@ public class CurrencyAPIServiceImpl implements CurrencyAPIService{
         if(ischeck()){
             currency = restTemplate.getForObject(
                     url + "?access_key=" + accessKey
-                    + "&source=" + source
-                    + "&currencies=" + currencies,
+                    + "&currencies=" + currencies
+                            + "&source=" + source
+                            + "&format=1",
                     CurrencyDto.class
             );
         }

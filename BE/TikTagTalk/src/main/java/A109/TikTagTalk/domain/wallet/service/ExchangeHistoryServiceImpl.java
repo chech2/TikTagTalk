@@ -11,18 +11,10 @@ import A109.TikTagTalk.domain.wallet.repository.CoinHistoryRepository;
 import A109.TikTagTalk.domain.wallet.repository.ExchangeHistoryRepository;
 import A109.TikTagTalk.domain.wallet.repository.PointHistoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +28,7 @@ public class ExchangeHistoryServiceImpl implements ExchangeHistoryService{
 
 
     @Override
-    public void test(ExchangeRequest request) {
+    public List<ExchangeHistory> test(ExchangeRequest request) {
         List<ExchangeHistory> list = exchangeHistoryRepository.findAll();
         return list;
     }
@@ -109,14 +101,24 @@ public class ExchangeHistoryServiceImpl implements ExchangeHistoryService{
         Optional<PointHistory> memberPoints = pointHistoryRepository.findById(memberId);
         int totalPoints = 0;
 
-        for(PointHistory point : memberPoints){
+//        for(PointHistory point : memberPoints){
+//            totalPoints += point.getBalancePoint();
+//        }
+
+        if(memberPoints.isPresent()){
+            PointHistory point = memberPoints.get();
             totalPoints += point.getBalancePoint();
         }
 
         Optional<CoinHistory> memberCoins = coinHistoryRepository.findById(memberId);
         int totalMemberCoins = 0;
 
-        for(CoinHistory coin : memberCoins){
+//        for(CoinHistory coin : memberCoins){
+//            totalMemberCoins += coin.getBalanceCoin();
+//        }
+
+        if(memberCoins.isPresent()){
+            CoinHistory coin = memberCoins.get();
             totalMemberCoins += coin.getBalanceCoin();
         }
 

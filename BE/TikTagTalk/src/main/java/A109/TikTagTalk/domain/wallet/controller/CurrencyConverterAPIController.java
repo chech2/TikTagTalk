@@ -17,9 +17,14 @@ public class CurrencyConverterAPIController {
     private final CurrencyConverterService currencyConverter;
     private final DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
 
+    @GetMapping("")
+    public void test(){
+        System.out.println("TESTETSTEST!!!!!!!!!!");
+    }
     //국가에 따라 환율을 가져오는 메소드
-    @GetMapping("/exchagnge-rates")
+    @GetMapping("/exchange-rates")
     public ResponseEntity getExchangeRage(@RequestParam(name = "receiveCountry") String receiveCountry) {
+        System.out.println("요청!!");
         Double exchangeRate = currencyConverter.getCurrencyRate(receiveCountry);
         return new ResponseEntity(format(exchangeRate), HttpStatus.OK);
     }

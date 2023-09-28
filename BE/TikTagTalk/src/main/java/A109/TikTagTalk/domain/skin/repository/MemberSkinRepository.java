@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MemberSkinRepository extends JpaRepository {
+public interface MemberSkinRepository extends JpaRepository<MemberSkin, Long> {
 
-    List<MemberSkin> findAll(Long memberId);
+    List<MemberSkin> findAllByMemberId(Long memberId);
 }
