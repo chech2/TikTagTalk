@@ -13,7 +13,7 @@ ARG JAR_FILE=build/libs/*-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 
 # 외부 호스트 8088 포트로 노출
-EXPOSE 8088
+EXPOSE 8080
 
 # 실행 명령어
 ENTRYPOINT ["java","-Dspring.profiles.active=prod","-jar","/app.jar"]
