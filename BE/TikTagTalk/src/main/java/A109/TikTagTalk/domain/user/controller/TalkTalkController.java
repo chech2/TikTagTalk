@@ -1,6 +1,7 @@
 package A109.TikTagTalk.domain.user.controller;
 
 import A109.TikTagTalk.domain.user.dto.request.TalkTalkRequestDto;
+import A109.TikTagTalk.domain.user.dto.response.FindMemberResponseDto;
 import A109.TikTagTalk.domain.user.dto.response.FindTalkTalkListResponseDto;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.exception.ExceptionCode;
@@ -98,12 +99,24 @@ public class TalkTalkController {
         return new ResponseEntity<>(talkTalkList, HttpStatus.OK);
     }
 
-//    @DeleteMapping("/{id}")
-//    @Operation(summary = "delete talk-talk", description = "톡톡 친구 끊기 & 톡톡 친구 요청 취소")
-//    @ApiResponses({
-//            @ApiResponse(responseCode = HttpStatus.)
-//    })
-//    public ResponseEntity<String> deleteTalkTalk(@PathVariable(name = "id") Long id) {
-//
-//    }
+    @DeleteMapping("/{id}")
+    @Operation(summary = "delete talk-talk", description = "톡톡 친구 끊기 & 톡톡 친구 요청 취소 & 톡톡 친구 요청 거절")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "'톡톡 친구 끊기 완료' or '톡톡 친구 요청 취소' or '톡톡 친구 요청 거절'"),
+            @ApiResponse(responseCode = "458", description = "해당 톡톡 관계에 대한 권한이 없습니다."),
+            @ApiResponse(responseCode = "457", description = "존재하지 않는 톡톡 친구 요청입니다."),
+    })
+    public ResponseEntity<String> deleteTalkTalk(@PathVariable(name = "id") Long id) {
+
+        Member loginMember = SecurityUtil.getCurrentLoginMember();
+
+        try {
+            String response = talkTalkService.deleteTalkTalk(loginMember.getId(), id);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (DoNotHavePremissionException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(ExceptionCode.DO_NOT_HAVE_PREMISSION.getErrorCode()));
+        } catch (NotExistRequestException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(ExceptionCode.NOT_EXIST_REQUEST.getErrorCode()));
+        }
+    }
 }

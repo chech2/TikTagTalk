@@ -8,6 +8,7 @@ import A109.TikTagTalk.domain.tagRoom.entity.TagRoom;
 import A109.TikTagTalk.domain.tagRoom.repository.TagRoomRepository;
 import A109.TikTagTalk.domain.user.dto.request.MemberOAuthSignUpDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
+import A109.TikTagTalk.domain.user.dto.response.FindMemberResponseDto;
 import A109.TikTagTalk.domain.user.dto.response.MemberLoginResponseDTO;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.entity.Role;
@@ -16,9 +17,11 @@ import A109.TikTagTalk.global.jwt.service.JwtService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -26,6 +29,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -124,5 +128,28 @@ public class MemberService {
         jwtService.updateRefreshToken(member.getUserId(), refreshToken);
 
         return MemberLoginResponseDTO.toDTO(member);
+    }
+
+    public List<FindMemberResponseDto> findMemberByUserId(Long loginMemberId, String userId) {
+
+        List<Member> bySubUserId = memberRepository.findBySubUserId(userId);
+
+        List<FindMemberResponseDto> response = new ArrayList<>();
+        for (Member member : bySubUserId) {
+            log.info("member.userId={}", member.getUserId());
+            if(member.getId() != loginMemberId) response.add(FindMemberResponseDto.toDTO(member));
+        }
+        return response;
+    }
+
+    public List<FindMemberResponseDto> recommendMemberList(Member member) {
+
+        // 일단 모든 멤버 리스트 반환
+        List<Member> all = memberRepository.findAll();
+        List<FindMemberResponseDto> response = new ArrayList<>();
+        for (Member m : all) {
+            response.add(FindMemberResponseDto.toDTO(m));
+        }
+        return response;
     }
 }

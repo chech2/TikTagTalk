@@ -108,4 +108,24 @@ public class TalkTalkService {
 
         return response;
     }
+
+    @Transactional
+    public String deleteTalkTalk(Long loginMemberId, Long id) {
+
+        TalkTalk talkTalk = talkTalkRepository.findById(id).orElseThrow(() -> new NotExistRequestException());
+
+        if(talkTalk.getStatus().equals(TalkTalkStatus.REQUESTING) && talkTalk.getSender().getId() == loginMemberId) {
+            talkTalkRepository.delete(talkTalk);
+            return "톡톡 친구 요청 취소";
+        } else if(talkTalk.getStatus().equals(TalkTalkStatus.REQUESTING) && talkTalk.getReceiver().getId() == loginMemberId) {
+            talkTalkRepository.delete(talkTalk);
+            return "톡톡 친구 요청 거절";
+        } else if (talkTalk.getStatus().equals(TalkTalkStatus.TALK_TALK) &&
+                ((talkTalk.getSender().getId() == loginMemberId) || (talkTalk.getReceiver().getId() == loginMemberId))) {
+            talkTalkRepository.delete(talkTalk);
+            return "톡톡 친구 끊기 완료";
+        } else {
+            throw new DoNotHavePremissionException("해당 톡톡 관계에 대한 권한이 없습니다.");
+        }
+    }
 }
