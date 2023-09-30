@@ -18,7 +18,8 @@
 #NGINX 사용 전 도커파일 
 FROM node:18.17.0
 WORKDIR /FE/tiktagtalk
-COPY package.json .
+
+COPY package.json yarn.lock .
 # RUN npm i
 RUN yarn 
 # RUN yarn global add serve
