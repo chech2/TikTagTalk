@@ -35,7 +35,7 @@ pipeline {
         stage('git clone') {
             steps {
                 sh "pwd"
-                checkout scmGit(branches: [[name: '*/feature-cicd']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
+                checkout scmGit(branches: [[name: '*/feature-cicd-merge']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
             }
         }
     
