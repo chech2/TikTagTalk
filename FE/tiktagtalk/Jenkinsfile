@@ -48,9 +48,11 @@ pipeline {
                     nodejs(nodeJSInstallationName: 'NodeJS') {
                         // sh "npm install"
                         sh "which node"
-                        sh "npm install"
-                        sh "npm install -g yarn"
-                        sh "yarn start"
+                        sh "yarn"
+                        sh "yarn start build"
+                        // sh "npm install"
+                        // sh "npm install -g yarn"
+                        // sh "yarn start"
                         // sh " run build"
                     }
                 }
