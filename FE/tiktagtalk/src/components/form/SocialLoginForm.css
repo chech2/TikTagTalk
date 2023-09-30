@@ -36,6 +36,10 @@
     left: 8%; /* 부모 요소 너비의 8% 만큼 왼쪽에서 떨어짐 */
 }
 
+.google-login-button span {
+    color: #241823;
+}
+
 
 /* 네이버 */
 .naver-login-button {
@@ -66,4 +70,8 @@
 
     position: absolute;
     left: 7.5%; /* 부모 요소 너비의 8% 만큼 왼쪽에서 떨어짐 */
+}
+
+.kakao-login-button span {
+    color: #000000 85%;
 }

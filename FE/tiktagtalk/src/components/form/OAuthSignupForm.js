@@ -5,22 +5,16 @@ import { useDispatch} from 'react-redux';
 import { loginUser } from '../../redux/userSlice';
 
 import "./SignupForm.css"
-import type1 from "./avatar/type1.jfif"
-import type2 from "./avatar/type2.jfif"
-import type3 from "./avatar/type3.jfif"
-import type4 from "./avatar/type4.jfif"
-import type5 from "./avatar/type5.jfif"
-import type6 from "./avatar/type6.jfif"
 
 function SignupForm() {
 
     const avatars = [
-        {name: 1, img: type1},
-        {name: 2, img: type2},
-        {name: 3, img: type3},
-        {name: 4, img: type4},
-        {name: 5, img: type5},
-        {name: 6, img: type6}
+        {name: 1, img: "./avatar/type1.jpg"},
+        {name: 2, img: "./avatar/type2.jpg"},
+        {name: 3, img: "./avatar/type3.jpg"},
+        {name: 4, img: "./avatar/type4.jpg"},
+        {name: 5, img: "./avatar/type5.jpg"},
+        {name: 6, img: "./avatar/type6.jpg"}
     ]
 
     const navigate = useNavigate();
