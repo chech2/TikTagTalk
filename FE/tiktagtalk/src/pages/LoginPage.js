@@ -1,12 +1,15 @@
-
+import "./LoginPage.css"
+import LocalLoginForm from "../components/form/LocalLoginForm";
+import SocialLoginForm from "../components/form/SocialLoginForm";
 
 
 function LoginPage() {
     return (
-        <div>
-            <h1>로그인페이지입니다.</h1>
+        <div className="login-page-container">
+            <LocalLoginForm></LocalLoginForm>
+            <SocialLoginForm></SocialLoginForm>
         </div>
-      );
-    }
+    );
+}
 
 export default LoginPage;

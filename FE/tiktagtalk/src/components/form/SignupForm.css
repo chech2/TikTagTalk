@@ -1,0 +1,21 @@
+/* RadioButton */
+.avatar-label {
+    display: inline-block;
+    margin-right: 10px; /* 이미지 간 간격을 조절할 수 있습니다. */
+    cursor: pointer;
+}
+
+.avatar-label input[type="radio"] {
+    display: none; /* 기본 라디오 버튼 숨김 */
+}
+
+.avatar-label img {
+    cursor: pointer; /* 포인터 커서를 표시하여 클릭 가능함을 나타냄 */
+    height: 50px;
+    width: 50px;
+    border: 2px solid transparent; /* 초기에는 투명한 border 설정 */
+}
+
+.avatar-label input[type="radio"]:checked + img {
+    border-color: #007bff; /* 선택된 경우 border 색상 변경 (예: 파란색) */
+}
