@@ -35,10 +35,6 @@ public class MemberItem {
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-    @ManyToOne(fetch=FetchType.LAZY) //member 대신에 일단.
-    @JoinColumn(name="ACCOUNT_ID")
-    private Account account;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ITEM_ID")
     private Item item;

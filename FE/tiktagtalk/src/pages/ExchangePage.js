@@ -37,7 +37,7 @@ function ExchangePage(props) {
                         <div className='exchange-container-33-2' >
                             <img className='exchange-responsive-image2' src="./Icon/Coin.png" alt="" />
                             <div>{user.coin}</div>
-                            <img className='exchange-responsive-image2' src="./Icon/코인 구매창.png" alt="" />
+                            {/* <img className='exchange-responsive-image2' src="./Icon/코인 구매창.png" alt="" /> */}
                         </div>
                     </div>
                 </div>

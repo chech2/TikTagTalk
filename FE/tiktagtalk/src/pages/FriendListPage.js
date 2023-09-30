@@ -79,6 +79,10 @@ function FriendListPage(){
                 </div>
             ) : (
                 // friendList 배열에 친구가 있는 경우
+                <>
+                <div>받은 친구 </div>
+                <div>보낸 친구</div>
+                <div>친구목록
                 <div className='friend-list'>
                     {friendList.map((friend) => (
                         <div key={friend.id} className='friend-item'>
@@ -92,6 +96,8 @@ function FriendListPage(){
                         </div>
                     ))}
                 </div>
+                </div>
+                </>
             )) : showFriend === 2 ?   (
                 <div className='friend-container2'> 
                     <RecommendFriendPage></RecommendFriendPage>

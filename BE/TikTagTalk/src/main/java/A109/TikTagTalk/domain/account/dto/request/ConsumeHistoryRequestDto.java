@@ -8,6 +8,5 @@ import lombok.*;
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ConsumeHistoryRequestDto {
-    private Long accountId;
     private String yearAndMonth;
 }

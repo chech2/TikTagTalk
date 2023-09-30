@@ -15,7 +15,6 @@ public class AddConsumeHistoryRequestDto {
     private String storeName;
     private String detail;
     private LocalDateTime consumeTime;
-    private Long accountId;
     @Getter
     @NoArgsConstructor(access= AccessLevel.PROTECTED)
     @Builder

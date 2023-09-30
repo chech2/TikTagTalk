@@ -12,6 +12,8 @@ import A109.TikTagTalk.domain.tagRoom.dto.response.InitMemberItemResponseDto;
 import A109.TikTagTalk.domain.tagRoom.entity.Item;
 import A109.TikTagTalk.domain.tagRoom.entity.MemberItem;
 import A109.TikTagTalk.domain.tagRoom.repository.MemberItemRepository;
+import A109.TikTagTalk.domain.user.entity.Member;
+import A109.TikTagTalk.domain.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +25,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MemberItemServiceImpl implements MemberItemService{
     private final MemberItemRepository memberItemRepository;
+    private final MemberRepository memberRepository;
     private final TagRepository tagRepository;
-    private final AccountRepository accountRepository;
     @Override
     @Transactional
-    public void memberItemInit(InitMemberItemRequestDto requestDto) {
-        Account account=accountRepository.findById(requestDto.getAccountId()).get();
+    public void memberItemInit(InitMemberItemRequestDto requestDto, Member member) {
         Tag tag = tagRepository.findById(requestDto.getTag().getId()).get();
         List<Item> itemList=tag.getItemList();
         for(Item i:itemList){
@@ -82,7 +83,7 @@ public class MemberItemServiceImpl implements MemberItemService{
                 sizeY=3L;
             }
             MemberItem memberItem=MemberItem.builder()
-                    .account(account)
+                    .member(member)
                     .item(i)
                     .wall(wall)
                     .room(room)
@@ -99,9 +100,9 @@ public class MemberItemServiceImpl implements MemberItemService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<InitMemberItemResponseDto> findMemberItems(Long accountId) {
-        Account account=accountRepository.findById(accountId).get();
-        List<MemberItem> memberItemList=memberItemRepository.findMemberItem(account);
+    public List<InitMemberItemResponseDto> findMemberItems(Long memberId) {
+        Member member=memberRepository.findById(memberId).get();
+        List<MemberItem> memberItemList=memberItemRepository.findMemberItem(member);
         return memberItemList.stream()
                 .map(memberItem -> {
                     InitMemberItemResponseDto.ItemDto itemDto=InitMemberItemResponseDto.ItemDto.builder()
@@ -122,14 +123,13 @@ public class MemberItemServiceImpl implements MemberItemService{
 
     @Override
     @Transactional
-    public ResponseDto updateMemberItem(UpdateMemberItemRequestDto requestDto) {
-
-        Account account = accountRepository.findById(requestDto.getAccount().getId()).get();
+    public ResponseDto updateMemberItem(UpdateMemberItemRequestDto requestDto,Member member) {
         List<UpdateMemberItemRequestDto.UpdateInfoDto> infoList=requestDto.getUpdateInfo();
         for(UpdateMemberItemRequestDto.UpdateInfoDto info:infoList){
-            MemberItem memberItem=memberItemRepository.findByAccountItemName(account,info.getItem().getName());
+            MemberItem memberItem=memberItemRepository.findByMemberItemName(member,info.getItem().getName());
             memberItemRepository.updateMemberItem(memberItem,info);
         }
         return ResponseUtil.Success("에셋 위치 수정 성공");
     }
+    //멤버 아이템 !!!!! 멤버 태그!!! 수정!!
 }
