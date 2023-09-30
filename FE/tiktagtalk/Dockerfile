@@ -22,8 +22,8 @@ WORKDIR /FE/tiktagtalk
 COPY package.json yarn.lock ./
 # RUN npm i
 RUN yarn 
+COPY . ./
 # RUN yarn global add serve
 RUN yarn build
-COPY . ./
 EXPOSE 3000
 CMD ["npx", "serve", "-s", "./build"]
