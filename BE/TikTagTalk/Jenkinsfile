@@ -16,7 +16,7 @@ pipeline {
         // 젠킨스가 접속할 서버 정보 (ec2)
         releaseServerAccount = 'ubuntu'
         releaseServerUri = '43.201.248.189'
-        springReleasePort = '8088'
+        springReleasePort = '8080'
     }
 
     stages {
@@ -31,7 +31,7 @@ pipeline {
         // Git Clone 진행
         stage('git clone') {
             steps {
-                checkout scmGit(branches: [[name: 'develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
+                checkout scmGit(branches: [[name: '*/feature-cicd']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
             }
         }
 
@@ -41,9 +41,9 @@ pipeline {
                 withCredentials([file(credentialsId: 'application-oauth.properties', variable: 'oauth'),
                                 file(credentialsId: 'application-jwt.properties', variable: 'jwt'),
                                 file(credentialsId: 'application-rds.properties', variable: 'rds'),
-                                file(credentialsId: 'application-aws.properties', variable: 'aws')]) {
+                                file(credentialsId: 'application-aws-credentials.properties', variable: 'aws')]) {
                     script {
-                        sh 'cp $aws BE/TikTagTalk/src/main/resources/application-aws.properties'
+                        sh 'cp $aws BE/TikTagTalk/src/main/resources/application-aws-credentials.properties'
                         sh 'cp $oauth BE/TikTagTalk/src/main/resources/application-oauth.properties'
                         sh 'cp $jwt BE/TikTagTalk/src/main/resources/application-jwt.properties'
                         sh 'cp $rds BE/TikTagTalk/src/main/resources/application-rds.properties'
@@ -57,10 +57,12 @@ pipeline {
             steps {
                 dir("BE/TikTagTalk") {
                     sh "pwd"
+                    sh "ls -al"
                     sh "chmod +x ./gradlew"
 //                     sh "./gradlew clean build --warning-mode all --continue"
-                    sh "./gradlew test --stacktrace"
-                    // sh "./gradlew clean build"
+//                     sh "./gradlew test --stacktrace"
+                    sh "./gradlew clean build"
+                    sh "ls -al"
                 }
             }
         }
@@ -82,12 +84,13 @@ pipeline {
         }
 
         // 백엔드 빌드
-            //  백엔드 코드로 도커 이미지 빌드, 해당 이미지를 도커 허브에 푸시
+            //  백엔드 코드로 도커 이미지 빌드, 해당 이미지를 도커 허브에 푸시, 도커 허브 사용하지 않을 예정
         stage('Spring Docker Build and Push') {
             steps {
                 dir("BE/TikTagTalk") {
                     script {
                         // docker.withRegistry('', registryCredential) {
+                            sh "ls -al"
                             sh "chmod +x Dockerfile"
                             sh "docker build -t $springImageName:$BUILD_NUMBER -f Dockerfile ."
                             // sh "docker push $springImageName:$BUILD_NUMBER"

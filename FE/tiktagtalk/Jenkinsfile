@@ -29,14 +29,16 @@ pipeline {
                 '''
             }
         }
+
+        
         // Git Clone 진행
         stage('git clone') {
             steps {
                 sh "pwd"
-                // checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/22JH/pingking-Typesciprt.git']])
-                checkout scmGit(branches: [[name: 'develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
+                checkout scmGit(branches: [[name: '*/feature-cicd']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitLab', url: 'https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22A109.git']])
             }
         }
+    
 
         // 프론트엔드 빌드 진행
         stage('fe-build') {
@@ -75,51 +77,31 @@ pipeline {
             steps {
                 dir("FE/tiktagtalk") {
                     script {
-                        //  docker.withRegistry('', registryCredential) {
                             sh "pwd"
                             sh "ls -al"
                             sh "chmod +x Dockerfile"
                             sh "docker build -t $reactImageName:$BUILD_NUMBER -f Dockerfile ."
-                            // sh "docker push $reactImageName:$BUILD_NUMBER"
                             sh "docker tag $reactImageName:$BUILD_NUMBER $reactImageName:latest"
                             sh "docker images"
-                            '''
-                            if docker image inspect $reactImageName:$BUILD_NUMBER > /dev/null 2>&1; then
-                                docker rmi $reactImageName:$BUILD_NUMBER
-                            fi
-                            '''
+                            sh "docker ps -a"
                             sh "docker rmi $reactImageName:$BUILD_NUMBER"
-                            sh "docker rmi react"
                             sh "docker images"
-                            // sh "docker push $reactImageName:latest"
-                        //  }
-
                     }
                 }
             }
         }
-
-        // 도커 허브에서 AWS EC2에 도커 이미지 가져오기 (react, spring)
-        // stage('DockerHub Pull') {
-        //     steps {
-        //         sshagent(credentials: ['ubuntu']) {
-        //             sh "ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri 'sudo docker pull $reactImageName:latest'"
-        //             sh "ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri 'sudo docker pull $springImageName:latest'"
-        //         }
-        //     }
-        // }
-
-        // 서버 실행 (react, spring)
+        //서버 실행
         stage('Service Start') {
             steps {
                 sshagent(credentials: ['ubuntu']) {
+                    sh "docker images"
+                    sh "docker ps -a"
+                    // sh "docker rm -f react"
                     sh '''
                         ssh -o StrictHostKeyChecking=no $releaseServerAccount@$releaseServerUri "sudo docker run -i -e TZ=Asia/Seoul --name react -p $reactReleasePort:$reactReleasePort -d $reactImageName:latest"
                     '''
                 }
             }
         }
-        
-        
     }
 }
