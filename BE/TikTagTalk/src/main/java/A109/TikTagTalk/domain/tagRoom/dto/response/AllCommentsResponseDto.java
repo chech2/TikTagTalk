@@ -19,6 +19,7 @@ public class AllCommentsResponseDto {
     @AllArgsConstructor
     public static class MemberDto{
         private Long id;
+        private String name;
     }
     @Getter
     @Builder

@@ -6,6 +6,7 @@ import A109.TikTagTalk.domain.account.dto.response.CheckMemberTagResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
+import A109.TikTagTalk.domain.account.entity.ConsumePlan;
 import A109.TikTagTalk.domain.tag.entity.Tag;
 
 import java.time.LocalDate;
