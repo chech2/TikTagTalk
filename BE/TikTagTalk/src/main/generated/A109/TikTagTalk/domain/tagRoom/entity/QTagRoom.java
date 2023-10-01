@@ -22,6 +22,10 @@ public class QTagRoom extends EntityPathBase<TagRoom> {
 
     public static final QTagRoom tagRoom = new QTagRoom("tagRoom");
 
+    public final A109.TikTagTalk.domain.account.entity.QAccount account;
+
+    public final ListPath<Comment, QComment> comments = this.<Comment, QComment>createList("comments", Comment.class, QComment.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final A109.TikTagTalk.domain.user.entity.QMember member;
@@ -46,6 +50,7 @@ public class QTagRoom extends EntityPathBase<TagRoom> {
 
     public QTagRoom(Class<? extends TagRoom> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.account = inits.isInitialized("account") ? new A109.TikTagTalk.domain.account.entity.QAccount(forProperty("account"), inits.get("account")) : null;
         this.member = inits.isInitialized("member") ? new A109.TikTagTalk.domain.user.entity.QMember(forProperty("member"), inits.get("member")) : null;
     }
 

@@ -80,6 +80,9 @@ public class JwtService {
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setStatus(HttpServletResponse.SC_OK);
 
+        log.info("accessToken={}", accessToken);
+        log.info("refreshToken={}", refreshToken);
+
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
         log.info("Access Token, Refresh Token 헤더 설정 완료");
@@ -163,10 +166,12 @@ public class JwtService {
      */
     public boolean isTokenValid(String token) {
         try {
+            log.info("accessToken={}", token);
             JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
             return true;
         } catch (Exception e) {
             log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
+            log.info("token={}", token);
             return false;
         }
     }

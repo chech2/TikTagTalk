@@ -7,20 +7,21 @@ import A109.TikTagTalk.domain.account.dto.response.AllConsumeHistoryResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.CheckAccountResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.tag.entity.Tag;
+import A109.TikTagTalk.domain.user.entity.Member;
 
 import java.util.List;
 
 public interface ConsumeHistoryService {
-    List<AllConsumeHistoryResponseDto> allConsumeHistoryRecently(ConsumeHistoryRequestDto requestDto);
-    List<AllConsumeHistoryResponseDto> allConsumeHistoryHighest(ConsumeHistoryRequestDto requestDto);
+    List<AllConsumeHistoryResponseDto> allConsumeHistoryRecently(ConsumeHistoryRequestDto requestDto, Member member);
+    List<AllConsumeHistoryResponseDto> allConsumeHistoryHighest(ConsumeHistoryRequestDto requestDto,Member member);
 
-    CheckAccountResponseDto checkAccountTotalAccount(ConsumeHistoryRequestDto requestDto);
-    ResponseDto addConsumeHistory(AddConsumeHistoryRequestDto reqestDto);
+    CheckAccountResponseDto checkAccountTotalAccount(ConsumeHistoryRequestDto requestDto,Member member);
+    ResponseDto addConsumeHistory(AddConsumeHistoryRequestDto reqestDto,Member member);
 
-    ResponseDto makeMemberTags(ConsumeHistoryRequestDto requestDto);
+    ResponseDto makeMemberTags(ConsumeHistoryRequestDto requestDto,Member member);
 
-    ResponseDto deleteConsumeHistory(Long consumeHistoryId);
+    ResponseDto deleteConsumeHistory(Long consumeHistoryId,Member member);
 
-    ResponseDto modifyConsumeHistory(ModifyConsumeHistoryRequestDto requestDto,Long consumeHistoryId);
+    ResponseDto modifyConsumeHistory(ModifyConsumeHistoryRequestDto requestDto,Long consumeHistoryId,Member member);
 
 }

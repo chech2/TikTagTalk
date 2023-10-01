@@ -1,27 +1,20 @@
 import { useEffect, useState } from 'react';
 import { customAxios } from '../../CustomAxios'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useCookies } from 'react-cookie';
 import { useDispatch} from 'react-redux';
 import { loginUser } from '../../redux/userSlice';
 
 import "./SignupForm.css"
-import type1 from "./avatar/type1.jfif"
-import type2 from "./avatar/type2.jfif"
-import type3 from "./avatar/type3.jfif"
-import type4 from "./avatar/type4.jfif"
-import type5 from "./avatar/type5.jfif"
-import type6 from "./avatar/type6.jfif"
 
 function SignupForm() {
 
     const avatars = [
-        {name: 1, img: type1},
-        {name: 2, img: type2},
-        {name: 3, img: type3},
-        {name: 4, img: type4},
-        {name: 5, img: type5},
-        {name: 6, img: type6}
+        {name: 1, img: "./avatar/type1.jpg"},
+        {name: 2, img: "./avatar/type2.jpg"},
+        {name: 3, img: "./avatar/type3.jpg"},
+        {name: 4, img: "./avatar/type4.jpg"},
+        {name: 5, img: "./avatar/type5.jpg"},
+        {name: 6, img: "./avatar/type6.jpg"}
     ]
 
     const navigate = useNavigate();
@@ -32,14 +25,13 @@ function SignupForm() {
     const [name, setName] = useState('');
     const [introduction, setIntroduction] = useState('');
     const [avatarType, setAvatarType] = useState('');
-    const [cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
 
     const handleAvatarChange = (event) => {
         setAvatarType(event.target.value);
     };
 
     useEffect(() => {
-        setCookie('accessToken', params.token, { path: '/' });
+        localStorage.setItem("accessToken", params.token);
     }, []);
 
     // ---------- 회원 가입 기능 구현 ---------- //
@@ -63,13 +55,13 @@ function SignupForm() {
                 const accessToken = res.headers['authorization'];
                 const refreshToken = res.headers['authorization-refresh'];
                 
-                // 쿠키에 토큰 저장
-                setCookie('accessToken', accessToken, { path: '/' });
-                setCookie('refreshToken', refreshToken, { path: '/' });
+                // LocalStorage에 토큰 저장
+                localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
 
                 const data = res.data;
                 dispatch(loginUser(data))
-                navigate('/');
+                navigate(`/main/${data.id}`);
                 alert("정보 입력이 완료되었습니다.");
             }
         })

@@ -22,8 +22,6 @@ public class QMemberTag extends EntityPathBase<MemberTag> {
 
     public static final QMemberTag memberTag = new QMemberTag("memberTag");
 
-    public final A109.TikTagTalk.domain.account.entity.QAccount account;
-
     public final DatePath<java.time.LocalDate> gotTime = createDate("gotTime", java.time.LocalDate.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -50,7 +48,6 @@ public class QMemberTag extends EntityPathBase<MemberTag> {
 
     public QMemberTag(Class<? extends MemberTag> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.account = inits.isInitialized("account") ? new A109.TikTagTalk.domain.account.entity.QAccount(forProperty("account"), inits.get("account")) : null;
         this.member = inits.isInitialized("member") ? new A109.TikTagTalk.domain.user.entity.QMember(forProperty("member"), inits.get("member")) : null;
         this.tag = inits.isInitialized("tag") ? new QTag(forProperty("tag")) : null;
     }

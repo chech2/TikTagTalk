@@ -5,6 +5,7 @@ import A109.TikTagTalk.domain.tag.dto.request.CheckMemberTagRequestDto;
 import A109.TikTagTalk.domain.tag.entity.MemberTag;
 import A109.TikTagTalk.domain.tag.entity.QMemberTag;
 import A109.TikTagTalk.domain.tag.entity.Tag;
+import A109.TikTagTalk.domain.user.entity.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ public class MemberTagRepositoryImpl implements MemberTagRepositoryCustom{
     private final JPAQueryFactory queryFactory;
     private QMemberTag memberTag=new QMemberTag("memberTag");
     @Override
-    public Boolean checkMemberTagExist(Long accountId, Long tagId,LocalDate gotTime) {
+    public Boolean checkMemberTagExist(Long memberId, Long tagId,LocalDate gotTime) {
         LocalDate startDate;
         LocalDate endDate;
         if(gotTime.getMonthValue()<10) {
@@ -33,7 +34,7 @@ public class MemberTagRepositoryImpl implements MemberTagRepositoryCustom{
 
         MemberTag membertag =queryFactory
                 .selectFrom(memberTag)
-                .where(memberTag.account.id.eq(accountId),memberTag.tag.id.eq(tagId),memberTag.gotTime.between(startDate,endDate))
+                .where(memberTag.member.id.eq(memberId),memberTag.tag.id.eq(tagId),memberTag.gotTime.between(startDate,endDate))
                 .fetchOne();
         if(membertag==null){
             return false;
@@ -43,7 +44,7 @@ public class MemberTagRepositoryImpl implements MemberTagRepositoryCustom{
 
 
     @Override
-    public List<MemberTag> checkMemberTagList(CheckMemberTagRequestDto requestDto) {
+    public List<MemberTag> checkMemberTagList(CheckMemberTagRequestDto requestDto, Member member) {
         LocalDate today;
         LocalDate startTime;
         LocalDate endTime;
@@ -57,15 +58,24 @@ public class MemberTagRepositoryImpl implements MemberTagRepositoryCustom{
 
         List<MemberTag> membertag=queryFactory
                 .selectFrom(memberTag)
-                .where(memberTag.account.id.eq(requestDto.getAccountId()),memberTag.gotTime.between(startTime,endTime))
+                .where(memberTag.member.eq(member),memberTag.gotTime.between(startTime,endTime))
                 .fetch();
         return membertag;
     }
 
     @Override
-    public MemberTag findByAccountTagGotTime(Long accountId, Long tagId, LocalDate gotTime) {
+    public MemberTag findByMemberTagGotTime(Long memberId, Long tagId, LocalDate gotTime) {
+        LocalDate startDate;
+        LocalDate endDate;
+        if(gotTime.getMonthValue()<10) {
+            startDate = LocalDate.parse(gotTime.getYear() + "-0" + gotTime.getMonthValue() + "-01");
+            endDate = LocalDate.parse(gotTime.getYear() + "-0" + gotTime.getMonthValue() + "-" + gotTime.lengthOfMonth());
+        }else{
+            startDate = LocalDate.parse(gotTime.getYear() + "-" + gotTime.getMonthValue() + "-01");
+            endDate = LocalDate.parse(gotTime.getYear() + "-" + gotTime.getMonthValue() + "-" + gotTime.lengthOfMonth());
+        }
         return queryFactory.selectFrom(memberTag)
-                .where(memberTag.account.id.eq(accountId),memberTag.tag.id.eq(tagId),memberTag.gotTime.eq(gotTime))
+                .where(memberTag.member.id.eq(memberId),memberTag.tag.id.eq(tagId),memberTag.gotTime.between(startDate,endDate))
                 .fetchOne();
     }
 }

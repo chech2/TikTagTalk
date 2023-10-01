@@ -19,7 +19,7 @@ public class CurrencyConverterAPIController {
 
     @GetMapping("")
     public void test(){
-        System.out.println("TESTETSTEST!!!!!!!!!!");
+        System.out.println("TESTETSTEST!!!!!");
     }
     //국가에 따라 환율을 가져오는 메소드
     @GetMapping("/exchange-rates")

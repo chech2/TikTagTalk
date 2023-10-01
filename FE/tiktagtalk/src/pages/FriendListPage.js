@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RecommendFriendPage from './RecommendFriendPage';
 import SearchFriendPage from './SearchFriendPage';
+import { customAxios } from '../CustomAxios';
 
 
 
@@ -48,7 +49,7 @@ function FriendListPage(){
     
 
     useEffect(()=>{
-        axios.get('/api/talk-talk')
+        customAxios.get('/api/talk-talk')
         .then((res)=>{
             setFriendList(res.data)
         })
@@ -78,6 +79,10 @@ function FriendListPage(){
                 </div>
             ) : (
                 // friendList 배열에 친구가 있는 경우
+                <>
+                <div>받은 친구 </div>
+                <div>보낸 친구</div>
+                <div>친구목록
                 <div className='friend-list'>
                     {friendList.map((friend) => (
                         <div key={friend.id} className='friend-item'>
@@ -91,6 +96,8 @@ function FriendListPage(){
                         </div>
                     ))}
                 </div>
+                </div>
+                </>
             )) : showFriend === 2 ?   (
                 <div className='friend-container2'> 
                     <RecommendFriendPage></RecommendFriendPage>

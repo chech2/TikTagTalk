@@ -3,25 +3,27 @@ import { useDispatch } from 'react-redux';
 import { itemNumber } from '../redux/itemSlice';
 import { useSelector } from 'react-redux';
 
-function ItemCard(props) {
+function ItemCard({ item_key, item_url, item_name, item_price, onCardClick }) {
     const dispatch = useDispatch()
     // const iteminfor = useSelector((state)=>state.item)
     
-    const handleModal = ()=>{
-        console.log('정보', props)
-        dispatch(itemNumber(props))
-   
+    // const handleModal = ()=>{
+    //     console.log('정보', props)
+    //     dispatch(itemNumber(props))
+    // }
 
 
-    }
+
+
+
     return (
         <>
-        <div onClick={handleModal} className='cardback'>
+        <div onClick={()=> onCardClick(item_key)} className='cardback'>
             <img src="logo192.png" alt="" className='cardsize'/>
-            <div>{props.item_name}</div>
+            <div>{item_name}</div>
             <div className='container'>
                 <img src="./Icon/Coin.png" alt="" />
-                {props.item_price}
+                {item_price}
             </div>
         </div>
         </>

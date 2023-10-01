@@ -3,7 +3,8 @@ import './CommentPage.css'
 import React, { useState,useEffect} from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
-
+import { customAxios } from '../CustomAxios';
+import { useSelector } from 'react-redux';
 // import { useState } from "react";
 // import { useSelector } from 'react-redux';
 // import Modal from '../components/ui/Modal';
@@ -11,7 +12,7 @@ import { useParams } from 'react-router';
 
 function CommentPage(props) {
     const {id} = useParams();
-
+    const user = useSelector((state)=> state.user)
     const [isFriend,setisFriend] = useState(false)
     const [comments, setComments] = useState([]);
     const [newCommentContent, setNewCommentContent] = useState('');
@@ -20,9 +21,9 @@ function CommentPage(props) {
     // const userId=useSelector(state=>state.user.id);
 
     const [friendNums,setfriendNums] = useState(0)
-    const [userName, setuserName] = useState('허')
-    const [userId, setuserId] = useState(1)
-    const [userAvatarType, setuserAvatarType] = useState(1)
+    // const [userName, setuserName] = useState('허')
+    // const [userId, setuserId] = useState(1)
+    // const [userAvatarType, setuserAvatarType] = useState(1)
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -33,8 +34,11 @@ function CommentPage(props) {
         const minutes = String(date.getMinutes()).padStart(2, '0');
         return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
+    let body = {memberId : id}
+
     const handleAddTalk = ()=>{
-        axios.post(process.env.REACT_APP_BASE_URL + '/api/talk-talks',id)
+        console.log('id임:',id)
+        customAxios.post(process.env.REACT_APP_BASE_URL + '/talk-talks', {'memberId':`${id}`})
         .then((res)=>{
             console.log(res)
         })
@@ -50,15 +54,15 @@ function CommentPage(props) {
 
     }
 
-    useEffect(()=>{
-        axios.get(process.env.REACT_APP_BASE_URL + '/api/talk-talk')
-        .then((res)=>{
-        console.log(res)
-        setfriendNums(res.members.length)
-        setuserName(res.userId)
-        setuserId(res.id)
-    })
-    })
+    // useEffect(()=>{
+    //     axios.get(process.env.REACT_APP_BASE_URL + '/talk-talk')
+    //     .then((res)=>{
+    //     console.log(res)
+    //     setfriendNums(res.members.length)
+    //     setuserName(res.userId)
+    //     setuserId(res.id)
+    // })
+    // })
 
 
     return (
@@ -68,8 +72,8 @@ function CommentPage(props) {
             <div>
                 {/* 마이페이지 아이콘 변경해야됨 */}
                 <img className='comment-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" /> 
-                <h1>{userName}</h1>
-                { id === userId ? ( null) :(
+                <h1>{id}</h1>
+                { id == user.id ? (null) :(
                 <div>
                     <button onClick={handleAddTalk}>톡톡 버튼</button>
                 </div>

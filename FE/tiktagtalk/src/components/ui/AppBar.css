@@ -20,6 +20,7 @@
 .appbar-underline{
     border-bottom: 1px solid #000;
     height : 12vw;  
+    /* position: absolute; */
 }
 
 

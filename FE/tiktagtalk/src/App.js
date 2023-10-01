@@ -22,26 +22,33 @@ import Footer from './components/ui/Footer';
 import TestCom from './components/TestCom';
 import Test from './pages/Test';
 import { useEffect } from 'react';
+import SignupForm from './components/form/SignupForm';
+import StartPage from './pages/StartPage';
+import ConsumePatternPage from './pages/ConsumePatternPage';
 
 
 
 function App() {
+  const currentPath = window.location.pathname;
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main' && currentPath !=='/login';
+
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
+  setViewportHeight();
+
   // 페이지 로드 시와 화면 크기 변경 시에 뷰포트 높이를 설정
   window.addEventListener('resize', setViewportHeight);
   window.addEventListener('orientationchange', setViewportHeight);
 
-  // 초기 설정
-  setViewportHeight();
-
   return (    
     <div className="App">
+
       <Routes>
-        <Route path='/' element={<MainPage/>}></Route>
+        <Route path='/' element={<StartPage/>}></Route>
         {/* 회원 */}
+        <Route path='/main/:id' element={<MainPage/>}></Route>
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/sign-up' element={<SignupPage/>}></Route>
         <Route path='/oauth2/sign-up/:token' element={<OAuthSignupPage/>}></Route>
@@ -55,11 +62,12 @@ function App() {
         <Route path='/notice' element={<NoticePage/>}></Route>
         <Route path='/friend-list' element={<FriendListPage/>}></Route>
         <Route path='/achievement' element={<AchievementsPage/>}></Route>
-        <Route path='/test1' element={<Test/>}></Route>
+        <Route path='/test/1' element={<Test/>}></Route>
         {/* <Route path='/:id' element={<Detail />} /> */}
         <Route path='/exchange' element={<ExchangePage/>}></Route>
+        <Route path='/consume-pattern' element={<ConsumePatternPage/>}></Route>
       </Routes>
-      {<Footer/>}
+      {shouldRenderFooter && <Footer/>}
     </div>
   );
 }

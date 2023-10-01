@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UpdateMemberItemRequestDto {
     private List<UpdateInfoDto> updateInfo;
-    private AccountDto account;
     @Getter
     @NoArgsConstructor(access= AccessLevel.PROTECTED)
     @Builder
@@ -28,13 +27,6 @@ public class UpdateMemberItemRequestDto {
     @AllArgsConstructor
     public static class ItemDto{
         private String name;
-    }
-    @Getter
-    @NoArgsConstructor(access= AccessLevel.PROTECTED)
-    @Builder
-    @AllArgsConstructor
-    public static class AccountDto{
-        private Long id;
     }
 
 }

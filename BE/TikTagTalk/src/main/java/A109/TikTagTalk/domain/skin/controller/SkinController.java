@@ -15,14 +15,14 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/api/skin")
 public class SkinController {
 
     @Autowired
     private final SkinService skinService;
 
     //모든 스킨 조회(GET)
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<List<Skin>> list() {
         List<Skin> skinList = skinService.selectAllSkins();
         return ResponseEntity.status(HttpStatus.OK).body(skinList);

@@ -22,8 +22,6 @@ public class QMemberItem extends EntityPathBase<MemberItem> {
 
     public static final QMemberItem memberItem = new QMemberItem("memberItem");
 
-    public final A109.TikTagTalk.domain.account.entity.QAccount account;
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final QItem item;
@@ -64,7 +62,6 @@ public class QMemberItem extends EntityPathBase<MemberItem> {
 
     public QMemberItem(Class<? extends MemberItem> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.account = inits.isInitialized("account") ? new A109.TikTagTalk.domain.account.entity.QAccount(forProperty("account"), inits.get("account")) : null;
         this.item = inits.isInitialized("item") ? new QItem(forProperty("item"), inits.get("item")) : null;
         this.member = inits.isInitialized("member") ? new A109.TikTagTalk.domain.user.entity.QMember(forProperty("member"), inits.get("member")) : null;
     }

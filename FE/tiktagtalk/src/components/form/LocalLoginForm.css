@@ -1,0 +1,62 @@
+.local-login-form-container {
+    margin-bottom: 10%;
+}
+
+.login-form-logo {
+    width: 45%;
+    height: auto;
+    margin-top: 20%;
+    margin-bottom: 5%;
+}
+
+.login-form-group {
+    margin-top: 2vw;
+}
+
+.login-form-id {
+    width: 70%;
+}
+
+.warning-id {
+    width: 70%;
+    margin: auto;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    text-align: left;
+    color: #D03B29;
+}
+
+.warning-pw {
+    width: 70%;
+    margin: auto;
+    margin-top: 1vw;
+    margin-bottom: 2vw;
+    text-align: left;
+    color: #D03B29;
+}
+
+.login-submitButton{
+    width: 70%;
+    height: 10vw;
+    border: none; /* 테두리를 없애기 */
+    border-radius: 5px; /* 둥근 테두리 */
+    background: rgb(255,0,255);
+    background: linear-gradient(90deg, rgba(255,0,255,1) 28%, rgba(0,255,255,1) 100%);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1.5px; /* 자간 */
+    color: #241823;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+
+.sing-up-component {
+    color: white;
+    font-size: 15px;
+    height: 7vw;
+    margin: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
