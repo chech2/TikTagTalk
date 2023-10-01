@@ -4,8 +4,10 @@ import A109.TikTagTalk.domain.user.dto.request.CheckUserIdRequestDto;
 import A109.TikTagTalk.domain.user.dto.request.FindMemberRequestDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberOAuthSignUpDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
+import A109.TikTagTalk.domain.user.dto.response.ExceptionResponseDto;
 import A109.TikTagTalk.domain.user.dto.response.FindMemberResponseDto;
 import A109.TikTagTalk.domain.user.dto.response.MemberLoginResponseDTO;
+import A109.TikTagTalk.domain.user.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.exception.ExceptionCode;
 import A109.TikTagTalk.domain.user.exception.custom.AvatarTypeIsInvalidException;
@@ -39,7 +41,7 @@ public class MemberController {
 
     @Operation(summary = "sign up", description = "자체 회원가입")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "CREATED"),
+            @ApiResponse(responseCode = "201", description = "회원가입이 완료되었습니다."),
             @ApiResponse(responseCode = "460", description = "이미 사용 중인 아이디입니다."),
             @ApiResponse(responseCode = "461", description = "아이디 양식이 잘못되었습니다."),
             @ApiResponse(responseCode = "462", description = "비밀번호 양식이 잘못되었습니다."),
@@ -83,26 +85,35 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<String> test() throws Exception {
-
-        Member member = SecurityUtil.getCurrentLoginMember();
-        log.info("memberId={}", member.getId());
-
-        return new ResponseEntity<>(member.getUserId(), HttpStatus.OK);
-    }
-
+    @Operation(summary = "sign up", description = "자체 회원가입")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "소셜 로그인 회원가입이 완료되었습니다."),
+            @ApiResponse(responseCode = "460", description = "이미 사용 중인 아이디입니다."),
+            @ApiResponse(responseCode = "461", description = "아이디 양식이 잘못되었습니다."),
+            @ApiResponse(responseCode = "463", description = "프로필은 1~8 사이의 정수 값만 가능합니다.")
+    })
     @PostMapping("/oauth/sign-up")
-    public ResponseEntity<MemberLoginResponseDTO> oauthSignUp(
+    public ResponseEntity<ResponseDto> oauthSignUp(
             HttpServletResponse response,
             @RequestBody MemberOAuthSignUpDto memberOAuthSignUpDto) throws Exception {
 
         Member member = SecurityUtil.getCurrentLoginMember();
 
-        MemberLoginResponseDTO memberLoginResponseDTO
-                = memberService.oauthSignUp(response, member, memberOAuthSignUpDto);
+        try {
+            MemberLoginResponseDTO memberLoginResponseDTO
+                    = memberService.oauthSignUp(response, member, memberOAuthSignUpDto);
 
-        return new ResponseEntity<>(memberLoginResponseDTO, HttpStatus.OK);
+            return new ResponseEntity<>(memberLoginResponseDTO, HttpStatus.OK);
+        } catch (DuplicateUserIdException e) {
+            return new ResponseEntity<>(new ExceptionResponseDto(e.getMessage()),
+                    HttpStatusCode.valueOf(ExceptionCode.DUPLICATE_USERID.getErrorCode()));
+        } catch (UserIdIsInvalidException e) {
+            return new ResponseEntity<>(new ExceptionResponseDto(e.getMessage()),
+                    HttpStatusCode.valueOf(ExceptionCode.USERID_IS_INVALID.getErrorCode()));
+        } catch (AvatarTypeIsInvalidException e) {
+            return new ResponseEntity<>(new ExceptionResponseDto(e.getMessage()),
+                    HttpStatusCode.valueOf(ExceptionCode.AVATARTYPE_IS_INVALID.getErrorCode()));
+        }
     }
 
     @GetMapping("/oauth/success")
@@ -141,6 +152,15 @@ public class MemberController {
 
         List<FindMemberResponseDto> findMemberResponseDtos = memberService.recommendMemberList(loginMember);
         return new ResponseEntity<>(findMemberResponseDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> test() throws Exception {
+
+        Member member = SecurityUtil.getCurrentLoginMember();
+        log.info("memberId={}", member.getId());
+
+        return new ResponseEntity<>(member.getUserId(), HttpStatus.OK);
     }
 }
 

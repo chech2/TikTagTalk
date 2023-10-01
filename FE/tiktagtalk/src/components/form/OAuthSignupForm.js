@@ -121,7 +121,12 @@ function OauthSignupForm() {
             }
         })
         .catch((err) => {
-            alert(err.response.data);
+            if (err.response && err.response.data && err.response.data.message) {
+                const errorMessage = err.response.data.message;
+                alert(errorMessage); // 에러 메시지 출력
+            } else {
+                console.log(err); // 기타 오류 처리
+            }
         })
     }
 
