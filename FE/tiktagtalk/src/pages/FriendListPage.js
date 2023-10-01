@@ -19,8 +19,14 @@ function FriendListPage(){
         setShowFriend(3)
     }
     const [usernameList, setusernameList] = useState([])
+  
+    // const [recieveList, setrecieveList] = useState([])
+    const [received,setreceived] = useState([])
+    const [request,setrequest] = useState([])
     const [FriendList, setFreiendList] = useState([])
-    const [friendList, setFriendList] = useState([{
+
+
+    const [friendList, setfriendList] = useState([{
         id : 1,
         userId : '1',
         name : '일번',
@@ -49,9 +55,13 @@ function FriendListPage(){
     
 
     useEffect(()=>{
-        customAxios.get(process.env.REACT_APP_BASE_URL + '/api/talk-talks')
-        .then((res)=>{
+        customAxios.get(process.env.REACT_APP_BASE_URL + '/talk-talks')
+        .then((res)=>{            
             setFreiendList(res)
+            console.log('받은친구',res)
+            setreceived(res.data.filter(item =>item.status === 'RECEIVED'))
+            setrequest(res.data.filter(item =>item.status === 'REQUESTING'))
+            // setFreiendList(res.data.filter(item =>item.status === 'REQUESTING'))
         })
         .catch((err)=>{
             console.log('친구리스트 받기 에러',err)
@@ -59,15 +69,20 @@ function FriendListPage(){
     },[])
 
 
-    // useEffect(()=>{
-    //     customAxios.get('/api/talk-talks')
-    //     .then((res)=>{
-    //         console.log('톡톡친구 요청/대기 가져오기',res)
-    //     })
-    //     .catch((err)=>{
-    //         console.log('친구리스트 받기 에러',err)
-    //     })
-    // },[])
+    // useEffect(() => {
+    //     // data 상태가 업데이트될 때마다 필터링 수행
+    //     setreceived(received)
+    //   }, [received]);
+
+
+
+    // function filterData() {
+    // const filtered = FriendList.filter(item => item.status === 'REQUESTING');
+    // setrecieveList(filtered);
+    // }
+
+
+
 
 
 
@@ -96,14 +111,33 @@ function FriendListPage(){
                 // friendList 배열에 친구가 있는 경우
                 <>
                 <div>받은 친구 </div>
-
-
-
-
-
-
+                <div className='friend-list'>
+                    {received.map((friend) => (
+                        <div key={friend.otherId} className='friend-item'>
+                            <div>
+                                {/* <img src={friend.profile_image} alt={friend.name} /> */}
+                            </div>
+                            <div>
+                                <h2>{friend.otherUserId}</h2>
+                            </div>
+                        </div>
+                    ))}
+                </div>
 
                 <div>보낸 친구</div>
+                <div className='friend-list'>
+                    {request.map((friend) => (
+                        <div key={friend.otherId} className='friend-item'>
+                            <div>
+                                {/* <img src={friend.profile_image} alt={friend.name} /> */}
+                            </div>
+                            <div>
+                                <h2>{friend.otherUserId}</h2>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
                 <div>친구목록
                 <div className='friend-list'>
                     {friendList.map((friend) => (

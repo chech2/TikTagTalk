@@ -2,9 +2,10 @@ import AppBar from '../components/ui/AppBar';
 import './CommentPage.css'
 import React, { useState,useEffect} from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { customAxios } from '../CustomAxios';
 import { useSelector } from 'react-redux';
+import FriendListPage from './FriendListPage';
 // import { useState } from "react";
 // import { useSelector } from 'react-redux';
 // import Modal from '../components/ui/Modal';
@@ -13,14 +14,52 @@ import { useSelector } from 'react-redux';
 function CommentPage(props) {
     const {id} = useParams();
     const user = useSelector((state)=> state.user)
-    const [isFriend,setisFriend] = useState(false)
+    const navigate = useNavigate()
+    // 댓글
+    const [data, setData] = useState(null);
+    const userId = useSelector(state=>state.user.userId); // 진짜 user의 아이디값
+    const isLoggedIn = useSelector(state => state.user.isLogin);
     const [comments, setComments] = useState([]);
+    
+
+    useEffect(()=>{
+        customAxios.get(process.env.REACT_APP_BASE_URL+`/comment/${id}`)
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+
+    },[id]);
+        // const fetchData=async()=>{
+        //     try{
+        //         const response =customAxios.get(process.env.REACT_APP_BASE_URL+`/comment/${id}`);
+        //         const responseComment=customAxios(process.env.REACT_APP_BASE_URL+`/comment?tagRoomId=${id}`,{'Content-Type': 'application/json'})
+        //         if(!response.ok){
+        //             // console.log('에러에러 error: ');
+        //         }
+        //         const data=await response.json();
+        //         const comment=await responseComment.json(); 
+        //         setComments(comment);
+
+        //         setData(data);
+        //     }catch(error){
+        //         // console.error('Error occured ',"문제야 문제");
+        //     }
+        // };
+        // fetchData();
+
+
+    //
+    const [isFriend,setisFriend] = useState(false)
     const [newCommentContent, setNewCommentContent] = useState('');
     // const isLoggedIn = useSelector(state => state.user.isLogin);
-    const isLoggedIn = useState(true) // 임시
+
     // const userId=useSelector(state=>state.user.id);
 
     const [friendNums,setfriendNums] = useState(0)
+    const [FreiendList,setFreiendList] = useState([])
     // const [userName, setuserName] = useState('허')
     // const [userId, setuserId] = useState(1)
     // const [userAvatarType, setuserAvatarType] = useState(1)
@@ -47,22 +86,75 @@ function CommentPage(props) {
         })
     } 
 
-    const handleSubmitComment = ()=>{
+    const handleSubmitComment = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        const comment={
+            content:newCommentContent,
+            tagRoom:{id}.id,
+        }
+        formData.append('dto',new Blob([JSON.stringify(comment)],{type:"application/json"}));   
+        console.log('comment:',comment)     
+        // if (!isLoggedIn) {
+            
+        //     Confirm().then(() => {
+        //         // Handle anything else after confirmation if needed
+        //     });
+        //     return ;
+        // }
+        // if (!newCommentContent.trim()) {
+        //     CommentAlert().then(()=>{
 
-    }
+        //     });
+        //     return ;
+        // }
+        try {
+            const response = await customAxios.post(
+                `${process.env.REACT_APP_BASE_URL}/comment`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                }
+            );
+            if (response.status === 200) {
+                // 댓글 작성 후 댓글 목록을 다시 가져온다.
+                const responseComment = await axios.get(
+                    `${process.env.REACT_APP_BASE_URL}/comment/tagRoom=${id}`
+                );
+                const comment = responseComment.data;
+                setComments(comment);
+                // 댓글 작성 내용 초기화
+                setNewCommentContent('');
+            } else {
+                // console.error('댓글 작성 실패');
+            }
+        } catch (error) {
+            // console.error('에러 발생', error);
+        }
+    };
+
+
+
     const handleCommentChange = ()=>{
 
     }
 
-    // useEffect(()=>{
-    //     axios.get(process.env.REACT_APP_BASE_URL + '/talk-talk')
-    //     .then((res)=>{
-    //     console.log(res)
-    //     setfriendNums(res.members.length)
-    //     setuserName(res.userId)
-    //     setuserId(res.id)
-    // })
-    // })
+
+
+
+    useEffect(()=>{
+        customAxios.get(process.env.REACT_APP_BASE_URL + '/talk-talks')
+        .then((res)=>{            
+            console.log('받은친구',res)
+            setFreiendList(res.data.filter(item =>item.status === 'RECEIVED'))
+        })
+        .catch((err)=>{
+            console.log('친구리스트 받기 에러',err)
+        })
+    },[])
+
 
 
     return (
@@ -71,7 +163,7 @@ function CommentPage(props) {
         <div>
             <div>
                 {/* 마이페이지 아이콘 변경해야됨 */}
-                <img className='comment-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" /> 
+                <img className='comment-responsive-image' src="/Icon/마이페이지 아이콘.png" alt="" /> 
                 <h1>{id}</h1>
                 { id == user.id ? (null) :(
                 <div>
@@ -89,7 +181,7 @@ function CommentPage(props) {
                     </div>
                     <div className='comment-box'>
                         <div>톡톡 수</div>
-                        <div>{friendNums}</div>
+                        <div>{FreiendList.length}</div>
                     </div>
                 </div>
                 

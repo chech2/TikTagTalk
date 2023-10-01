@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './DropdownMenu.css'; // 스타일 파일을 import
 
 function DropdownMenu({monthData}) {
@@ -15,6 +15,8 @@ function DropdownMenu({monthData}) {
     monthData(month);
     setIsOpen(false);
   };
+
+
 
   const options = ['2023년 8월', '2023년 7월', '2023년 6월', '2023년 5월'];
 
