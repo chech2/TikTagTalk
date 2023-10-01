@@ -30,7 +30,7 @@ import ConsumePatternPage from './pages/ConsumePatternPage';
 
 function App() {
   const currentPath = window.location.pathname;
-  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main' && currentPath !=='/login';
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/');
 
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;
