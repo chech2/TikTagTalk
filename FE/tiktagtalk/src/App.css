@@ -1,0 +1,15 @@
+html {
+  background-color: #1B0536;
+}
+
+.App {
+  text-align: center;
+}
+
+.element {
+  height: calc(100 * var(--vh)); /* 화면 높이의 100%로 설정 */
+}
+
+:root {
+  --vh: 100%;
+}
