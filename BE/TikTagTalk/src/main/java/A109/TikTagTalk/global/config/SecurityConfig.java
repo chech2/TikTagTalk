@@ -94,6 +94,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/members/sign-up").permitAll() // 회원가입 접근 가능
                         .requestMatchers("/api/refresh").permitAll()
+                        .requestMatchers("/api/members/check-userId").permitAll()
                         .requestMatchers("/swagger-ui/*").permitAll() // swagger 관련 설정(개발 종료 후 삭제)
                         .requestMatchers("/v3/api-docs").permitAll() // swagger 관련 설정(개발 종료 후 삭제)
                         .requestMatchers("/v3/api-docs/swagger-config").permitAll() // swagger 관련 설정(개발 종료 후 삭제)
