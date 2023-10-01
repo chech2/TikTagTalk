@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter @Builder
-public class MemberLoginResponseDTO {
+public class MemberLoginResponseDTO implements ResponseDto{
 
     private Long id;
     private String userId;
