@@ -5,21 +5,19 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter @Builder
-public class MemberLoginResponseDTO implements ResponseDto{
+public class FindMemberResponseDto {
 
     private Long id;
     private String userId;
+    private String name;
     private int avatarType;
-    private int coin;
-    private int point;
 
-    public static MemberLoginResponseDTO toDTO(Member member) {
-        return MemberLoginResponseDTO.builder()
+    public static FindMemberResponseDto toDTO(Member member) {
+        return FindMemberResponseDto.builder()
                 .id(member.getId())
                 .userId(member.getUserId())
+                .name(member.getName())
                 .avatarType(member.getAvatarType())
-                .coin(member.getCoin())
-                .point(member.getPoint())
                 .build();
     }
 }

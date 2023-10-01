@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,6 +95,37 @@ public class TalkTalkService {
 
     public List<FindTalkTalkListResponseDto> findTalkTalkList(Member loginMember) {
 
-        return null;
+        List<FindTalkTalkListResponseDto> response = new ArrayList<>();
+
+        List<TalkTalk> talkTalkList = talkTalkRepository.findBySenderIdAndReceiverId(loginMember.getId());
+        for (TalkTalk talktalk : talkTalkList) {
+            if(talktalk.getSender().getId() == loginMember.getId()) { // loginMember가 sender인 경우
+                response.add(FindTalkTalkListResponseDto.toDTO(talktalk.getId(), talktalk.getStatus(), true, talktalk.getReceiver()));
+            } else { // loginMember가 receiver인 경우
+                response.add(FindTalkTalkListResponseDto.toDTO(talktalk.getId(), talktalk.getStatus(), false, talktalk.getSender()));
+            }
+        }
+
+        return response;
+    }
+
+    @Transactional
+    public String deleteTalkTalk(Long loginMemberId, Long id) {
+
+        TalkTalk talkTalk = talkTalkRepository.findById(id).orElseThrow(() -> new NotExistRequestException());
+
+        if(talkTalk.getStatus().equals(TalkTalkStatus.REQUESTING) && talkTalk.getSender().getId() == loginMemberId) {
+            talkTalkRepository.delete(talkTalk);
+            return "톡톡 친구 요청 취소";
+        } else if(talkTalk.getStatus().equals(TalkTalkStatus.REQUESTING) && talkTalk.getReceiver().getId() == loginMemberId) {
+            talkTalkRepository.delete(talkTalk);
+            return "톡톡 친구 요청 거절";
+        } else if (talkTalk.getStatus().equals(TalkTalkStatus.TALK_TALK) &&
+                ((talkTalk.getSender().getId() == loginMemberId) || (talkTalk.getReceiver().getId() == loginMemberId))) {
+            talkTalkRepository.delete(talkTalk);
+            return "톡톡 친구 끊기 완료";
+        } else {
+            throw new DoNotHavePremissionException("해당 톡톡 관계에 대한 권한이 없습니다.");
+        }
     }
 }
