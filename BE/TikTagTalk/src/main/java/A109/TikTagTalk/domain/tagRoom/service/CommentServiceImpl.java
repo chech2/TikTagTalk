@@ -73,7 +73,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     public ResponseDto modifyComment(ModifyCommentRequestDto requestDto, Member member) {
-        //현재 로그인된 member와 해당 comment 작성 member가 다르면 에러!!
+
         Member writer=commentRepository.findMemberByCommentId(requestDto.getId());
         if(member.getId()!=writer.getId()){
             throw new CustomAccessDeniedException(HttpStatus.SC_FORBIDDEN,"권한이 없습니다.");
@@ -89,7 +89,11 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     public ResponseDto deleteComment(Long commentId, Member member) {
+        if(!(commentRepository.findById(commentId).isPresent())){
+            throw new NotExistException(HttpStatus.SC_INTERNAL_SERVER_ERROR,"해당 comment을 찾을 수 없습니다.");
+        }
         Comment comment=commentRepository.findById(commentId).get();
+        System.out.println("commentRepository : "+commentRepository.findById(commentId)+"!!!");
         if(comment==null){
             throw new NotExistException(HttpStatus.SC_INTERNAL_SERVER_ERROR,"해당 comment을 찾을 수 없습니다.");
         }

@@ -10,5 +10,5 @@ public interface ConsumePlanService {
 
     ResponseDto insertConsumePlan(ConsumePlanRequestDto requestDto, Member member);
     AllConsumePlanResonseDto allConsumePlan(AllConsumePlanRequestDto requestDto,Member member);
-    ResponseDto modifyConsumePlan(ConsumePlanRequestDto requestDto,Member member);
+    ResponseDto modifyConsumePlan(ConsumePlanRequestDto requestDto,Long planId,Member member);
 }

@@ -4,8 +4,10 @@ import A109.TikTagTalk.domain.account.dto.request.AllConsumePlanRequestDto;
 import A109.TikTagTalk.domain.account.dto.request.ConsumePlanRequestDto;
 import A109.TikTagTalk.domain.account.dto.response.AllConsumePlanResonseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
+import A109.TikTagTalk.domain.account.dto.response.ResponseUtil;
 import A109.TikTagTalk.domain.account.exception.NotExistException;
 import A109.TikTagTalk.domain.account.service.ConsumePlanService;
+import A109.TikTagTalk.domain.tagRoom.exception.CustomAccessDeniedException;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -39,9 +41,16 @@ public class ConsumePlanController {
 
     }
 
-//    @PutMapping("")
-//    public ResponseDto modifyConsumePlan(@RequestBody ConsumePlanRequestDto requestDto){
-//
-//    }
+    @PutMapping("/{planId}")
+    public ResponseDto modifyConsumePlan(@RequestBody ConsumePlanRequestDto requestDto,@PathVariable Long planId) {
+        Member member = SecurityUtil.getCurrentLoginMember();
+        try {
+            return consumePlanService.modifyConsumePlan(requestDto, planId, member);
+        }catch (NotExistException ne){
+            return ResponseUtil.Failure("해당 consumePlan이 없습니다.");
+        }catch(CustomAccessDeniedException ae){
+            return ResponseUtil.Failure("권한이 없습니다.");
+        }
+    }
 
 }
