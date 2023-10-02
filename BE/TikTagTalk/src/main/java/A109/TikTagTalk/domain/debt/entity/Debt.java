@@ -2,25 +2,23 @@ package A109.TikTagTalk.domain.debt.entity;
 
 import A109.TikTagTalk.domain.user.entity.Member;
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter @Setter @Builder
 @NoArgsConstructor @AllArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Debt {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private DebtStatus status;
 
     @Column(nullable = false)
     private Long money;
@@ -30,16 +28,16 @@ public class Debt {
 
     @CreatedDate
     @Column(nullable = false)
-    private LocalDateTime createTime;
+    private LocalDate createTime;
 
 
     @Column(nullable = false)
-    private LocalDateTime repaymentTime;
+    private LocalDate repaymentTime;
 
-    private LocalDateTime extendTime;
+    private LocalDate extendTime;
 
     @Column(nullable = false)
-    private boolean partialPay;
+    private int partialPay;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="DEBTOR_ID")
@@ -54,4 +52,19 @@ public class Debt {
 
     @OneToMany(mappedBy = "debt")
     private List<ExtendHistory> extendHistoryList = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DebtStatus status = DebtStatus.REQUESTING;
+
+    public enum DebtStatus {
+        REQUESTING("승인 대기"), DENIED("거절"), ACTIVE("상환중"), INAVTIVE("상환 완료"), ARREARS("체납");
+
+        @Getter
+        private String status;
+
+        DebtStatus (String status){
+            this.status = status;
+        }
+    }
 }
