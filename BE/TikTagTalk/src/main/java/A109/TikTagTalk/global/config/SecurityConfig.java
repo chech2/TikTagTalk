@@ -108,7 +108,7 @@ public class SecurityConfig {
                         .authorizationEndpoint((endpoint) -> endpoint
                                 .baseUri("/api/oauth2/authorization"))
                         .redirectionEndpoint((endpoint) ->
-                                endpoint.baseUri("/login/oauth2/code/*"))
+                                endpoint.baseUri("/api/login/oauth2/code/*"))
                         .userInfoEndpoint((endpoint) -> endpoint
                                 .userService(customOAuth2UserService)) // customUserService 설정
                 )
