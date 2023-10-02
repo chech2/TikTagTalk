@@ -65,6 +65,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.addAllowedOriginPattern(frontBaseURL);
+        config.addAllowedOriginPattern("https://j9a109.p.ssafy.io");
         config.setAllowCredentials(true);
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
