@@ -68,7 +68,6 @@ public class SecurityConfig {
         config.addAllowedOriginPattern("http://j9a109.p.ssafy.io:3000");
         config.addAllowedOriginPattern("https://j9a109.p.ssafy.io:3000");
         config.addAllowedOriginPattern("https://j9a109.p.ssafy.io");
-        config.setAllowCredentials(true);
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");
