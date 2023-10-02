@@ -89,9 +89,6 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable) // FormLogin 사용 x
                 .sessionManagement((sessionManagement) ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 사용하지 않으므로 STATELESS로 설정
-                .requiresChannel((requiresChannel) -> requiresChannel
-                        .requestMatchers("/api/oauth2/authorization").requiresSecure()
-                )
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests // URL별 권한 관리 옵션
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/members/sign-up").permitAll() // 회원가입 접근 가능
