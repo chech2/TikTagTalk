@@ -22,16 +22,14 @@ import Footer from './components/ui/Footer';
 import TestCom from './components/TestCom';
 import Test from './pages/Test';
 import { useEffect } from 'react';
-import SignupForm from './components/form/SignupForm';
 import StartPage from './pages/StartPage';
 import ConsumePatternPage from './pages/ConsumePatternPage';
 import FilteredPurchaseListPage from './pages/FilteredPurchaseListPage';
 
 
-
 function App() {
   const currentPath = window.location.pathname;
-  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main' && currentPath !=='/login';
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/');
 
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;

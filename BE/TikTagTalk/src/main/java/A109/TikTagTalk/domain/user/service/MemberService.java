@@ -6,12 +6,17 @@ import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.account.repository.ConsumeHistoryRepository;
 import A109.TikTagTalk.domain.tagRoom.entity.TagRoom;
 import A109.TikTagTalk.domain.tagRoom.repository.TagRoomRepository;
+import A109.TikTagTalk.domain.user.dto.request.CheckUserIdRequestDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberOAuthSignUpDto;
 import A109.TikTagTalk.domain.user.dto.request.MemberSignUpDto;
 import A109.TikTagTalk.domain.user.dto.response.FindMemberResponseDto;
 import A109.TikTagTalk.domain.user.dto.response.MemberLoginResponseDTO;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.entity.Role;
+import A109.TikTagTalk.domain.user.exception.custom.AvatarTypeIsInvalidException;
+import A109.TikTagTalk.domain.user.exception.custom.DuplicateUserIdException;
+import A109.TikTagTalk.domain.user.exception.custom.PasswordIsInvalidException;
+import A109.TikTagTalk.domain.user.exception.custom.UserIdIsInvalidException;
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
 import A109.TikTagTalk.global.jwt.service.JwtService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +28,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,10 +45,29 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder; // SecurityCongfig에서 Bean 등록해줌
     private final JwtService jwtService;
     private final TagRoomRepository tagRoomRepository;
+
     public void singUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
+
+        // 아이디 양식이 올바르지 않을 경우(5~20자의 영문 소문자, 숫자와 특수기호(_),(.))
+        String regex = "^[a-z0-9_.]{5,20}$";
+        Pattern pattern = Pattern.compile(regex);
+        if(!pattern.matcher(memberSignUpDto.getUserId()).matches()) {
+            throw new UserIdIsInvalidException();
+        }
+        // 아이디 중복일 경우
         if(memberRepository.findByUserId(memberSignUpDto.getUserId()).isPresent()) {
-            throw new Exception("이미 존재하는 회원 아이디입니다.");
+            throw new DuplicateUserIdException();
+        }
+        // 비밀번호 양식이 올바르지 않을 경우(영문 대/소문자, 숫자, 특수문자를 포함하는 8~16자의 문자열)
+        regex = "^(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d!@#$%^&*]{8,16}$";
+        pattern = Pattern.compile(regex);
+        if(!pattern.matcher(memberSignUpDto.getPassword()).matches()) {
+            throw new PasswordIsInvalidException();
+        }
+        // avartar type 범위 내인지 확인
+        if(memberSignUpDto.getAvatarType() < 1 || memberSignUpDto.getAvatarType() > 8) {
+            throw new AvatarTypeIsInvalidException();
         }
 
         /*
@@ -98,7 +124,36 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    public void checkUserId(CheckUserIdRequestDto checkUserIdRequestDto) throws Exception {
+
+        String checkUserId = checkUserIdRequestDto.getUserId();
+
+        Optional<Member> byUserId = memberRepository.findByUserId(checkUserId);
+
+        if(byUserId.isPresent() == true) { // 이미 사용 중인 userId라면
+            throw new DuplicateUserIdException();
+        }
+
+        // 아니라면 return
+    }
+
     public MemberLoginResponseDTO oauthSignUp(HttpServletResponse response, Member member, MemberOAuthSignUpDto memberOAuthSignUpDto) throws Exception {
+
+        // 예외 처리
+        // 아이디 양식이 올바르지 않을 경우(5~20자의 영문 소문자, 숫자와 특수기호(_),(.))
+        String regex = "^[a-z0-9_.]{5,20}$";
+        Pattern pattern = Pattern.compile(regex);
+        if(!pattern.matcher(memberOAuthSignUpDto.getUserId()).matches()) {
+            throw new UserIdIsInvalidException();
+        }
+        // 아이디 중복일 경우
+        if(memberRepository.findByUserId(memberOAuthSignUpDto.getUserId()).isPresent()) {
+            throw new DuplicateUserIdException();
+        }
+        // avartar type 범위 내인지 확인
+        if(memberOAuthSignUpDto.getAvatarType() < 1 || memberOAuthSignUpDto.getAvatarType() > 8) {
+            throw new AvatarTypeIsInvalidException();
+        }
 
         // 받은 정보로 수정
         member.setUserId(memberOAuthSignUpDto.getUserId());

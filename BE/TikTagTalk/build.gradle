@@ -46,8 +46,8 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	//aws RDS 사용 시
-//	implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+//	implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
 
 	//H2 사용 시
 	//runtimeOnly 'com.h2database:h2:1.4.200'

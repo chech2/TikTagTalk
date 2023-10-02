@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch} from 'react-redux';
 import { loginUser } from '../../redux/userSlice';
 
+import LoadingComponent from "../ui/LoadingComponent";
+
 function OAuthRedirectForm() {
 
     const navigate = useNavigate();
@@ -36,7 +38,7 @@ function OAuthRedirectForm() {
     }, []);
 
     return (
-        <></>
+        <><LoadingComponent></LoadingComponent></>
     )
 }
 
