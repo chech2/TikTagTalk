@@ -1,20 +1,14 @@
-package A109.TikTagTalk.domain.account.entity;
+package A109.TikTagTalk.domain.account.dto.response;
 
-import A109.TikTagTalk.domain.user.entity.Member;
-import jakarta.persistence.*;
 import lombok.*;
-
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
-@Entity
-public class ConsumePlan {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class AllConsumePlanResonseDto {
+    private int statusCode;
+    private String errorMessage;
     private String yearAndMonth;
     private Long totalAmount;
     private Long eatAmount;
@@ -29,8 +23,4 @@ public class ConsumePlan {
     private Long ottAmount;
     private Long petAmount;
     private Long travelAmount;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="MEMBER_ID")
-    private Member member;
 }
