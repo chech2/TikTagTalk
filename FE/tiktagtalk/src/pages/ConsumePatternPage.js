@@ -5,12 +5,14 @@ import DropdownMenu from '../components/ui/DropdownMenu';
 import { useState,useEffect } from 'react';
 import { customAxios } from '../CustomAxios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 // import { useState } from "react";
 // import { useSelector } from 'react-redux';
 // import Modal from '../components/ui/Modal';
 // import ItemModal from '../components/ItemModal';
 
 function ConsumePatternPage() {
+    const naviage = useNavigate()
     let user = useSelector((state)=>state.user)
     const [mymonth, setmymonth] = useState('0월');
     const [requestmonth, setrequestmonth] = useState({yearAndMonth:'2023-08'})
@@ -25,7 +27,7 @@ function ConsumePatternPage() {
     }
 
     useEffect(()=>{
-        setmymonth(`${new Date().getFullYear()}-${new Date().getMonth()+1}`)
+        setmymonth(`${new Date().getFullYear()}-${String(new Date().getMonth()).padStart(2, '0')}`)
         console.log(mymonth)
         customAxios.get(process.env.REACT_APP_BASE_URL + '/consume/checkaccount',{ 'yearAndMonth' : `${mymonth}` },
           )
@@ -64,6 +66,12 @@ function ConsumePatternPage() {
     color: white; /* 아이콘 색상 */
     font-size: 24px; /* 아이콘 크기 */
     `;
+    const StyledButton = styled.button`
+  background-color: white; /* 버튼 배경 색상 */
+  color: white; /* 버튼 텍스트 색상 */`;
+    const handlefilter = ()=>{
+        naviage('/filter-purchase')
+    }
 
 
 
@@ -91,19 +99,26 @@ function ConsumePatternPage() {
                         <div><CircleIcon></CircleIcon></div>
                         <div>종목이름</div>
                         <div>종목금액</div>
+                        <StyledButton onClick={handlefilter}></StyledButton>
+
                     </div>
                     <div className='consume-container'>
                         <div><CircleIcon></CircleIcon></div>
                         <div>종목이름</div>
                         <div>종목금액</div>
-                    </div>                    <div className='consume-container'>
+                        <button></button>
+                    </div>                    
+                    <div className='consume-container'>
                         <div><CircleIcon></CircleIcon></div>
                         <div>종목이름</div>
                         <div>종목금액</div>
-                    </div>                    <div className='consume-container'>
+                        <button></button>
+                    </div>                    
+                    <div className='consume-container'>
                         <div><CircleIcon></CircleIcon></div>
                         <div>종목이름</div>
                         <div>종목금액</div>
+                        <button></button>
                     </div>
                 </div>
 

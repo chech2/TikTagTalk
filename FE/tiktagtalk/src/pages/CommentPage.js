@@ -25,10 +25,10 @@ function CommentPage(props) {
     useEffect(()=>{
         customAxios.get(process.env.REACT_APP_BASE_URL+`/comment/${id}`)
         .then((res)=>{
-            console.log(res)
+            console.log('댓글 get요청',res)
         })
         .catch((err)=>{
-            console.log(err)
+            console.log('댓글 get요청실패', err)
         })
 
     },[id]);
@@ -88,13 +88,13 @@ function CommentPage(props) {
 
     const handleSubmitComment = async (event) => {
         event.preventDefault();
-        const formData = new FormData();
+        // const formData = new FormData();
         const comment={
-            content:newCommentContent,
-            tagRoom:{id}.id,
+            'content':`${newCommentContent}`,
+            'tagRoom':{'id':id}
         }
-        formData.append('dto',new Blob([JSON.stringify(comment)],{type:"application/json"}));   
-        console.log('comment:',comment)     
+        // formData.append('dto',new Blob([JSON.stringify(comment)],{type:"application/json"}));   
+        // console.log('comment:',comment)     
         // if (!isLoggedIn) {
             
         //     Confirm().then(() => {
@@ -110,14 +110,7 @@ function CommentPage(props) {
         // }
         try {
             const response = await customAxios.post(
-                `${process.env.REACT_APP_BASE_URL}/comment`,
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                }
-            );
+                `${process.env.REACT_APP_BASE_URL}/comment`,{'content':`${newCommentContent}`,'tagRoom':{'id':id}});
             if (response.status === 200) {
                 // 댓글 작성 후 댓글 목록을 다시 가져온다.
                 const responseComment = await axios.get(
@@ -137,9 +130,9 @@ function CommentPage(props) {
 
 
 
-    const handleCommentChange = ()=>{
-
-    }
+    const handleCommentChange = (event) => {
+        setNewCommentContent(event.target.value);
+    };
 
 
 
@@ -164,7 +157,7 @@ function CommentPage(props) {
             <div>
                 {/* 마이페이지 아이콘 변경해야됨 */}
                 <img className='comment-responsive-image' src="/Icon/마이페이지 아이콘.png" alt="" /> 
-                <h1>{id}</h1>
+                <h1>{userId}</h1>
                 { id == user.id ? (null) :(
                 <div>
                     <button onClick={handleAddTalk}>톡톡 버튼</button>
