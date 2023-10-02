@@ -1,14 +1,17 @@
 package A109.TikTagTalk.domain.debt.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter @Setter @Builder
 @NoArgsConstructor @AllArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class RepaymentHistory {
 
     @Id
@@ -17,7 +20,7 @@ public class RepaymentHistory {
 
     @CreatedDate
     @Column(nullable = false)
-    private LocalDateTime createTime;
+    private LocalDate createTime;
 
     @Column(nullable = false)
     private Long money;
