@@ -49,15 +49,15 @@ public class MemberService {
     public void singUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
 
-        // 아이디 중복일 경우
-        if(memberRepository.findByUserId(memberSignUpDto.getUserId()).isPresent()) {
-            throw new DuplicateUserIdException();
-        }
         // 아이디 양식이 올바르지 않을 경우(5~20자의 영문 소문자, 숫자와 특수기호(_),(.))
         String regex = "^[a-z0-9_.]{5,20}$";
         Pattern pattern = Pattern.compile(regex);
         if(!pattern.matcher(memberSignUpDto.getUserId()).matches()) {
             throw new UserIdIsInvalidException();
+        }
+        // 아이디 중복일 경우
+        if(memberRepository.findByUserId(memberSignUpDto.getUserId()).isPresent()) {
+            throw new DuplicateUserIdException();
         }
         // 비밀번호 양식이 올바르지 않을 경우(영문 대/소문자, 숫자, 특수문자를 포함하는 8~16자의 문자열)
         regex = "^(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d!@#$%^&*]{8,16}$";
@@ -138,6 +138,22 @@ public class MemberService {
     }
 
     public MemberLoginResponseDTO oauthSignUp(HttpServletResponse response, Member member, MemberOAuthSignUpDto memberOAuthSignUpDto) throws Exception {
+
+        // 예외 처리
+        // 아이디 양식이 올바르지 않을 경우(5~20자의 영문 소문자, 숫자와 특수기호(_),(.))
+        String regex = "^[a-z0-9_.]{5,20}$";
+        Pattern pattern = Pattern.compile(regex);
+        if(!pattern.matcher(memberOAuthSignUpDto.getUserId()).matches()) {
+            throw new UserIdIsInvalidException();
+        }
+        // 아이디 중복일 경우
+        if(memberRepository.findByUserId(memberOAuthSignUpDto.getUserId()).isPresent()) {
+            throw new DuplicateUserIdException();
+        }
+        // avartar type 범위 내인지 확인
+        if(memberOAuthSignUpDto.getAvatarType() < 1 || memberOAuthSignUpDto.getAvatarType() > 8) {
+            throw new AvatarTypeIsInvalidException();
+        }
 
         // 받은 정보로 수정
         member.setUserId(memberOAuthSignUpDto.getUserId());

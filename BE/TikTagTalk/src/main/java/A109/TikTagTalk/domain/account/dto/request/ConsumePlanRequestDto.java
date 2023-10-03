@@ -2,13 +2,11 @@ package A109.TikTagTalk.domain.account.dto.request;
 
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class InsertConsumePlanRequestDto {
+public class ConsumePlanRequestDto {
     private String yearAndMonth;
     private Long totalAmount;
     private Integer eatPercent;

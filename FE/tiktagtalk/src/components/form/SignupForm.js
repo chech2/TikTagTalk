@@ -145,6 +145,8 @@ function SignupForm() {
 
     // ---------- 회원 가입 기능 구현 ---------- //
     const handleSignUp = async (e) => {
+
+        // Reload 막기
         e.preventDefault();
 
         // 예외처리
@@ -177,7 +179,7 @@ function SignupForm() {
             }
         })
         .catch((err) => {
-            alert(err.response);
+            alert(err.response.data);
         })
     }
 
