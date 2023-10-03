@@ -5,6 +5,7 @@ import A109.TikTagTalk.domain.account.dto.request.ConsumePlanRequestDto;
 import A109.TikTagTalk.domain.account.dto.response.AllConsumePlanResonseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseUtil;
+import A109.TikTagTalk.domain.account.exception.InvalidException;
 import A109.TikTagTalk.domain.account.exception.NotExistException;
 import A109.TikTagTalk.domain.account.service.ConsumePlanService;
 import A109.TikTagTalk.domain.tagRoom.exception.CustomAccessDeniedException;
@@ -24,7 +25,11 @@ public class ConsumePlanController {
     @PostMapping("")
     public ResponseDto insertConsumePlan(@RequestBody ConsumePlanRequestDto requestDto){
         Member member= SecurityUtil.getCurrentLoginMember();
-        return consumePlanService.insertConsumePlan(requestDto,member);
+        try {
+            return consumePlanService.insertConsumePlan(requestDto, member);
+        }catch (InvalidException ie){
+            return ResponseUtil.Failure("percent의 합이 100이 되어야 합니다.");
+        }
     }
 
     @GetMapping("")

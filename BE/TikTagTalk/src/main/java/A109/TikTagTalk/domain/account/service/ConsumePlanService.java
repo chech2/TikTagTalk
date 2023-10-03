@@ -4,11 +4,12 @@ import A109.TikTagTalk.domain.account.dto.request.AllConsumePlanRequestDto;
 import A109.TikTagTalk.domain.account.dto.request.ConsumePlanRequestDto;
 import A109.TikTagTalk.domain.account.dto.response.AllConsumePlanResonseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
+import A109.TikTagTalk.domain.account.exception.InvalidException;
 import A109.TikTagTalk.domain.user.entity.Member;
 
 public interface ConsumePlanService {
 
-    ResponseDto insertConsumePlan(ConsumePlanRequestDto requestDto, Member member);
+    ResponseDto insertConsumePlan(ConsumePlanRequestDto requestDto, Member member) throws InvalidException;
     AllConsumePlanResonseDto allConsumePlan(AllConsumePlanRequestDto requestDto,Member member);
     ResponseDto modifyConsumePlan(ConsumePlanRequestDto requestDto,Long planId,Member member);
 }

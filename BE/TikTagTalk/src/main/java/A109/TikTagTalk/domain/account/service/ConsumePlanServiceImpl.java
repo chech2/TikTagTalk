@@ -6,6 +6,7 @@ import A109.TikTagTalk.domain.account.dto.response.AllConsumePlanResonseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseDto;
 import A109.TikTagTalk.domain.account.dto.response.ResponseUtil;
 import A109.TikTagTalk.domain.account.entity.ConsumePlan;
+import A109.TikTagTalk.domain.account.exception.InvalidException;
 import A109.TikTagTalk.domain.account.exception.NotExistException;
 import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.account.repository.ConsumePlanRepository;
@@ -23,7 +24,7 @@ public class ConsumePlanServiceImpl implements ConsumePlanService{
     private final ConsumePlanRepository consumePlanRepository;
     @Override
     @Transactional
-    public ResponseDto insertConsumePlan(ConsumePlanRequestDto requestDto, Member member) {
+    public ResponseDto insertConsumePlan(ConsumePlanRequestDto requestDto, Member member) throws InvalidException{
         Long totalAmount= requestDto.getTotalAmount();
         ConsumePlan consumePlan= ConsumePlan.builder()
                 .totalAmount(totalAmount)
@@ -42,6 +43,11 @@ public class ConsumePlanServiceImpl implements ConsumePlanService{
                 .petAmount((long)(totalAmount*((requestDto.getPetPercent())*1.0/100.0)))
                 .travelAmount((long)(totalAmount*((requestDto.getTravelPercent())*1.0/100.0)))
                 .build();
+        int percentSum=0;
+        percentSum= requestDto.getEatPercent()+requestDto.getGroceryPercent()+requestDto.getRidePercent()+requestDto.getShoppingPercent()+requestDto.getSnackPercent()+requestDto.getInsurancePercent()+requestDto.getHobbyPercent()+requestDto.getHairPercent()+requestDto.getHealthPercent()+requestDto.getOttPercent()+requestDto.getPetPercent();
+        if(percentSum!=100){
+            throw new InvalidException(HttpStatus.SC_BAD_REQUEST,"percent의 합은 100이 되어야 합니다.");
+        }
         consumePlanRepository.save(consumePlan);
         return ResponseUtil.Success("consumeplan 삽입 성공");
     }
