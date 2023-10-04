@@ -133,7 +133,7 @@ function OauthSignupForm() {
     return (
         <div className="oauth-sign-form-container">
             <div>
-                <img src="/TikTagTalk_logo.png" alt="tiktagtalk logo" className="sign-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
+                <img src="TikTagTalk_logo.png" alt="tiktagtalk logo" className="sign-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
             </div>
             <form onSubmit={handleSignUp} className="oauth-sign-form">
 
