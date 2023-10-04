@@ -8,15 +8,15 @@ import axios from 'axios';
 import { TextField } from '@mui/material';
 
 import "./OAuthSignupForm.css"
-import logo from "../../assets/TikTagTalk_logo.png"
-import type1 from "../../assets/avatar/type1.jpg"
-import type2 from "../../assets/avatar/type2.jpg"
-import type3 from "../../assets/avatar/type3.jpg"
-import type4 from "../../assets/avatar/type4.jpg"
-import type5 from "../../assets/avatar/type5.jpg"
-import type6 from "../../assets/avatar/type6.jpg"
-import type7 from "../../assets/avatar/type7.jpg"
-import type8 from "../../assets/avatar/type8.jpg"
+import logo from "assets/TikTagTalk_logo.png"
+import type1 from "assets/avatar/type1.jpg"
+import type2 from "assets/avatar/type2.jpg"
+import type3 from "assets/avatar/type3.jpg"
+import type4 from "assets/avatar/type4.jpg"
+import type5 from "assets/avatar/type5.jpg"
+import type6 from "assets/avatar/type6.jpg"
+import type7 from "assets/avatar/type7.jpg"
+import type8 from "assets/avatar/type8.jpg"
 
 function OauthSignupForm() {
 
