@@ -16,7 +16,7 @@ function ConsumePatternPage() {
     let user = useSelector((state)=>state.user)
     const [mymonth, setmymonth] = useState('');
     const [requestmonth, setrequestmonth] = useState({yearAndMonth:'2023-08'})
-    const [totalamount, settotalamount] = useState('0원')
+    const [totalamount, settotalamount] = useState('')
     const [highesttag, sethighesttag] = useState([])
     // console.log('redux임',user)
     const handleData = (data) =>{
@@ -84,8 +84,8 @@ function ConsumePatternPage() {
   background-color: white; /* 버튼 배경 색상 */
   color: white; /* 버튼 텍스트 색상 */`;
     const handlefilter = (tagName)=>{
-        console.log(tagName)
-        naviage(`/filter-purchase/${tagName}`,{ state: { mymonth } })
+        const [a,bill] = tagName
+        naviage(`/filter-purchase/${a}`,{ state: { mymonth,bill } })
     }
 
 
@@ -102,22 +102,27 @@ function ConsumePatternPage() {
             </div>
             <div className='consume-pattern'>
                 <div>
-                    <img src="/Character/1.jpg" alt="" />
+                  <img className='consume-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
                 </div>
                 <div>
                     {user.userId}
                 </div>
-                <div>{mymonth}</div>
-                <div>{totalamount}원</div>
-                    {highesttag.map((item,index)=>(
-                        <div key = {index} className='consume-container'>
-                            <div><CircleIcon></CircleIcon></div>
-                            <div>{item.tag.name+" : "}</div>
-                            <div>{item.amount + '원'}</div>
-                            <StyledButton onClick={handlefilter.bind(null,item.tag.name)}></StyledButton>
-                        </div>
-                    ))}
+                {totalamount !== null ? (
+                <div>
+                  <div>{mymonth}</div>
+                  <div>{totalamount}원</div>
+                      {highesttag.map((item,index)=>(
+                          <div key = {index} className='consume-container'>
+                              <div><CircleIcon></CircleIcon></div>
+                              <div>{item.tag.name+" : "}</div>
+                              <div>{item.amount + '원'}</div>
+                              <StyledButton onClick={handlefilter.bind(null,[item.tag.name,item.amount])}></StyledButton>
+                          </div>
+                      ))}
 
+                </div>
+                     ) : null }
+                     {/* // null 대신 이미지 넣어야할듯? */}
             </div>
         </>
     );
