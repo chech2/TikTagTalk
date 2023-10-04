@@ -7,10 +7,7 @@ import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ import java.util.List;
 @Slf4j
 public class MemberTagController {
     private final MemberTagService memberTagService;
-    @GetMapping("") //획득한 tag 조회
+    @PostMapping("") //획득한 tag 조회
     public List<CheckMemberTagResponseDto> checkMemberTagList(@RequestBody CheckMemberTagRequestDto requestDto){
         Member member= SecurityUtil.getCurrentLoginMember();
         return memberTagService.checkMemberTagList(requestDto,member);

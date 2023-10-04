@@ -22,24 +22,24 @@ import java.util.List;
 public class ConsumeHistoryController {
     private final ConsumeHistoryService consumeHistoryService;
 
-    @GetMapping("") //최근순 소비 내역 조회
+    @PostMapping("") //최근순 소비 내역 조회
     public List<AllConsumeHistoryResponseDto> allConsumeHistory(@RequestBody ConsumeHistoryRequestDto requestDto){
         Member member= SecurityUtil.getCurrentLoginMember();
         return consumeHistoryService.allConsumeHistoryRecently(requestDto,member);
     }
-    @GetMapping("/highest") //고액순 소비 내역 조회
+    @PostMapping("/highest") //고액순 소비 내역 조회
     public List<AllConsumeHistoryResponseDto> allConsumeHistoryHighest(@RequestBody ConsumeHistoryRequestDto requestDto){
         Member member= SecurityUtil.getCurrentLoginMember();
         return consumeHistoryService.allConsumeHistoryHighest(requestDto,member);
     }
 
-    @GetMapping("/checkaccount") //총 소비 금액, 카테고리 별 금액 및 비중 조회
+    @PostMapping("/checkaccount") //총 소비 금액, 카테고리 별 금액 및 비중 조회
     public CheckAccountResponseDto checkAccount(@RequestBody ConsumeHistoryRequestDto requestDto){
         Member member= SecurityUtil.getCurrentLoginMember();
         return consumeHistoryService.checkAccountTotalAccount(requestDto,member);
     }
 
-    @PostMapping("") //수동 소비 내역 등록
+    @PostMapping("/register") //수동 소비 내역 등록
     public ResponseDto AddConsumeHistory(@RequestBody AddConsumeHistoryRequestDto requestDto){
         Member member=SecurityUtil.getCurrentLoginMember();
         return consumeHistoryService.addConsumeHistory(requestDto,member);

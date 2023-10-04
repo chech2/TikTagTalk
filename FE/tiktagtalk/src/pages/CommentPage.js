@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { customAxios } from '../CustomAxios';
 import { useSelector } from 'react-redux';
+import { FaPlus } from 'react-icons/fa';
 // import { useState } from "react";
 // import { useSelector } from 'react-redux';
 // import Modal from '../components/ui/Modal';
@@ -15,10 +16,14 @@ function CommentPage(props) {
     const user = useSelector((state)=> state.user)
     const [isFriend,setisFriend] = useState(false)
     const [comments, setComments] = useState([]);
-    const [newCommentContent, setNewCommentContent] = useState('');
     // const isLoggedIn = useSelector(state => state.user.isLogin);
     const isLoggedIn = useState(true) // 임시
     // const userId=useSelector(state=>state.user.id);
+    
+    // 각 댓글의 수정 상태를 관리하는 상태 변수 배열
+    const [isEditing, setIsEditing] = useState([]);
+    // 각 댓글의 수정할 내용을 관리하는 상태 변수 배열
+    const [editCommentContent, setEditCommentContent] = useState([]);
 
     const [friendNums,setfriendNums] = useState(0)
     // const [userName, setuserName] = useState('허')
@@ -36,6 +41,44 @@ function CommentPage(props) {
     };
     let body = {memberId : id}
 
+    //comment 목록 불러오기 시작
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            console.log("tagRoom : "+id);
+            // const ownerOfCommentRoom =await fetch(
+            //     process.env.REACT_APP_BASE_URL
+            // ) 태그룸의 주인을 tagroom db에서 가져와서 프로필 갖고 오자
+            const responseComment = await fetch(
+              process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+              {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                },
+              }
+            );
+            if (responseComment.status === 200) {
+              const commentList = await responseComment.json();
+              setComments(commentList);
+            } else {
+              console.error('댓글 불러오기 실패');
+            }
+          } catch (error) {
+            console.error('에러 발생', error);
+          }
+        };
+        fetchData();
+      }, [id]);
+
+    //comment 목록 불러오기 끝
+
+
+
+
+
+
     const handleAddTalk = ()=>{
         console.log('id임:',id)
         customAxios.post(process.env.REACT_APP_BASE_URL + '/talk-talks', {'memberId':`${id}`})
@@ -47,12 +90,164 @@ function CommentPage(props) {
         })
     } 
 
-    const handleSubmitComment = ()=>{
+    //comment 등록 시작
+    const [newCommentContent, setNewCommentContent] = useState('');
+    const handleCommentChange = (event) => {
+        setNewCommentContent(event.target.value);
+    };
 
-    }
-    const handleCommentChange = ()=>{
+    const handleSubmitComment = async (event) => {
+        
+        event.preventDefault();
+        const comment={
+            tagRoom:{
+                id: id
+            },
+            content:newCommentContent,
+        }
+        alert("댓글 작성완료");
+        // if (!isLoggedIn) {
+            
+        //     Confirm().then(() => {
+        //         // Handle anything else after confirmation if needed
+        //     });
+        //     return ;
+        // }
+        // if (!newCommentContent.trim()) {
+        //     CommentAlert().then(()=>{
 
-    }
+        //     });
+        //     return ;
+        // }
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_BASE_URL}/comment`,
+                JSON.stringify(comment), // 직렬화된 JSON 문자열을 전송
+                {
+                    headers: {
+                        'Content-Type': 'application/json; charset=UTF-8',
+                        'Authorization' : 'Bearer '+localStorage.getItem("accessToken")
+                    }
+                }
+            );
+            if (response.status === 200) {
+                // 댓글 작성 후 댓글 목록을 다시 가져온다.
+                const responseComment = await fetch(
+                    process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+                    {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                      },
+                    }
+                  );
+                const commentList = await responseComment.json();
+                setComments(commentList);
+                // 댓글 작성 내용 초기화
+                setNewCommentContent('');
+            } else {
+                console.error('댓글 작성 실패');
+            }
+        } catch (error) {
+            console.error('에러 발생', error);
+        }
+    };
+    //comment 등록 끝
+    //comment 삭제 시작
+    const handleDeleteComment = async (commentId) => {
+        try {
+            const response = await fetch(
+                process.env.REACT_APP_BASE_URL+`/comment/${commentId}`,
+                {
+                    method:'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                      },
+                }
+            );
+    
+            if (response.status === 200) {
+                // 댓글 삭제 후 댓글 목록을 다시 가져온다.
+                const responseComment = await fetch(
+                    process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+                    {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                      },
+                    }
+                  );
+                const commentList = await responseComment.json();
+                setComments(commentList);
+            } else {
+                // console.error('댓글 삭제 실패');
+            }
+        } catch (error) {
+            // console.error('에러 발생', error);
+        }
+    };
+    //comment 삭제 끝
+    //comment 수정 시작
+    const handleEditComment = async (commentId, initialContent) => {
+        const editingIndex = isEditing.findIndex((item) => item === commentId);
+
+        if (editingIndex !== -1) {
+            // 수정 완료 버튼을 누르면 수정된 내용을 서버로 보내고 수정 상태 변수를 다시 false로 설정
+            try {
+                // 수정된 내용을 서버로 보내는 로직을 작성하고, 서버 응답을 처리합니다.
+                // ...
+
+                const comment = {
+                    id: commentId,
+                    content: editCommentContent[editingIndex],
+                };
+
+                const response = await axios.put(
+                    `${process.env.REACT_APP_BASE_URL}/comment`,
+                    JSON.stringify(comment),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json; charset=UTF-8',
+                            'Authorization' : 'Bearer ' + localStorage.getItem("accessToken")
+                        }
+                    }
+                );
+
+                if (response.status === 200) {
+                    // 댓글 수정 후 댓글 목록을 다시 가져온다.
+                    const responseComment = await fetch(
+                        process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                            },
+                        }
+                    );
+                    const commentList = await responseComment.json();
+                    setComments(commentList);
+                } else {
+                    // console.error('댓글 수정 실패');
+                }
+
+                // 수정이 완료되면 해당 댓글의 수정 상태 변수를 다시 false로 설정
+                setIsEditing((prevEditing) => prevEditing.map((item, index) => (index === editingIndex ? false : item)));
+            } catch (error) {
+                console.error('에러 발생', error);
+            }
+        } else {
+            // 수정하기 버튼을 누를 때, 해당 댓글의 수정 상태 변수를 true로 설정하고
+            // 현재 댓글의 내용을 수정할 내용 상태 변수에 저장
+            setIsEditing((prevEditing) => [...prevEditing, commentId]);
+            setEditCommentContent((prevContent) => [...prevContent, initialContent]);
+        }
+    };
+    
+    //comment 수정 끝
 
     // useEffect(()=>{
     //     axios.get(process.env.REACT_APP_BASE_URL + '/talk-talk')
@@ -64,32 +259,28 @@ function CommentPage(props) {
     // })
     // })
 
-
     return (
         <>
-        <AppBar title='방명록'></AppBar>
+        <AppBar></AppBar>
         <div>
-            <div>
-                {/* 마이페이지 아이콘 변경해야됨 */}
-                <img className='comment-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" /> 
-                <h1>{id}</h1>
-                { id == user.id ? (null) :(
-                <div>
-                    <button onClick={handleAddTalk}>톡톡 버튼</button>
+            <div className='comment-user-info'>
+                <img className='comment-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
+                <h2>{user.userId}</h2>
+                <div className='comment-user-talktalk-button'>
+                    <button onClick={handleAddTalk}><FaPlus className='FaPlus'></FaPlus> 톡톡</button>
                 </div>
-                ) }
                 <br />
                 {/* container아래 */}
                 <div style={{display: 'flex', justifyContent:'center' ,}}>
                     <div className='comment-box'>   
-                        <div>댓글 수</div>
-                        <div>{friendNums}</div>
+                        <div className='comment-count-string'>댓글수</div>
+                        <div className='comment-count-num'>{comments.length}</div>
                     </div >
                     <div className='v-line'>
                     </div>
                     <div className='comment-box'>
-                        <div>톡톡 수</div>
-                        <div>{friendNums}</div>
+                        <div className='comment-count-string'>톡톡수</div>
+                        <div className='comment-count-num'>{friendNums}</div>
                     </div>
                 </div>
                 
@@ -97,22 +288,21 @@ function CommentPage(props) {
             <hr />
             <tr/>
             <div className='commentForm'>
-                    <h2>방명록</h2>
                     <ul className='comment-list'>
                         {comments.map((comment, index) => (
                         <li key={index}>
                             <div className='comment-container'>
-                                {/* <div className='comment-profile-img'>
-                                    <img src={comment.profileUrl}></img>
-                                </div> */}
+                                <div className='comment-profile-img'>
+                                    <img src={`/avatar/type${comment.member.avatarType}.jpg`}></img>
+                                </div>
                                 <div className='comment-form-content'>
                                     <div className='comment-info'>
                                         <div className='comment-writer-info'>
-                                            {comment.writer}
+                                            {comment.member.name}
                                             
                                         </div>
                                         <div className='comment-writtenTime'>
-                                            {formatDate(comment.writeTime)}
+                                            {formatDate(comment.writtenTime)}
                                         </div>
                                     </div>
                                         <div className='comment-content-delete'>
@@ -123,12 +313,34 @@ function CommentPage(props) {
                                                 <img className='comment-content-img' src={comment.commentImgUrl}></img>
                                             </div>
                                         )}
-                                    {/* {isLoggedIn && comment.writerId === userId&& (
-                                            <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
-                                        )} */}
+                                        <div className='comment-actions'>
+                                        {isLoggedIn[0] && comment.member.id === user.id && (
+                                            <>
+                                                {/* 수정하기 버튼 클릭 시 수정 상태에 따라 표시를 조정 */}
+                                                {isEditing.includes(comment.id) ? (
+                                                    <div className='comment-edit'>
+                                                        <textarea
+                                                            value={editCommentContent[isEditing.indexOf(comment.id)]}
+                                                            onChange={(e) => setEditCommentContent((prevContent) => {
+                                                                const contentIndex = isEditing.indexOf(comment.id);
+                                                                const newContent = [...prevContent];
+                                                                newContent[contentIndex] = e.target.value;
+                                                                return newContent;
+                                                            })}
+                                                        />
+                                                        <button onClick={() => handleEditComment(comment.id, editCommentContent[isEditing.indexOf(comment.id)])}>수정 완료</button>
+                                                    </div>
+                                                ) : (
+                                                    <div className='comment-edit' onClick={() => handleEditComment(comment.id, comment.content)}>수정하기</div>
+                                                )}
+                                                <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
+                                            </>
+                                        )}
+                                    </div>
+
                                 </div>
                             </div>
-                            <hr></hr>
+                            {index !== comments.length - 1 && <hr />} {/* 마지막 아이템이 아닌 경우에만 <hr>을 렌더링 */}
                         </li>
                         ))}
                     </ul>
@@ -141,12 +353,6 @@ function CommentPage(props) {
                                         value={newCommentContent}
                                         onChange={handleCommentChange}
                                     />
-                                    {/* <div className='file-input'>
-                                        <label>
-                                            후기 이미지<br></br>첨부하기
-                                            <input type='file' onChange={handleImageChange} style={{ display: 'none'} } />
-                                        </label>
-                                    </div>                   */}
                                     <button type='submit'>댓글 작성</button>
                                 </div>
                             </form>
