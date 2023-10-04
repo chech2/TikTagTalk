@@ -16,7 +16,8 @@ function FilteredPurchaseListPage(props) {
     const [dataset,setdataset] = useState([])
 
     useEffect(()=>{
-        console.log('filter창 month', mymonth.mymonth)
+        // console.log('filter창 month', mymonth.mymonth)
+        // console.log('bill',mymonth.bill)
         let body = {'yearAndMonth' : `${mymonth.mymonth}`}
         customAxios
         .post(process.env.REACT_APP_BASE_URL + '/consume/highest', body)
@@ -29,12 +30,30 @@ function FilteredPurchaseListPage(props) {
           console.log('거래내역 에러', error);
         });
     },[])
+    const handleAddDeal = ()=>{
+        console.log(1)
+    }
 
     return (
         <>
             <div>
                 <AppBar title= {tag +' 소비내역'}></AppBar>
+
+                <div>{mymonth.mymonth}</div>
+                <div>{mymonth.bill} 총 금액</div>
+                {/* <div>총 {}회 결제</div> */}
+                <div>거래내역 <button onClick={handleAddDeal}> + </button> </div>
                 
+
+                {dataset.map((item,index)=>{
+                    if (item.tag.name === tag) {
+                        return (
+                          <div key={index}>{item.tag.name}</div>
+                        );
+                    }
+                return null
+            })}
+
             </div>
 
         </>
