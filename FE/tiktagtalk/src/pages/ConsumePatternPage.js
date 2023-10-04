@@ -38,12 +38,14 @@ function ConsumePatternPage() {
         customAxios
           .get(process.env.REACT_APP_BASE_URL + `/consume/checkaccount?yearAndMonth=${mymonth}`)
           .then((res) => {
-            console.log('거래내역', res);
-            settotalamount(res.totalamount);
+            console.log('거래내역', res.data.totalAmount);
+            settotalamount(res.data.totalAmount);
           })
           .catch((error) => {
             console.log('거래내역 에러', error);
           });
+        // customAxios
+        //     .get(process.env.REACT_APP_BASE_URL + `/consume/checkaccount?yearAndMonth=${mymonth}`)
         }
         // mymonth이 변경될 때마다 이펙트를 실행하도록 설정
       }, [mymonth]);
@@ -91,7 +93,7 @@ function ConsumePatternPage() {
                     {user.userId}
                 </div>
                 <div>{mymonth}</div>
-                <div>{totalamount}</div>
+                <div>{totalamount}원</div>
                 <div>
                     <div className='consume-container'>
                         <div><CircleIcon></CircleIcon></div>

@@ -18,7 +18,7 @@ function DropdownMenu({monthData}) {
 
 
 
-  const options = ['2023년 8월', '2023년 7월', '2023년 6월', '2023년 5월'];
+  const options = ['2023-8', '2023-7', '2023-6', '2023-5'];
 
   return (
     <div className="dropdown-container">
