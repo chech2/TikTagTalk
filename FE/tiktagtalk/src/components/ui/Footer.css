@@ -2,19 +2,30 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
-  width: 100%; /* 가로 폭 100%로 설정 */
+
   position: fixed;
   bottom: 0; /* 화면 하단에 고정 */
-  height : 20vw;
-  border-radius: 10px;
-  background-color: blueviolet;
+  
+  width: 100%; /* 가로 폭 100%로 설정 */
+  height : 10%;
+  /* border-radius: 10px; */
+  background-color: #513374;
 }
 
-
-
-.responsive-image {
-  width: 100%;
-  height: auto;
-  max-width: 8vw; /* 이미지 최대 너비 지정 */
+.nav-navigate svg {
+  color: #D9B0F1;
+  font-size: 30px;
 }
+
+/* nav태그 아래의 자식들을 수평정렬하기 위한 설정 */
+nav {
+  overflow: hidden;
+}
+
+/* nav태그 아래의 div태그들을 수평정렬 및 세로길이 설정 */
+nav > div {
+  /* 수평정렬, 5개의 button을 각각 20% width만큼 할당 */
+  width: 20%;
+  /* text-align: center; */
+}
+
