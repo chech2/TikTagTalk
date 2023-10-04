@@ -53,7 +53,7 @@ customAxios.interceptors.response.use(function (response) {
                 originRequest.headers.Authorization = `Bearer ${newAccessToken}`;
                 return axios(originRequest);
             } catch (refreshError) {
-                //window.location.replace(`${process.env.REACT_APP_FRONT_URL}/login`);
+                window.location.replace(`${process.env.REACT_APP_FRONT_URL}/login`);
             }
         }
 
