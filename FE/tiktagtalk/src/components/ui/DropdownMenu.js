@@ -4,7 +4,7 @@ import './DropdownMenu.css'; // 스타일 파일을 import
 function DropdownMenu({monthData}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Select an option');
-
+  
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -18,7 +18,7 @@ function DropdownMenu({monthData}) {
 
 
 
-  const options = ['2023-8', '2023-7', '2023-6', '2023-5'];
+  const options = ['2023-09','2023-08', '2023-07', '2023-06', '2023-05'];
 
   return (
     <div className="dropdown-container">

@@ -65,7 +65,7 @@ function App() {
         {/* <Route path='/:id' element={<Detail />} /> */}
         <Route path='/exchange' element={<ExchangePage/>}></Route>
         <Route path='/consume-pattern' element={<ConsumePatternPage/>}></Route>
-        <Route path='filter-purchase' element={<FilteredPurchaseListPage/>}></Route>
+        <Route path='filter-purchase/:tag' element={<FilteredPurchaseListPage />}></Route>
       </Routes>
       {shouldRenderFooter && <Footer/>}
     </div>

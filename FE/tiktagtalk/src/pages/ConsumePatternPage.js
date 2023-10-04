@@ -17,6 +17,7 @@ function ConsumePatternPage() {
     const [mymonth, setmymonth] = useState('');
     const [requestmonth, setrequestmonth] = useState({yearAndMonth:'2023-08'})
     const [totalamount, settotalamount] = useState('0원')
+    const [highesttag, sethighesttag] = useState([])
     // console.log('redux임',user)
     const handleData = (data) =>{
         console.log(data)
@@ -34,18 +35,31 @@ function ConsumePatternPage() {
         if (mymonth !== '') { // mymonth가 빈 문자열이 아닐 때만 실행
         // mymonth 상태가 업데이트되면 실행되는 이펙트
         console.log('mymonth 업뎃:',mymonth)
-        let body = {yearAndMonth : mymonth}
+        let body = {'yearAndMonth' : `${mymonth}`}
+        console.log(body)
         customAxios
-          .get(process.env.REACT_APP_BASE_URL + `/consume/checkaccount?yearAndMonth=${mymonth}`)
+          .post(process.env.REACT_APP_BASE_URL + '/consume/checkaccount',body)
           .then((res) => {
-            console.log('거래내역', res.data.totalAmount);
             settotalamount(res.data.totalAmount);
+            console.log('거래내역', res.data.totalAmount);
           })
           .catch((error) => {
             console.log('거래내역 에러', error);
           });
-        // customAxios
-        //     .get(process.env.REACT_APP_BASE_URL + `/consume/checkaccount?yearAndMonth=${mymonth}`)
+          customAxios
+          .post(process.env.REACT_APP_BASE_URL + '/consume/highest', body)
+          .then((res) => {
+            // highesttag를 업데이트합니다.
+            sethighesttag(res.data.slice(0, 4));
+            console.log(res)
+            console.log('응답상위',res.data.slice(0,4))
+            // console.log('상위4개:', highesttag);
+          })
+          .catch((error) => {
+            console.log('거래내역 에러', error);
+          });
+
+
         }
         // mymonth이 변경될 때마다 이펙트를 실행하도록 설정
       }, [mymonth]);
@@ -69,8 +83,9 @@ function ConsumePatternPage() {
     const StyledButton = styled.button`
   background-color: white; /* 버튼 배경 색상 */
   color: white; /* 버튼 텍스트 색상 */`;
-    const handlefilter = ()=>{
-        naviage('/filter-purchase')
+    const handlefilter = (tagName)=>{
+        console.log(tagName)
+        naviage(`/filter-purchase/${tagName}`,{ state: { mymonth } })
     }
 
 
@@ -94,35 +109,14 @@ function ConsumePatternPage() {
                 </div>
                 <div>{mymonth}</div>
                 <div>{totalamount}원</div>
-                <div>
-                    <div className='consume-container'>
-                        <div><CircleIcon></CircleIcon></div>
-                        <div>종목이름</div>
-                        <div>종목금액</div>
-                        <StyledButton onClick={handlefilter}></StyledButton>
-
-                    </div>
-                    <div className='consume-container'>
-                        <div><CircleIcon></CircleIcon></div>
-                        <div>종목이름</div>
-                        <div>종목금액</div>
-                        <button></button>
-                    </div>                    
-                    <div className='consume-container'>
-                        <div><CircleIcon></CircleIcon></div>
-                        <div>종목이름</div>
-                        <div>종목금액</div>
-                        <button></button>
-                    </div>                    
-                    <div className='consume-container'>
-                        <div><CircleIcon></CircleIcon></div>
-                        <div>종목이름</div>
-                        <div>종목금액</div>
-                        <button></button>
-                    </div>
-                </div>
-
-
+                    {highesttag.map((item,index)=>(
+                        <div key = {index} className='consume-container'>
+                            <div><CircleIcon></CircleIcon></div>
+                            <div>{item.tag.name+" : "}</div>
+                            <div>{item.amount + '원'}</div>
+                            <StyledButton onClick={handlefilter.bind(null,item.tag.name)}></StyledButton>
+                        </div>
+                    ))}
 
             </div>
         </>
