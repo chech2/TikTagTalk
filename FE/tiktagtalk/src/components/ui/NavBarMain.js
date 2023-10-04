@@ -3,6 +3,9 @@ import './NavBarMain.css'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { IconButton } from '@mui/material';
+import { AddComment } from '@mui/icons-material';
+
 function NavBarMain(props) {
     const pageid = props.id
     const userid = useSelector(state=>state.user.id)
@@ -31,7 +34,15 @@ function NavBarMain(props) {
         <>
         <div className='navbarcontainer'>
             <div className='image-container'>
-                <img className='responsive-image' src="/Icon/댓글 페이지창 버튼.png" alt="" onClick={handleComment}/>
+                <IconButton
+                    className='responsive-image'
+                    onClick={handleComment}
+                    sx={{
+                        color: '#FCF7FF',  // IconButton의 색상 설정 
+                    }}
+                >
+                    <AddComment/>
+                </IconButton>
                 {/*  */}
                 <img className='responsive-image' src="/Icon/스킨 구매창.png" alt="" onClick={handleSkinPurchase}/>
                 <img className='responsive-image' src="/Icon/알림창 버튼.png" alt="" onClick={handleNotice}/>

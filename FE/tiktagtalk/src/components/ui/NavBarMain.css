@@ -2,10 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 2vw;
     
 }
 
 .image-container{
+    margin-left: 3vw;
     display: flex;
     width: 30vw;
     justify-content: space-around;
@@ -26,10 +28,8 @@
 
 
 .responsive-image {
-    width: 100%;
-    height: auto;
-    max-width: 8vw; /* 이미지 최대 너비 지정 */
-  }
+    border-color: #FF16CD;
+}
 .responsive-image2 {
 width: 20%;
 height: auto;
