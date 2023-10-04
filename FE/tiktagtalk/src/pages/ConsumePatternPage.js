@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router';
 function ConsumePatternPage() {
     const naviage = useNavigate()
     let user = useSelector((state)=>state.user)
+    const [year, setyear] = useState('')
+    const [month, setmonth] = useState('')
     const [mymonth, setmymonth] = useState('');
     const [requestmonth, setrequestmonth] = useState({yearAndMonth:'2023-08'})
     const [totalamount, settotalamount] = useState('')
@@ -28,6 +30,8 @@ function ConsumePatternPage() {
 
     useEffect(() => {
         // mymonth 상태 업데이트 후에 axios 요청을 보내도록 처리합니다.
+        setyear(new Date().getFullYear())
+        setmonth(new Date().getMonth().toString().padStart(2,'0'))
         setmymonth(`${new Date().getFullYear()}-${String(new Date().getMonth()).padStart(2, '0')}`);
       }, []); // 빈 배열을 전달하여 이펙트가 한 번만 실행되도록 합니다.
 
@@ -109,8 +113,9 @@ function ConsumePatternPage() {
                 </div>
                 {totalamount !== null ? (
                 <div>
-                  <div>{mymonth}</div>
-                  <div>{totalamount}원</div>
+                  <div>{year}년 {month}월</div>
+                  <div>총 금액 : {totalamount}원</div>
+                    <div>
                       {highesttag.map((item,index)=>(
                           <div key = {index} className='consume-container'>
                               <div><CircleIcon></CircleIcon></div>
@@ -119,7 +124,7 @@ function ConsumePatternPage() {
                               <StyledButton onClick={handlefilter.bind(null,[item.tag.name,item.amount])}></StyledButton>
                           </div>
                       ))}
-
+                    </div>
                 </div>
                      ) : null }
                      {/* // null 대신 이미지 넣어야할듯? */}
