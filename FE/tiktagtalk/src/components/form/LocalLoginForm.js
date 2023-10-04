@@ -1,6 +1,8 @@
 import './LocalLoginForm.css'
 import 'animate.css';
 
+import logo from "../../assets/TikTagTalk_logo.png"
+
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { useDispatch} from 'react-redux';
@@ -78,7 +80,7 @@ export default function LocalLoginForm() {
     return (
         <div className="local-login-form-container">
             <div className="animate__animated animate__bounceInUp">
-                <img src="./TikTagTalk_logo.png" className="login-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
+                <img src={logo} className="login-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
             </div>
             <form onSubmit={handleLogin} className="login-form animate__animated animate__bounceInUp animate__slow">
 
