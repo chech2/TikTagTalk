@@ -24,6 +24,7 @@ import Test from './pages/Test';
 import { useEffect } from 'react';
 import StartPage from './pages/StartPage';
 import ConsumePatternPage from './pages/ConsumePatternPage';
+import DebtListPage from './pages/DebtPage';
 
 
 function App() {
@@ -64,6 +65,9 @@ function App() {
         {/* <Route path='/:id' element={<Detail />} /> */}
         <Route path='/exchange' element={<ExchangePage/>}></Route>
         <Route path='/consume-pattern' element={<ConsumePatternPage />}></Route>
+
+        <Route path='/debts/list' element={<DebtListPage/>}></Route>
+
       </Routes>
       {shouldRenderFooter && <Footer/>}
     </div>
