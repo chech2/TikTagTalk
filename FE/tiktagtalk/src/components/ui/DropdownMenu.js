@@ -1,9 +1,16 @@
 import React, { useState,useEffect } from 'react';
 import './DropdownMenu.css'; // 스타일 파일을 import
 
+import { IconButton } from '@mui/material';
+import { ArrowLeft, ArrowRight } from '@mui/icons-material';
+
 function DropdownMenu({monthData}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Select an option');
+
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1;
   
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -16,13 +23,9 @@ function DropdownMenu({monthData}) {
     setIsOpen(false);
   };
 
-
-
-  const options = ['2023-09','2023-08', '2023-07', '2023-06', '2023-05'];
-
   return (
-    <div className="dropdown-container">
-      <button className="dropdown-button" onClick={toggleDropdown}>
+    <div className="year-month-selector-container">
+      {/* <button className="dropdown-button" onClick={toggleDropdown}>
         {selectedOption}
         <span className={isOpen ? 'arrow-up' : 'arrow-down'}></span>
       </button>
@@ -38,7 +41,20 @@ function DropdownMenu({monthData}) {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
+      <IconButton
+        className='go-back-icon'
+        onClick={} 
+      >
+        <ArrowLeft/>
+      </IconButton>
+      {year}-{month}
+      <IconButton
+        className='go-back-icon'
+        onClick={} 
+      >
+        <ArrowRight/>
+      </IconButton>
     </div>
   );
 }

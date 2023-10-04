@@ -6,25 +6,42 @@ import { useState,useEffect } from 'react';
 import { customAxios } from '../CustomAxios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
-// import { useState } from "react";
-// import { useSelector } from 'react-redux';
-// import Modal from '../components/ui/Modal';
-// import ItemModal from '../components/ItemModal';
+
+import { IconButton } from '@mui/material';
+import { ArrowBackIosNew, ArrowLeft, ArrowRight } from '@mui/icons-material';
 
 function ConsumePatternPage() {
     const naviage = useNavigate()
     let user = useSelector((state)=>state.user)
-    const [mymonth, setmymonth] = useState('');
-    const [requestmonth, setrequestmonth] = useState({yearAndMonth:'2023-08'})
+  const [mymonth, setmymonth] = useState();
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
     const [totalamount, settotalamount] = useState('0원')
     const [highesttag, sethighesttag] = useState([])
-    // console.log('redux임',user)
-    const handleData = (data) =>{
-        console.log(data)
-        setmymonth(data)
-        console.log('월데이터?', data)
-
+  
+    const goBack = () => {
+      window.history.back();
+  };
+  
+  useEffect(() => {
+    setmymonth(year + "-" + month);
+  }, [])
+  
+  const subMonth = () => {
+    if (month === 1) {
+      setYear(year - 1);
+      setMonth(12);
     }
+    else {
+      setMonth(month - 1);
+    }
+    setmymonth(year + "-" + month);
+    console.log(mymonth);
+  };
+
+  const sumMonth = () => {
+
+  };
 
     useEffect(() => {
         // mymonth 상태 업데이트 후에 axios 요청을 보내도록 처리합니다.
@@ -93,13 +110,32 @@ function ConsumePatternPage() {
     return (
         <>
             <div className='appbar-container'>
-                <div>
-                    <img src="/Icon/뒤로가기.png" alt="" />
+                {/* 이전 페이지 이동 버튼 */}
+                <IconButton
+                    className='go-back-icon'
+                    onClick={goBack} 
+                >
+                    <ArrowBackIosNew/>
+                </IconButton>
+          
+                {/* 연월 선택하기 */}
+                <div className="select-month">
+                    <IconButton
+                      className='move-month-icon'
+                      onClick={subMonth} 
+                    >
+                      <ArrowLeft/>
+                    </IconButton>
+                    {mymonth}
+                    <IconButton
+                      className='move-month-icon'
+                      onClick={sumMonth} 
+                    >
+                      <ArrowRight/>
+                    </IconButton>
                 </div>
-                <div>
-                    <DropdownMenu monthData={handleData}></DropdownMenu>
-                </div>
-            </div>
+        </div>
+        
             <div className='consume-pattern'>
                 <div>
                     <img src="/Character/1.jpg" alt="" />

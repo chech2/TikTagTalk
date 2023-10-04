@@ -1,7 +1,33 @@
-.appbar-container{
-    display:flex;
+/* app bar container */
+.appbar-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4vw;
+    color: #FCF7FF;
 }
 
+.appbar-container .go-back-icon {
+    color: #FCF7FF;
+}
+
+.appbar-container .select-month {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: larger;
+    display: flex;
+    align-self: center;
+}
+
+.appbar-container .select-month .MuiButtonBase-root {
+    padding: 0;
+}
+
+.appbar-container .select-month .move-month-icon .MuiSvgIcon-root {
+    color: #FCF7FF;
+    font-size: larger;
+    width: 100%;
+}
 
 .consume-pattern{
     width : 100%;
