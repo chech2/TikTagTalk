@@ -12,8 +12,6 @@ function MainPage() {
     const { id } = useParams();
     const dispatch = useDispatch();
     
-    
-    
     // 의존성 배열은 빈 배열로 설정
     // useEffect(()=>{
     //     axios.get(process.env.REACT_APP_BASE_URL + '/api/members/sign-up')

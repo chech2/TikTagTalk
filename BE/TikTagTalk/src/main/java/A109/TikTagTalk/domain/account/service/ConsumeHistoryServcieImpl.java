@@ -118,9 +118,9 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public CheckAccountResponseDto checkAccountTotalAccount(ConsumeHistoryRequestDto requestDto,Member member) {
+    public CheckAccountResponseDto checkAccountTotalAccount(String yearAndMonth,Member member) {
         Account account=accountRepository.findAccountByMemberId(member);
-        CheckAccountResponseDto result=consumeHistoryRepository.checkAccountTagAmount(requestDto,account);
+        CheckAccountResponseDto result=consumeHistoryRepository.checkAccountTagAmount(yearAndMonth,account);
         return result;
     }
 

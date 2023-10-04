@@ -34,9 +34,11 @@ public class ConsumeHistoryController {
     }
 
     @GetMapping("/checkaccount") //총 소비 금액, 카테고리 별 금액 및 비중 조회
-    public CheckAccountResponseDto checkAccount(@RequestBody ConsumeHistoryRequestDto requestDto){
+    public CheckAccountResponseDto checkAccount(@RequestParam String yearAndMonth){
+
+        log.info("yearAndMonth={}", yearAndMonth);
         Member member= SecurityUtil.getCurrentLoginMember();
-        return consumeHistoryService.checkAccountTotalAccount(requestDto,member);
+        return consumeHistoryService.checkAccountTotalAccount(yearAndMonth ,member);
     }
 
     @PostMapping("") //수동 소비 내역 등록

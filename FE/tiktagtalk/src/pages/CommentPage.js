@@ -199,6 +199,7 @@ function CommentPage(props) {
     //yarn add react-icons -> 리액트 아이콘 라이브러리 다운!!!
     return (
         <>
+        <AppBar title='방명록' id={id} ></AppBar>
         <div>
             <div className='comment-user-info'>
                 <img className='comment-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 

@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router';
 function ConsumePatternPage() {
     const naviage = useNavigate()
     let user = useSelector((state)=>state.user)
-    const [mymonth, setmymonth] = useState('0월');
+    const [mymonth, setmymonth] = useState('');
     const [requestmonth, setrequestmonth] = useState({yearAndMonth:'2023-08'})
     const [totalamount, settotalamount] = useState('0원')
     // console.log('redux임',user)
@@ -22,33 +22,31 @@ function ConsumePatternPage() {
         console.log(data)
         setmymonth(data)
         console.log('월데이터?', data)
-        // setrequestmonth(data.slice(0,4)+'-0'+data.slice(6,7))
-        // console.log('payload:',requestmonth)
+
     }
 
-    useEffect(()=>{
-        setmymonth(`${new Date().getFullYear()}-${String(new Date().getMonth()).padStart(2, '0')}`)
-        console.log(mymonth)
-        customAxios.get(process.env.REACT_APP_BASE_URL + '/consume/checkaccount',{ 'yearAndMonth' : `${mymonth}` },
-          )
-        .then((res)=>{
-            console.log('거래내역',res)
-            settotalamount(res.totalamount)
-        })
-        .catch((err)=>{
-            console.log('거래내역에러',err)
-        })
-    },
-        customAxios.get(process.env.REACT_APP_BASE_URL + '/consume/highest',{ 'yearAndMonth' : `${mymonth}` })
-        .then((res)=>{
-            console.log(res)
-            //  높은순 
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    
-    [requestmonth])
+    useEffect(() => {
+        // mymonth 상태 업데이트 후에 axios 요청을 보내도록 처리합니다.
+        setmymonth(`${new Date().getFullYear()}-${String(new Date().getMonth()).padStart(2, '0')}`);
+      }, []); // 빈 배열을 전달하여 이펙트가 한 번만 실행되도록 합니다.
+
+      useEffect(() => {
+        if (mymonth !== '') { // mymonth가 빈 문자열이 아닐 때만 실행
+        // mymonth 상태가 업데이트되면 실행되는 이펙트
+        console.log('mymonth 업뎃:',mymonth)
+        let body = {yearAndMonth : mymonth}
+        customAxios
+          .get(process.env.REACT_APP_BASE_URL + `/consume/checkaccount?yearAndMonth=${mymonth}`)
+          .then((res) => {
+            console.log('거래내역', res);
+            settotalamount(res.totalamount);
+          })
+          .catch((error) => {
+            console.log('거래내역 에러', error);
+          });
+        }
+        // mymonth이 변경될 때마다 이펙트를 실행하도록 설정
+      }, [mymonth]);
 
 
 

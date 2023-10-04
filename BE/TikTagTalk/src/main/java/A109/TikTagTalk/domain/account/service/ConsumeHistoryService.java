@@ -15,7 +15,7 @@ public interface ConsumeHistoryService {
     List<AllConsumeHistoryResponseDto> allConsumeHistoryRecently(ConsumeHistoryRequestDto requestDto, Member member);
     List<AllConsumeHistoryResponseDto> allConsumeHistoryHighest(ConsumeHistoryRequestDto requestDto,Member member);
 
-    CheckAccountResponseDto checkAccountTotalAccount(ConsumeHistoryRequestDto requestDto,Member member);
+    CheckAccountResponseDto checkAccountTotalAccount(String yearAndMonth,Member member);
     ResponseDto addConsumeHistory(AddConsumeHistoryRequestDto reqestDto,Member member);
 
     ResponseDto makeMemberTags(ConsumeHistoryRequestDto requestDto,Member member);
