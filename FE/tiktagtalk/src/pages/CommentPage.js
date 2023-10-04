@@ -26,8 +26,9 @@ function CommentPage(props) {
     const [isEditing, setIsEditing] = useState([]);
     // 각 댓글의 수정할 내용을 관리하는 상태 변수 배열
     const [editCommentContent, setEditCommentContent] = useState([]);
+    const [friendList,setFriendList] = useState([]);
 
-    const [friendNums,setfriendNums] = useState(0);
+    const [friendNums,setFriendNums] = useState(0);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -44,8 +45,17 @@ function CommentPage(props) {
     useEffect(() => {
         const fetchData = async () => {
 
-        console.log('현재 로그인한 id : ',user.userId);
           try {
+            const talk=await fetch(
+                process.env.REACT_APP_BASE_URL + `/talk-talks`,
+              {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                },
+              }
+            )
             const owner=await fetch(
                 process.env.REACT_APP_BASE_URL + `/tagroom/${id}`,
               {
@@ -56,6 +66,11 @@ function CommentPage(props) {
                 },
               }
             )
+            if(talk.status===200){
+                const talksResult=await talk.json();
+                setFriendList(talksResult);
+                setFriendNums(talksResult.length);
+            }
             if(owner.status===200){
                 const ownerResult=await owner.json();
                 
@@ -91,16 +106,19 @@ function CommentPage(props) {
 
     //comment 목록 불러오기 끝
 
+    //talktalk신청
     const handleAddTalk = ()=>{
         console.log('id임:',id)
         customAxios.post(process.env.REACT_APP_BASE_URL + '/talk-talks', {'memberId':`${id}`})
         .then((res)=>{
             console.log(res)
+            alert('talktalk 요청을 보냈습니다.');
         })
         .catch((err)=>{
             // console.log(err)
         })
     } 
+    //talktalk신청끝
 
     //comment 등록 시작
     const [newCommentContent, setNewCommentContent] = useState('');
@@ -261,15 +279,6 @@ function CommentPage(props) {
     
     //comment 수정 끝
 
-    // useEffect(()=>{
-    //     axios.get(process.env.REACT_APP_BASE_URL + '/talk-talk')
-    //     .then((res)=>{
-    //     console.log(res)
-    //     setfriendNums(res.members.length)
-    //     setuserName(res.userId)
-    //     setuserId(res.id)
-    // })
-    // })
 
     return (
         <>

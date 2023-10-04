@@ -20,6 +20,12 @@ public class Item {
 
     private String s3Url;
 
+    @Column(name="size_x")
+    private int sizeX;
+    @Column(name="size_y")
+    private int sizeY;
+    private Boolean isSkin;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TAG_ID")
     private Tag tag;
