@@ -28,7 +28,7 @@ function NoticePage(props) {
     return (
         <>
             <div>
-                <AppBar title='알림 페이지'></AppBar>
+                <AppBar title='알림 페이지' id = {userid}></AppBar>
             </div>
             <div>
                 <p>알림 적어라</p>

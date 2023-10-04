@@ -8,3 +8,13 @@
     align-items: center;
     justify-content: center;
 }
+
+.consume-container{
+    display:flex;
+    justify-content: center;
+}
+/* .consume-high{
+    width : 100%;
+    justify-content: center;
+    align-items: center;
+} */

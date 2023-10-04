@@ -16,7 +16,7 @@ public interface ConsumeHistoryRepositoryCustom {
     List<ConsumeHistory> findAllRecently(ConsumeHistoryRequestDto requestDto,Account account);
     List<ConsumeHistory> findAllHighest(ConsumeHistoryRequestDto requestDto,Account account);
 
-    CheckAccountResponseDto checkAccountTagAmount(ConsumeHistoryRequestDto requestDto,Account account);
+    CheckAccountResponseDto checkAccountTagAmount(String yearAndMonth,Account account);
 
     List<CheckMemberTagResponseDto> calMemberTags(ConsumeHistoryRequestDto requestDto,Account account);
 
