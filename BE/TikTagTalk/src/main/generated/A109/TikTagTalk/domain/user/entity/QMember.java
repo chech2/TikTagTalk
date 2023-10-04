@@ -50,6 +50,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final NumberPath<Integer> point = createNumber("point", Integer.class);
 
+    public final BooleanPath pointsAddedToday = createBoolean("pointsAddedToday");
+
     public final ListPath<TalkTalk, QTalkTalk> receives = this.<TalkTalk, QTalkTalk>createList("receives", TalkTalk.class, QTalkTalk.class, PathInits.DIRECT2);
 
     public final StringPath refreshToken = createString("refreshToken");
