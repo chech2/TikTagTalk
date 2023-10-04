@@ -12,14 +12,14 @@ import "./OAuthSignupForm.css"
 function OauthSignupForm() {
 
     const avatars = [
-        {name: 1, img: "/avatar/type1.jpg"},
-        {name: 2, img: "/avatar/type2.jpg"},
-        {name: 3, img: "/avatar/type3.jpg"},
-        {name: 4, img: "/avatar/type4.jpg"},
-        {name: 5, img: "/avatar/type5.jpg"},
-        {name: 6, img: "/avatar/type6.jpg"},
-        {name: 7, img: "/avatar/type7.jpg"},
-        {name: 8, img: "/avatar/type8.jpg"}
+        {name: 1, img: process.env.PUBLIC_URL + "/avatar/type1.jpg"},
+        {name: 2, img: process.env.PUBLIC_URL + "/avatar/type2.jpg"},
+        {name: 3, img: process.env.PUBLIC_URL + "/avatar/type3.jpg"},
+        {name: 4, img: process.env.PUBLIC_URL + "/avatar/type4.jpg"},
+        {name: 5, img: process.env.PUBLIC_URL + "/avatar/type5.jpg"},
+        {name: 6, img: process.env.PUBLIC_URL + "/avatar/type6.jpg"},
+        {name: 7, img: process.env.PUBLIC_URL + "/avatar/type7.jpg"},
+        {name: 8, img: process.env.PUBLIC_URL + "/avatar/type8.jpg"}
     ]
 
     const navigate = useNavigate();
@@ -133,7 +133,7 @@ function OauthSignupForm() {
     return (
         <div className="oauth-sign-form-container">
             <div>
-                <img src="/TikTagTalk_logo.png" alt="tiktagtalk logo" className="sign-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
+                <img src={process.env.PUBLIC_URL + "/TikTagTalk_logo.png"} alt="tiktagtalk logo" className="sign-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
             </div>
             <form onSubmit={handleSignUp} className="oauth-sign-form">
 
