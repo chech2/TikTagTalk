@@ -113,7 +113,7 @@ public class MemberService {
                 .role(Role.USER)
                 .attendance(1)
                 .coin(0)
-                .point(0)
+                .point(5000)
                 .account(account)
                 .build();
         TagRoom tagRoom=TagRoom.builder()
@@ -192,7 +192,7 @@ public class MemberService {
         member.setAvatarType(memberOAuthSignUpDto.getAvatarType());
         member.setRole(Role.USER);
         member.setAttendance(1);
-        member.setPoint(0);
+        member.setPoint(5000);
         member.setCoin(0);
         member.setAccount(account);
         memberRepository.save(member);
