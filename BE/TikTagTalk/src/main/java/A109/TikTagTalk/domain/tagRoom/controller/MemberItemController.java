@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 public class MemberItemController {
     private final MemberItemService memberItemService;
-    @GetMapping("/initmemberitem")
+    @PostMapping("/initmemberitem")
     public void initMemberItem(@RequestBody InitMemberItemRequestDto requestDto){
         Member member= SecurityUtil.getCurrentLoginMember();
 

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class ConsumePlanController {
     private final ConsumePlanService consumePlanService;
 
-    @PostMapping("")
+    @PostMapping("/register")
     public ResponseDto insertConsumePlan(@RequestBody ConsumePlanRequestDto requestDto){
         Member member= SecurityUtil.getCurrentLoginMember();
         try {
@@ -32,7 +32,7 @@ public class ConsumePlanController {
         }
     }
 
-    @GetMapping("")
+    @PostMapping("")
     public AllConsumePlanResonseDto allConsumePlan(@RequestBody AllConsumePlanRequestDto requestDto){
         Member member=SecurityUtil.getCurrentLoginMember();
         try{

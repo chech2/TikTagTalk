@@ -4,6 +4,15 @@ import { useNavigate } from 'react-router-dom'
 
 import "./SignupForm.css"
 import 'animate.css';
+import logo from "../../assets/TikTagTalk_logo.png"
+import type1 from "../../assets/avatar/type1.jpg"
+import type2 from "../../assets/avatar/type2.jpg"
+import type3 from "../../assets/avatar/type3.jpg"
+import type4 from "../../assets/avatar/type4.jpg"
+import type5 from "../../assets/avatar/type5.jpg"
+import type6 from "../../assets/avatar/type6.jpg"
+import type7 from "../../assets/avatar/type7.jpg"
+import type8 from "../../assets/avatar/type8.jpg"
 
 import { TextField, InputLabel, FormControl, Input, InputAdornment, IconButton, FormHelperText } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -11,14 +20,14 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 function SignupForm() {
 
     const avatars = [
-        {name: 1, img: "./avatar/type1.jpg"},
-        {name: 2, img: "./avatar/type2.jpg"},
-        {name: 3, img: "./avatar/type3.jpg"},
-        {name: 4, img: "./avatar/type4.jpg"},
-        {name: 5, img: "./avatar/type5.jpg"},
-        {name: 6, img: "./avatar/type6.jpg"},
-        {name: 7, img: "./avatar/type7.jpg"},
-        {name: 8, img: "./avatar/type8.jpg"}
+        {name: 1, img: type1},
+        {name: 2, img: type2},
+        {name: 3, img: type3},
+        {name: 4, img: type4},
+        {name: 5, img: type5},
+        {name: 6, img: type6},
+        {name: 7, img: type7},
+        {name: 8, img: type8}
     ]
 
     const navigate = useNavigate();
@@ -186,7 +195,7 @@ function SignupForm() {
     return (
         <div className="sign-form-container">
             <div className="animate__animated animate__bounceInUp">
-                <img src="./TikTagTalk_logo.png" alt="tiktagtalk logo" className="sign-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
+                <img src={logo} alt="tiktagtalk logo" className="sign-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
             </div>
             <form onSubmit={handleSignUp} className="sign-form">
 
