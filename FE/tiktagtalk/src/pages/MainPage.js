@@ -41,7 +41,7 @@ function MainPage() {
                 user.isLogin ? (
                     <div>
                         <NavBarMain 
-                        Nav_id = {id}
+                        mainpage_id = {id}
                         ></NavBarMain>
                         <h1>메인페이지 예정입니다.</h1>
                         {/* <TagRoom></TagRoom> */}

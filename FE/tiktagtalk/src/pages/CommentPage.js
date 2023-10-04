@@ -18,6 +18,7 @@ function CommentPage(props) {
     // 댓글
     const [data, setData] = useState(null);
     const userId = useSelector(state=>state.user.userId); // 진짜 user의 아이디값
+    const userAvatar = useSelector(state=>state.user.avatarType)
     const isLoggedIn = useSelector(state => state.user.isLogin);
     const [comments, setComments] = useState([]);
     
@@ -110,11 +111,11 @@ function CommentPage(props) {
         // }
         try {
             const response = await customAxios.post(
-                `${process.env.REACT_APP_BASE_URL}/comment`,{'content':`${newCommentContent}`,'tagRoom':{'id':id}});
+                `${process.env.REACT_APP_BASE_URL}/comment`,{'content':`${newCommentContent}`,'tagRoom':{'id':userId}});
             if (response.status === 200) {
                 // 댓글 작성 후 댓글 목록을 다시 가져온다.
-                const responseComment = await axios.get(
-                    `${process.env.REACT_APP_BASE_URL}/comment/tagRoom=${id}`
+                const responseComment = await customAxios.get(
+                    `${process.env.REACT_APP_BASE_URL}/comment/${id}`
                 );
                 const comment = responseComment.data;
                 setComments(comment);
@@ -132,6 +133,7 @@ function CommentPage(props) {
 
     const handleCommentChange = (event) => {
         setNewCommentContent(event.target.value);
+        // console.log('댓글 내용임:',newCommentContent)
     };
 
 
@@ -152,11 +154,11 @@ function CommentPage(props) {
 
     return (
         <>
-        <AppBar title='방명록'></AppBar>
+        <AppBar title='방명록' id={id} ></AppBar>
         <div>
             <div>
                 {/* 마이페이지 아이콘 변경해야됨 */}
-                <img className='comment-responsive-image' src="/Icon/마이페이지 아이콘.png" alt="" /> 
+                <img className='comment-responsive-image' src={`/avatar/type${userAvatar}.jpg`} alt="" /> 
                 <h1>{userId}</h1>
                 { id == user.id ? (null) :(
                 <div>
@@ -242,3 +244,13 @@ function CommentPage(props) {
     );
 }
 export default CommentPage;
+
+
+
+
+
+
+
+
+
+

@@ -23,51 +23,49 @@ function FriendListPage(){
     // const [recieveList, setrecieveList] = useState([])
     const [received,setreceived] = useState([])
     const [request,setrequest] = useState([])
-    const [FriendList, setFreiendList] = useState([])
+    const [friendList, setfreiendList] = useState([])
 
 
-    const [friendList, setfriendList] = useState([{
-        id : 1,
-        userId : '1',
-        name : '일번',
-        introduction : '나의소개글',
-        profile_image : '/Icon/마이페이지 아이콘.png',
-        },{
-        id : 2,
-        userId : '2',
-        name : '이번',
-        introduction : '나의소개글',
-        profile_image : '/Icon/마이페이지 아이콘.png',
-        },{
-        id : 3,
-        userId : '3',
-        name : '삼번',
-        introduction : '나의소개글',
-        profile_image : '/Icon/마이페이지 아이콘.png',
-        },{
-        id : 4,
-        userId : '4',
-        name : '사번',
-        introduction : '나의소개글',
-        profile_image : '/Icon/마이페이지 아이콘.png',
-        },
-    ])
+    // const [friendList, setfriendList] = useState([{
+    //     id : 1,
+    //     userId : '1',
+    //     name : '일번',
+    //     introduction : '나의소개글',
+    //     profile_image : '/Icon/마이페이지 아이콘.png',
+    //     },{
+    //     id : 2,
+    //     userId : '2',
+    //     name : '이번',
+    //     introduction : '나의소개글',
+    //     profile_image : '/Icon/마이페이지 아이콘.png',
+    //     },{
+    //     id : 3,
+    //     userId : '3',
+    //     name : '삼번',
+    //     introduction : '나의소개글',
+    //     profile_image : '/Icon/마이페이지 아이콘.png',
+    //     },{
+    //     id : 4,
+    //     userId : '4',
+    //     name : '사번',
+    //     introduction : '나의소개글',
+    //     profile_image : '/Icon/마이페이지 아이콘.png',
+    //     },
+    // ])
     
 
     useEffect(()=>{
         customAxios.get(process.env.REACT_APP_BASE_URL + '/talk-talks')
         .then((res)=>{            
-            setFreiendList(res)
             console.log('받은친구',res)
             setreceived(res.data.filter(item =>item.status === 'RECEIVED'))
             setrequest(res.data.filter(item =>item.status === 'REQUESTING'))
-            // setFreiendList(res.data.filter(item =>item.status === 'REQUESTING'))
+            setfreiendList(res.data.filter(item =>item.status === 'TALK_TALK'))
         })
         .catch((err)=>{
             console.log('친구리스트 받기 에러',err)
         })
     },[])
-
 
     // useEffect(() => {
     //     // data 상태가 업데이트될 때마다 필터링 수행
@@ -80,13 +78,6 @@ function FriendListPage(){
     // const filtered = FriendList.filter(item => item.status === 'REQUESTING');
     // setrecieveList(filtered);
     // }
-
-
-
-
-
-
-
 
     return(
         <>

@@ -25,11 +25,11 @@ function ExchangePage(props) {
     return (
         <>
             <div>
-                <AppBar title='환전 페이지'></AppBar>
+                <AppBar title='환전 페이지' id = {user.id}></AppBar>
             </div>
             <div className='exchange-container'>
                 <div className='exchange-container-33'>
-                    <img className='exchange-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" />
+                    <img className='comment-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
                 </div>
                 <div className='exchange-container-33'>
                     {user.userId}
