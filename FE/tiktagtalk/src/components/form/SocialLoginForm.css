@@ -36,7 +36,7 @@
     left: 8%; /* 부모 요소 너비의 8% 만큼 왼쪽에서 떨어짐 */
 }
 
-.google-login-button span {
+.google-login-button span, .google-login-button span:visited {
     color: #241823;
 }
 
@@ -54,7 +54,7 @@
     left: 4%; /* 부모 요소 너비의 8% 만큼 왼쪽에서 떨어짐 */
 }
 
-.naver-login-button span {
+.naver-login-button span, .naver-login-button span:visited {
     color: white;
 }
 
@@ -72,6 +72,6 @@
     left: 7.5%; /* 부모 요소 너비의 8% 만큼 왼쪽에서 떨어짐 */
 }
 
-.kakao-login-button span {
+.kakao-login-button span, .kakao-login-button span:visited {
     color: #000000 85%;
 }
