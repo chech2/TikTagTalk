@@ -52,6 +52,8 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional(readOnly = true)
     public List<AllCommentsResponseDto> allComments(Long tagRoomId) {
+        TagRoom tagRoom=tagRoomRepository.findById(tagRoomId).get();
+        String owner=tagRoom.getMember().getUserId();
         List<Comment> commentList=commentRepository.allComments(tagRoomId);
         return commentList.stream()
                 .map(comment -> {
@@ -69,6 +71,7 @@ public class CommentServiceImpl implements CommentService{
                             .member(memberDto)
                             .writtenTime(comment.getWrittenTime())
                             .content(comment.getContent())
+                            .owner(owner)
                             .build();
                 })
                 .collect(Collectors.toList());

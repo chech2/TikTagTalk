@@ -14,6 +14,7 @@ public class AllCommentsResponseDto {
     private LocalDateTime writtenTime;
     private MemberDto member; //댓글 작성자 id
     private TagRoomDto tagRoom; //태그룸 주인 id
+    private String owner;
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

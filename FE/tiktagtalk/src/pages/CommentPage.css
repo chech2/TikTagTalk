@@ -220,6 +220,9 @@
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom: 20px;
   }
   
   .comment-input-container {
@@ -227,11 +230,10 @@
     flex-direction: column;
     align-items: stretch;
   }
-  
   .comment-input {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    /* flex-direction: row;
+    justify-content: space-between; */
     align-items: center;
     gap: 8px;
   }
@@ -247,9 +249,9 @@
     padding-top:2%;
     padding-bottom: 2%;
   }
-  .comment-edit textarea{
+  .comment-content textarea{
     flex: 1;
-    width: 100%;
+    width: 95%;
     height: 50px;
     resize: none;
     border: 1px solid black;

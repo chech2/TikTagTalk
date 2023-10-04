@@ -13,6 +13,7 @@ import { FaPlus } from 'react-icons/fa';
 
 function CommentPage(props) {
     const {id} = useParams();
+    // const [tagRoomOwner,setTagRoomOwner]=userState();
     const user = useSelector((state)=> state.user)
     const [isFriend,setisFriend] = useState(false)
     const [comments, setComments] = useState([]);
@@ -73,11 +74,6 @@ function CommentPage(props) {
       }, [id]);
 
     //comment 목록 불러오기 끝
-
-
-
-
-
 
     const handleAddTalk = ()=>{
         console.log('id임:',id)
@@ -265,7 +261,7 @@ function CommentPage(props) {
         <div>
             <div className='comment-user-info'>
                 <img className='comment-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
-                <h2>{user.userId}</h2>
+                <h2>{comments[0].owner}</h2>
                 <div className='comment-user-talktalk-button'>
                     <button onClick={handleAddTalk}><FaPlus className='FaPlus'></FaPlus> 톡톡</button>
                 </div>
@@ -288,73 +284,98 @@ function CommentPage(props) {
             <hr />
             <tr/>
             <div className='commentForm'>
-                    <ul className='comment-list'>
-                        {comments.map((comment, index) => (
-                        <li key={index}>
+                <ul className='comment-list'>
+                {comments.map((comment, index) => (
+                    <li key={index}>
+                        {isEditing.includes(comment.id) ? ( // 수정 모드인 경우
                             <div className='comment-container'>
                                 <div className='comment-profile-img'>
-                                    <img src={`/avatar/type${comment.member.avatarType}.jpg`}></img>
+                                    <img src={`/avatar/type${comment.member.avatarType}.jpg`} alt='' />
                                 </div>
                                 <div className='comment-form-content'>
                                     <div className='comment-info'>
                                         <div className='comment-writer-info'>
                                             {comment.member.name}
-                                            
                                         </div>
                                         <div className='comment-writtenTime'>
                                             {formatDate(comment.writtenTime)}
                                         </div>
                                     </div>
-                                        <div className='comment-content-delete'>
-                                            <div className='comment-content'>{comment.content}</div>
+                                    <div className='comment-content-delete'>
+                                        <div className='comment-content'>
+                                            <textarea
+                                                value={editCommentContent[isEditing.indexOf(comment.id)]}
+                                                onChange={(e) => setEditCommentContent((prevContent) => {
+                                                    const contentIndex = isEditing.indexOf(comment.id);
+                                                    const newContent = [...prevContent];
+                                                    newContent[contentIndex] = e.target.value;
+                                                    return newContent;
+                                                })}
+                                            />
                                         </div>
-                                        {comment.commentImgUrl && (
-                                            <div className='comment-img'>
-                                                <img className='comment-content-img' src={comment.commentImgUrl}></img>
-                                            </div>
-                                        )}
-                                        <div className='comment-actions'>
+                                    </div>
+                                    <div className='comment-actions'>
                                         {isLoggedIn[0] && comment.member.id === user.id && (
                                             <>
-                                                {/* 수정하기 버튼 클릭 시 수정 상태에 따라 표시를 조정 */}
-                                                {isEditing.includes(comment.id) ? (
-                                                    <div className='comment-edit'>
-                                                        <textarea
-                                                            value={editCommentContent[isEditing.indexOf(comment.id)]}
-                                                            onChange={(e) => setEditCommentContent((prevContent) => {
-                                                                const contentIndex = isEditing.indexOf(comment.id);
-                                                                const newContent = [...prevContent];
-                                                                newContent[contentIndex] = e.target.value;
-                                                                return newContent;
-                                                            })}
-                                                        />
-                                                        <button onClick={() => handleEditComment(comment.id, editCommentContent[isEditing.indexOf(comment.id)])}>수정 완료</button>
-                                                    </div>
-                                                ) : (
-                                                    <div className='comment-edit' onClick={() => handleEditComment(comment.id, comment.content)}>수정하기</div>
-                                                )}
+                                                <div className='comment-edit' onClick={() => handleEditComment(comment.id, editCommentContent[isEditing.indexOf(comment.id)])}>수정완료</div>
+                                                
                                                 <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
                                             </>
                                         )}
                                     </div>
-
                                 </div>
                             </div>
-                            {index !== comments.length - 1 && <hr />} {/* 마지막 아이템이 아닌 경우에만 <hr>을 렌더링 */}
-                        </li>
-                        ))}
-                    </ul>
+                        ) : ( // 수정 모드가 아닌 경우
+                            <div className='comment-container'>
+                                <div className='comment-profile-img'>
+                                    <img src={`/avatar/type${comment.member.avatarType}.jpg`} alt='' />
+                                </div>
+                                <div className='comment-form-content'>
+                                    <div className='comment-info'>
+                                        <div className='comment-writer-info'>
+                                            {comment.member.name}
+                                        </div>
+                                        <div className='comment-writtenTime'>
+                                            {formatDate(comment.writtenTime)}
+                                        </div>
+                                    </div>
+                                    <div className='comment-content-delete'>
+                                        <div className='comment-content'>
+                                            {comment.content}
+                                        </div>
+                                    </div>
+                                    {comment.commentImgUrl && (
+                                        <div className='comment-img'>
+                                            <img className='comment-content-img' src={comment.commentImgUrl} alt='' />
+                                        </div>
+                                    )}
+                                    <div className='comment-actions'>
+                                        {isLoggedIn[0] && comment.member.id === user.id && (
+                                            <>
+                                                <div className='comment-edit' onClick={() => handleEditComment(comment.id, comment.content)}>수정하기</div>
+                                                <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {index !== comments.length - 1 && <hr />} {/* 마지막 아이템이 아닌 경우에만 <hr>을 렌더링 */}
+                    </li>
+                ))}
+            </ul>
                                             
                         <div className='comment-form'>
                             <form onSubmit={handleSubmitComment} className="comment-input-container">
                                 <div className="comment-input">
                                     <textarea
-                                        placeholder='댓글을 입력하세요...'
+                                        placeholder='댓글을 입력하세요.'
                                         value={newCommentContent}
                                         onChange={handleCommentChange}
                                     />
                                     <button type='submit'>댓글 작성</button>
                                 </div>
+                                
                             </form>
                         </div>
                 </div>
