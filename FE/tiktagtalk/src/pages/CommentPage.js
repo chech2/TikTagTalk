@@ -13,7 +13,8 @@ import { FaPlus } from 'react-icons/fa';
 
 function CommentPage(props) {
     const {id} = useParams();
-    // const [tagRoomOwner,setTagRoomOwner]=userState();
+    const [tagRoomOwner,setTagRoomOwner]=useState();
+    const [tagRoomOwnerAvatar,setTagRoomOwnerAvatar]=useState();
     const user = useSelector((state)=> state.user)
     const [isFriend,setisFriend] = useState(false)
     const [comments, setComments] = useState([]);
@@ -26,10 +27,7 @@ function CommentPage(props) {
     // 각 댓글의 수정할 내용을 관리하는 상태 변수 배열
     const [editCommentContent, setEditCommentContent] = useState([]);
 
-    const [friendNums,setfriendNums] = useState(0)
-    // const [userName, setuserName] = useState('허')
-    // const [userId, setuserId] = useState(1)
-    // const [userAvatarType, setuserAvatarType] = useState(1)
+    const [friendNums,setfriendNums] = useState(0);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -45,11 +43,29 @@ function CommentPage(props) {
     //comment 목록 불러오기 시작
     useEffect(() => {
         const fetchData = async () => {
+
+        console.log('현재 로그인한 id : ',user.userId);
           try {
-            console.log("tagRoom : "+id);
+            const owner=await fetch(
+                process.env.REACT_APP_BASE_URL + `/tagroom/${id}`,
+              {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                },
+              }
+            )
+            if(owner.status===200){
+                const ownerResult=await owner.json();
+                
+                setTagRoomOwner(ownerResult.member.userId);
+                setTagRoomOwnerAvatar(ownerResult.member.avatarType);
+            }
             // const ownerOfCommentRoom =await fetch(
             //     process.env.REACT_APP_BASE_URL
             // ) 태그룸의 주인을 tagroom db에서 가져와서 프로필 갖고 오자
+            
             const responseComment = await fetch(
               process.env.REACT_APP_BASE_URL + `/comment/${id}`,
               {
@@ -260,8 +276,8 @@ function CommentPage(props) {
         <AppBar></AppBar>
         <div>
             <div className='comment-user-info'>
-                <img className='comment-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
-                <h2>{comments[0].owner}</h2>
+                <img className='comment-responsive-image' src={`/avatar/type${tagRoomOwnerAvatar}.jpg`} alt="" /> 
+                <h2>{tagRoomOwner}</h2>
                 <div className='comment-user-talktalk-button'>
                     <button onClick={handleAddTalk}><FaPlus className='FaPlus'></FaPlus> 톡톡</button>
                 </div>
@@ -295,7 +311,7 @@ function CommentPage(props) {
                                 <div className='comment-form-content'>
                                     <div className='comment-info'>
                                         <div className='comment-writer-info'>
-                                            {comment.member.name}
+                                            {comment.member.userId}
                                         </div>
                                         <div className='comment-writtenTime'>
                                             {formatDate(comment.writtenTime)}
@@ -317,9 +333,9 @@ function CommentPage(props) {
                                     <div className='comment-actions'>
                                         {isLoggedIn[0] && comment.member.id === user.id && (
                                             <>
-                                                <div className='comment-edit' onClick={() => handleEditComment(comment.id, editCommentContent[isEditing.indexOf(comment.id)])}>수정완료</div>
+                                                <div className='comment-edit' onClick={() => handleEditComment(comment.id, editCommentContent[isEditing.indexOf(comment.id)])}>완료</div>
                                                 
-                                                <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
+                                                <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제</div>
                                             </>
                                         )}
                                     </div>
@@ -333,7 +349,7 @@ function CommentPage(props) {
                                 <div className='comment-form-content'>
                                     <div className='comment-info'>
                                         <div className='comment-writer-info'>
-                                            {comment.member.name}
+                                            {comment.member.userId}
                                         </div>
                                         <div className='comment-writtenTime'>
                                             {formatDate(comment.writtenTime)}
@@ -352,33 +368,47 @@ function CommentPage(props) {
                                     <div className='comment-actions'>
                                         {isLoggedIn[0] && comment.member.id === user.id && (
                                             <>
-                                                <div className='comment-edit' onClick={() => handleEditComment(comment.id, comment.content)}>수정하기</div>
-                                                <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
+                                                <div className='comment-edit' onClick={() => handleEditComment(comment.id, comment.content)}>수정</div>
+                                                <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제</div>
                                             </>
                                         )}
                                     </div>
                                 </div>
                             </div>
                         )}
-                        {index !== comments.length - 1 && <hr />} {/* 마지막 아이템이 아닌 경우에만 <hr>을 렌더링 */}
+                        <hr/>
+                        {/* {index !== comments.length - 1 && <hr />} 마지막 아이템이 아닌 경우에만 <hr>을 렌더링 */}
                     </li>
                 ))}
             </ul>
-                                            
-                        <div className='comment-form'>
+                <div className='comment-input-form'>                      
+                    <div className='comment-container'>
+                        <div className='comment-profile-img'>
+                            <img src={`/avatar/type${user.avatarType}.jpg`} alt='' />
+                        </div>
+                        <div className='comment-form-content'>
+                            <div className='comment-info'>
+                                <div className='comment-writer-info'>
+                                    {user.userId}
+                                </div>
+                            </div>
                             <form onSubmit={handleSubmitComment} className="comment-input-container">
-                                <div className="comment-input">
+                                <div className="comment-content">
                                     <textarea
                                         placeholder='댓글을 입력하세요.'
                                         value={newCommentContent}
                                         onChange={handleCommentChange}
                                     />
-                                    <button type='submit'>댓글 작성</button>
+                                    <div className='comment-actions'>
+                                        <div className='comment-delete' onClick={handleSubmitComment}>댓글 작성</div>
+                                    </div>
                                 </div>
-                                
                             </form>
                         </div>
+                    </div>
                 </div>
+                
+            </div>
         </div>
         </>
     );
