@@ -22,5 +22,5 @@
     width: 80%;
     height: auto;
     max-width: 20vw; /* 이미지 최대 너비 지정 */
-    /* border-radius: 20px; */
+    border-radius: 50px;
 }
