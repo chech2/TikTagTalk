@@ -14,9 +14,11 @@ import { useNavigate } from 'react-router';
 function ConsumePatternPage() {
     const naviage = useNavigate()
     let user = useSelector((state)=>state.user)
+    const [year, setyear] = useState('')
+    const [month, setmonth] = useState('')
     const [mymonth, setmymonth] = useState('');
     const [requestmonth, setrequestmonth] = useState({yearAndMonth:'2023-08'})
-    const [totalamount, settotalamount] = useState('0원')
+    const [totalamount, settotalamount] = useState('')
     const [highesttag, sethighesttag] = useState([])
     // console.log('redux임',user)
     const handleData = (data) =>{
@@ -28,6 +30,8 @@ function ConsumePatternPage() {
 
     useEffect(() => {
         // mymonth 상태 업데이트 후에 axios 요청을 보내도록 처리합니다.
+        setyear(new Date().getFullYear())
+        setmonth(new Date().getMonth().toString().padStart(2,'0'))
         setmymonth(`${new Date().getFullYear()}-${String(new Date().getMonth()).padStart(2, '0')}`);
       }, []); // 빈 배열을 전달하여 이펙트가 한 번만 실행되도록 합니다.
 
@@ -84,8 +88,8 @@ function ConsumePatternPage() {
   background-color: white; /* 버튼 배경 색상 */
   color: white; /* 버튼 텍스트 색상 */`;
     const handlefilter = (tagName)=>{
-        console.log(tagName)
-        naviage(`/filter-purchase/${tagName}`,{ state: { mymonth } })
+        const [a,bill] = tagName
+        naviage(`/filter-purchase/${a}`,{ state: { mymonth,bill } })
     }
 
 
@@ -102,22 +106,28 @@ function ConsumePatternPage() {
             </div>
             <div className='consume-pattern'>
                 <div>
-                    <img src="/Character/1.jpg" alt="" />
+                  <img className='consume-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
                 </div>
                 <div>
                     {user.userId}
                 </div>
-                <div>{mymonth}</div>
-                <div>{totalamount}원</div>
-                    {highesttag.map((item,index)=>(
-                        <div key = {index} className='consume-container'>
-                            <div><CircleIcon></CircleIcon></div>
-                            <div>{item.tag.name+" : "}</div>
-                            <div>{item.amount + '원'}</div>
-                            <StyledButton onClick={handlefilter.bind(null,item.tag.name)}></StyledButton>
-                        </div>
-                    ))}
-
+                {totalamount !== null ? (
+                <div>
+                  <div>{year}년 {month}월</div>
+                  <div>총 금액 : {totalamount}원</div>
+                    <div>
+                      {highesttag.map((item,index)=>(
+                          <div key = {index} className='consume-container'>
+                              <div><CircleIcon></CircleIcon></div>
+                              <div>{item.tag.name+" : "}</div>
+                              <div>{item.amount + '원'}</div>
+                              <StyledButton onClick={handlefilter.bind(null,[item.tag.name,item.amount])}></StyledButton>
+                          </div>
+                      ))}
+                    </div>
+                </div>
+                     ) : null }
+                     {/* // null 대신 이미지 넣어야할듯? */}
             </div>
         </>
     );
