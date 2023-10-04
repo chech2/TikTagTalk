@@ -19,6 +19,11 @@ function CommentPage(props) {
     // const isLoggedIn = useSelector(state => state.user.isLogin);
     const isLoggedIn = useState(true) // 임시
     // const userId=useSelector(state=>state.user.id);
+    
+    // 각 댓글의 수정 상태를 관리하는 상태 변수 배열
+    const [isEditing, setIsEditing] = useState([]);
+    // 각 댓글의 수정할 내용을 관리하는 상태 변수 배열
+    const [editCommentContent, setEditCommentContent] = useState([]);
 
     const [friendNums,setfriendNums] = useState(0)
     // const [userName, setuserName] = useState('허')
@@ -185,6 +190,64 @@ function CommentPage(props) {
         }
     };
     //comment 삭제 끝
+    //comment 수정 시작
+    const handleEditComment = async (commentId, initialContent) => {
+        const editingIndex = isEditing.findIndex((item) => item === commentId);
+
+        if (editingIndex !== -1) {
+            // 수정 완료 버튼을 누르면 수정된 내용을 서버로 보내고 수정 상태 변수를 다시 false로 설정
+            try {
+                // 수정된 내용을 서버로 보내는 로직을 작성하고, 서버 응답을 처리합니다.
+                // ...
+
+                const comment = {
+                    id: commentId,
+                    content: editCommentContent[editingIndex],
+                };
+
+                const response = await axios.put(
+                    `${process.env.REACT_APP_BASE_URL}/comment`,
+                    JSON.stringify(comment),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json; charset=UTF-8',
+                            'Authorization' : 'Bearer ' + localStorage.getItem("accessToken")
+                        }
+                    }
+                );
+
+                if (response.status === 200) {
+                    // 댓글 수정 후 댓글 목록을 다시 가져온다.
+                    const responseComment = await fetch(
+                        process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                            },
+                        }
+                    );
+                    const commentList = await responseComment.json();
+                    setComments(commentList);
+                } else {
+                    // console.error('댓글 수정 실패');
+                }
+
+                // 수정이 완료되면 해당 댓글의 수정 상태 변수를 다시 false로 설정
+                setIsEditing((prevEditing) => prevEditing.map((item, index) => (index === editingIndex ? false : item)));
+            } catch (error) {
+                console.error('에러 발생', error);
+            }
+        } else {
+            // 수정하기 버튼을 누를 때, 해당 댓글의 수정 상태 변수를 true로 설정하고
+            // 현재 댓글의 내용을 수정할 내용 상태 변수에 저장
+            setIsEditing((prevEditing) => [...prevEditing, commentId]);
+            setEditCommentContent((prevContent) => [...prevContent, initialContent]);
+        }
+    };
+    
+    //comment 수정 끝
 
     // useEffect(()=>{
     //     axios.get(process.env.REACT_APP_BASE_URL + '/talk-talk')
@@ -196,7 +259,6 @@ function CommentPage(props) {
     // })
     // })
 
-    //yarn add react-icons -> 리액트 아이콘 라이브러리 다운!!!
     return (
         <>
         <AppBar></AppBar>
@@ -211,14 +273,14 @@ function CommentPage(props) {
                 {/* container아래 */}
                 <div style={{display: 'flex', justifyContent:'center' ,}}>
                     <div className='comment-box'>   
-                        <div>댓글 수</div>
-                        <div>{friendNums}</div>
+                        <div className='comment-count-string'>댓글수</div>
+                        <div className='comment-count-num'>{comments.length}</div>
                     </div >
                     <div className='v-line'>
                     </div>
                     <div className='comment-box'>
-                        <div>톡톡 수</div>
-                        <div>{friendNums}</div>
+                        <div className='comment-count-string'>톡톡수</div>
+                        <div className='comment-count-num'>{friendNums}</div>
                     </div>
                 </div>
                 
@@ -251,11 +313,30 @@ function CommentPage(props) {
                                                 <img className='comment-content-img' src={comment.commentImgUrl}></img>
                                             </div>
                                         )}
-                                        
-                                    {isLoggedIn[0] && comment.member.id == user.id&& (
-                                            <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
+                                        <div className='comment-actions'>
+                                        {isLoggedIn[0] && comment.member.id === user.id && (
+                                            <>
+                                                {/* 수정하기 버튼 클릭 시 수정 상태에 따라 표시를 조정 */}
+                                                {isEditing.includes(comment.id) ? (
+                                                    <div className='comment-edit'>
+                                                        <textarea
+                                                            value={editCommentContent[isEditing.indexOf(comment.id)]}
+                                                            onChange={(e) => setEditCommentContent((prevContent) => {
+                                                                const contentIndex = isEditing.indexOf(comment.id);
+                                                                const newContent = [...prevContent];
+                                                                newContent[contentIndex] = e.target.value;
+                                                                return newContent;
+                                                            })}
+                                                        />
+                                                        <button onClick={() => handleEditComment(comment.id, editCommentContent[isEditing.indexOf(comment.id)])}>수정 완료</button>
+                                                    </div>
+                                                ) : (
+                                                    <div className='comment-edit' onClick={() => handleEditComment(comment.id, comment.content)}>수정하기</div>
+                                                )}
+                                                <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
+                                            </>
                                         )}
-                                        
+                                    </div>
 
                                 </div>
                             </div>
