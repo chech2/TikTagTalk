@@ -13,6 +13,7 @@ public class FindTalkTalkListResponseDto {
     private TalkTalkResponseStatus status;
     private Long otherId; // 상대방 id
     private String otherUserId; // 상대방 userId;
+    private int otherAvatarType; // 상대방 avatarType
 
     public enum TalkTalkResponseStatus {
 
@@ -28,6 +29,7 @@ public class FindTalkTalkListResponseDto {
                     .status(TalkTalkResponseStatus.REQUESTING)
                     .otherId(other.getId())
                     .otherUserId(other.getUserId())
+                    .otherAvatarType(other.getAvatarType())
                     .build();
         } else if (status.equals(TalkTalkStatus.REQUESTING) && !isSender) { // 받은 요청 dto
             return FindTalkTalkListResponseDto.builder()
@@ -35,6 +37,7 @@ public class FindTalkTalkListResponseDto {
                     .status(TalkTalkResponseStatus.RECEIVED)
                     .otherId(other.getId())
                     .otherUserId(other.getUserId())
+                    .otherAvatarType(other.getAvatarType())
                     .build();
         } else {
             return FindTalkTalkListResponseDto.builder()
@@ -42,6 +45,7 @@ public class FindTalkTalkListResponseDto {
                     .status(TalkTalkResponseStatus.TALK_TALK)
                     .otherId(other.getId())
                     .otherUserId(other.getUserId())
+                    .otherAvatarType(other.getAvatarType())
                     .build();
         }
     }

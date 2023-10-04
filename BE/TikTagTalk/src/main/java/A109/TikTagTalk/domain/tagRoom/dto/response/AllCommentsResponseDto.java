@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class AllCommentsResponseDto {
+    private Long id;
     private String content;
     private LocalDateTime writtenTime;
     private MemberDto member; //댓글 작성자 id
@@ -20,6 +21,7 @@ public class AllCommentsResponseDto {
     public static class MemberDto{
         private Long id;
         private String name;
+        private int avatarType;
     }
     @Getter
     @Builder

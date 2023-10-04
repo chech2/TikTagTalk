@@ -55,12 +55,16 @@ public class CommentServiceImpl implements CommentService{
         List<Comment> commentList=commentRepository.allComments(tagRoomId);
         return commentList.stream()
                 .map(comment -> {
+                    Member writer=memberRepository.findById(comment.getMember().getId()).get();
                     AllCommentsResponseDto.TagRoomDto tagRoomDto=AllCommentsResponseDto.TagRoomDto.builder()
                             .id(comment.getTagRoom().getId()).build();
                     AllCommentsResponseDto.MemberDto memberDto=AllCommentsResponseDto.MemberDto.builder()
                             .id(comment.getMember().getId())
+                            .avatarType(writer.getAvatarType())
                             .name(comment.getMember().getName()).build();
+
                     return AllCommentsResponseDto.builder()
+                            .id(comment.getId())
                             .tagRoom(tagRoomDto)
                             .member(memberDto)
                             .writtenTime(comment.getWrittenTime())

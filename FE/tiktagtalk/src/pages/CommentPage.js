@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router';
 import { customAxios } from '../CustomAxios';
 import { useSelector } from 'react-redux';
 import FriendListPage from './FriendListPage';
+import { FaPlus } from 'react-icons/fa';
 // import { useState } from "react";
 // import { useSelector } from 'react-redux';
 // import Modal from '../components/ui/Modal';
@@ -21,48 +22,9 @@ function CommentPage(props) {
     const userAvatar = useSelector(state=>state.user.avatarType)
     const isLoggedIn = useSelector(state => state.user.isLogin);
     const [comments, setComments] = useState([]);
-    
-
-    useEffect(()=>{
-        customAxios.get(process.env.REACT_APP_BASE_URL+`/comment/${id}`)
-        .then((res)=>{
-            console.log('댓글 get요청',res)
-        })
-        .catch((err)=>{
-            console.log('댓글 get요청실패', err)
-        })
-
-    },[id]);
-        // const fetchData=async()=>{
-        //     try{
-        //         const response =customAxios.get(process.env.REACT_APP_BASE_URL+`/comment/${id}`);
-        //         const responseComment=customAxios(process.env.REACT_APP_BASE_URL+`/comment?tagRoomId=${id}`,{'Content-Type': 'application/json'})
-        //         if(!response.ok){
-        //             // console.log('에러에러 error: ');
-        //         }
-        //         const data=await response.json();
-        //         const comment=await responseComment.json(); 
-        //         setComments(comment);
-
-        //         setData(data);
-        //     }catch(error){
-        //         // console.error('Error occured ',"문제야 문제");
-        //     }
-        // };
-        // fetchData();
-
-
-    //
-    const [isFriend,setisFriend] = useState(false)
-    const [newCommentContent, setNewCommentContent] = useState('');
     // const isLoggedIn = useSelector(state => state.user.isLogin);
-
-    // const userId=useSelector(state=>state.user.id);
-
     const [friendNums,setfriendNums] = useState(0)
     const [FreiendList,setFreiendList] = useState([])
-    // const [userName, setuserName] = useState('허')
-    // const [userId, setuserId] = useState(1)
     // const [userAvatarType, setuserAvatarType] = useState(1)
 
     const formatDate = (dateString) => {
@@ -76,6 +38,40 @@ function CommentPage(props) {
     };
     let body = {memberId : id}
 
+    //comment 목록 불러오기 시작
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            console.log("tagRoom : "+id);
+            // const ownerOfCommentRoom =await fetch(
+            //     process.env.REACT_APP_BASE_URL
+            // ) 태그룸의 주인을 tagroom db에서 가져와서 프로필 갖고 오자
+            const responseComment = await fetch(
+              process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+              {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                },
+              }
+            );
+            if (responseComment.status === 200) {
+              const commentList = await responseComment.json();
+              setComments(commentList);
+            } else {
+              console.error('댓글 불러오기 실패');
+            }
+          } catch (error) {
+            console.error('에러 발생', error);
+          }
+        };
+        fetchData();
+      }, [id]);
+
+    //comment 목록 불러오기 끝
+
+
     const handleAddTalk = ()=>{
         console.log('id임:',id)
         customAxios.post(process.env.REACT_APP_BASE_URL + '/talk-talks', {'memberId':`${id}`})
@@ -86,16 +82,22 @@ function CommentPage(props) {
             // console.log(err)
         })
     } 
+    //comment 등록 시작
+    const [newCommentContent, setNewCommentContent] = useState('');
+    const handleCommentChange = (event) => {
+        setNewCommentContent(event.target.value);
+    };
 
     const handleSubmitComment = async (event) => {
+        
         event.preventDefault();
-        // const formData = new FormData();
         const comment={
-            'content':`${newCommentContent}`,
-            'tagRoom':{'id':id}
+            tagRoom:{
+                id: id
+            },
+            content:newCommentContent,
         }
-        // formData.append('dto',new Blob([JSON.stringify(comment)],{type:"application/json"}));   
-        // console.log('comment:',comment)     
+        alert("댓글 작성완료");
         // if (!isLoggedIn) {
             
         //     Confirm().then(() => {
@@ -110,33 +112,76 @@ function CommentPage(props) {
         //     return ;
         // }
         try {
-            const response = await customAxios.post(
-                `${process.env.REACT_APP_BASE_URL}/comment`,{'content':`${newCommentContent}`,'tagRoom':{'id':userId}});
+            const response = await axios.post(
+                `${process.env.REACT_APP_BASE_URL}/comment`,
+                JSON.stringify(comment), // 직렬화된 JSON 문자열을 전송
+                {
+                    headers: {
+                        'Content-Type': 'application/json; charset=UTF-8',
+                        'Authorization' : 'Bearer '+localStorage.getItem("accessToken")
+                    }
+                }
+            );
             if (response.status === 200) {
                 // 댓글 작성 후 댓글 목록을 다시 가져온다.
-                const responseComment = await customAxios.get(
-                    `${process.env.REACT_APP_BASE_URL}/comment/${id}`
-                );
-                const comment = responseComment.data;
-                setComments(comment);
+                const responseComment = await fetch(
+                    process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+                    {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                      },
+                    }
+                  );
+                const commentList = await responseComment.json();
+                setComments(commentList);
                 // 댓글 작성 내용 초기화
                 setNewCommentContent('');
             } else {
-                // console.error('댓글 작성 실패');
+                console.error('댓글 작성 실패');
+            }
+        } catch (error) {
+            console.error('에러 발생', error);
+        }
+    };
+    //comment 등록 끝
+    //comment 삭제 시작
+    const handleDeleteComment = async (commentId) => {
+        try {
+            const response = await fetch(
+                process.env.REACT_APP_BASE_URL+`/comment/${commentId}`,
+                {
+                    method:'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                      },
+                }
+            );
+    
+            if (response.status === 200) {
+                // 댓글 삭제 후 댓글 목록을 다시 가져온다.
+                const responseComment = await fetch(
+                    process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+                    {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                      },
+                    }
+                  );
+                const commentList = await responseComment.json();
+                setComments(commentList);
+            } else {
+                // console.error('댓글 삭제 실패');
             }
         } catch (error) {
             // console.error('에러 발생', error);
         }
     };
-
-
-
-    const handleCommentChange = (event) => {
-        setNewCommentContent(event.target.value);
-        // console.log('댓글 내용임:',newCommentContent)
-    };
-
-
+    //comment 삭제 끝
 
 
     useEffect(()=>{
@@ -151,20 +196,18 @@ function CommentPage(props) {
     },[])
 
 
-
+    //yarn add react-icons -> 리액트 아이콘 라이브러리 다운!!!
     return (
         <>
-        <AppBar title='방명록' id={id} ></AppBar>
         <div>
-            <div>
-                {/* 마이페이지 아이콘 변경해야됨 */}
-                <img className='comment-responsive-image' src={`/avatar/type${userAvatar}.jpg`} alt="" /> 
-                <h1>{userId}</h1>
+            <div className='comment-user-info'>
+                <img className='comment-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
+                <h2>{user.userId}</h2>
                 { id == user.id ? (null) :(
-                <div>
-                    <button onClick={handleAddTalk}>톡톡 버튼</button>
+                <div className='comment-user-talktalk-button'>
+                    <button onClick={handleAddTalk}><FaPlus className='FaPlus'></FaPlus> 톡톡</button>
                 </div>
-                ) }
+                )}
                 <br />
                 {/* container아래 */}
                 <div style={{display: 'flex', justifyContent:'center' ,}}>
@@ -184,22 +227,21 @@ function CommentPage(props) {
             <hr />
             <tr/>
             <div className='commentForm'>
-                    <h2>방명록</h2>
                     <ul className='comment-list'>
                         {comments.map((comment, index) => (
                         <li key={index}>
                             <div className='comment-container'>
-                                {/* <div className='comment-profile-img'>
-                                    <img src={comment.profileUrl}></img>
-                                </div> */}
+                                <div className='comment-profile-img'>
+                                    <img src={`/avatar/type${comment.member.avatarType}.jpg`}></img>
+                                </div>
                                 <div className='comment-form-content'>
                                     <div className='comment-info'>
                                         <div className='comment-writer-info'>
-                                            {comment.writer}
+                                            {comment.member.name}
                                             
                                         </div>
                                         <div className='comment-writtenTime'>
-                                            {formatDate(comment.writeTime)}
+                                            {formatDate(comment.writtenTime)}
                                         </div>
                                     </div>
                                         <div className='comment-content-delete'>
@@ -210,12 +252,15 @@ function CommentPage(props) {
                                                 <img className='comment-content-img' src={comment.commentImgUrl}></img>
                                             </div>
                                         )}
-                                    {/* {isLoggedIn && comment.writerId === userId&& (
+                                        
+                                    {isLoggedIn[0] && comment.member.id == user.id&& (
                                             <div className='comment-delete' onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
-                                        )} */}
+                                        )}
+                                        
+
                                 </div>
                             </div>
-                            <hr></hr>
+                            {index !== comments.length - 1 && <hr />} {/* 마지막 아이템이 아닌 경우에만 <hr>을 렌더링 */}
                         </li>
                         ))}
                     </ul>
@@ -228,12 +273,6 @@ function CommentPage(props) {
                                         value={newCommentContent}
                                         onChange={handleCommentChange}
                                     />
-                                    {/* <div className='file-input'>
-                                        <label>
-                                            후기 이미지<br></br>첨부하기
-                                            <input type='file' onChange={handleImageChange} style={{ display: 'none'} } />
-                                        </label>
-                                    </div>                   */}
                                     <button type='submit'>댓글 작성</button>
                                 </div>
                             </form>
