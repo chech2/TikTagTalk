@@ -53,11 +53,6 @@ function ConsumePlanInsertPage(props) {
                     <span>원</span>
                 </div>
                 
-                {/* <FormControl>
-                    <Input
-                        endAdornment={<InputAdornment position="end">원</InputAdornment>}
-                    />
-                </FormControl> */}
                 
             </div>
 
