@@ -5,6 +5,7 @@ import { useNavigate, useParams} from 'react-router-dom'
 
 
 function AppBar(props) {
+    // const id = useParams()
     const navigate = useNavigate()
     const handleBack = ()=>{
         navigate(`/main/${props.id}`)
@@ -15,7 +16,7 @@ function AppBar(props) {
     return (
         <>
         <div className='appbar-underline'>
-            <img src="./Icon/뒤로가기.png" alt="" className='appbar-absoulte' onClick={handleBack}/>
+            <img src="/Icon/뒤로가기.png" alt="" className='appbar-absoulte' onClick={handleBack}/>
             <div className='appbarcontainer'>
                 <p className='appbarcenter'> {props.title} </p>
 

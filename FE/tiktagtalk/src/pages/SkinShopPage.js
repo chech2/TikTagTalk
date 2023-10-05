@@ -1,11 +1,11 @@
 import ItemCard from '../components/ItemCard'
 import AppBar from '../components/ui/AppBar';
 import './SkinShopPage.css'
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useSelector } from 'react-redux';
 import Modal from '../components/ui/Modal';
 import ItemModal from '../components/ItemModal';
-
+import { customAxios } from '../CustomAxios';
 function SkinShopPage(props) {
     // 서버에 요청 보내서 받기 or 프론트 내부 사진폴더 ? 그러면 json 형식 image 이름을 숫자식으로 나열 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,6 +55,19 @@ function SkinShopPage(props) {
         setSelectedCard(selected);
         setIsModalOpen(true);
       };
+
+    // item 요청
+    // useEffect(()=>{
+    //     customAxios.get(process.env.REACT_APP_BASE_URL+'/' , )
+    //     .then((res)=>{
+    //         console.log(res)
+    //         setItemLists(res)
+    //     })
+    //     .catch((err)=>{
+    //         console.log(err)
+    //     })
+    // })
+
 
 
 

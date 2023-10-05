@@ -1,9 +1,11 @@
 package A109.TikTagTalk.domain.user.service;
 
+import A109.TikTagTalk.domain.account.dto.request.ConsumeHistoryRequestDto;
 import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.account.repository.ConsumeHistoryRepository;
+import A109.TikTagTalk.domain.account.service.ConsumeHistoryService;
 import A109.TikTagTalk.domain.tagRoom.entity.TagRoom;
 import A109.TikTagTalk.domain.tagRoom.repository.TagRoomRepository;
 import A109.TikTagTalk.domain.user.dto.request.CheckUserIdRequestDto;
@@ -45,6 +47,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder; // SecurityCongfig에서 Bean 등록해줌
     private final JwtService jwtService;
     private final TagRoomRepository tagRoomRepository;
+    private final ConsumeHistoryService consumeHistoryService;
 
     public void singUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
@@ -113,7 +116,7 @@ public class MemberService {
                 .role(Role.USER)
                 .attendance(1)
                 .coin(0)
-                .point(0)
+                .point(5000)
                 .account(account)
                 .build();
         TagRoom tagRoom=TagRoom.builder()
@@ -122,6 +125,12 @@ public class MemberService {
                 .build();
         tagRoomRepository.save(tagRoom);
         memberRepository.save(member);
+
+        //더미 데이터로 얻은 consumeHistory에서부터 tag 얻기
+//        ConsumeHistoryRequestDto requestDto=ConsumeHistoryRequestDto.builder().yearAndMonth("2023-09").build();
+//        consumeHistoryService.makeMemberTags(requestDto,member);
+//        requestDto=ConsumeHistoryRequestDto.builder().yearAndMonth("2023-09").build();
+//        consumeHistoryService.makeMemberTags(requestDto,member);
     }
 
     public void checkUserId(CheckUserIdRequestDto checkUserIdRequestDto) throws Exception {
@@ -155,13 +164,53 @@ public class MemberService {
             throw new AvatarTypeIsInvalidException();
         }
 
+        //계좌번호 1002xxxxxxxxx로 랜덤 생성
+        Random random = new Random();
+        Long randomAccountNumber = 1002L * 1_000_000_000L + random.nextInt(900_000_000);
+        Account account=Account.builder()
+                .accountNumber(randomAccountNumber).build();
+        accountRepository.save(account);
+
+        //accountId가 1~10인 애들은 더미 데이터. 더미 데이터의 consumeHistory를 새로운 account에 복사
+        Long min = 1L;
+        Long max = 10L;
+        long range = max - min + 1;
+        Long dummyAccountId = (long) (random.nextDouble() * range + min);
+        Account dummyAccount=accountRepository.findById(dummyAccountId).get();
+
+        List<ConsumeHistory> copyConsumeHistoryList=consumeHistoryRepository.copyAllConsumeHistory(dummyAccount);
+        List<ConsumeHistory> savedHistories = copyConsumeHistoryList.stream()
+                .map(copyConsumeHistory -> {
+                    return consumeHistoryRepository.save(ConsumeHistory.builder()
+                            .tag(copyConsumeHistory.getTag())
+                            .consumeTime(copyConsumeHistory.getConsumeTime())
+                            .storeName(copyConsumeHistory.getStoreName())
+                            .isManual(copyConsumeHistory.getIsManual())
+                            .store(copyConsumeHistory.getStore())
+                            .detail(copyConsumeHistory.getDetail())
+                            .amount(copyConsumeHistory.getAmount())
+                            .account(account)
+                            .build());
+                })
+                .collect(Collectors.toList());
+
         // 받은 정보로 수정
         member.setUserId(memberOAuthSignUpDto.getUserId());
         member.setName(memberOAuthSignUpDto.getName());
         member.setIntroduction(memberOAuthSignUpDto.getIntroduction());
         member.setAvatarType(memberOAuthSignUpDto.getAvatarType());
         member.setRole(Role.USER);
+        member.setAttendance(1);
+        member.setPoint(5000);
+        member.setCoin(0);
+        member.setAccount(account);
         memberRepository.save(member);
+
+        TagRoom tagRoom=TagRoom.builder()
+                .account(account)
+                .member(member)
+                .build();
+        tagRoomRepository.save(tagRoom);
 
         // accessToken과 refreshToken 재발급 후 보내주기
         String accessToken = jwtService.createAccessToken(member.getUserId());

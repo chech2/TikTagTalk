@@ -3,17 +3,20 @@ import './NavBarMain.css'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { IconButton } from '@mui/material';
+import { EditLocationAlt, Storefront, Add } from '@mui/icons-material';
+
 function NavBarMain(props) {
+    const pageid = props.id
+    const userid = useSelector(state=>state.user.id)
+    const shouldShowRightAlign = userid === pageid; // 조건부 랜더링
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const handleComment = ()=>{
-        navigate(`/comment/${props.Nav_id}`)
+        navigate(`/comment/${props.mainpage_id}`)
     }
     const handleSkinPurchase = ()=>{
         navigate('/skin')
-    }
-    const handleNotice =()=>{
-        navigate('/notice')
     }
     const handleExchange = ()=>{
         navigate('/exchange')
@@ -25,31 +28,49 @@ function NavBarMain(props) {
 
 
     return (
-        <>
-        <div className='navbarcontainer'>
-            <div className='image-container'>
-                <img className='responsive-image' src="/Icon/댓글 페이지창 버튼.png" alt="" onClick={handleComment}/>
-                <img className='responsive-image' src="/Icon/스킨 구매창.png" alt="" onClick={handleSkinPurchase}/>
-                <img className='responsive-image' src="/Icon/알림창 버튼.png" alt="" onClick={handleNotice}/>
+        <div className='navbar-container'>
+            {/* 좌 정렬 */}
+            <div className='navbar-left-container'>
+                {/* 방명록 작성 페이지 이동 버튼 */}
+                <IconButton
+                    className='responsive-icon'
+                    onClick={handleComment} 
+                >
+                    <EditLocationAlt/>
+                </IconButton>
+
+                {/* 스킨 구매창 이동 버튼 */}
+                <IconButton
+                    className='responsive-icon'
+                    onClick={handleSkinPurchase}
+                >
+                    <Storefront/>
+                </IconButton>
             </div>
 
 
             
             {/* 우 정렬 */}
-            <div className='image-container2'>
-                <div className='image-container2-1'>
-                    <img className='responsive-image2' src="/Icon/포인트 아이콘.png" alt="" />
-                    <div>{mypoint}</div>
+            <div className='navbar-right-container'>
+                <div className="point-coin-container">
+                    <img className='responsive-image' src="/Icon/point.png" alt="" />
+                    <span>{mypoint.toLocaleString()}</span>
                 </div>
-                <div className='image-container2-1'>
-                    <img className='responsive-image2' src="/Icon/Coin.png" alt="" />
-                    <div>{mycoin}</div>
-                    <img className='responsive-image2' src="/Icon/코인 구매창.png" alt="" onClick={handleExchange}/>
+                <div className='point-coin-container'>
+                    <img className='responsive-image' src="/Icon/Coin.png" alt="" />
+                    <span>{mycoin.toLocaleString()}</span>
                 </div>
+                <div className='point-coin-container'>
+                    <IconButton
+                        className='responsive-icon'
+                        onClick={handleExchange}
+                    >
+                        <Add/>
+                    </IconButton>
+                </div>    
             </div>
         </div>
-        </>
-      );
-    }
+    );
+}
 
 export default NavBarMain;

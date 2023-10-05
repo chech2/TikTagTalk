@@ -44,7 +44,7 @@ public class ConsumePlanServiceImpl implements ConsumePlanService{
                 .travelAmount((long)(totalAmount*((requestDto.getTravelPercent())*1.0/100.0)))
                 .build();
         int percentSum=0;
-        percentSum= requestDto.getEatPercent()+requestDto.getGroceryPercent()+requestDto.getRidePercent()+requestDto.getShoppingPercent()+requestDto.getSnackPercent()+requestDto.getInsurancePercent()+requestDto.getHobbyPercent()+requestDto.getHairPercent()+requestDto.getHealthPercent()+requestDto.getOttPercent()+requestDto.getPetPercent();
+        percentSum= requestDto.getEatPercent()+requestDto.getGroceryPercent()+requestDto.getRidePercent()+requestDto.getShoppingPercent()+requestDto.getSnackPercent()+requestDto.getInsurancePercent()+requestDto.getHobbyPercent()+requestDto.getHairPercent()+requestDto.getHealthPercent()+requestDto.getOttPercent()+requestDto.getPetPercent()+requestDto.getTravelPercent();
         if(percentSum!=100){
             throw new InvalidException(HttpStatus.SC_BAD_REQUEST,"percent의 합은 100이 되어야 합니다.");
         }
