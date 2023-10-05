@@ -48,7 +48,7 @@
     width : calc(fit-content + 2vw);
     min-width: 20vw;
     border-radius: 20px;
-    background-color: white;
+    background-color: violet;
     height: auto;
 
 }
