@@ -32,12 +32,18 @@ public class ItemServiceImpl implements ItemService{
             if (!objectKey.equals(folderName)) { // 폴더 자체는 X
                 String[] str=objectKey.split("/");
                 Long tagId=Long.parseLong(str[1]);
-                Tag tag=tagRepository.findById(tagId).get();
+                Tag tag;
+                if(tagId!=13L && tagId!=14L) {
+                    tag = tagRepository.findById(tagId).get();
+                }else{
+                    tag=tagRepository.findById(13L).get();
+                }
                 String name="";
                 int sizeX = 0;
                 int sizeY = 0;
                 boolean isSkin = false;
                 boolean isShit=false;
+                boolean room=false;
                 if(str[2].equals("shit")){
                     isShit=true;
                     name=str[3].split("[.]")[0];
@@ -204,6 +210,13 @@ public class ItemServiceImpl implements ItemService{
                         sizeX = 2;
                         sizeY = 4;
                         isSkin = true;
+                    }else if(name.equals("room")){
+                        sizeX=14;
+                        sizeY=14;
+                        room=true;
+                    }else if(name.equals("IOU")){
+                        sizeX=1;
+                        sizeY=2;
                     }
                 }
                 String s3Url=awsS3Client.getUrl(bucketName,objectKey).toString();
@@ -215,6 +228,7 @@ public class ItemServiceImpl implements ItemService{
                         .isSkin(isSkin)
                         .isShit(isShit)
                         .tag(tag)
+                        .room(room)
                         .build();
                 item.mappingItemAndTag(tag);
                 itemRepository.save(item);
