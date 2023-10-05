@@ -160,7 +160,7 @@ export const Experience = () => {
       controls.current.enabled = true;
 
       // 아이템 업데이트
-      updateItemsOnServer();    
+      // updateItemsOnServer();    
     }
   }, [items, buildMode]);
 
@@ -172,6 +172,7 @@ export const Experience = () => {
           positionY: item.gridPosition[1],
           positionZ: item.gridNumber,
           rotation: item.rotation,
+          inRoom: item.inRoom,
           item: {
             name: item.name
           },
@@ -212,6 +213,7 @@ export const Experience = () => {
         ...item,
         gridPosition: [0, 0],
         gridNumber: 1,
+        inRoom: true,
         tmp: true,
       },
     ]);
