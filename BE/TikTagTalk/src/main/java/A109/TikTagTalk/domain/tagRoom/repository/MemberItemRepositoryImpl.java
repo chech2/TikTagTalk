@@ -38,6 +38,7 @@ public class MemberItemRepositoryImpl implements MemberItemRepositoryCustom{
                 .set(memberItem.positionY, requestDto.getPositionY())
                 .set(memberItem.positionZ, requestDto.getPositionZ())
                 .set(memberItem.rotation,requestDto.getRotation())
+                .set(memberItem.inroom,requestDto.getIsRoom())
                 .where(memberItem.id.eq(memberitem.getId()))
                 .execute();
     }

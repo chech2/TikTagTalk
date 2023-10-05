@@ -1,0 +1,106 @@
+.regist-form{
+    border-radius: 20px;
+    border: 2px solid white;
+    /* background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 5vw; */
+}
+.entire-dropdown{
+    display: flex;
+    margin-bottom: 1vh;
+    margin-left : 5vw;
+    width : 90%;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 2vw;
+    width : 40%;
+    
+  }
+.catergory-input,
+input[type="datetime-local"],
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    /* border: 1px solid #ccc; */
+    border-radius: 3px;
+    flex-grow:1;
+}
+.DropdownSelect {
+    width: 100%; /* 가로로 전체 영역을 채우도록 설정 */
+    /* 추가적인 스타일 조정 가능 */
+}
+.entire-button{
+    width: 25vw;
+    height: 8vw;
+    border: none; /* 테두리를 없애기 */
+    border-radius: 5px; /* 둥근 테두리 */
+    background: rgb(255,0,255);
+    background: linear-gradient(90deg, rgba(255,0,255,1) 6%, rgba(0,255,255,1) 100%);
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 3vw;
+}
+.entire-button2{
+    width: 15vw;
+    height: 8vw;
+    border: none; /* 테두리를 없애기 */
+    border-radius: 5px; /* 둥근 테두리 */
+    background: rgb(255,0,255);
+    background: linear-gradient(90deg, rgba(255,0,255,1) 6%, rgba(0,255,255,1) 100%);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3vw;
+}
+.entire-store{
+    border-radius: 15px;
+    /* border : 1vw solid #333; */
+    margin-bottom: 1vh;
+    width : 80%;
+    margin-left: 10vw;
+    text-align: left;
+    /* background-color: white; */
+    
+}
+
+.entire-infor{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10vw;
+}
+
+.entire-chose{
+    display: flex;
+    justify-content: space-evenly;
+}
+.entire-fontcontainer{
+    display: flex;
+
+
+}
+.entire-fontcolor3{
+    color:white;
+    font-size : 12px;
+    /* width : 20%; */
+}
+
+.entire-fontcolor1{
+    color:white;
+    font-size : 20px;
+    width : 40%;
+    text-align: right;
+}
+.entire-50{
+    width : 60%;
+}
+
+.entire-fontcolor2{
+    color:white;
+    font-size : 16px;
+    /* width : 50%; */
+}
+

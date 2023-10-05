@@ -1,7 +1,10 @@
 package A109.TikTagTalk.global.oauth2.handler;
 
+import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.entity.Role;
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
+import A109.TikTagTalk.domain.wallet.entity.PointHistory;
+import A109.TikTagTalk.domain.wallet.repository.PointHistoryRepository;
 import A109.TikTagTalk.global.jwt.service.JwtService;
 import A109.TikTagTalk.global.oauth2.CustomOAuth2User;
 import jakarta.servlet.ServletException;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Component
@@ -29,6 +33,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
+    private final PointHistoryRepository pointHistoryRepository;
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
@@ -63,5 +68,25 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
         jwtService.updateRefreshToken(oAuth2User.getUserId(), refreshToken);
         redirectStrategy.sendRedirect(request, response, redirectUrl);
+
+        Member member = memberRepository.findByUserId(oAuth2User.getUserId()).get();
+        int i = member.getPoint();
+
+        if(member.isPointsAddedToday() == false){
+            member.setPointsAddedToday(true);
+            i += 100;
+            memberRepository.save(member);
+            System.out.println("ㅅㅄㅄㅄㅄㅄㅄㅄ");
+            LocalDateTime now = LocalDateTime.now();
+            String content = "출석체크";
+            PointHistory pointHistory=new PointHistory(now, i, content, member);
+            System.out.println("시팔"+pointHistory.getPoint());
+            pointHistoryRepository.save(pointHistory);
+            Integer balancePoint= pointHistoryRepository.selectBalancePoint(now, member.getId());
+            System.out.println(balancePoint+"밸런스포인트 시발");
+            pointHistoryRepository.updateBalancePoint(pointHistory.getId(), balancePoint);
+            memberRepository.updateBalancePoint(member.getId(), balancePoint);
+
+        }
     }
 }
