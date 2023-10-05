@@ -3,8 +3,10 @@ package A109.TikTagTalk.domain.user.repository;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.entity.SocialType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,4 +28,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("SELECT m FROM Member m " +
             "WHERE m.userId LIKE :userId%")
     List<Member> findBySubUserId(@Param("userId") String userId);
+
+    @Transactional
+    @Modifying
+    @Query("update Member m set m.point = :balancePoint where m.id = :id")
+    void updateBalancePoint(@Param("id") Long id, @Param("balancePoint") int balancePoint);
 }
