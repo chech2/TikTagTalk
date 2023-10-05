@@ -8,3 +8,19 @@
     align-items: center;
     justify-content: center;
 }
+
+.consume-container{
+    display:flex;
+    justify-content: center;
+}
+/* .consume-high{
+    width : 100%;
+    justify-content: center;
+    align-items: center;
+} */
+.consume-responsive-image{
+    width: 80%;
+    height: auto;
+    max-width: 20vw; /* 이미지 최대 너비 지정 */
+    border-radius: 50px;
+}

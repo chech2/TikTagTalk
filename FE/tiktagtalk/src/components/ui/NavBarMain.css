@@ -1,35 +1,59 @@
-.navbarcontainer {
+.navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+    margin-top: 4vw;
 }
 
-.image-container{
+/* left container */
+.navbar-left-container{
+    margin-left: 4vw;
     display: flex;
     width: 30vw;
-    justify-content: space-around;
-    background-color: aquamarine;
+    justify-content: left;
     height: auto; 
 }
-.image-container2{
-    display: flex-end;
-    width: 30vw;
-    align-items: center;
-    text-align: center;
-    height: auto;
-    background-color: chartreuse;
+
+.navbar-left-container .MuiButtonBase-root {
+    background: rgb(255,0,255);
+    background: linear-gradient(0deg, rgba(255,0,255,1) 24%, rgba(0,255,255,1) 100%);
+    color: #241823;
+    margin-right: 3vw;
 }
-.image-container2-1{
+
+/* right container */
+.navbar-right-container {
     display: flex;
+    width: 70vw;
+    justify-content: right;
+    height: auto;
 }
 
+.navbar-right-container .point-coin-container {
+    display: flex;
+    align-items: center;
+    margin-right: 2vw;
+}
 
-.responsive-image {
-    width: 100%;
+.navbar-right-container .point-coin-container img {
+    width: 6.5vw;
     height: auto;
-    max-width: 8vw; /* 이미지 최대 너비 지정 */
-  }
+    margin-right: 0.8vw;
+}
+
+.navbar-right-container .point-coin-container span {
+    font-size: x-large;
+    color: #FCF7FF;
+}
+
+.navbar-right-container .point-coin-container .MuiButtonBase-root {
+    width: 6.5vw;
+    height: 6.5vw;
+    background: rgb(255,207,72);
+    background: linear-gradient(0deg, rgba(255,207,72,1) 22%, rgba(255,0,255,1) 100%);
+    color: #241823;
+}
+
 .responsive-image2 {
 width: 20%;
 height: auto;
