@@ -30,4 +30,11 @@ public class PointHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public PointHistory(LocalDateTime pointTime, int point, String content, Member member){
+        this.pointTime = pointTime;
+        this.point = point;
+        this.content = content;
+        this.member = member;
+    }
 }

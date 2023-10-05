@@ -30,4 +30,13 @@ public class ExchangeHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Builder
+    public ExchangeHistory(double exchangeRate, LocalDateTime pointTime, int point, int coin, Member member){
+        this.exchangeRate = exchangeRate;
+        this.pointTime = pointTime;
+        this.point = point;
+        this.coin = coin;
+        this.member = member;
+    }
 }

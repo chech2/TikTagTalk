@@ -17,7 +17,6 @@ public class TikTagTalkApplication {
 	}
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(TikTagTalkApplication.class, args);
 	}
 
