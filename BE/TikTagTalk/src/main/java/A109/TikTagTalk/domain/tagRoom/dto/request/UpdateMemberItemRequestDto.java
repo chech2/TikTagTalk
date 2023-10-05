@@ -19,6 +19,7 @@ public class UpdateMemberItemRequestDto {
         private Long positionY;
         private Long positionZ;
         private Long rotation;
+        private Boolean isRoom;
         private ItemDto item;
     }
     @Getter

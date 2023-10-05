@@ -4,8 +4,8 @@ import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router';
 import { customAxios } from '../CustomAxios';
-import { TextField,FormControl,InputLabel,Input,InputAdornment} from '@mui/material';
-
+import { TextField,FormControl,InputLabel,Input,InputAdornment, IconButton} from '@mui/material';
+import {LuggageRounded,PetsRounded,SubscriptionsRounded,FastfoodRounded,CommuteRounded,FitnessCenterRounded,ContentCutRounded,SportsEsportsRounded,DiningRounded,StorefrontRounded,DirectionsBusRounded,ShoppingBagRounded,LocalCafeRounded,RequestQuoteRounded} from '@mui/icons-material';
 
 function ConsumePlanInsertPage(props) {
     const specificDate = new Date('2023-09-27'); //specificDate.getMonth()를 하면 9월이면 8이 나옴. 근데 여기서 테스트 용으로 걍 현재 9월인 걸로 생각하자
@@ -23,6 +23,7 @@ function ConsumePlanInsertPage(props) {
 
 
     const [totalAmount, setTotalAmount] = useState(0);
+    const [eatPercent,setEatPercent]=useState(0);
 
     // const handleTotalAmountChange = (e) => {
     //     // 입력된 값을 숫자로 변환 (문자열에서 숫자만 추출)
@@ -50,10 +51,137 @@ function ConsumePlanInsertPage(props) {
                             return newTotalAmount;
                         })}
                     />
-                    <span>원</span>
+                    <div className='consumeplan-amount-won'>
+                        원
+                    </div>
+                
+                </div>
+            </div>
+            <hr/>
+            <div className='consumeplan-form-bottom'>
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <FastfoodRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+                    <div className='consumeplan-category-detail'>
+                        <div className='consumeplan-title'>
+                            식비
+                        </div>
+                        <div className='consumeplan-category-amount'>
+                            예상 소비 금액 : 
+                        </div>
+                    </div>
+                    <div className='consumeplan-percent'>
+                        <textarea
+                            value={eatPercent}
+                            onChange={(e) => setEatPercent(() => {
+                                const newEatPercent =  e.target.value;
+                                return newEatPercent;
+                            })}
+                        />
+                        <div className='consumeplan-category-percent'>
+                            %
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <StorefrontRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+
+                </div>
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <CommuteRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
                 </div>
                 
-                
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <ShoppingBagRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
+                </div>
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <LocalCafeRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
+                </div>
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <RequestQuoteRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
+                </div>
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <SportsEsportsRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
+                </div>
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <ContentCutRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
+                </div>
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <FitnessCenterRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
+                </div>
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <SubscriptionsRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
+                </div>
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <PetsRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
+                </div>
+
+                <div className='consumeplan-category'>
+                    <div className='consumeplan-icon-container'>
+                        <LuggageRounded style={{ color: 'white', fontSize: '30px' }}/>
+                    </div>
+
+                    
+                </div>
+
+
+            
+
+
+
+
             </div>
 
         </>
