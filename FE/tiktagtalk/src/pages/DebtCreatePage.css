@@ -1,0 +1,45 @@
+.debt-create-root-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  font-family: "Her-Leeoksun";
+  font-weight: 700;
+  color: black;
+}
+
+.debt-create-image-container {
+  position: absolute;
+  top: 10;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* 이미지가 컨테이너 크기에 맞게 조정되도록 설정 */
+  background-size: cover;
+
+  /* 이미지가 중앙 정렬되도록 설정 */
+  background-position: center center;
+}
+.create-debt-appbar-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4vw;
+}
+.create-debt-appbar-container .go-back-icon {
+  color: #fcf7ff;
+}
+
+form {
+  position: relative;
+  z-index: 1;
+  top: 30px;
+  font-size: 16px;
+}
+
+@font-face {
+  font-family: "Her-Leeoksun";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_ten@1.0/Her-Leeoksun.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

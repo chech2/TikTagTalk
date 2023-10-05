@@ -30,7 +30,7 @@ function DebtDetailItem() {
 
   return (
     <div>
-      <AppBar title="차용증 상세내역" style={{ zIndex: 1 }}></AppBar>
+      <AppBar style={{ zIndex: 1 }}></AppBar>
 
       <div className="debt-detail-root-container">
         <div
