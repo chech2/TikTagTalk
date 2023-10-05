@@ -4,10 +4,14 @@ import axios from "axios";
 import RecommendFriendPage from './RecommendFriendPage';
 import SearchFriendPage from './SearchFriendPage';
 import { customAxios } from '../CustomAxios';
-
-
+import Modal from '../components/ui/Modal';
+import FriendModal from '../components/FriendModal'
+import { useNavigate } from 'react-router';
 
 function FriendListPage(){
+    const navigate = useNavigate()
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedFriends, setselectedFriends] = useState(null);
     const [showFriend, setShowFriend] = useState(1)
     const hanldeMyfriend = ()=>{
         setShowFriend(1)
@@ -18,6 +22,19 @@ function FriendListPage(){
     const handleSearchfriend = ()=>{
         setShowFriend(3)
     }
+    const handleTalk = (friend)=>{
+        setselectedFriends(friend);
+        setIsModalOpen(true);
+    }
+    const handleMove = (friend) =>{
+        console.log(friend)
+        navigate(`/main/${friend.otherId}`)
+    }
+    // const handleCardClick = (itemKey) => {
+    //     const selected = ItemLists.find((item) => item.item_key === itemKey);
+    //     setSelectedCard(selected);
+    //     setIsModalOpen(true);
+    //   };
     const [usernameList, setusernameList] = useState([])
   
     // const [recieveList, setrecieveList] = useState([])
@@ -91,22 +108,14 @@ function FriendListPage(){
                 <div className={showFriend === 3 ? 'yellow-background' : 'black-background'} onClick={handleSearchfriend}>Search Talk</div>    
             </div>
             {/* {`friend-class${showFriend}`} */}
-
-            {showFriend === 1 ?  
-            (friendList.length === 0 ? (
-                // friendList 배열이 비어있는 경우
-                <div>
-                    <img src="/Icon/No friends.png" alt="" />
-                </div>
-            ) : (
-                // friendList 배열에 친구가 있는 경우
-                <>
-                <div>받은 친구 </div>
+            {/* 친구 폼  */}
+            <div>받은 친구 </div>
                 <div className='friend-list'>
-                    {received.map((friend) => (
+                    {received.map((friend,index) => (
                         <div key={friend.otherId} className='friend-item'>
                             <div>
-                                {/* <img src={friend.profile_image} alt={friend.name} /> */}
+                                {/* {`/avatar/type${comment.member.avatarType}.jpg`} */}
+                                <img onClick={() => handleTalk(friend)} className='friend-responisve-img' src={`/avatar/type${friend.otherAvatarType}.jpg`}alt={friend.name} /> 
                             </div>
                             <div>
                                 <h2>{friend.otherUserId}</h2>
@@ -120,7 +129,7 @@ function FriendListPage(){
                     {request.map((friend) => (
                         <div key={friend.otherId} className='friend-item'>
                             <div>
-                                {/* <img src={friend.profile_image} alt={friend.name} /> */}
+                                <img className='friend-responisve-img' src={`/avatar/type${friend.otherAvatarType}.jpg`}alt={friend.name} /> 
                             </div>
                             <div>
                                 <h2>{friend.otherUserId}</h2>
@@ -128,22 +137,31 @@ function FriendListPage(){
                         </div>
                     ))}
                 </div>
-
-                <div>친구목록
+                <div>친구목록</div>
+                {/* 친구폼 끝 */}
+            {showFriend === 1 ?  
+            (friendList.length === 0 ? (
+                // friendList 배열이 비어있는 경우
+                <div>
+                    <img src="/Icon/No friends.png" alt="" />
+                </div>
+            ) : (
+                // friendList 배열에 친구가 있는 경우
+                <>
                 <div className='friend-list'>
                     {friendList.map((friend) => (
                         <div key={friend.id} className='friend-item'>
                             <div>
-                                <img src={friend.profile_image} alt={friend.name} />
+                                <img onClick={() => handleMove(friend)} className='friend-responisve-img' src={`/avatar/type${friend.otherAvatarType}.jpg`}alt={friend.name} /> 
                             </div>
                             <div>
-                                <h2>{friend.name}</h2>
+                                <h2>{friend.otherUserId}</h2>
                                 {/* <p>{friend.introduction}</p> */}
                             </div>
                         </div>
                     ))}
                 </div>
-                </div>
+
                 </>
             )) : showFriend === 2 ?   (
                 <div className='friend-container2'> 
@@ -154,7 +172,15 @@ function FriendListPage(){
                     <SearchFriendPage data={usernameList}></SearchFriendPage>
                 </div>
             )}       
-
+                {isModalOpen && (
+                    // <div className='modal-container'>
+                        // <div className='modal-content'>
+                            <Modal className='modal-container' closeModal={() => setIsModalOpen(!isModalOpen)}>
+                                {selectedFriends && <FriendModal  friend={selectedFriends} closeModal={() => setIsModalOpen(false)}/>}
+                            </Modal>
+                        // </div>   
+                    // </div>
+                )}
 
             {/* FILTER 된 친구 목록 보여주어야 함*/}
         </>
