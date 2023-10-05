@@ -1,9 +1,11 @@
 package A109.TikTagTalk.domain.user.service;
 
+import A109.TikTagTalk.domain.account.dto.request.ConsumeHistoryRequestDto;
 import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
 import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.account.repository.ConsumeHistoryRepository;
+import A109.TikTagTalk.domain.account.service.ConsumeHistoryService;
 import A109.TikTagTalk.domain.tagRoom.entity.TagRoom;
 import A109.TikTagTalk.domain.tagRoom.repository.TagRoomRepository;
 import A109.TikTagTalk.domain.user.dto.request.CheckUserIdRequestDto;
@@ -45,6 +47,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder; // SecurityCongfig에서 Bean 등록해줌
     private final JwtService jwtService;
     private final TagRoomRepository tagRoomRepository;
+    private final ConsumeHistoryService consumeHistoryService;
 
     public void singUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
@@ -122,6 +125,12 @@ public class MemberService {
                 .build();
         tagRoomRepository.save(tagRoom);
         memberRepository.save(member);
+
+        //더미 데이터로 얻은 consumeHistory에서부터 tag 얻기
+//        ConsumeHistoryRequestDto requestDto=ConsumeHistoryRequestDto.builder().yearAndMonth("2023-09").build();
+//        consumeHistoryService.makeMemberTags(requestDto,member);
+//        requestDto=ConsumeHistoryRequestDto.builder().yearAndMonth("2023-09").build();
+//        consumeHistoryService.makeMemberTags(requestDto,member);
     }
 
     public void checkUserId(CheckUserIdRequestDto checkUserIdRequestDto) throws Exception {

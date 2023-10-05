@@ -56,7 +56,7 @@ public class ConsumeHistoryController {
         return consumeHistoryService.modifyConsumeHistory(requestDto,consumeHistoryId,member);
     }
 
-    @GetMapping("/makemembertags") //더미데이터에서 memberTag받기
+    @PostMapping("/makemembertags") //더미데이터에서 memberTag받기
     public ResponseDto makeMemberTags(@RequestBody ConsumeHistoryRequestDto requestDto){
         Member member=SecurityUtil.getCurrentLoginMember();
         return consumeHistoryService.makeMemberTags(requestDto,member);
