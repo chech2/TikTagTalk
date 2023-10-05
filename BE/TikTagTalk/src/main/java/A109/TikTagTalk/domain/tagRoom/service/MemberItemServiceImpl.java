@@ -11,6 +11,7 @@ import A109.TikTagTalk.domain.tagRoom.dto.request.UpdateMemberItemRequestDto;
 import A109.TikTagTalk.domain.tagRoom.dto.response.InitMemberItemResponseDto;
 import A109.TikTagTalk.domain.tagRoom.entity.Item;
 import A109.TikTagTalk.domain.tagRoom.entity.MemberItem;
+import A109.TikTagTalk.domain.tagRoom.repository.ItemRepository;
 import A109.TikTagTalk.domain.tagRoom.repository.MemberItemRepository;
 import A109.TikTagTalk.domain.user.entity.Member;
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
@@ -27,75 +28,28 @@ public class MemberItemServiceImpl implements MemberItemService{
     private final MemberItemRepository memberItemRepository;
     private final MemberRepository memberRepository;
     private final TagRepository tagRepository;
+    private final ItemRepository itemRepository;
     @Override
     @Transactional
     public void memberItemInit(InitMemberItemRequestDto requestDto, Member member) {
-        Tag tag = tagRepository.findById(requestDto.getTag().getId()).get();
-        List<Item> itemList=tag.getItemList();
-        for(Item i:itemList){
-            Long positionY=0L;
-            Long positionX=0L;
-            Long positionZ=0L;
-            Long sizeX=0L;
-            Long sizeY=0L;
-            Boolean room=false;
-            Boolean wall=false;
-            if(i.getName().equals("room")){
-                positionX=0L;
-                positionY=0L;
-                positionZ=0L;
-                sizeX=14L;
-                sizeY=14L;
-                room=true;
-            }
-            else if(i.getName().equals("bed")){
-                positionX=0L;
-                positionY=7L;
-                positionZ=1L;
-                sizeX=9L;
-                sizeY=7L;
-            }
-            else if(i.getName().equals("chair")){
-                positionX=9L;
-                positionY=4L;
-                positionZ=1L;
-                sizeX=3L;
-                sizeY=4L;
-            }
-            else if(i.getName().equals("closet")){
-                positionX=2L;
-                positionY=1L;
-                positionZ=1L;
-                sizeX=4L;
-                sizeY=3L;
-            }else if(i.getName().equals("shelf")){
-                positionX=5L;
-                positionY=0L;
-                positionZ=1L;
-                sizeX=5L;
-                sizeY=3L;
-                wall=true;
-            }else{
-                positionX=8L;
-                positionY=1L;
-                positionZ=1L;
-                sizeX=5L;
-                sizeY=3L;
-            }
-            MemberItem memberItem=MemberItem.builder()
-                    .member(member)
-                    .item(i)
-                    .wall(wall)
-                    .room(room)
-                    .positionX(positionX)
-                    .positionY(positionY)
-                    .positoinZ(positionZ)
-                    .sizeX(sizeX)
-                    .sizeY(sizeY)
-                    .rotation(0L)
-                    .build();
-            memberItemRepository.save(memberItem);
-        }
+        Item item=itemRepository.findById(requestDto.getItem().getId()).get();
+        Long positionX=0L;
+        Long positionY=0L;
+        Long gridZNumber=1L;
+        Long rotation=0L;
+        Boolean inRoom=false;
+        Boolean wall=false;
+        MemberItem memberItem=MemberItem.builder()
+                .item(item)
+                .member(member)
+                .positionX(positionX)
+                .positionY(positionY)
+                .positionZ(gridZNumber)
+                .rotation(rotation)
+                .inroom(inRoom)
+                .wall(wall)
+                .build();
+        memberItemRepository.save(memberItem);
     }
 
     @Override
@@ -106,17 +60,18 @@ public class MemberItemServiceImpl implements MemberItemService{
         return memberItemList.stream()
                 .map(memberItem -> {
                     InitMemberItemResponseDto.ItemDto itemDto=InitMemberItemResponseDto.ItemDto.builder()
-                            .name(memberItem.getItem().getName()).build();
+                            .name(memberItem.getItem().getName())
+                            .sizeY(memberItem.getItem().getSizeY())
+                            .sizeX(memberItem.getItem().getSizeX())
+                            .build();
                     return InitMemberItemResponseDto.builder()
                             .item(itemDto)
                             .position_x(memberItem.getPositionX())
                             .position_y(memberItem.getPositionY())
-                            .grid_z_number(memberItem.getPositoinZ())
-                            .size_x(memberItem.getSizeX())
-                            .size_y(memberItem.getSizeY())
-                            .room(memberItem.isRoom())
+                            .grid_z_number(memberItem.getPositionZ())
+                            .room(memberItem.getInroom())
                             .rotation(memberItem.getRotation())
-                            .wall(memberItem.isWall())
+                            .wall(memberItem.getWall())
                             .build();
                 }).collect(Collectors.toList());
     }

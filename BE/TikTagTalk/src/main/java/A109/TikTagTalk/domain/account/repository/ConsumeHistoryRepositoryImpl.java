@@ -98,14 +98,14 @@ public class ConsumeHistoryRepositoryImpl implements ConsumeHistoryRepositoryCus
     }
 
     @Override
-    public CheckAccountResponseDto checkAccountTagAmount(ConsumeHistoryRequestDto requestDto,Account account) {
+    public CheckAccountResponseDto checkAccountTagAmount(String yearAndMonth,Account account) {
         LocalDate today;
         LocalDate startTime;
         LocalDate endTime;
-        if(requestDto.getYearAndMonth()==null) {
+        if(yearAndMonth==null) {
             today = LocalDate.now();
         }else{
-            today = LocalDate.parse(requestDto.getYearAndMonth()+"-01");
+            today = LocalDate.parse(yearAndMonth+"-01");
         }
         startTime = LocalDate.of(today.getYear(), today.getMonthValue(), 1);
         endTime = LocalDate.of(today.getYear(), today.getMonthValue(), today.lengthOfMonth());
