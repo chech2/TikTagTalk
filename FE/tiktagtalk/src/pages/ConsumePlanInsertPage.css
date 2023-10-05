@@ -1,0 +1,15 @@
+.consumeplan-form{
+    padding-left:10px;
+    padding-right:10px;
+    color:#fff;
+}
+.consumeplan-nowyear-nowmonth{
+    display: flex;
+    padding-bottom: 20px;
+}
+.consumplan-amount-input{
+    font-size: 30px;
+}
+.consumplan-amount-input textarea{
+    font-size: 30px;
+}

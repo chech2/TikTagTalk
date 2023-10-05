@@ -25,8 +25,7 @@ import { useEffect } from 'react';
 import StartPage from './pages/StartPage';
 import ConsumePatternPage from './pages/ConsumePatternPage';
 import FilteredPurchaseListPage from './pages/FilteredPurchaseListPage';
-import EntirePurchaseListPage from './pages/EntirePurchaseListPage';
-
+import ConsumePlanInsertPage from './pages/ConsumePlanInsertPage';
 
 function App() {
   const currentPath = window.location.pathname;
@@ -54,7 +53,8 @@ function App() {
         <Route path='/oauth2/sign-up/:token' element={<OAuthSignupPage/>}></Route>
         <Route path='/oauth/redirect/:token' element={<OAuthRedirectPage/>}></Route>
         <Route path='/logout' element={<LogoutHandler/>}></Route>
-
+        <Route path='/consumeplaninsert' element={<ConsumePlanInsertPage/>}></Route>
+      
         <Route path='/skin' element={<SkingShopPage/>}></Route>
         <Route path='/test' element={<TestCom/>}></Route>
         <Route path='/coin-purchase' element={<CoinPurchasePage/>}></Route>

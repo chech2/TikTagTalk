@@ -29,6 +29,30 @@ public class MemberItemServiceImpl implements MemberItemService{
     private final MemberRepository memberRepository;
     private final TagRepository tagRepository;
     private final ItemRepository itemRepository;
+
+    @Override
+    @Transactional //room 얻는 서비스메서드
+    public void getRoom(Member member) {
+        Item item=itemRepository.findByName("room");
+        Long positionX=0L;
+        Long positionY=0L;
+        Long gridZNumber=0L;
+        Long rotation=0L;
+        Boolean inRoom=true;
+        Boolean wall=false;
+        MemberItem memberItem=MemberItem.builder()
+                .item(item)
+                .member(member)
+                .positionX(positionX)
+                .positionY(positionY)
+                .positionZ(gridZNumber)
+                .rotation(rotation)
+                .wall(wall)
+                .inroom(inRoom)
+                .build();
+        memberItemRepository.save(memberItem);
+    }
+
     @Override
     @Transactional
     public void memberItemInit(InitMemberItemRequestDto requestDto, Member member) {
@@ -39,6 +63,9 @@ public class MemberItemServiceImpl implements MemberItemService{
         Long rotation=0L;
         Boolean inRoom=false;
         Boolean wall=false;
+        if(item.getName().equals("IOU") || item.getName().equals("barbers_pole") || item.getName().equals("youtube_gold_play_button") || item.getName().equals("shit_youtube_gold_play_button") || item.getName().equals("youtube_silver_play_button")||item.getName().equals("shit_youtube_silver_play_button")){
+            wall=true;
+        }
         MemberItem memberItem=MemberItem.builder()
                 .item(item)
                 .member(member)
