@@ -93,7 +93,7 @@ function SearchFriendPage({data}) {
             <div className="search">
                 <div className="searchInputs">
                     <input 
-                        className="searchIn"
+                        className="searchInput"
                         type="text"
                         placeholder="유저 검색"
                         value={wordEntered}
@@ -103,7 +103,7 @@ function SearchFriendPage({data}) {
                     {/* <div onClick={handleSendKeyword} className="searchIcon">
                         <ion-icon name='search-outline'></ion-icon>
                     </div> */}
-                    <button onClick={handleSendKeyword}>검색</button>
+                    <button className='search-button' onClick={handleSendKeyword}>검색</button>
                 </div>
 
                     {/* searchedData로 mapping  */}

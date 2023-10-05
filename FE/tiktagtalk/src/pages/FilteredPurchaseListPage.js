@@ -90,9 +90,6 @@ function FilteredPurchaseListPage(props) {
                                         </div>
                                         <div className='filter-fontcolor1'>{item.amount}원</div>
                                     </div>
-                                        
-
-                                    
                                 </div>
                             </div>
                         );
