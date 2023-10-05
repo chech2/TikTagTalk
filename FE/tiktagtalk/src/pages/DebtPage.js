@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./DebtPage.css";
-import DebtListItem from "../components/DebtListItem"; // 컴포넌트 import 필요
+import DebtListItem from "../components/DebtlistItem"; // 컴포넌트 import 필요
 import { customAxios } from "../CustomAxios";
 import { useSelector } from "react-redux";
 import Switch from "react-switch"; // 추가

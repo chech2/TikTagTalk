@@ -26,12 +26,18 @@ import StartPage from "./pages/StartPage";
 import ConsumePatternPage from "./pages/ConsumePatternPage";
 import DebtListPage from "./pages/DebtPage";
 import DebtDetailPage from "./pages/DebtDetailPage";
-import FilteredPurchaseListPage from './pages/FilteredPurchaseListPage';
-import ConsumePlanInsertPage from './pages/ConsumePlanInsertPage';
+import FilteredPurchaseListPage from "./pages/FilteredPurchaseListPage";
+import ConsumePlanInsertPage from "./pages/ConsumePlanInsertPage";
+import EntirePurchaseListPage from "./pages/EntirePurchaseListPage";
 
 function App() {
   const currentPath = window.location.pathname;
-  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/');
+  const shouldRenderFooter =
+    currentPath !== "/" &&
+    currentPath !== "/sign-up" &&
+    currentPath !== "/login" &&
+    !currentPath.startsWith("/oauth2/sign-up/") &&
+    !currentPath.startsWith("/oauth/redirect/");
 
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;
@@ -48,27 +54,27 @@ function App() {
       <Routes>
         <Route path="/" element={<StartPage />}></Route>
         {/* 회원 */}
-        <Route path='/main/:id' element={<MainPage/>}></Route>
-        <Route path='/login' element={<LoginPage/>} />
-        <Route path='/sign-up' element={<SignupPage/>}></Route>
-        <Route path='/oauth2/sign-up/:token' element={<OAuthSignupPage/>}></Route>
-        <Route path='/oauth/redirect/:token' element={<OAuthRedirectPage/>}></Route>
-        <Route path='/logout' element={<LogoutHandler/>}></Route>
-        <Route path='/consumeplaninsert' element={<ConsumePlanInsertPage/>}></Route>
-      
-        <Route path='/skin' element={<SkingShopPage/>}></Route>
-        <Route path='/test' element={<TestCom/>}></Route>
-        <Route path='/coin-purchase' element={<CoinPurchasePage/>}></Route>
-        <Route path='/comment/:id' element={<CommentPage/>}></Route>
-        <Route path='/notice' element={<NoticePage/>}></Route>
-        <Route path='/friend-list' element={<FriendListPage/>}></Route>
-        <Route path='/achievement' element={<AchievementsPage/>}></Route>
-        <Route path='/test/1' element={<Test/>}></Route>
+        <Route path="/main/:id" element={<MainPage />}></Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-up" element={<SignupPage />}></Route>
+        <Route path="/oauth2/sign-up/:token" element={<OAuthSignupPage />}></Route>
+        <Route path="/oauth/redirect/:token" element={<OAuthRedirectPage />}></Route>
+        <Route path="/logout" element={<LogoutHandler />}></Route>
+        <Route path="/consumeplaninsert" element={<ConsumePlanInsertPage />}></Route>
+
+        <Route path="/skin" element={<SkingShopPage />}></Route>
+        <Route path="/test" element={<TestCom />}></Route>
+        <Route path="/coin-purchase" element={<CoinPurchasePage />}></Route>
+        <Route path="/comment/:id" element={<CommentPage />}></Route>
+        <Route path="/notice" element={<NoticePage />}></Route>
+        <Route path="/friend-list" element={<FriendListPage />}></Route>
+        <Route path="/achievement" element={<AchievementsPage />}></Route>
+        <Route path="/test/1" element={<Test />}></Route>
         {/* <Route path='/:id' element={<Detail />} /> */}
         <Route path="/exchange" element={<ExchangePage />}></Route>
-        <Route path="/consume-pattern" element={<ConsumePatternPage/>}></Route>
-        <Route path='filter-purchase/:tag' element={<FilteredPurchaseListPage />}></Route>
-        <Route path='entire-purchase' element={<EntirePurchaseListPage/>}></Route>
+        <Route path="/consume-pattern" element={<ConsumePatternPage />}></Route>
+        <Route path="filter-purchase/:tag" element={<FilteredPurchaseListPage />}></Route>
+        <Route path="entire-purchase" element={<EntirePurchaseListPage />}></Route>
 
         <Route path="/debts/list" element={<DebtListPage />}></Route>
         <Route path="/debts/detail/:id/:mode" element={<DebtDetailPage />}></Route>
