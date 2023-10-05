@@ -50,7 +50,57 @@ public class MemberItemServiceImpl implements MemberItemService{
                 .wall(wall)
                 .inroom(inRoom)
                 .build();
-        memberItemRepository.save(memberItem);
+        gridZNumber=1L;
+        positionX=1L;
+        positionY=1L;
+        item=itemRepository.findByName("shit_pizza");
+        MemberItem pizza=MemberItem.builder()
+                .item(item)
+                .member(member)
+                .positionX(positionX)
+                .positionY(positionY)
+                .positionZ(gridZNumber)
+                .rotation(rotation)
+                .wall(wall)
+                .inroom(inRoom)
+                .build();
+        memberItemRepository.save(pizza);
+        item=itemRepository.findByName("shiba");
+        MemberItem shiba=MemberItem.builder()
+                .item(item)
+                .member(member)
+                .positionX(positionX)
+                .positionY(positionY)
+                .positionZ(gridZNumber)
+                .rotation(rotation)
+                .wall(wall)
+                .inroom(inRoom)
+                .build();
+        memberItemRepository.save(shiba);
+        item=itemRepository.findByName("youtube_gold_play_button");
+        MemberItem youtube_gold_play_button=MemberItem.builder()
+                .item(item)
+                .member(member)
+                .positionX(positionX)
+                .positionY(positionY)
+                .positionZ(gridZNumber)
+                .rotation(rotation)
+                .wall(wall)
+                .inroom(inRoom)
+                .build();
+        memberItemRepository.save(youtube_gold_play_button);
+        item=itemRepository.findByName("cute_coffee_cup");
+        MemberItem cute_coffee_cup=MemberItem.builder()
+                .item(item)
+                .member(member)
+                .positionX(positionX)
+                .positionY(positionY)
+                .positionZ(gridZNumber)
+                .rotation(rotation)
+                .wall(wall)
+                .inroom(inRoom)
+                .build();
+        memberItemRepository.save(cute_coffee_cup);
     }
 
     @Override
