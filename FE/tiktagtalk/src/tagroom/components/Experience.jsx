@@ -9,7 +9,6 @@ import { mapAtom, userAtom } from "./DataManager";
 import { buildModeAtom, storeModeAtom, draggedItemAtom, draggedItemRotationAtom, gridUpItemAtom, gridDownItemAtom } from "./UI";
 import { Store } from "./Store";
 import { customAxios } from "../../CustomAxios";
-// import axios from 'axios';
 
 export const Experience = () => {
   const [buildMode, setBuildMode] = useAtom(buildModeAtom);
@@ -59,6 +58,10 @@ export const Experience = () => {
     }
 
     const item = items[draggedItem];
+
+    console.log(map);
+    console.log(item);
+
     const width = draggedItemRotation === 1 || draggedItemRotation === 3 ? item.size[1] : item.size[0];
     const height = draggedItemRotation === 1 || draggedItemRotation === 3 ? item.size[0] : item.size[1];
 
@@ -172,7 +175,7 @@ export const Experience = () => {
           positionY: item.gridPosition[1],
           positionZ: item.gridNumber,
           rotation: item.rotation,
-          inRoom: item.inRoom,
+          isRoom: item.isRoom,
           item: {
             name: item.name
           },
@@ -213,7 +216,7 @@ export const Experience = () => {
         ...item,
         gridPosition: [0, 0],
         gridNumber: 1,
-        inRoom: true,
+        isRoom: true,
         tmp: true,
       },
     ]);

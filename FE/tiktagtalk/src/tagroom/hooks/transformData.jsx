@@ -1,14 +1,18 @@
 export const transformToItems = (data) => {
   const items = {};
   data.forEach(entry => {
-    const { item, inRoom } = entry;
+    const { wall, item, isRoom } = entry;
     items[item.name] = {
       name: item.name,
       size: [item.sizeX, item.sizeY],
       room: item.room,
-      wall: item.wall,
-      inRoom: inRoom,
+      wall: wall,
+      // isRoom: isRoom,
     };
+
+    // console.log(wall);
+    // console.log(isRoom);
+    // console.log([item.sizeX, item.sizeY]);
   });
   return items;
 };
@@ -18,15 +22,15 @@ export const transformToMap = (data, items) => {
     size: [7, 7],
     gridDivision: 2,
     items: data.map(entry => {
-      const { position_x, position_y, grid_z_number, item, rotation, inRoom } = entry;
+      const { position_x, position_y, grid_z_number, item, rotation, isRoom } = entry;
 
-      if (inRoom) {
+      if (isRoom) {
         return {
           ...items[item.name],
           gridPosition: [position_x, position_y],
           gridNumber: grid_z_number,
           rotation: rotation,
-          inRoom: inRoom,
+          isRoom: isRoom,
         };
       }
     }).filter(Boolean),

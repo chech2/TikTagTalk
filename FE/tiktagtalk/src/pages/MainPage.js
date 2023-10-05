@@ -37,7 +37,7 @@ function MainPage() {
         <>
             {
                 user.isLogin ? (
-                    <div>
+                    <div className="tag-room-style">
                         <NavBarMain 
                             mainpage_id = {id}
                         ></NavBarMain>
@@ -45,9 +45,6 @@ function MainPage() {
                     </div>
                 ) : (
                     <div>{user.userId},{user.isLogin}</div>
-
-
-
                 )
             }
 {/* 

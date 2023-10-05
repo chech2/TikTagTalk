@@ -12,7 +12,7 @@ function TagRoom() {
     <>
       <DataManager />
       <Canvas shadows camera={{ position: [30, 23, 30], fov: 31 }}>
-        <color attach="background" args={["#ececec"]} />
+        <color attach="background" args={["#1B0536"]} />
         <ScrollControls pages={8}>
           <Experience />
         </ScrollControls>

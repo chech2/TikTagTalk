@@ -67,7 +67,7 @@ function App() {
         <Route path='/exchange' element={<ExchangePage/>}></Route>
         <Route path='/consume-pattern' element={<ConsumePatternPage/>}></Route>
         <Route path='filter-purchase/:tag' element={<FilteredPurchaseListPage />}></Route>
-        <Route path='entire-purchase' element={<EntirePurchaseListPage/>}></Route>
+        {/* <Route path='entire-purchase' element={<EntirePurchaseListPage/>}></Route> */}
       </Routes>
       {shouldRenderFooter && <Footer/>}
     </div>
