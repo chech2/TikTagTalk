@@ -59,13 +59,6 @@ import { useState } from 'react';
 export const fetchData = async (e) => {
   
   try {
-    await customAxios.post(`${process.env.REACT_APP_BASE_URL}/memberitem/initmemberitem`,
-    {
-      tag: {
-        id: 13
-      }
-    },);
-
     const response = await customAxios.get(`${process.env.REACT_APP_BASE_URL}/memberitem?memberId=1`)
 
     const data = response.data;

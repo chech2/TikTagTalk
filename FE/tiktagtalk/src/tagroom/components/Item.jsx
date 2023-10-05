@@ -6,7 +6,6 @@ import { mapAtom } from "./DataManager";
 import { useGrid } from "../hooks/useGrid";
 import { buildModeAtom } from "./UI";
 
-
 export const Item = ({ item, onClick, isDragging, dragPosition, canDrop, dragRotation }) => {
   const { name, gridPosition, size, rotation: itemRotation} = item;
   const rotation = isDragging ? dragRotation : itemRotation;

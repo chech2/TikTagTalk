@@ -11,6 +11,9 @@ import { useParams } from "react-router-dom";
 function MainPage() {
     const { id } = useParams();
     const dispatch = useDispatch();
+
+    // 로그인한 내 id
+    // const userId = useSelector(state => state.user.id );
     
     // 의존성 배열은 빈 배열로 설정
     // useEffect(()=>{
@@ -41,18 +44,10 @@ function MainPage() {
                         <NavBarMain 
                         mainpage_id = {id}
                         ></NavBarMain>
-<<<<<<< HEAD
                         <TagRoom></TagRoom>
-=======
-                        <h1>메인페이지 예정입니다.</h1>
-                        {/* <TagRoom></TagRoom> */}
->>>>>>> 705fc300d013a15ae94c4126ad7ba4a40ece8914
                     </div>
                 ) : (
                     <div>{user.userId},{user.isLogin}</div>
-
-
-
                 )
             }
 {/* 
