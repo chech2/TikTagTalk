@@ -29,7 +29,7 @@ public class CurrencyAPIServiceImpl implements CurrencyAPIService{
 
     public CurrencyAPIServiceImpl(RestTemplateBuilder restTemplateBuilder){
         restTemplate = restTemplateBuilder.build();
-    }
+            }
 
     @Override
     public CurrencyDto getCurrency() {
@@ -56,3 +56,13 @@ public class CurrencyAPIServiceImpl implements CurrencyAPIService{
         return currentTime - currency.getTimestamp() > cycleTime;
     }
 }
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+/* CSS */
+.fixed-button-container {
+    position: fixed;
+    bottom: 12%;
+    right: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* pointer-events: none; */
+  }
+  
+  .button {
+    margin: 0 1em;
+    padding: 1em;
+    border-radius: 50%;
+    background-color: #4a5568;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #2d3748;
+  }
+  
