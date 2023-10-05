@@ -2,8 +2,11 @@
     display:flex;
 }
 
-
+.consume-dropdown{
+    margin-left:5vw;
+}
 .consume-pattern{
+    margin-top: 5vh;
     width : 100%;
     align-items: center;
     justify-content: center;
@@ -11,7 +14,21 @@
 
 .consume-container{
     display:flex;
-    justify-content: center;
+    /* justify-content: center; */
+    width:80%;
+    margin-left:10vw;
+}
+.consume-namebox{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    font-size: 24px;
+}
+
+.consume-totalamount{
+    font-size:36px;
+}
+.consume-circle{
+
 }
 /* .consume-high{
     width : 100%;
@@ -21,6 +38,6 @@
 .consume-responsive-image{
     width: 80%;
     height: auto;
-    max-width: 20vw; /* 이미지 최대 너비 지정 */
-    border-radius: 50px;
+    max-width: 50vw; /* 이미지 최대 너비 지정 */
+    border-radius: 100px;
 }
