@@ -1,60 +1,55 @@
-.exchange-container{
-    display:flex;
-    width: 100%;
-    height: auto;
-
+.exchange-container {
+  display: flex;
+  width: 100%;
+  height: auto;
 }
 
-.exchange-container-33{
-    display: flex;
-    width: 33%;
-    height: auto;
-    justify-content: center;
-    align-items: center;
+.exchange-container-33 {
+  display: flex;
+  width: 33%;
+  height: auto;
+  justify-content: center;
+  align-items: center;
 }
-.exchange-container-33-2{
-    display: flex;
+.exchange-container-33-2 {
+  display: flex;
 }
-
 
 .exchange-responsive-image {
-    width: 80%;
-    height: auto;
-    max-width: 20vw; /* 이미지 최대 너비 지정 */
-  }
-
-  .exchange-responsive-image-2 {
-    width: 100%;
-    height: auto;
-    max-width: 5vw; /* 이미지 최대 너비 지정 */
-  }
-
-
-
-.coin-button{
-    margin-left : 10vw;
-    border-radius: 20px;
+  width: 80%;
+  height: auto;
+  max-width: 20vw; /* 이미지 최대 너비 지정 */
 }
 
-.coin-input{
-    width : 10vw;
-    border-radius: 20px;
-    text-align: center;
-    height: auto;
-
+.exchange-responsive-image-2 {
+  width: 100%;
+  height: auto;
+  max-width: 5vw; /* 이미지 최대 너비 지정 */
 }
 
-.point-output{
-    width : calc(fit-content + 2vw);
-    min-width: 20vw;
-    border-radius: 20px;
-    background-color: white;
-    height: auto;
-
+.coin-button {
+  margin-left: 10vw;
+  border-radius: 20px;
 }
-.exchange-coin-point{
-    display:flex;
-    width: 100%;
-    height: auto;
-    justify-content: center;
+
+.coin-input {
+  width: 10vw;
+  border-radius: 20px;
+  text-align: center;
+  height: auto;
+}
+
+.point-output {
+  width: calc(fit-content + 2vw);
+  min-width: 20vw;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
+  height: auto;
+}
+.exchange-coin-point {
+  display: flex;
+  width: 100%;
+  height: auto;
+  justify-content: center;
 }

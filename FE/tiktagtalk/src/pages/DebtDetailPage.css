@@ -1,0 +1,54 @@
+.debt-list-image-container {
+  flex-grow: 1;
+  background-size: cover;
+  margin: 0 0 0 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.debt-detail-root-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Her-Leeoksun";
+  font-weight: 700;
+  margin-top: 15px;
+}
+.debt-detail-name {
+  /* border-top: 0px; */
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+.debt-detail-status {
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.debt-status-button {
+  border: none;
+  background: transparent;
+  color: red;
+  font-family: "Her-Leeoksun";
+  font-weight: 700;
+  font-size: 16px;
+}
+.debt-content-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  /* margin: 100 10 10 10; */
+}
+
+@font-face {
+  font-family: "Her-Leeoksun";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_ten@1.0/Her-Leeoksun.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

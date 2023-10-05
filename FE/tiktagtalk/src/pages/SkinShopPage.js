@@ -12,41 +12,18 @@ function SkinShopPage(props) {
     const iteminfor = useSelector((state)=>state.item)
     const userid = useSelector((state)=>state.user.id)
     const [ItemLists, setItemLists] = useState([
-        { item_key : 0, item_url: '', item_name: '선풍기0', item_price: 100 },
-        { item_key : 1, item_url: '', item_name: '선풍기1', item_price: 200 },
-        { item_key : 2, item_url: '', item_name: '선풍기2', item_price: 350 },
-        { item_key : 3, item_url: '', item_name: '선풍기3', item_price: 100 },
-        { item_key : 4, item_url: '', item_name: '선풍기4', item_price: 200 },
-        { item_key : 5, item_url: '', item_name: '선풍기5', item_price: 700 },
-        { item_key : 6, item_url: '', item_name: '선풍기6', item_price: 200 },
-        { item_key : 0, item_url: '', item_name: '선풍기0', item_price: 100 },
-        { item_key : 1, item_url: '', item_name: '선풍기1', item_price: 200 },
-        { item_key : 2, item_url: '', item_name: '선풍기2', item_price: 350 },
-        { item_key : 3, item_url: '', item_name: '선풍기3', item_price: 100 },
-        { item_key : 4, item_url: '', item_name: '선풍기4', item_price: 200 },
-        { item_key : 5, item_url: '', item_name: '선풍기5', item_price: 700 },
-        { item_key : 6, item_url: '', item_name: '선풍기6', item_price: 200 },
-        { item_key : 0, item_url: '', item_name: '선풍기0', item_price: 100 },
-        { item_key : 1, item_url: '', item_name: '선풍기1', item_price: 200 },
-        { item_key : 2, item_url: '', item_name: '선풍기2', item_price: 350 },
-        { item_key : 3, item_url: '', item_name: '선풍기3', item_price: 100 },
-        { item_key : 4, item_url: '', item_name: '선풍기4', item_price: 200 },
-        { item_key : 5, item_url: '', item_name: '선풍기5', item_price: 700 },
-        { item_key : 6, item_url: '', item_name: '선풍기6', item_price: 200 },
-        { item_key : 0, item_url: '', item_name: '선풍기0', item_price: 100 },
-        { item_key : 1, item_url: '', item_name: '선풍기1', item_price: 200 },
-        { item_key : 2, item_url: '', item_name: '선풍기2', item_price: 350 },
-        { item_key : 3, item_url: '', item_name: '선풍기3', item_price: 100 },
-        { item_key : 4, item_url: '', item_name: '선풍기4', item_price: 200 },
-        { item_key : 5, item_url: '', item_name: '선풍기5', item_price: 700 },
-        { item_key : 6, item_url: '', item_name: '선풍기6', item_price: 200 },
-        { item_key : 0, item_url: '', item_name: '선풍기0', item_price: 100 },
-        { item_key : 1, item_url: '', item_name: '선풍기1', item_price: 200 },
-        { item_key : 2, item_url: '', item_name: '선풍기2', item_price: 350 },
-        { item_key : 3, item_url: '', item_name: '선풍기3', item_price: 100 },
-        { item_key : 4, item_url: '', item_name: '선풍기4', item_price: 200 },
-        { item_key : 5, item_url: '', item_name: '선풍기5', item_price: 700 },
-        { item_key : 6, item_url: '', item_name: '선풍기6', item_price: 200 },
+        { item_key : 0, item_name: '이발소 전용 빠따', item_url: 'barbers_pole', item_price: 100 },
+        { item_key : 1, item_name: '삐진 커피잔', item_url: 'cute_coffee_cup', item_price: 100 },
+        { item_key : 2, item_name: '구찌', item_url: 'gucci', item_price: 100 },
+        { item_key : 3, item_name: '포르쉐 911', item_url: 'porsche_911', item_price: 100 },
+        { item_key : 4, item_name: '배그 구급상자', item_url: 'pubg_mobile_first_aid_kit', item_price: 100 },
+        { item_key : 5, item_name: '로봇 털바퀴', item_url: 'robo_cat', item_price: 100 },
+        { item_key : 6, item_name: '금고', item_url: 'safe', item_price: 100 },
+        { item_key : 7, item_name: '개복치 햄버거', item_url: 'sculptober_burger', item_price: 100 },
+        { item_key : 8, item_name: '자판기', item_url: 'vending_machine', item_price: 100 },
+        { item_key : 9, item_name: '추억의 컨트롤러', item_url: 'vintage_controller', item_price: 100 },
+        { item_key : 10, item_name: '빈티지 여행가방', item_url: 'vintage_luggage', item_price: 100 },
+        { item_key : 11, item_name: '골드버튼', item_url: 'youtube_gold_play_button', item_price: 100 },
     ]);
 
     const [selectedCard, setSelectedCard] = useState(null);
@@ -67,9 +44,6 @@ function SkinShopPage(props) {
     //         console.log(err)
     //     })
     // })
-
-
-
 
     return (
         <>

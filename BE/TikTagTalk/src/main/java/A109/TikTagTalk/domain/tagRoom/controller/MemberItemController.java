@@ -19,6 +19,13 @@ import java.util.List;
 @Slf4j
 public class MemberItemController {
     private final MemberItemService memberItemService;
+
+
+    @GetMapping("/getroom")//회원가입할 때, getroom해서 room 생성 & 더미
+    public void getRoom(){
+        Member member=SecurityUtil.getCurrentLoginMember();
+        memberItemService.getRoom(member);
+    }
     @PostMapping("/initmemberitem")
     public void initMemberItem(@RequestBody InitMemberItemRequestDto requestDto){
         Member member= SecurityUtil.getCurrentLoginMember();
