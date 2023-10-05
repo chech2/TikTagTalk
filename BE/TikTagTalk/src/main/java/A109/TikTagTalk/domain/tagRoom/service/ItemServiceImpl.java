@@ -37,7 +37,9 @@ public class ItemServiceImpl implements ItemService{
                 int sizeX = 0;
                 int sizeY = 0;
                 boolean isSkin = false;
+                boolean isShit=false;
                 if(str[2].equals("shit")){
+                    isShit=true;
                     name=str[3].split("[.]")[0];
                     if(name.equals("shit_coffee")) {
                         sizeX = 2;
@@ -211,6 +213,7 @@ public class ItemServiceImpl implements ItemService{
                         .sizeX(sizeX)
                         .sizeY(sizeY)
                         .isSkin(isSkin)
+                        .isShit(isShit)
                         .tag(tag)
                         .build();
                 item.mappingItemAndTag(tag);

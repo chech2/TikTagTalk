@@ -25,6 +25,7 @@ public class Item {
     @Column(name="size_y")
     private int sizeY;
     private Boolean isSkin;
+    private Boolean isShit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TAG_ID")

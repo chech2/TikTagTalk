@@ -6,8 +6,10 @@ import A109.TikTagTalk.domain.account.dto.request.ModifyConsumeHistoryRequestDto
 import A109.TikTagTalk.domain.account.dto.response.*;
 import A109.TikTagTalk.domain.account.entity.Account;
 import A109.TikTagTalk.domain.account.entity.ConsumeHistory;
+import A109.TikTagTalk.domain.account.entity.ConsumePlan;
 import A109.TikTagTalk.domain.account.repository.AccountRepository;
 import A109.TikTagTalk.domain.account.repository.ConsumeHistoryRepository;
+import A109.TikTagTalk.domain.account.repository.ConsumePlanRepository;
 import A109.TikTagTalk.domain.tag.entity.MemberTag;
 import A109.TikTagTalk.domain.tag.entity.Tag;
 import A109.TikTagTalk.domain.tag.repository.MemberTagRepository;
@@ -27,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,6 +42,7 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
     private final MemberItemRepository memberItemRepository;
     private final ItemRepository itemRepository;
     private final MemberItemService memberItemService;
+    private final ConsumePlanRepository consumePlanRepository;
     @Override
     @Transactional
     public ResponseDto addConsumeHistory(AddConsumeHistoryRequestDto requestDto,Member member) {
@@ -167,13 +171,42 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
                 .build();
         memberItemService.memberItemInit(requestDto,member);
     }
+    public boolean isExceedConsumePlan(Long consumePlaneAmount,Long spentAmount){ //소비 계획을 넘었는지 않넘었는지 true이면 넘었음 -> 해당 shit으로 변경
+        if(consumePlaneAmount<spentAmount){
+            return false;
+        }
+        return true;
+    }
+    public String makeLocalDateToYearAndMonth(LocalDate localDate){
+        int year=localDate.getYear();
+        int month=localDate.getMonthValue();
+        if(month<10){
+            return year+"-0"+month;
+        }
+        return year+"-"+month;
+    }
     public void getMemberTag(Long tagId,Long amountSum,Long amountCount,Member member, Tag tag,LocalDate gotTime){
-//        Item item=null;
+        //consumePlan이 null이면 shit으로 변하지 X ->isExceedConsumePlan 호출 X
+        ConsumePlan consumePlan=consumePlanRepository.findByMemberIdAndYearAndMonth(member.getId(),makeLocalDateToYearAndMonth(gotTime));
+
         if (tagId == 1) { //식비, 조건 : 35만원,30회
             if (amountSum >= 350000 || amountCount >= 30) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    //shit이 아닌 아이템 찾음 -> isExceedConsumePlan해서 true이면, shit인 item을 찾아야됨
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getEatAmount(),amountSum)){ //소비계획을 안넘었다.
+                           Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
+
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -183,8 +216,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 2) { //편/마/잡, 조건 : 25만원,20회
             if (amountSum >= 250000 || amountCount >= 20) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getGroceryAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -194,8 +238,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 3) { //교통, 조건 : 15만원,10회
             if (amountSum >= 150000 || amountCount >= 10) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getRideAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -205,8 +260,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 4) { //쇼핑, 조건 : 10만원,5회
             if (amountSum >= 100000 || amountCount >= 5) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getShoppingAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -216,8 +282,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 5) { //카페, 조건 : 35만원,30회
             if (amountSum >= 350000 || amountCount >= 30) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getSnackAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -227,8 +304,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 6) { //보험, 조건 : 5만원
             if (amountSum >= 50000) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getInsuranceAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -238,8 +326,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 7) { //취미, 조건 : 10만원,5회
             if (amountSum >= 100000 || amountCount >= 5) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getHobbyAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -249,8 +348,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 8) { //미용, 조건 : 5만원,5회
             if (amountSum >= 50000 || amountCount >= 5) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getHairAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -259,8 +369,17 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
             }
         } else if (tagId == 9) { //의료, 조건 : 15만원,5회
             if (amountSum >= 150000 || amountCount >= 5) {
-                if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
+                if(consumePlan!=null){
+                    if(isExceedConsumePlan(consumePlan.getHealthAmount(),amountSum)){ //소비계획을 안넘었다.
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
+                    else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
+                }else{
+                    Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
                     saveMemberTag(member,tag,gotTime,item);
                 }
             }else{
@@ -271,8 +390,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 10) { //정기결제, 조건 :1회
             if (amountCount >= 1) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getOttAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -282,8 +412,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 11) { //반려동물, 조건 : 1회
             if (amountCount >= 1) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getPetAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
@@ -293,8 +434,19 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
         } else if (tagId == 12) { //여행, 조건 : 1회
             if (amountCount >= 1) {
                 if(!(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime))){
-                    Item item=itemRepository.findItemByTagIdAndIsSkin(tagId,false);
-                    saveMemberTag(member,tag,gotTime,item);
+                    if(consumePlan!=null){
+                        if(isExceedConsumePlan(consumePlan.getTravelAmount(),amountSum)){ //소비계획을 안넘었다.
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                        else{
+                            Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
+                            saveMemberTag(member,tag,gotTime,item);
+                        }
+                    }else{
+                        Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
+                        saveMemberTag(member,tag,gotTime,item);
+                    }
                 }
             }else{
                 if(memberTagRepository.checkMemberTagExist(member.getId(),tag.getId(),gotTime)){
