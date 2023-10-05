@@ -74,11 +74,11 @@ function FriendListPage(){
     return(
         <>
             <div className='friend-container'>
-                <h1>친구</h1>
+                <h1>My Talk Talk</h1>
                 {/* <img src="./Icon/Search.png" alt="" className='search-icon' /> */}
             </div>
             <div className='friend-container'>
-                <div className={showFriend === 1 ? 'yellow-background' : 'black-background'} onClick={hanldeMyfriend}>My Talk</div>
+                <div className={showFriend === 1 ? 'yellow-background' : 'black-background'} onClick={hanldeMyfriend}> My Talk </div>
                 <div className={showFriend === 2 ? 'yellow-background' : 'black-background'} onClick={hanldeRecommendfriend}>Recommend Talk</div>
                 <div className={showFriend === 3 ? 'yellow-background' : 'black-background'} onClick={handleSearchfriend}>Search Talk</div>    
             </div>
@@ -112,17 +112,19 @@ function FriendListPage(){
                         </div>
                     ))}
                 </div>
-                <div>친구목록</div>
+                
                 {/* 친구폼 끝 */}
             {showFriend === 1 ?  
+            
             (friendList.length === 0 ? (
                 // friendList 배열이 비어있는 경우
                 <div>
-                    <img src="/Icon/No friends.png" alt="" />
+                    <img className='no-frined' src="/Icon/No Friend.jpg" alt="" />
                 </div>
             ) : (
                 // friendList 배열에 친구가 있는 경우
                 <>
+                <div>친구목록</div>
                 <div className='friend-list'>
                     {friendList.map((friend) => (
                         <div key={friend.id} className='friend-item'>
