@@ -6,7 +6,8 @@ import SearchFriendPage from './SearchFriendPage';
 import { customAxios } from '../CustomAxios';
 import Modal from '../components/ui/Modal';
 import FriendModal from '../components/FriendModal'
-import { useNavigate } from 'react-router';
+import { useNavigate,redirect } from 'react-router';
+
 
 function FriendListPage(){
     const navigate = useNavigate()
@@ -41,35 +42,9 @@ function FriendListPage(){
     const [received,setreceived] = useState([])
     const [request,setrequest] = useState([])
     const [friendList, setfreiendList] = useState([])
-
-
-    // const [friendList, setfriendList] = useState([{
-    //     id : 1,
-    //     userId : '1',
-    //     name : '일번',
-    //     introduction : '나의소개글',
-    //     profile_image : '/Icon/마이페이지 아이콘.png',
-    //     },{
-    //     id : 2,
-    //     userId : '2',
-    //     name : '이번',
-    //     introduction : '나의소개글',
-    //     profile_image : '/Icon/마이페이지 아이콘.png',
-    //     },{
-    //     id : 3,
-    //     userId : '3',
-    //     name : '삼번',
-    //     introduction : '나의소개글',
-    //     profile_image : '/Icon/마이페이지 아이콘.png',
-    //     },{
-    //     id : 4,
-    //     userId : '4',
-    //     name : '사번',
-    //     introduction : '나의소개글',
-    //     profile_image : '/Icon/마이페이지 아이콘.png',
-    //     },
-    // ])
-    
+    // useEffect(()=>{
+    //     redirect(`/main/friend-list`)
+    // }, [isModalOpen]);
 
     useEffect(()=>{
         customAxios.get(process.env.REACT_APP_BASE_URL + '/talk-talks')
