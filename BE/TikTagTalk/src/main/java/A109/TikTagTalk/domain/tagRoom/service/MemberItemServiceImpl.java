@@ -69,9 +69,9 @@ public class MemberItemServiceImpl implements MemberItemService{
                             .position_x(memberItem.getPositionX())
                             .position_y(memberItem.getPositionY())
                             .grid_z_number(memberItem.getPositionZ())
-                            .room(memberItem.getInroom())
+//                            .room(memberItem.isRoom())
                             .rotation(memberItem.getRotation())
-                            .wall(memberItem.getWall())
+//                            .wall(memberItem.isWall())
                             .build();
                 }).collect(Collectors.toList());
     }

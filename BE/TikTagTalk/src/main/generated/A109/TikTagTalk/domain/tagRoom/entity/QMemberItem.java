@@ -24,6 +24,8 @@ public class QMemberItem extends EntityPathBase<MemberItem> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final BooleanPath inroom = createBoolean("inroom");
+
     public final QItem item;
 
     public final A109.TikTagTalk.domain.user.entity.QMember member;
@@ -32,15 +34,9 @@ public class QMemberItem extends EntityPathBase<MemberItem> {
 
     public final NumberPath<Long> positionY = createNumber("positionY", Long.class);
 
-    public final NumberPath<Long> positoinZ = createNumber("positoinZ", Long.class);
-
-    public final BooleanPath room = createBoolean("room");
+    public final NumberPath<Long> positionZ = createNumber("positionZ", Long.class);
 
     public final NumberPath<Long> rotation = createNumber("rotation", Long.class);
-
-    public final NumberPath<Long> sizeX = createNumber("sizeX", Long.class);
-
-    public final NumberPath<Long> sizeY = createNumber("sizeY", Long.class);
 
     public final BooleanPath wall = createBoolean("wall");
 

@@ -19,7 +19,7 @@ public class BuyRequest {
 
     //구매 후 코인내역에 써있어야됨
     public CoinHistory toEntity(){
-        return CoinHistory.builder().coinTime(buytime.toLocalDateTime()).member(member).content(skin.getName()).build();
+        return CoinHistory.builder().coinTime(buytime.toLocalDateTime()).member(member).content(skin.getItem().getName()).build();
     }
 
 
