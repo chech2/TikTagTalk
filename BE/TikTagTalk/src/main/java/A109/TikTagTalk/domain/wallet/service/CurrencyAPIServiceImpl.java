@@ -1,6 +1,8 @@
 package A109.TikTagTalk.domain.wallet.service;
 
 import A109.TikTagTalk.domain.wallet.dto.CurrencyDto;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.concurrent.TimeUnit;
 
+@RequiredArgsConstructor
 @Service
 public class CurrencyAPIServiceImpl implements CurrencyAPIService{
     @Value("${currencyLayer.accessKey}")
