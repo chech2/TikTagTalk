@@ -46,6 +46,7 @@ public class DebtController {
     @PostMapping
     @Operation(summary = "차용증 생성", description = "로그인한 유저가 채무자로 차용증 생성")
     public ResponseEntity<PostResponseDto> postDebt(@Validated @RequestBody PostRequestDto postRequestDto){
+        System.out.println("테스트");
         PostResponseDto response = debtService.createDebt(postRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -55,7 +56,7 @@ public class DebtController {
     @Operation(summary = "차용증 목록 조회", description = "mode = 0인 경우, 로그인 유저가 채권자인 차용증 목록 조회 & mode = 1인 경우, 로그인 유저가 채무자인 차용증 목록 조회 ")
     public ResponseEntity<MultiResponseDto<GetListResponseDto>> getDebtlist(@RequestParam @PositiveOrZero Integer mode,
             @RequestParam(value = "page", defaultValue = "1") @Positive Integer page,
-            @RequestParam(value = "size", defaultValue = "10") @Positive Integer size){
+            @RequestParam(value = "size", defaultValue = "4") @Positive Integer size){
 
         MultiResponseDto<GetListResponseDto> response = debtService.findDebtList(mode, page, size);
         return ResponseEntity.ok().body(response);

@@ -9,6 +9,7 @@ import A109.TikTagTalk.domain.user.entity.Member;
 import java.util.List;
 
 public interface MemberItemService {
+    void getRoom(Member member);
     void memberItemInit(InitMemberItemRequestDto requestDto, Member member);
     List<InitMemberItemResponseDto> findMemberItems(Long accountId);
     ResponseDto updateMemberItem(UpdateMemberItemRequestDto requestDto,Member member);

@@ -1,6 +1,7 @@
 package A109.TikTagTalk.global.config;
 
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
+import A109.TikTagTalk.domain.wallet.repository.PointHistoryRepository;
 import A109.TikTagTalk.global.jwt.filter.JwtAuthenticationProcessingFilter;
 import A109.TikTagTalk.global.jwt.service.JwtService;
 import A109.TikTagTalk.global.login.filter.CustomJsonUsernamePasswordAuthenticationFilter;
@@ -55,6 +56,8 @@ public class SecurityConfig {
     private final LoginService loginService;
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
+
+    private final PointHistoryRepository pointHistoryRepository;
     private final ObjectMapper objectMapper;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
@@ -165,7 +168,7 @@ public class SecurityConfig {
      */
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHandler(jwtService, memberRepository);
+        return new LoginSuccessHandler(jwtService, memberRepository,pointHistoryRepository);
     }
 
     /**
