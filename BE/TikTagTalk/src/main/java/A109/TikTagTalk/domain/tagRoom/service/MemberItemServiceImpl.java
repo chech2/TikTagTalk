@@ -60,15 +60,18 @@ public class MemberItemServiceImpl implements MemberItemService{
         return memberItemList.stream()
                 .map(memberItem -> {
                     InitMemberItemResponseDto.ItemDto itemDto=InitMemberItemResponseDto.ItemDto.builder()
-                            .name(memberItem.getItem().getName()).build();
+                            .name(memberItem.getItem().getName())
+                            .sizeY(memberItem.getItem().getSizeY())
+                            .sizeX(memberItem.getItem().getSizeX())
+                            .build();
                     return InitMemberItemResponseDto.builder()
                             .item(itemDto)
                             .position_x(memberItem.getPositionX())
                             .position_y(memberItem.getPositionY())
                             .grid_z_number(memberItem.getPositionZ())
-//                            .room(memberItem.isRoom())
+                            .room(memberItem.getInroom())
                             .rotation(memberItem.getRotation())
-//                            .wall(memberItem.isWall())
+                            .wall(memberItem.getWall())
                             .build();
                 }).collect(Collectors.toList());
     }

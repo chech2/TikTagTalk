@@ -10,8 +10,6 @@ public class InitMemberItemResponseDto {
     private Long position_x;
     private Long position_y;
     private Long grid_z_number;
-    private Long size_x;
-    private Long size_y;
     private Boolean room;
     private Boolean wall;
     private ItemDto item;
@@ -23,5 +21,7 @@ public class InitMemberItemResponseDto {
     @AllArgsConstructor
     public static class ItemDto{
         private String name;
+        private int sizeX;
+        private int sizeY;
     }
 }
