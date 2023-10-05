@@ -42,19 +42,6 @@ function DropdownMenu({monthData}) {
           ))}
         </ul>
       )} */}
-      <IconButton
-        className='go-back-icon'
-        onClick={} 
-      >
-        <ArrowLeft/>
-      </IconButton>
-      {year}-{month}
-      <IconButton
-        className='go-back-icon'
-        onClick={} 
-      >
-        <ArrowRight/>
-      </IconButton>
     </div>
   );
 }

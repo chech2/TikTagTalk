@@ -29,7 +29,7 @@ import FilteredPurchaseListPage from './pages/FilteredPurchaseListPage';
 
 function App() {
   const currentPath = window.location.pathname;
-  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/');
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/');
 
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;
