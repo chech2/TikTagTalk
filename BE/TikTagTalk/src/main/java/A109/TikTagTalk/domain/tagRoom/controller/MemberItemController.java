@@ -21,7 +21,7 @@ public class MemberItemController {
     private final MemberItemService memberItemService;
 
 
-    @GetMapping("/getroom")//회원가입할 때, getroom해서 room 생성
+    @GetMapping("/getroom")//회원가입할 때, getroom해서 room 생성 & 더미
     public void getRoom(){
         Member member=SecurityUtil.getCurrentLoginMember();
         memberItemService.getRoom(member);
