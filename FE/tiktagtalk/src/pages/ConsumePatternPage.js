@@ -20,6 +20,7 @@ function ConsumePatternPage() {
     const [requestmonth, setrequestmonth] = useState({yearAndMonth:'2023-08'})
     const [totalamount, settotalamount] = useState('')
     const [highesttag, sethighesttag] = useState([])
+    const [category, setcategory] = useState([])
     // console.log('redux임',user)
     const handleData = (data) =>{
         console.log(data)
@@ -44,24 +45,27 @@ function ConsumePatternPage() {
       customAxios
         .post(process.env.REACT_APP_BASE_URL + '/consume/checkaccount',body)
         .then((res) => {
+          console.log('전체데이터임:', res.data.tagList)
+          setcategory(res.data.tagList.slice(0, 4))
           settotalamount(res.data.totalAmount);
           console.log('거래내역', res.data.totalAmount);
         })
         .catch((error) => {
           console.log('거래내역 에러', error);
         });
-        customAxios
-        .post(process.env.REACT_APP_BASE_URL + '/consume/highest', body)
-        .then((res) => {
-          // highesttag를 업데이트합니다.
-          sethighesttag(res.data.slice(0, 4));
-          console.log(res)
-          console.log('응답상위',res.data.slice(0,4))
-          // console.log('상위4개:', highesttag);
-        })
-        .catch((error) => {
-          console.log('거래내역 에러', error);
-        });
+        // customAxios
+        // .post(process.env.REACT_APP_BASE_URL + '/consume/highest', body)
+        // .then((res) => {
+        //   // highesttag를 업데이트합니다.
+        //   console.log(res.data)
+        //   sethighesttag(res.data.slice(0, 4));
+        //   console.log(res)
+        //   console.log('응답상위',res.data.slice(0,4))
+        //   // console.log('상위4개:', highesttag);
+        // })
+        // .catch((error) => {
+        //   console.log('거래내역 에러', error);
+        // });
 
 
       }
@@ -106,30 +110,33 @@ function ConsumePatternPage() {
                     <DropdownMenu monthData={handleData}></DropdownMenu>
                 </div>
             </div>
+
             <div className='consume-pattern'>
                 <div>
                   <img className='consume-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
                 </div>
-                <div>
+                <div className='consume-namebox'>
                     {user.userId}
                 </div>
                 {totalamount !== null ? (
                 <div>
-                  <div>{year}년 {month}월</div>
-                  <div>총 금액 : {totalamount}원</div>
+                  <div>{year}년 {month}월 소비</div>
+                  <div className='consume-totalamount'>{totalamount}원</div>
                     <div>
-                    {highesttag.map((item,index)=>(
+                    {category.map((item,index)=>(
                           <div key = {index} className='consume-container'>
-                              <div><CircleIcon></CircleIcon></div>
-                              <div>{item.tag.name+" : "}</div>
-                              <div>{item.amount + '원'}</div>
-                              <StyledButton onClick={handlefilter.bind(null,[item.tag.name,item.amount])}></StyledButton>
+                              <div className='consume-circle'><CircleIcon></CircleIcon></div>
+                              <div>{item.name}</div>
+                              <div>{item.amount} 원</div>
+                              <div>{item.percent} %</div>
+                              <StyledButton onClick={handlefilter.bind(null,[item.name,item.amount])}></StyledButton>
                           </div>
                       ))}
 
                     </div>
                 </div>
-                     ) : null }
+                     ) : <h1> 소비내역이 없습니다.</h1> }
+                     
                      {/* // null 대신 이미지 넣어야할듯? */}
             </div>
         </>
