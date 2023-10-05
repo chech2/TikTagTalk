@@ -1,16 +1,12 @@
-// import AppBar from '../components/ui/AppBar';
-// import './CommentPage.css'
-// import React, { useState,useEffect} from 'react';
-// import axios from 'axios';
-// import { useNavigate, useParams } from 'react-router';
-// import { customAxios } from '../CustomAxios';
-// import { useSelector } from 'react-redux';
-// import FriendListPage from './FriendListPage';
-// import { FaPlus } from 'react-icons/fa';
-// // import { useState } from "react";
-// // import { useSelector } from 'react-redux';
-// // import Modal from '../components/ui/Modal';
-// // import ItemModal from '../components/ItemModal';
+import AppBar from '../components/ui/AppBar';
+import './CommentPage.css'
+import React, { useState,useEffect} from 'react';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router';
+import { customAxios } from '../CustomAxios';
+import { useSelector } from 'react-redux';
+import FriendListPage from './FriendListPage';
+import { FaPlus } from 'react-icons/fa';
 
 function CommentPage(props) {
     const {id} = useParams();
@@ -129,156 +125,156 @@ function CommentPage(props) {
 
     const handleSubmitComment = async (event) => {
         
-//         event.preventDefault();
-//         const comment={
-//             tagRoom:{
-//                 id: id
-//             },
-//             content:newCommentContent,
-//         }
-//         alert("댓글 작성완료");
-//         // if (!isLoggedIn) {
+        event.preventDefault();
+        const comment={
+            tagRoom:{
+                id: id
+            },
+            content:newCommentContent,
+        }
+        alert("댓글 작성완료");
+        // if (!isLoggedIn) {
             
-//         //     Confirm().then(() => {
-//         //         // Handle anything else after confirmation if needed
-//         //     });
-//         //     return ;
-//         // }
-//         // if (!newCommentContent.trim()) {
-//         //     CommentAlert().then(()=>{
+        //     Confirm().then(() => {
+        //         // Handle anything else after confirmation if needed
+        //     });
+        //     return ;
+        // }
+        // if (!newCommentContent.trim()) {
+        //     CommentAlert().then(()=>{
 
-//         //     });
-//         //     return ;
-//         // }
-//         try {
-//             const response = await axios.post(
-//                 `${process.env.REACT_APP_BASE_URL}/comment`,
-//                 JSON.stringify(comment), // 직렬화된 JSON 문자열을 전송
-//                 {
-//                     headers: {
-//                         'Content-Type': 'application/json; charset=UTF-8',
-//                         'Authorization' : 'Bearer '+localStorage.getItem("accessToken")
-//                     }
-//                 }
-//             );
-//             if (response.status === 200) {
-//                 // 댓글 작성 후 댓글 목록을 다시 가져온다.
-//                 const responseComment = await fetch(
-//                     process.env.REACT_APP_BASE_URL + `/comment/${id}`,
-//                     {
-//                       method: 'GET',
-//                       headers: {
-//                         'Content-Type': 'application/json',
-//                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-//                       },
-//                     }
-//                   );
-//                 const commentList = await responseComment.json();
-//                 setComments(commentList);
-//                 // 댓글 작성 내용 초기화
-//                 setNewCommentContent('');
-//             } else {
-//                 console.error('댓글 작성 실패');
-//             }
-//         } catch (error) {
-//             console.error('에러 발생', error);
-//         }
-//     };
-//     //comment 등록 끝
-//     //comment 삭제 시작
-//     const handleDeleteComment = async (commentId) => {
-//         try {
-//             const response = await fetch(
-//                 process.env.REACT_APP_BASE_URL+`/comment/${commentId}`,
-//                 {
-//                     method:'DELETE',
-//                     headers: {
-//                         'Content-Type': 'application/json',
-//                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-//                       },
-//                 }
-//             );
+        //     });
+        //     return ;
+        // }
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_BASE_URL}/comment`,
+                JSON.stringify(comment), // 직렬화된 JSON 문자열을 전송
+                {
+                    headers: {
+                        'Content-Type': 'application/json; charset=UTF-8',
+                        'Authorization' : 'Bearer '+localStorage.getItem("accessToken")
+                    }
+                }
+            );
+            if (response.status === 200) {
+                // 댓글 작성 후 댓글 목록을 다시 가져온다.
+                const responseComment = await fetch(
+                    process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+                    {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                      },
+                    }
+                  );
+                const commentList = await responseComment.json();
+                setComments(commentList);
+                // 댓글 작성 내용 초기화
+                setNewCommentContent('');
+            } else {
+                console.error('댓글 작성 실패');
+            }
+        } catch (error) {
+            console.error('에러 발생', error);
+        }
+    };
+    //comment 등록 끝
+    //comment 삭제 시작
+    const handleDeleteComment = async (commentId) => {
+        try {
+            const response = await fetch(
+                process.env.REACT_APP_BASE_URL+`/comment/${commentId}`,
+                {
+                    method:'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                      },
+                }
+            );
     
-//             if (response.status === 200) {
-//                 // 댓글 삭제 후 댓글 목록을 다시 가져온다.
-//                 const responseComment = await fetch(
-//                     process.env.REACT_APP_BASE_URL + `/comment/${id}`,
-//                     {
-//                       method: 'GET',
-//                       headers: {
-//                         'Content-Type': 'application/json',
-//                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-//                       },
-//                     }
-//                   );
-//                 const commentList = await responseComment.json();
-//                 setComments(commentList);
-//             } else {
-//                 // console.error('댓글 삭제 실패');
-//             }
-//         } catch (error) {
-//             // console.error('에러 발생', error);
-//         }
-//     };
-//     //comment 삭제 끝
-//     //comment 수정 시작
-//     const handleEditComment = async (commentId, initialContent) => {
-//         const editingIndex = isEditing.findIndex((item) => item === commentId);
+            if (response.status === 200) {
+                // 댓글 삭제 후 댓글 목록을 다시 가져온다.
+                const responseComment = await fetch(
+                    process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+                    {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                      },
+                    }
+                  );
+                const commentList = await responseComment.json();
+                setComments(commentList);
+            } else {
+                // console.error('댓글 삭제 실패');
+            }
+        } catch (error) {
+            // console.error('에러 발생', error);
+        }
+    };
+    //comment 삭제 끝
+    //comment 수정 시작
+    const handleEditComment = async (commentId, initialContent) => {
+        const editingIndex = isEditing.findIndex((item) => item === commentId);
 
-//         if (editingIndex !== -1) {
-//             // 수정 완료 버튼을 누르면 수정된 내용을 서버로 보내고 수정 상태 변수를 다시 false로 설정
-//             try {
-//                 // 수정된 내용을 서버로 보내는 로직을 작성하고, 서버 응답을 처리합니다.
-//                 // ...
+        if (editingIndex !== -1) {
+            // 수정 완료 버튼을 누르면 수정된 내용을 서버로 보내고 수정 상태 변수를 다시 false로 설정
+            try {
+                // 수정된 내용을 서버로 보내는 로직을 작성하고, 서버 응답을 처리합니다.
+                // ...
 
-//                 const comment = {
-//                     id: commentId,
-//                     content: editCommentContent[editingIndex],
-//                 };
+                const comment = {
+                    id: commentId,
+                    content: editCommentContent[editingIndex],
+                };
 
-//                 const response = await axios.put(
-//                     `${process.env.REACT_APP_BASE_URL}/comment`,
-//                     JSON.stringify(comment),
-//                     {
-//                         headers: {
-//                             'Content-Type': 'application/json; charset=UTF-8',
-//                             'Authorization' : 'Bearer ' + localStorage.getItem("accessToken")
-//                         }
-//                     }
-//                 );
+                const response = await axios.put(
+                    `${process.env.REACT_APP_BASE_URL}/comment`,
+                    JSON.stringify(comment),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json; charset=UTF-8',
+                            'Authorization' : 'Bearer ' + localStorage.getItem("accessToken")
+                        }
+                    }
+                );
 
-//                 if (response.status === 200) {
-//                     // 댓글 수정 후 댓글 목록을 다시 가져온다.
-//                     const responseComment = await fetch(
-//                         process.env.REACT_APP_BASE_URL + `/comment/${id}`,
-//                         {
-//                             method: 'GET',
-//                             headers: {
-//                                 'Content-Type': 'application/json',
-//                                 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-//                             },
-//                         }
-//                     );
-//                     const commentList = await responseComment.json();
-//                     setComments(commentList);
-//                 } else {
-//                     // console.error('댓글 수정 실패');
-//                 }
+                if (response.status === 200) {
+                    // 댓글 수정 후 댓글 목록을 다시 가져온다.
+                    const responseComment = await fetch(
+                        process.env.REACT_APP_BASE_URL + `/comment/${id}`,
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                            },
+                        }
+                    );
+                    const commentList = await responseComment.json();
+                    setComments(commentList);
+                } else {
+                    // console.error('댓글 수정 실패');
+                }
 
-//                 // 수정이 완료되면 해당 댓글의 수정 상태 변수를 다시 false로 설정
-//                 setIsEditing((prevEditing) => prevEditing.map((item, index) => (index === editingIndex ? false : item)));
-//             } catch (error) {
-//                 console.error('에러 발생', error);
-//             }
-//         } else {
-//             // 수정하기 버튼을 누를 때, 해당 댓글의 수정 상태 변수를 true로 설정하고
-//             // 현재 댓글의 내용을 수정할 내용 상태 변수에 저장
-//             setIsEditing((prevEditing) => [...prevEditing, commentId]);
-//             setEditCommentContent((prevContent) => [...prevContent, initialContent]);
-//         }
-//     };
+                // 수정이 완료되면 해당 댓글의 수정 상태 변수를 다시 false로 설정
+                setIsEditing((prevEditing) => prevEditing.map((item, index) => (index === editingIndex ? false : item)));
+            } catch (error) {
+                console.error('에러 발생', error);
+            }
+        } else {
+            // 수정하기 버튼을 누를 때, 해당 댓글의 수정 상태 변수를 true로 설정하고
+            // 현재 댓글의 내용을 수정할 내용 상태 변수에 저장
+            setIsEditing((prevEditing) => [...prevEditing, commentId]);
+            setEditCommentContent((prevContent) => [...prevContent, initialContent]);
+        }
+    };
     
-//     //comment 수정 끝
+    //comment 수정 끝
 
 
 
