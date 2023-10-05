@@ -10,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.concurrent.TimeUnit;
 
-@RequiredArgsConstructor
 @Service
 public class CurrencyAPIServiceImpl implements CurrencyAPIService{
     @Value("${currencyLayer.accessKey}")
