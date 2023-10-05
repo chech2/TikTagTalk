@@ -1,5 +1,6 @@
 package A109.TikTagTalk.domain.skin.entity;
 
+import A109.TikTagTalk.domain.tagRoom.entity.Item;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,8 +16,10 @@ public class Skin {
     @Column(nullable=false)
     private int price;
 
-    @Column(nullable=false)
-    private String name;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
+
 
 //    @Builder
 //    public Skin(Long id, int price, String name){
