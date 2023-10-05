@@ -59,8 +59,17 @@ export const Experience = () => {
 
     const item = items[draggedItem];
 
-    console.log(map);
     console.log(item);
+
+    if(item !== undefined) {
+      map.items.push({
+        ...item[item.name],
+        gridPosition: item.gridPosition,
+        gridNumber: item.gridNumber,
+        rotation: item.rotation,
+        isRoom: item.isRoom,
+      });
+    }
 
     const width = draggedItemRotation === 1 || draggedItemRotation === 3 ? item.size[1] : item.size[0];
     const height = draggedItemRotation === 1 || draggedItemRotation === 3 ? item.size[0] : item.size[1];
@@ -163,7 +172,7 @@ export const Experience = () => {
       controls.current.enabled = true;
 
       // 아이템 업데이트
-      // updateItemsOnServer();    
+      updateItemsOnServer();    
     }
   }, [items, buildMode]);
 
@@ -182,17 +191,14 @@ export const Experience = () => {
         };
       });
 
-      console.log(transformedItems)
+      // console.log(transformedItems)
 
       // 서버로 보낼 최종 JSON 객체를 만듭니다.
       const payload = {
-        account: {
-          id: 1 // 아이디는 실제 로그인한 사용자의 아이디로 대체해야 합니다.
-        },
         updateInfo: transformedItems
       };
 
-      console.log(payload);  // 확인용 로그
+      // console.log(payload);  // 확인용 로그
 
       // Content-Type 헤더 추가
       const headers = {
@@ -210,16 +216,20 @@ export const Experience = () => {
   const onItemSelected = (item) => {
     setStoreMode(false);
 
+    console.log(item);
+
     setItems((prev) => [
       ...prev,
       {
         ...item,
         gridPosition: [0, 0],
         gridNumber: 1,
+        rotation: 0,
         isRoom: true,
         tmp: true,
       },
     ]);
+
     setDraggedItem(items.length);
     setDraggedItemRotation(0);
   };

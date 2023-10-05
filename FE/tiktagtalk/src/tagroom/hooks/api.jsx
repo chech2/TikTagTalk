@@ -8,14 +8,8 @@ export const fetchData = async () => {
     const response = await customAxios.get(`${process.env.REACT_APP_BASE_URL}/memberitem?memberId=1`);
     const data = response.data;
     
-    // console.log(data);
-
     const items = transformToItems(data);
     const map = transformToMap(data, items);  
-
-    console.log(items);
-    console.log(map);
-    console.log(map.items);
 
     return {items, map};
     } catch (error) {

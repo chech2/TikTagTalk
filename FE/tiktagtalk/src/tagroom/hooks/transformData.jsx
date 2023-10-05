@@ -9,10 +9,6 @@ export const transformToItems = (data) => {
       wall: wall,
       // isRoom: isRoom,
     };
-
-    // console.log(wall);
-    // console.log(isRoom);
-    // console.log([item.sizeX, item.sizeY]);
   });
   return items;
 };
@@ -35,5 +31,6 @@ export const transformToMap = (data, items) => {
       }
     }).filter(Boolean),
   };
+
   return map;
 };
