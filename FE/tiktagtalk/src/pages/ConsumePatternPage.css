@@ -1,43 +1,123 @@
-.appbar-container{
-    display:flex;
+/* app bar container */
+.appbar-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4vw;
 }
 
-.consume-dropdown{
-    margin-left:5vw;
+.appbar-container .go-back-icon {
+    color: #FCF7FF;
 }
-.consume-pattern{
-    margin-top: 5vh;
-    width : 100%;
+
+.appbar-container .select-month {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: larger;
+    display: flex;
+    align-self: center;
+}
+
+.appbar-container .select-month span {
+    width: 60vw;
+}
+
+.appbar-container .select-month .MuiButtonBase-root {
+    padding: 0;
+}
+
+.appbar-container .select-month .move-month-icon .MuiSvgIcon-root {
+    color: #FCF7FF;
+    font-size: larger;
+    width: 100%;
+}
+
+/* consume pattern container */
+.consume-pattern-container{
+    display:flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.consume-container{
-    display:flex;
-    /* justify-content: center; */
-    width:80%;
-    margin-left:10vw;
-}
-.consume-namebox{
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    font-size: 24px;
+/* consume pattern container - profile */
+.consume-pattern-container .profile {
+    width: 40vw;
+    height: 40vw;
+    margin-top: 5vw;
+
+    position: relative;
 }
 
-.consume-totalamount{
-    font-size:36px;
-}
-.consume-circle{
+.consume-pattern-container .profile .consume-pattern-doughnut-chart {
+    width: 35vw;
 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-/* .consume-high{
-    width : 100%;
-    justify-content: center;
-    align-items: center;
-} */
-.consume-responsive-image{
+
+.consume-pattern-container .profile .profile-image {
     width: 80%;
     height: auto;
-    max-width: 50vw; /* 이미지 최대 너비 지정 */
-    border-radius: 100px;
+    max-width: 20vw; /* 이미지 최대 너비 지정 */
+    border-radius: 50px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* consume pattern container - consume list */
+.consume-pattern-container .consume-list .total-price {
+    font-size:x-large;
+    margin-bottom: 10vw;
+}
+
+.consume-pattern-container .consume-list .total-price .go-to-full-history {
+    width: 30vw;
+    height: 8vw;
+    border: none; /* 테두리를 없애기 */
+    border-radius: 5px; /* 둥근 테두리 */
+    background: rgb(255,0,255);
+    background: linear-gradient(90deg, rgba(255,0,255,1) 6%, rgba(0,255,255,1) 100%);
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 3vw;
+}
+
+.consume-pattern-container .consume-list .tag-list .tag {
+    display:flex;
+    align-items: center;
+    width: 75vw;
+    height: 10vw;
+
+    position: relative;
+}
+
+.consume-pattern-container .consume-list .tag-list .tag .MuiSvgIcon-root {
+    font-size: x-small;
+    margin-right: 1vw;
+}
+
+.consume-pattern-container .consume-list .tag-list .tag .tag-amount {
+    position: absolute;
+    right: 0;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.consume-pattern-container .consume-list .tag-list .tag .tag-amount .tag-amount-amount {
+    text-decoration: underline;
+}
+
+.consume-pattern-container .consume-list .tag-list .tag .tag-amount .tag-amount-percent {
+    width: 10vw;
+    font-size: xx-small;
+    display: flex;
+    justify-content: end;
+    color: #C5C0C8;
 }
