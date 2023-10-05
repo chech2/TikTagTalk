@@ -24,9 +24,17 @@ public class QItem extends EntityPathBase<Item> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final BooleanPath isShit = createBoolean("isShit");
+
+    public final BooleanPath isSkin = createBoolean("isSkin");
+
     public final StringPath name = createString("name");
 
     public final StringPath s3Url = createString("s3Url");
+
+    public final NumberPath<Integer> sizeX = createNumber("sizeX", Integer.class);
+
+    public final NumberPath<Integer> sizeY = createNumber("sizeY", Integer.class);
 
     public final A109.TikTagTalk.domain.tag.entity.QTag tag;
 

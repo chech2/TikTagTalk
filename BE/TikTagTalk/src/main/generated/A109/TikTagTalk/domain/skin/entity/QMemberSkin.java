@@ -47,7 +47,7 @@ public class QMemberSkin extends EntityPathBase<MemberSkin> {
     public QMemberSkin(Class<? extends MemberSkin> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new A109.TikTagTalk.domain.user.entity.QMember(forProperty("member"), inits.get("member")) : null;
-        this.skin = inits.isInitialized("skin") ? new QSkin(forProperty("skin")) : null;
+        this.skin = inits.isInitialized("skin") ? new QSkin(forProperty("skin"), inits.get("skin")) : null;
     }
 
 }

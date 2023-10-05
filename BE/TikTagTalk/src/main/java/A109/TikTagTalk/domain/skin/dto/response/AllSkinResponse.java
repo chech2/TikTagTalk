@@ -1,27 +1,23 @@
 package A109.TikTagTalk.domain.skin.dto.response;
 
 import A109.TikTagTalk.domain.skin.entity.Skin;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import A109.TikTagTalk.domain.tagRoom.entity.Item;
+import lombok.*;
 
 @Getter
-@Setter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class AllSkinResponse {
     private Long id;
     private int price;
-    private String name;
-    //3d or 이미지
+    private ItemDto item;
 
-    public AllSkinResponse(Skin entity){
-        this.id = entity.getId();
-        this.price = entity.getPrice();
-        this.name = entity.getName();
-    }
-
-    public AllSkinResponse(Object o) {
+    @Getter
+    @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
+    public static class ItemDto{
+        private String name;
     }
 }
