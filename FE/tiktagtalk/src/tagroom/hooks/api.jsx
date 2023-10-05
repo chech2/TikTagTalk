@@ -4,7 +4,7 @@ import { customAxios } from "../../CustomAxios"
 
 export const fetchData = async () => {
   try {
-    const response = await customAxios.get(`${process.env.REACT_APP_BASE_URL}/memberitem?accountId=1`);
+    const response = await customAxios.get(`${process.env.REACT_APP_BASE_URL}/memberitem?memberId=1`);
     const data = response.data;
     
     const items = transformToItems(data);

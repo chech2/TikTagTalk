@@ -120,7 +120,7 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
     @Transactional(readOnly = true)
     public CheckAccountResponseDto checkAccountTotalAccount(ConsumeHistoryRequestDto requestDto,Member member) {
         Account account=accountRepository.findAccountByMemberId(member);
-        CheckAccountResponseDto result=consumeHistoryRepository.checkAccountTagAmount(requestDto,account);
+        CheckAccountResponseDto result=consumeHistoryRepository.checkAccountTagAmount(requestDto.getYearAndMonth(),account);
         return result;
     }
 

@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -28,7 +29,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    //private final PointHistoryRepository pointHistoryRepository;
+    private final PointHistoryRepository pointHistoryRepository;
 
     @Value("${jwt.access.expiration}")
     private String accessTokenExpiration;
@@ -56,19 +57,23 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
                     memberRepository.saveAndFlush(member1);
                 });
 
-//        int i = member.getPoint();
-//
-//        if(member.isPointsAddedToday() == false){
-//            member.setPointsAddedToday(true);
-//            i += 100;
-//            memberRepository.save(member);
-//
-//            LocalDateTime now = LocalDateTime.now();
-//            String content = "출석체크";
-//
-//            pointHistoryRepository.save(new PointHistory(now, i, content, member));
-//
-//        }
+        int i = member.getPoint();
+        System.out.println("이건 될까");
+        if(member.isPointsAddedToday() == false){
+            member.setPointsAddedToday(true);
+            i += 100;
+            memberRepository.save(member);
+            System.out.println("ㅅㅄㅄㅄㅄㅄㅄㅄ");
+            LocalDateTime now = LocalDateTime.now();
+            String content = "출석체크";
+            PointHistory pointHistory=new PointHistory(now, i, content, member);
+            System.out.println("시팔"+pointHistory.getPoint());
+            pointHistoryRepository.save(pointHistory);
+            Integer balancePoint= pointHistoryRepository.selectBalancePoint(now, member.getId());
+            System.out.println(balancePoint+"밸런스포인트 시발");
+            pointHistoryRepository.updateBalancePoint(pointHistory.getId(), balancePoint);
+            memberRepository.updateBalancePoint(member.getId(), balancePoint);
+        }
         //포인트 내역에도 저장하기
         log.info("로그인에 성공하였습니다. 아이디 : {}", userId);
         log.info("로그인에 성공하였습니다. AccessToken : {}", accessToken);

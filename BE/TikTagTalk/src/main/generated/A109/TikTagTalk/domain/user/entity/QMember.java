@@ -32,6 +32,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<A109.TikTagTalk.domain.tagRoom.entity.Comment, A109.TikTagTalk.domain.tagRoom.entity.QComment> comments = this.<A109.TikTagTalk.domain.tagRoom.entity.Comment, A109.TikTagTalk.domain.tagRoom.entity.QComment>createList("comments", A109.TikTagTalk.domain.tagRoom.entity.Comment.class, A109.TikTagTalk.domain.tagRoom.entity.QComment.class, PathInits.DIRECT2);
 
+    public final ListPath<A109.TikTagTalk.domain.account.entity.ConsumePlan, A109.TikTagTalk.domain.account.entity.QConsumePlan> consumePlans = this.<A109.TikTagTalk.domain.account.entity.ConsumePlan, A109.TikTagTalk.domain.account.entity.QConsumePlan>createList("consumePlans", A109.TikTagTalk.domain.account.entity.ConsumePlan.class, A109.TikTagTalk.domain.account.entity.QConsumePlan.class, PathInits.DIRECT2);
+
     public final ListPath<A109.TikTagTalk.domain.debt.entity.Debt, A109.TikTagTalk.domain.debt.entity.QDebt> debtors = this.<A109.TikTagTalk.domain.debt.entity.Debt, A109.TikTagTalk.domain.debt.entity.QDebt>createList("debtors", A109.TikTagTalk.domain.debt.entity.Debt.class, A109.TikTagTalk.domain.debt.entity.QDebt.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);

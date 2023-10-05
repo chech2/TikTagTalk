@@ -61,13 +61,12 @@ public class PointHistoryServiceImpl implements PointHistoryService{
 
         //현재 날짜 설정
         LocalDateTime now = LocalDateTime.now();
-        Timestamp Tnow = Timestamp.valueOf(now);
 
         //UserId로 user id(pk, autoincrement) 찾기
         Member member = memberRepository.findByUserId(userId).get();
 
-        Integer balancePoint = pointHistoryRepository.selectBalancePoint(Tnow, member.getId());
-
+        Integer balancePoint = pointHistoryRepository.selectBalancePoint(now, member.getId());
+        System.out.println(balancePoint);
         List<PointHistory> list = pointHistoryRepository.findAllByMember_MemberId(member.getId());
 
         if(list.size() == 0){

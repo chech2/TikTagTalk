@@ -4,10 +4,13 @@ import {useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 function NavBarMain(props) {
+    const pageid = props.id
+    const userid = useSelector(state=>state.user.id)
+    const shouldShowRightAlign = userid === pageid; // 조건부 랜더링
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const handleComment = ()=>{
-        navigate(`/comment/${props.Nav_id}`)
+        navigate(`/comment/${props.mainpage_id}`)
     }
     const handleSkinPurchase = ()=>{
         navigate('/skin')
@@ -29,8 +32,10 @@ function NavBarMain(props) {
         <div className='navbarcontainer'>
             <div className='image-container'>
                 <img className='responsive-image' src="/Icon/댓글 페이지창 버튼.png" alt="" onClick={handleComment}/>
+                {/*  */}
                 <img className='responsive-image' src="/Icon/스킨 구매창.png" alt="" onClick={handleSkinPurchase}/>
                 <img className='responsive-image' src="/Icon/알림창 버튼.png" alt="" onClick={handleNotice}/>
+                {/*  */}
             </div>
 
 
@@ -44,7 +49,10 @@ function NavBarMain(props) {
                 <div className='image-container2-1'>
                     <img className='responsive-image2' src="/Icon/Coin.png" alt="" />
                     <div>{mycoin}</div>
+                    
+                    {/*  */}
                     <img className='responsive-image2' src="/Icon/코인 구매창.png" alt="" onClick={handleExchange}/>
+                    {/*  */}
                 </div>
             </div>
         </div>

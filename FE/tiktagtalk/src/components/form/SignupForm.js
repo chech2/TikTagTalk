@@ -11,14 +11,14 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 function SignupForm() {
 
     const avatars = [
-        {name: 1, img: "./avatar/type1.jpg"},
-        {name: 2, img: "./avatar/type2.jpg"},
-        {name: 3, img: "./avatar/type3.jpg"},
-        {name: 4, img: "./avatar/type4.jpg"},
-        {name: 5, img: "./avatar/type5.jpg"},
-        {name: 6, img: "./avatar/type6.jpg"},
-        {name: 7, img: "./avatar/type7.jpg"},
-        {name: 8, img: "./avatar/type8.jpg"}
+        {name: 1, img: "/avatar/type1.jpg"},
+        {name: 2, img: "/avatar/type2.jpg"},
+        {name: 3, img: "/avatar/type3.jpg"},
+        {name: 4, img: "/avatar/type4.jpg"},
+        {name: 5, img: "/avatar/type5.jpg"},
+        {name: 6, img: "/avatar/type6.jpg"},
+        {name: 7, img: "/avatar/type7.jpg"},
+        {name: 8, img: "/avatar/type8.jpg"}
     ]
 
     const navigate = useNavigate();
@@ -145,6 +145,8 @@ function SignupForm() {
 
     // ---------- 회원 가입 기능 구현 ---------- //
     const handleSignUp = async (e) => {
+
+        // Reload 막기
         e.preventDefault();
 
         // 예외처리
@@ -177,14 +179,14 @@ function SignupForm() {
             }
         })
         .catch((err) => {
-            alert(err.response);
+            alert(err.response.data);
         })
     }
 
     return (
         <div className="sign-form-container">
             <div className="animate__animated animate__bounceInUp">
-                <img src="./TikTagTalk_logo.png" alt="tiktagtalk logo" className="sign-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
+                <img src="/TikTagTalk_logo.png" alt="tiktagtalk logo" className="sign-form-logo animate__animated animate__pulse animate__slower animate__infinite"></img>
             </div>
             <form onSubmit={handleSignUp} className="sign-form">
 

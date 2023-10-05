@@ -22,13 +22,13 @@ public class QDebt extends EntityPathBase<Debt> {
 
     public static final QDebt debt = new QDebt("debt");
 
-    public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> createTime = createDate("createTime", java.time.LocalDate.class);
 
     public final A109.TikTagTalk.domain.user.entity.QMember debtor;
 
     public final ListPath<ExtendHistory, QExtendHistory> extendHistoryList = this.<ExtendHistory, QExtendHistory>createList("extendHistoryList", ExtendHistory.class, QExtendHistory.class, PathInits.DIRECT2);
 
-    public final DateTimePath<java.time.LocalDateTime> extendTime = createDateTime("extendTime", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> extendTime = createDate("extendTime", java.time.LocalDate.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -36,15 +36,15 @@ public class QDebt extends EntityPathBase<Debt> {
 
     public final NumberPath<Long> money = createNumber("money", Long.class);
 
-    public final BooleanPath partialPay = createBoolean("partialPay");
+    public final NumberPath<Integer> partialPay = createNumber("partialPay", Integer.class);
 
     public final NumberPath<Long> remainingMoney = createNumber("remainingMoney", Long.class);
 
     public final ListPath<RepaymentHistory, QRepaymentHistory> repaymentHistoryList = this.<RepaymentHistory, QRepaymentHistory>createList("repaymentHistoryList", RepaymentHistory.class, QRepaymentHistory.class, PathInits.DIRECT2);
 
-    public final DateTimePath<java.time.LocalDateTime> repaymentTime = createDateTime("repaymentTime", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> repaymentTime = createDate("repaymentTime", java.time.LocalDate.class);
 
-    public final EnumPath<DebtStatus> status = createEnum("status", DebtStatus.class);
+    public final EnumPath<Debt.DebtStatus> status = createEnum("status", Debt.DebtStatus.class);
 
     public QDebt(String variable) {
         this(Debt.class, forVariable(variable), INITS);

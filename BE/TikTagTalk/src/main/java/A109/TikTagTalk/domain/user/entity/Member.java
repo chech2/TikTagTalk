@@ -1,6 +1,7 @@
 package A109.TikTagTalk.domain.user.entity;
 
 import A109.TikTagTalk.domain.account.entity.Account;
+import A109.TikTagTalk.domain.account.entity.ConsumePlan;
 import A109.TikTagTalk.domain.debt.entity.Debt;
 import A109.TikTagTalk.domain.skin.entity.MemberSkin;
 import A109.TikTagTalk.domain.tag.entity.MemberTag;
@@ -19,7 +20,7 @@ import java.util.List;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -78,6 +79,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<MemberItem> memberItems=new ArrayList<>();
+
+    @OneToMany(mappedBy="member")
+    private List<ConsumePlan> consumePlans=new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<MemberTag> memberTags=new ArrayList<>();

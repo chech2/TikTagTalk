@@ -9,7 +9,7 @@
     display: flex;
     width: 30vw;
     justify-content: space-around;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     height: auto; 
 }
 .image-container2{
@@ -18,7 +18,7 @@
     align-items: center;
     text-align: center;
     height: auto;
-    background-color: chartreuse;
+    /* background-color: chartreuse; */
 }
 .image-container2-1{
     display: flex;

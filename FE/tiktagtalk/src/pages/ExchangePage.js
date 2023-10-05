@@ -3,6 +3,7 @@ import './ExchangePage.css'
 
 // import { useState } from "react";
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 // import Modal from '../components/ui/Modal';
 // import ItemModal from '../components/ItemModal';
 
@@ -13,20 +14,25 @@ import { useSelector } from 'react-redux';
 
 function ExchangePage(props) {
     let user = useSelector((state) => state.user);
-
-
+    const [inputValue, setinputValue] = useState('1')
+    const handleInputChange = (e) => {
+        setinputValue(e.target.value); // 입력 필드의 값 변경 시 상태 업데이트
+      };
+    const calculatedValue = parseFloat(inputValue) * 800;
+    const handleBuySkin = ()=>{
+        console.log()
+    }
     return (
         <>
             <div>
-                <AppBar title='환전 페이지'></AppBar>
+                <AppBar title='환전 페이지' id = {user.id}></AppBar>
             </div>
             <div className='exchange-container'>
                 <div className='exchange-container-33'>
-                    <img className='exchange-responsive-image' src="Icon/마이페이지 아이콘.png" alt="" />
+                    <img className='comment-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
                 </div>
                 <div className='exchange-container-33'>
-                    허주혁(이름) 
-                    {/* {user.userId} */}
+                    {user.userId}
                 </div>
                 <div className='exchange-container-33'>
                     <div>
@@ -45,6 +51,19 @@ function ExchangePage(props) {
         <div>
             오늘의 환율
         </div>
+        <hr />
+        <div className='exchange-coin-point'>
+            <input className='coin-input'
+            value={inputValue}
+            onChange={handleInputChange}
+            min="1"/>
+            <img className='exchange-responsive-image2' src="./Icon/Coin.png" alt="" />=
+            <div className='point-output'>{isNaN(calculatedValue) ? '' : calculatedValue}</div>
+            <img className='exchange-responsive-image2' src="./Icon/포인트 아이콘.png" alt="" />
+            <button className='coin-button' onClick={handleBuySkin}> 구매 </button>
+        </div>
+            
+        <hr />
 
         </>
     );

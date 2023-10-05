@@ -12,8 +12,6 @@ function MainPage() {
     const { id } = useParams();
     const dispatch = useDispatch();
     
-    
-    
     // 의존성 배열은 빈 배열로 설정
     // useEffect(()=>{
     //     axios.get(process.env.REACT_APP_BASE_URL + '/api/members/sign-up')
@@ -41,10 +39,10 @@ function MainPage() {
                 user.isLogin ? (
                     <div>
                         <NavBarMain 
-                        Nav_id = {id}
+                        mainpage_id = {id}
                         ></NavBarMain>
                         <h1>메인페이지 예정입니다.</h1>
-                        {/* <TagRoom></TagRoom> */}
+                        <TagRoom></TagRoom>
                     </div>
                 ) : (
                     <div>{user.userId},{user.isLogin}</div>

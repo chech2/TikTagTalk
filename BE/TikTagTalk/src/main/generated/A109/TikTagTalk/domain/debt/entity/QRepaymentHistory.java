@@ -22,7 +22,7 @@ public class QRepaymentHistory extends EntityPathBase<RepaymentHistory> {
 
     public static final QRepaymentHistory repaymentHistory = new QRepaymentHistory("repaymentHistory");
 
-    public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> createTime = createDate("createTime", java.time.LocalDate.class);
 
     public final QDebt debt;
 

@@ -1,6 +1,7 @@
 package A109.TikTagTalk.global.config;
 
 import A109.TikTagTalk.domain.user.repository.MemberRepository;
+import A109.TikTagTalk.domain.wallet.repository.PointHistoryRepository;
 import A109.TikTagTalk.global.jwt.filter.JwtAuthenticationProcessingFilter;
 import A109.TikTagTalk.global.jwt.service.JwtService;
 import A109.TikTagTalk.global.login.filter.CustomJsonUsernamePasswordAuthenticationFilter;
@@ -55,6 +56,8 @@ public class SecurityConfig {
     private final LoginService loginService;
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
+
+    private final PointHistoryRepository pointHistoryRepository;
     private final ObjectMapper objectMapper;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
@@ -64,7 +67,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.addAllowedOriginPattern(frontBaseURL);
+        config.addAllowedOriginPattern("http://localhost:3000");
+        config.addAllowedOriginPattern("https://j9a109.p.ssafy.io");
         config.setAllowCredentials(true);
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
@@ -108,7 +112,7 @@ public class SecurityConfig {
                         .authorizationEndpoint((endpoint) -> endpoint
                                 .baseUri("/api/oauth2/authorization"))
                         .redirectionEndpoint((endpoint) ->
-                                endpoint.baseUri("/login/oauth2/code/*"))
+                                endpoint.baseUri("/api/login/oauth2/code/*"))
                         .userInfoEndpoint((endpoint) -> endpoint
                                 .userService(customOAuth2UserService)) // customUserService 설정
                 )
@@ -164,7 +168,7 @@ public class SecurityConfig {
      */
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHandler(jwtService, memberRepository);
+        return new LoginSuccessHandler(jwtService, memberRepository,pointHistoryRepository);
     }
 
     /**

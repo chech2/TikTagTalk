@@ -76,11 +76,16 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             member.setPointsAddedToday(true);
             i += 100;
             memberRepository.save(member);
-
+            System.out.println("ㅅㅄㅄㅄㅄㅄㅄㅄ");
             LocalDateTime now = LocalDateTime.now();
             String content = "출석체크";
-
-            pointHistoryRepository.save(new PointHistory(now, i, content, member));
+            PointHistory pointHistory=new PointHistory(now, i, content, member);
+            System.out.println("시팔"+pointHistory.getPoint());
+            pointHistoryRepository.save(pointHistory);
+            Integer balancePoint= pointHistoryRepository.selectBalancePoint(now, member.getId());
+            System.out.println(balancePoint+"밸런스포인트 시발");
+            pointHistoryRepository.updateBalancePoint(pointHistory.getId(), balancePoint);
+            memberRepository.updateBalancePoint(member.getId(), balancePoint);
 
         }
     }

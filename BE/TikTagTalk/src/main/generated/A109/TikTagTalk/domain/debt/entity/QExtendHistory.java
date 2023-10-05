@@ -22,11 +22,11 @@ public class QExtendHistory extends EntityPathBase<ExtendHistory> {
 
     public static final QExtendHistory extendHistory = new QExtendHistory("extendHistory");
 
-    public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> createTime = createDate("createTime", java.time.LocalDate.class);
 
     public final QDebt debt;
 
-    public final DateTimePath<java.time.LocalDateTime> extendTime = createDateTime("extendTime", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> extendTime = createDate("extendTime", java.time.LocalDate.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

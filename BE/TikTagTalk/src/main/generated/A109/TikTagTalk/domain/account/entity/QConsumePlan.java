@@ -22,8 +22,6 @@ public class QConsumePlan extends EntityPathBase<ConsumePlan> {
 
     public static final QConsumePlan consumePlan = new QConsumePlan("consumePlan");
 
-    public final QAccount account;
-
     public final NumberPath<Long> eatAmount = createNumber("eatAmount", Long.class);
 
     public final NumberPath<Long> groceryAmount = createNumber("groceryAmount", Long.class);
@@ -37,6 +35,8 @@ public class QConsumePlan extends EntityPathBase<ConsumePlan> {
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final NumberPath<Long> insuranceAmount = createNumber("insuranceAmount", Long.class);
+
+    public final A109.TikTagTalk.domain.user.entity.QMember member;
 
     public final NumberPath<Long> ottAmount = createNumber("ottAmount", Long.class);
 
@@ -72,7 +72,7 @@ public class QConsumePlan extends EntityPathBase<ConsumePlan> {
 
     public QConsumePlan(Class<? extends ConsumePlan> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.account = inits.isInitialized("account") ? new QAccount(forProperty("account"), inits.get("account")) : null;
+        this.member = inits.isInitialized("member") ? new A109.TikTagTalk.domain.user.entity.QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }
