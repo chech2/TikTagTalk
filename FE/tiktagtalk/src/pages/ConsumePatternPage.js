@@ -1,23 +1,22 @@
 import { useSelector } from 'react-redux';
-import AppBar from '../components/ui/AppBar';
 import './ConsumePatternPage.css'
-import DropdownMenu from '../components/ui/DropdownMenu';
 import { useState,useEffect } from 'react';
 import { customAxios } from '../CustomAxios';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router';
+import ConsumePatternChart from '../components/ui/ConsumePatternChart.jsx';
+import EmptyConsumePatternChart from '../components/ui/EmptyConsumePatternChart';
 
 import { IconButton } from '@mui/material';
-import { ArrowBackIosNew, ArrowLeft, ArrowRight } from '@mui/icons-material';
+import { ArrowBackIosNew, ArrowLeft, ArrowRight, FiberManualRecord, KeyboardArrowRight } from '@mui/icons-material';
 
 function ConsumePatternPage() {
-  const naviage = useNavigate();
+  const navigator = useNavigate();
   let user = useSelector((state)=>state.user);
   const [mymonth, setmymonth] = useState();
   const [year, setYear] = useState(0);
   const [month, setMonth] = useState(0);
-  const [totalamount, settotalamount] = useState('0원')
-  const [highesttag, sethighesttag] = useState([])
+  const [totalAmount, setTotalAmount] = useState();
+  const [tagList, setTagList] = useState([]);
   
   const goBack = () => {
     window.history.back();
@@ -46,6 +45,9 @@ function ConsumePatternPage() {
 
   // 다음 월 데이터 보기
   const sumMonth = () => {
+    const now = new Date();
+    if(year === now.getFullYear() && month === now.getMonth() + 1) return;
+
     if(month === 12) {
       setmymonth(`${year + 1}-01`);
       setYear(year + 1);
@@ -60,54 +62,38 @@ function ConsumePatternPage() {
   // 월이 바뀔 때 데이터 다시 불러오기
   useEffect(() => {
     if (mymonth !== '') { // mymonth가 빈 문자열이 아닐 때만 실행
-    // mymonth 상태가 업데이트되면 실행되는 이펙트
     let body = {'yearAndMonth' : `${mymonth}`}
     customAxios
       .post(process.env.REACT_APP_BASE_URL + '/consume/checkaccount',body)
       .then((res) => {
-        settotalamount(res.data.totalAmount);
+        setTotalAmount(res.data.totalAmount);
+        setTagList(res.data.tagList);
+        console.log(tagList);
       })
       .catch((error) => {
         console.log('거래내역 에러', error);
       });
-      customAxios
-      .post(process.env.REACT_APP_BASE_URL + '/consume/highest', body)
-      .then((res) => {
-        // highesttag를 업데이트합니다.
-        sethighesttag(res.data.slice(0, 4));
-      })
-      .catch((error) => {
-        console.log('거래내역 에러', error);
-      });
-        }
-        // mymonth이 변경될 때마다 이펙트를 실행하도록 설정
-      }, [mymonth]);
-
-
-
-
-    // 동그라미
-
-    const CircleIcon = styled.div`
-    width: 5vw; /* 동그라미 아이콘의 너비 */
-    height: 2vh; /* 동그라미 아이콘의 높이 */
-    background-color: #007bff; /* 동그라미의 배경 색상 */
-    border-radius: 50%; /* 원 모양으로 만듭니다. */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white; /* 아이콘 색상 */
-    font-size: 24px; /* 아이콘 크기 */
-    `;
-    const StyledButton = styled.button`
-  background-color: white; /* 버튼 배경 색상 */
-  color: white; /* 버튼 텍스트 색상 */`;
-    const handlefilter = (tagName)=>{
-        console.log(tagName)
-        naviage(`/filter-purchase/${tagName}`,{ state: { mymonth } })
     }
+  }, [mymonth])
 
+  // 카테고리별 소비 내역 보러가기
+  const handlefilter = (tagName)=>{
+      const [a,bill] = tagName
+      navigator(`/filter-purchase/${a}`,{ state: { mymonth,bill } })
+  }
 
+  // 전체 소비 내역 보러가기
+  const goToFullHistory = () => {
+    navigator('/entire-purchase');
+  }
+
+    const colors = [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 206, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(153, 102, 255)'
+    ];
 
     return (
         <>
@@ -122,13 +108,16 @@ function ConsumePatternPage() {
           
                 {/* 연월 선택하기 */}
                 <div className="select-month">
+                    {/* 전 달 보기 버튼 */}
                     <IconButton
                       className='move-month-icon'
                       onClick={subMonth} 
                     >
                       <ArrowLeft/>
                     </IconButton>
-                    {mymonth}
+                    {/* 현재 보고 있는 연월 정보 */}
+                    <span>{year}년 {month}월 소비</span>
+                    {/* 앞 달 보기 버튼*/}
                     <IconButton
                       className='move-month-icon'
                       onClick={sumMonth} 
@@ -138,24 +127,48 @@ function ConsumePatternPage() {
                 </div>
         </div>
         
-            <div className='consume-pattern'>
-                <div>
-                    <img src="/Character/1.jpg" alt="" />
+            <div className='consume-pattern-container'>
+                <div className='profile'>
+                  {tagList.length > 0 ? (
+                    <div className='consume-pattern-doughnut-chart'>
+                      <ConsumePatternChart tagList={tagList}/>
+                    </div>
+                    ) : (
+                    <div className='consume-pattern-doughnut-chart'>
+                      <EmptyConsumePatternChart/>
+                    </div>
+                    )}
+                  <img className='profile-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
                 </div>
-                <div>
-                    {user.userId}
-                </div>
-                <div>{mymonth}</div>
-                <div>{totalamount}원</div>
-                    {highesttag.map((item,index)=>(
-                        <div key = {index} className='consume-container'>
-                            <div><CircleIcon></CircleIcon></div>
-                            <div>{item.tag.name+" : "}</div>
-                            <div>{item.amount + '원'}</div>
-                            <StyledButton onClick={handlefilter.bind(null,item.tag.name)}></StyledButton>
-                        </div>
-                    ))}
+                {totalAmount !== null ? (
+                  <div className="consume-list">
+                    <div className='total-price'>
+                      <div>￦ {totalAmount?.toLocaleString()}</div>
+                      <button className='go-to-full-history' onClick={goToFullHistory}>전체 내역</button>
+                    </div>
+                    <div className='tag-list'>
+                    {tagList.map((item,index)=>(
+                          <div key = {index} className='tag'>
+                              <FiberManualRecord style={{ color: index < 4 ? colors[index] : colors[4] }}/>
+                              <div>{item.name}</div>
+                              <div className='tag-amount'>
+                                <div className='tag-amount-amount' onClick={handlefilter.bind(null,[item.name,item.amount])}>{item.amount?.toLocaleString() + '원'}</div>
+                                <div className='tag-amount-percent'>({item.percent}%)</div>
+                              </div>
+                          </div>
+                      ))}
 
+                    </div>
+                  </div>
+                ) : (
+                <div className="consume-list">
+                  <div className='total-price'>
+                    <div>￦ 0</div>
+                    <button className='go-to-full-history' onClick={goToFullHistory}>전체 내역</button>
+                  </div>
+                </div>
+                ) }
+                     {/* // null 대신 이미지 넣어야할듯? */}
             </div>
         </>
     );

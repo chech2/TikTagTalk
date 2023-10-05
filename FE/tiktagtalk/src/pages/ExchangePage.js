@@ -29,7 +29,7 @@ function ExchangePage(props) {
             </div>
             <div className='exchange-container'>
                 <div className='exchange-container-33'>
-                    <img className='comment-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
+                    <img className='exchange-responsive-image' src={`/avatar/type${user.avatarType}.jpg`} alt="" /> 
                 </div>
                 <div className='exchange-container-33'>
                     {user.userId}
