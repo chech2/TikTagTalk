@@ -1,6 +1,6 @@
 import { useEffect,useState } from 'react';
 import AppBar from '../components/ui/AppBar';
-import './FilteredPurchaseListPage.css'
+import './FilteredPurchaseListPage.css';
 import { useParams, useLocation } from "react-router-dom";
 import { customAxios } from '../CustomAxios';
 // import { useState } from "react";
@@ -33,6 +33,32 @@ function FilteredPurchaseListPage(props) {
           console.log('거래내역 에러', error);
         });
     },[])
+
+    const handlecost = ()=>{
+        let body = {'yearAndMonth' : `${mymonth.mymonth}`}
+        customAxios
+        .post(process.env.REACT_APP_BASE_URL + '/consume/highest', body)
+        .then((res) => {
+            console.log('데이터셋예정임',res.data)
+            setdataset(res.data)
+
+        })
+        .catch((error) => {
+          console.log('거래내역 에러', error);
+        });
+    }
+    const handlenew = ()=>{
+        let body = {'yearAndMonth' : `${mymonth.mymonth}`}
+        customAxios
+        .post(process.env.REACT_APP_BASE_URL + '/consume', body)
+        .then((res) => {
+            console.log('데이터셋예정임',res.data)
+            setdataset(res.data)
+        })
+        .catch((error) => {
+          console.log('거래내역 에러', error);
+        });
+    }
     
 
     return (
@@ -44,12 +70,21 @@ function FilteredPurchaseListPage(props) {
                     <div>{tag} 소비내역 총 금액</div>
                     <div>{mymonth.bill} 원</div>
                 {/* <div>총 {}회 결제</div> */}
-                    <div>거래내역</div>
                 </div>
+                <div>거래내역</div>
+                <div className='filter-chose'>
+                    <button onClick={handlecost}>금액순</button>
+                    <button onClick={handlenew}>최신순</button>
+                </div>
+
+
                 {dataset.map((item,index)=>{
                     if (item.tag.name === tag) {
                         return (
-                          <div className='consume-store' key={index}>{item.store.name} : {item.amount}원</div>
+                            <div className='consume-store' key={index}>
+                                <div className='filter-fontcolor'>{item.amount}원</div>
+                                <div className='filter-fontcolor'>{item.store.name}</div>
+                            </div>
                         );
                     }
                 return null
