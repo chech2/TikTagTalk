@@ -90,6 +90,7 @@ function SearchFriendPage({data}) {
 
     return (
         <>
+            <div>Talk Talk 검색</div>
             <div className="search">
                 <div className="searchInputs">
                     <input 
