@@ -79,7 +79,7 @@ function FriendListPage(){
             </div>
             <div className='friend-container'>
                 <div className={showFriend === 1 ? 'yellow-background' : 'black-background'} onClick={hanldeMyfriend}> My Talk </div>
-                <div className={showFriend === 2 ? 'yellow-background' : 'black-background'} onClick={hanldeRecommendfriend}>Recommend Talk</div>
+                {/* <div className={showFriend === 2 ? 'yellow-background' : 'black-background'} onClick={hanldeRecommendfriend}>Recommend Talk</div> */}
                 <div className={showFriend === 3 ? 'yellow-background' : 'black-background'} onClick={handleSearchfriend}>Search Talk</div>    
             </div>
             {/* {`friend-class${showFriend}`} */}
@@ -124,7 +124,7 @@ function FriendListPage(){
             ) : (
                 // friendList 배열에 친구가 있는 경우
                 <>
-                <div>친구목록</div>
+                <div>Talk Talk 목록</div>
                 <div className='friend-list'>
                     {friendList.map((friend) => (
                         <div key={friend.id} className='friend-item'>

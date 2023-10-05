@@ -26,7 +26,7 @@
   .friend-list {
     display: flex;
     flex-wrap: wrap; /* 요소가 넘칠 경우 자동으로 다음 줄로 이동 */
-    justify-content: space-between; /* 요소들을 좌우로 균등하게 분배 */
+    justify-content: flex-start; /* 요소들을 좌우로 균등하게 분배 */
     padding: 10px; /* 요소 간 여백 조정 */
   }
   
