@@ -22,4 +22,5 @@ public class BuyRequest {
         return CoinHistory.builder().coinTime(buytime.toLocalDateTime()).member(member).content(skin.getItem().getName()).build();
     }
 
+
 }

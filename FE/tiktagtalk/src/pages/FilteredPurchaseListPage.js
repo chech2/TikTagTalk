@@ -16,6 +16,9 @@ function FilteredPurchaseListPage(props) {
     const [dataset,setdataset] = useState([])
     const year = mymonth.mymonth.slice(0,4)
     const month = mymonth.mymonth.slice(5,7)
+<<<<<<< HEAD
+    const currentDate = new Date();
+=======
 
 
     const currentDate = new Date();
@@ -30,6 +33,7 @@ function FilteredPurchaseListPage(props) {
 
 
 
+>>>>>>> 125d55b79ecf5a7dcc0f2a3dbae2916909fd201d
     useEffect(()=>{
 
         // console.log('filter창 month', mymonth.mymonth)
@@ -46,14 +50,31 @@ function FilteredPurchaseListPage(props) {
           console.log('거래내역 에러', error);
         });
     },[])
+<<<<<<< HEAD
+    
+=======
     const handleAddDeal = ()=>{
         console.log(1)
     }
+>>>>>>> 125d55b79ecf5a7dcc0f2a3dbae2916909fd201d
 
     return (
         <>
             <div>
                 <AppBar title= {tag +' 소비내역'}></AppBar>
+<<<<<<< HEAD
+                <div className='filter-infor'> 
+                    <div>{year}년 {month}월</div>
+                    <div>{tag} 소비내역 총 금액</div>
+                    <div>{mymonth.bill} 원</div>
+                {/* <div>총 {}회 결제</div> */}
+                    <div>거래내역</div>
+                </div>
+                {dataset.map((item,index)=>{
+                    if (item.tag.name === tag) {
+                        return (
+                          <div className='consume-store' key={index}>{item.store.name} : {item.amount}원</div>
+=======
                 <div>{year}년 {month}월</div>
                 <div>{tag} 소비내역 총 금액</div>
                 <div>{mymonth.bill} 원</div>
@@ -79,11 +100,15 @@ function FilteredPurchaseListPage(props) {
                     if (item.tag.name === tag) {
                         return (
                           <div key={index}>{item.tag.name}</div>
+>>>>>>> 125d55b79ecf5a7dcc0f2a3dbae2916909fd201d
                         );
                     }
                 return null
             })}
+<<<<<<< HEAD
+=======
 
+>>>>>>> 125d55b79ecf5a7dcc0f2a3dbae2916909fd201d
             </div>
 
         </>

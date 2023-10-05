@@ -3,7 +3,11 @@ import './NavBarMain.css'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+<<<<<<< HEAD
+import { IconButton } from '@mui/material';
+=======
 import { IconButton, Badge } from '@mui/material';
+>>>>>>> 125d55b79ecf5a7dcc0f2a3dbae2916909fd201d
 import { EditLocationAlt, Storefront, Add } from '@mui/icons-material';
 
 function NavBarMain(props) {

@@ -2,6 +2,14 @@ import AppBar from '../components/ui/AppBar';
 import './CommentPage.css'
 import React, { useState,useEffect} from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
+import { useNavigate, useParams } from 'react-router';
+import { customAxios } from '../CustomAxios';
+import { useSelector } from 'react-redux';
+import FriendListPage from './FriendListPage';
+import { FaPlus } from 'react-icons/fa';
+
+=======
 import { useParams } from 'react-router';
 import { customAxios } from '../CustomAxios';
 import { useSelector } from 'react-redux';
@@ -10,6 +18,7 @@ import { FaPlus } from 'react-icons/fa';
 
 
 
+>>>>>>> 125d55b79ecf5a7dcc0f2a3dbae2916909fd201d
 function CommentPage(props) {
     const {id} = useParams();
     const [tagRoomOwner,setTagRoomOwner]=useState();

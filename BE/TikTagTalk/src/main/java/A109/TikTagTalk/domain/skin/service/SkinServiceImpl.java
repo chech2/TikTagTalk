@@ -3,7 +3,9 @@ package A109.TikTagTalk.domain.skin.service;
 import A109.TikTagTalk.domain.skin.dto.request.BuyRequest;
 import A109.TikTagTalk.domain.skin.dto.response.AllSkinResponse;
 import A109.TikTagTalk.domain.skin.dto.response.BuyResponse;
+import A109.TikTagTalk.domain.skin.entity.MemberSkin;
 import A109.TikTagTalk.domain.skin.entity.Skin;
+import A109.TikTagTalk.domain.skin.repository.MemberSkinRepository;
 import A109.TikTagTalk.domain.skin.repository.SkinRepository;
 import A109.TikTagTalk.domain.tagRoom.entity.Item;
 import A109.TikTagTalk.domain.tagRoom.repository.ItemRepository;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SkinServiceImpl implements SkinService{
     private final SkinRepository skinRepository;
+    private final MemberSkinRepository memberSkinRepository;
     private final MemberRepository memberRepository;
     private final CoinHistoryRepository coinHistoryRepository;
     private final ItemRepository itemRepository;
@@ -45,17 +48,33 @@ public class SkinServiceImpl implements SkinService{
                 .collect(Collectors.toList());
     }
 
+        //상품 구매 - 원하는 상품 선택
+    @Override
+    public Long selectItemById(Long itemId) {
+        //상품 id로 상품 찾아서 반환
+        return skinRepository
+                .findById(itemId)
+                .orElseThrow()
+                .getId();
+    }
+
+
+    //상품 구매 - 구매
     @Override
     public BuyResponse buySkin(BuyRequest request) {
-        return null;
+        BuyResponse buyResponse = new BuyResponse(request.getSkin());
+        return buyResponse;
     }
+
+
+
 
 
     //구매한 스킨을 DB에 저장
     @Override
     public BuyResponse insertSkinItem(LocalDateTime now, String userId, Long skinId) {
 
-        Skin skin = (Skin) skinRepository.findById(skinId).get();
+        Skin skin = skinRepository.findById(skinId).get();
 
         Member member = memberRepository.findByUserId(userId).get();
 
