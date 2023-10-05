@@ -285,22 +285,15 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
                     if(consumePlan!=null){
                         if(isExceedConsumePlan(consumePlan.getSnackAmount(),amountSum)){ //소비계획을 안넘었다.
                             Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
-                            //cute_coffee_cup
-                            if(!(item.getName().equals("cute_coffee_cup"))){
-                                saveMemberTag(member,tag,gotTime,item);
-                            }
+                            saveMemberTag(member,tag,gotTime,item);
                         }
                         else{
                             Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
-                            if(!(item.getName().equals("cute_coffee_cup"))){
-                                saveMemberTag(member,tag,gotTime,item);
-                            }
+                            saveMemberTag(member,tag,gotTime,item);
                         }
                     }else{
                         Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
-                        if(!(item.getName().equals("cute_coffee_cup"))){
-                            saveMemberTag(member,tag,gotTime,item);
-                        }
+                        saveMemberTag(member,tag,gotTime,item);
                     }
                 }
             }else{
@@ -400,21 +393,15 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
                     if(consumePlan!=null){
                         if(isExceedConsumePlan(consumePlan.getOttAmount(),amountSum)){ //소비계획을 안넘었다.
                             Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
-                            if(!(item.getName().equals("youtube_gold_play_button"))){
-                                saveMemberTag(member,tag,gotTime,item);
-                            }
+                            saveMemberTag(member,tag,gotTime,item);
                         }
                         else{
                             Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
-                            if(!(item.getName().equals("youtube_gold_play_button"))){
-                                saveMemberTag(member,tag,gotTime,item);
-                            }
+                            saveMemberTag(member,tag,gotTime,item);
                         }
                     }else{
                         Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
-                        if(!(item.getName().equals("youtube_gold_play_button"))){
-                            saveMemberTag(member,tag,gotTime,item);
-                        }
+                        saveMemberTag(member,tag,gotTime,item);
                     }
                 }
             }else{
@@ -428,22 +415,14 @@ public class ConsumeHistoryServcieImpl implements ConsumeHistoryService {
                     if(consumePlan!=null){
                         if(isExceedConsumePlan(consumePlan.getPetAmount(),amountSum)){ //소비계획을 안넘었다.
                             Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
-                            if(!(item.getName().equals("shiba"))){
-                                saveMemberTag(member,tag,gotTime,item);
-                            }
+                            saveMemberTag(member,tag,gotTime,item);
                         }
                         else{
                             Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,true);
-                            if(!(item.getName().equals("shiba"))){
-                                saveMemberTag(member,tag,gotTime,item);
-                            }
                             saveMemberTag(member,tag,gotTime,item);
                         }
                     }else{
                         Item item=itemRepository.findItemByTagIdAndIsSkinAndIsShit(tagId,false,false);
-                        if(!(item.getName().equals("shiba"))){
-                            saveMemberTag(member,tag,gotTime,item);
-                        }
                         saveMemberTag(member,tag,gotTime,item);
                     }
                 }
