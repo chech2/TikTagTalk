@@ -1,0 +1,57 @@
+.regist-form{
+    border-radius: 20px;
+    border: 2px solid white;
+}
+.entire-dropdown{
+    display: flex;
+}
+
+.entire-store{
+    border-radius: 15px;
+    /* border : 1vw solid #333; */
+    margin-bottom: 1vh;
+    width : 80%;
+    margin-left: 10vw;
+    text-align: left;
+    /* background-color: white; */
+    
+}
+
+.entire-infor{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10vw;
+}
+
+.entire-chose{
+    display: flex;
+    justify-content: space-evenly;
+}
+.entire-fontcontainer{
+    display: flex;
+
+
+}
+.entire-fontcolor3{
+    color:white;
+    font-size : 12px;
+    /* width : 20%; */
+}
+
+.entire-fontcolor1{
+    color:white;
+    font-size : 20px;
+    width : 40%;
+    text-align: right;
+}
+.entire-50{
+    width : 60%;
+}
+
+.entire-fontcolor2{
+    color:white;
+    font-size : 16px;
+    /* width : 50%; */
+}
+

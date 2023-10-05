@@ -2,6 +2,7 @@
 import './App.css';
 // import react from 'react';
 import { Routes, Route } from "react-router-dom";
+import { useState } from 'react';
 // import styled from 'styled-components';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -30,7 +31,12 @@ import EntirePurchaseListPage from './pages/EntirePurchaseListPage';
 
 function App() {
   const currentPath = window.location.pathname;
-  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/');
+  const [shouldRenderFooter,setshouldRenderFooter] = useState(false)
+  useEffect(()=>{
+    setshouldRenderFooter(currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/')
+  )},[shouldRenderFooter])
+  
+  
 
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;

@@ -84,7 +84,9 @@ function ConsumePatternPage() {
 
   // 전체 소비 내역 보러가기
   const goToFullHistory = () => {
-    navigator('/entire-purchase');
+
+    navigator('/entire-purchase',{ state2: { year, month }});
+
   }
 
     const colors = [
