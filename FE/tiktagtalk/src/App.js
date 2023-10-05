@@ -72,7 +72,7 @@ function App() {
         <Route path="/consume-pattern" element={<ConsumePatternPage />}></Route>
 
         <Route path="/debts/list" element={<DebtListPage />}></Route>
-        <Route path="/debts/detail/:id" element={<DebtDetailPage />}></Route>
+        <Route path="/debts/detail/:id/:mode" element={<DebtDetailPage />}></Route>
       </Routes>
       {shouldRenderFooter && <Footer />}
     </div>

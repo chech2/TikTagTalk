@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./DebtPage.css";
 import DebtListItem from "../components/DebtListItem"; // 컴포넌트 import 필요
 import { customAxios } from "../CustomAxios";
@@ -52,8 +51,8 @@ function DebtListPage() {
     }
   };
 
-  const handleIdClick = async (id) => {
-    navigate(`/debts/detail/${id}`);
+  const handleIdClick = async (id, mode) => {
+    navigate(`/debts/detail/${id}/${mode}`);
   };
 
   const handleCloseModal = () => {
@@ -108,7 +107,7 @@ function DebtListPage() {
             className="debt-list-image-container"
             key={index}
             style={{ backgroundImage: "url(/Icon/차용증리스트.png)" }}
-            onClick={() => handleIdClick(contract.id)} // 여기에 onClick 이벤트 핸들러 추가
+            onClick={() => handleIdClick(contract.id, mode)} // 여기에 onClick 이벤트 핸들러 추가
           >
             <div>
               {contract.status === "REQUESTING" && (
