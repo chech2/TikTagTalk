@@ -160,10 +160,11 @@ export const Experience = () => {
       controls.current.enabled = true;
 
       // 아이템 업데이트
-      updateItemsOnServer();    
+      // updateItemsOnServer();    
     }
   }, [items, buildMode]);
 
+  // 업데이트 
   const updateItemsOnServer = async () => {
     try {
       const transformedItems = items.map(item => {

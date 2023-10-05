@@ -3,6 +3,7 @@ import { Experience } from "./components/Experience";
 import { DataManager } from "./components/DataManager";
 import { UI } from "./components/UI";
 import { ScrollControls } from "@react-three/drei";
+import './TagRoom.css';
 
 import React, { useEffect } from "react";
 
