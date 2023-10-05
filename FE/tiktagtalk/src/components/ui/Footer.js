@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState } from "react";
 import "./Footer.css";
 import { useNavigate} from 'react-router-dom'
 import { useSelector } from "react-redux";
@@ -11,6 +11,12 @@ function Footer() {
     const navigate = useNavigate()
     const myimage = useSelector((state)=>state.user.avatarType);
     const id = useSelector((state)=>state.user.id);
+
+    // mode 상태 변수 (기본값: 0)
+    const [mode, setMode] = useState(0);
+
+    // 추가: Drop Down 메뉴의 보이고/안 보이고 상태 (기본값: false)
+    const [showDropDown, setShowDropDown] = useState(false);
     
     const handleConsumeClick = ()=>{
         navigate('./consume-pattern')
@@ -21,8 +27,8 @@ function Footer() {
     const handleHomeClick = ()=>{
         navigate(`/main/${id}`)
     }
-    const handleContractClick=()=>{
-        navigate('./contract')
+    const handleDebtClick=()=>{
+        navigate('./debts/list')
     }
 
 
