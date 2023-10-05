@@ -20,7 +20,7 @@ public class AllCommentsResponseDto {
     @AllArgsConstructor
     public static class MemberDto{
         private Long id;
-        private String name;
+        private String userId;
         private int avatarType;
     }
     @Getter

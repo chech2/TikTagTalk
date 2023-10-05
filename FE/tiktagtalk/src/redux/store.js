@@ -10,7 +10,7 @@ import userReducer from './userSlice';
 const persistConfg ={
   key : 'root',
   storage : sessionStorage,
-  whitelist: ['user','todos','item'],
+  whitelist: ['user','todos','item',],
 }
 
 const persistedReducer = persistReducer(persistConfg, rootReducer);
