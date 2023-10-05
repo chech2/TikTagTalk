@@ -1,0 +1,35 @@
+.debt-list-item {
+  display: flex;
+  flex-direction: column;
+  /*    width: 100%; */
+}
+
+.debtors-lenders {
+  display: flex;
+  text-align: center; /* 가운데 정렬 */
+  align-items: center;
+}
+
+.debt-list-content-container {
+  margin: auto;
+}
+
+.debt-list-remaining-container {
+  align-self: flex-end; /* 오른쪽 하단 */
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.debt-list-item-status-container {
+  align-self: flex-start;
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+.debt-done-item-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* 세로 방향으로 아이템들을 배열합니다 */
+}

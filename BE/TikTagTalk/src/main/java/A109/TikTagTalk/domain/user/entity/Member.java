@@ -96,6 +96,8 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Comment> comments=new ArrayList<>();
 
+    private boolean pointsAddedToday;
+
     // 유저 권한 설정 메소드
     public void authorizeUser() {
         this.role = Role.USER;

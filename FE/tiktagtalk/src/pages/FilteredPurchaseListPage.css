@@ -1,8 +1,65 @@
-.consume-store{
+.filter-store{
     border-radius: 15px;
-    border : 1vw solid #333;
+    /* border : 1vw solid #333; */
+    margin-bottom: 1vh;
+    width : 80%;
+    margin-left: 10vw;
+    text-align: left;
+    /* background-color: white; */
+    
 }
 
 .filter-infor{
-    align-items: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10vw;
+}
+
+.filter-chose{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 2.5vh;
+    margin-top : 2.5vh;
+}
+.filter-button{
+    width: 25vw;
+    height: 8vw;
+    border: none; /* 테두리를 없애기 */
+    border-radius: 5px; /* 둥근 테두리 */
+    background: rgb(255,0,255);
+    background: linear-gradient(90deg, rgba(255,0,255,1) 6%, rgba(0,255,255,1) 100%);
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 3vw;
+}
+.filter-fontcontainer{
+    display: flex;
+
+
+}
+.filter-fontcolor3{
+    color:white;
+    font-size : 12px;
+    /* width : 20%; */
+}
+
+.filter-fontcolor1{
+    color:white;
+    font-size : 20px;
+    width : 40%;
+    text-align: right;
+}
+.filter-50{
+    width : 60%;
+}
+
+.filter-fontcolor2{
+    color:white;
+    font-size : 16px;
+    /* width : 50%; */
+}
+
+.filter-date{
+    margin-bottom: 0.5vh;
 }
