@@ -42,7 +42,7 @@ function MainPage() {
                 user.isLogin ? (
                     <div>
                         <NavBarMain 
-                        mainpage_id = {id}
+                            mainpage_id = {id}
                         ></NavBarMain>
                         <TagRoom></TagRoom>
                     </div>

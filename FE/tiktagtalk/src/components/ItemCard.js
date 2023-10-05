@@ -19,7 +19,7 @@ function ItemCard({ item_key, item_url, item_name, item_price, onCardClick }) {
     return (
         <>
         <div onClick={()=> onCardClick(item_key)} className='skin-cardback'>
-            <img src={`./skin/${item_name}.png`} alt="" className='skin-cardsize'/>
+            <img src={`./skin/${item_url}.png`} alt="" className='skin-cardsize'/>
             <div>{item_name}</div>
             <div className='skincard-container'>
                 <img src="./Icon/Coin.png" alt="" />

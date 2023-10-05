@@ -55,6 +55,7 @@
 import { transformToItems, transformToMap} from './transformData';
 import { customAxios } from "../../CustomAxios"
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export const fetchData = async (e) => {
   
@@ -66,6 +67,10 @@ export const fetchData = async (e) => {
     
     const items = transformToItems(data);
     const map = transformToMap(data, items);  
+
+    console.log(items);
+    console.log(map);
+    console.log(map.items);
 
     return {items, map};
     } catch (error) {
