@@ -1,6 +1,8 @@
 package A109.TikTagTalk.domain.wallet.service;
 
 import A109.TikTagTalk.domain.wallet.dto.CurrencyDto;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ public class CurrencyAPIServiceImpl implements CurrencyAPIService{
 
     public CurrencyAPIServiceImpl(RestTemplateBuilder restTemplateBuilder){
         restTemplate = restTemplateBuilder.build();
-    }
+            }
 
     @Override
     public CurrencyDto getCurrency() {
@@ -53,3 +55,13 @@ public class CurrencyAPIServiceImpl implements CurrencyAPIService{
         return currentTime - currency.getTimestamp() > cycleTime;
     }
 }
+
+
+
+
+
+
+
+
+
+

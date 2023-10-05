@@ -2,9 +2,13 @@
 
 .skinshop-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4개의 열로 설정 */
-    gap: 20px; /* 열 간격 설정 (선택 사항) */
-
+    grid-template-columns: repeat(2, 1fr); /* 4개의 열로 설정 */
+    grid-template-rows: repeat(6, 1fr); /* 3개의 행으로 설정 */
+    gap: 1%; /* 열 간격 설정 (선택 사항) */
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    max-height: 100vh; /* 뷰포트 높이를 최대로 설정 */
+    max-width: 100%;
+    padding: 1%;
 }
 
 /* max-width: 360px; 최대 너비 설정 (화면 크기에 맞게 조절) */

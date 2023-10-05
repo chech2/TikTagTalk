@@ -30,7 +30,7 @@ import DebtDetailPage from "./pages/DebtDetailPage";
 import FilteredPurchaseListPage from "./pages/FilteredPurchaseListPage";
 import ConsumePlanInsertPage from "./pages/ConsumePlanInsertPage";
 import EntirePurchaseListPage from "./pages/EntirePurchaseListPage";
-
+import DebtCreatePage from "./pages/DebtCreatePage";
 function App() {
   const currentPath = window.location.pathname;
   const shouldRenderFooter =
@@ -79,6 +79,7 @@ function App() {
 
         <Route path="/debts/list" element={<DebtListPage />}></Route>
         <Route path="/debts/detail/:id/:mode" element={<DebtDetailPage />}></Route>
+        <Route path="/debts/create" element={<DebtCreatePage />}></Route>
       </Routes>
       {shouldRenderFooter && <Footer />}
     </div>
@@ -86,29 +87,3 @@ function App() {
 }
 
 export default App;
-
-// import { Canvas } from "@react-three/fiber";
-// import { Experience } from "./components/Experience";
-// import { DataManager } from "./components/DataManager";
-// import { UI } from "./components/UI";
-// import { ScrollControls } from "@react-three/drei";
-
-// import React, { useEffect } from "react";
-
-// function App() {
-
-//   return (
-//     <>
-//       <DataManager />
-//       <Canvas shadows camera={{ position: [30, 23, 30], fov: 31 }}>
-//         <color attach="background" args={["#ececec"]} />
-//         <ScrollControls pages={8}>
-//           <Experience />
-//         </ScrollControls>
-//       </Canvas>
-//       <UI />
-//     </>
-//   );
-// }
-
-// export default App;
