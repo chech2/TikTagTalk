@@ -4,7 +4,7 @@ import { useNavigate} from 'react-router-dom'
 import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faUser, faUsersRays, faAward, faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faUser, faUsersRays, faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
 
 
 function Footer() {
@@ -21,9 +21,6 @@ function Footer() {
     const handleHomeClick = ()=>{
         navigate(`/main/${id}`)
     }
-    const handleAchievementClick=()=>{
-        navigate('./achievement')
-    }
     const handleContractClick=()=>{
         navigate('./contract')
     }
@@ -33,13 +30,6 @@ function Footer() {
     return (
         <>
         <nav className="footercontainer">
-
-            <div className="nav-navigate">
-                <FontAwesomeIcon 
-                    icon={faAward} 
-                    onClick={handleAchievementClick}
-                />
-            </div>
 
             <div className="nav-navigate">
                 <FontAwesomeIcon 
