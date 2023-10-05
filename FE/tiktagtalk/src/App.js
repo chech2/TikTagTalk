@@ -31,10 +31,7 @@ import EntirePurchaseListPage from './pages/EntirePurchaseListPage';
 
 function App() {
   const currentPath = window.location.pathname;
-  const [shouldRenderFooter,setshouldRenderFooter] = useState(false)
-  useEffect(()=>{
-    setshouldRenderFooter(currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/')
-  )},[shouldRenderFooter])
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/')
   
   
 

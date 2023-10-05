@@ -72,8 +72,8 @@ function FilteredPurchaseListPage(props) {
                 </div>
                 <div>거래내역</div>
                 <div className='filter-chose'>
-                    <button onClick={handlecost}>금액순</button>
-                    <button onClick={handlenew}>최신순</button>
+                    <button className='filter-button' onClick={handlecost}>금액순</button>
+                    <button className='filter-button' onClick={handlenew}>최신순</button>
                 </div>
 
 
@@ -82,7 +82,7 @@ function FilteredPurchaseListPage(props) {
                         return (
                             <div>
                                 <div className='filter-store' key={index}>
-                                    <div>{item.consumeTime.slice(6, 7) +'월' + item.consumeTime.slice(8, 10)+'일'}</div>
+                                    <div className='filter-date'>{item.consumeTime.slice(6, 7) +'월' + item.consumeTime.slice(8, 10)+'일'}</div>
                                     <div className='filter-fontcontainer'>
                                         <div className='filter-50'>
                                             <div className='filter-fontcolor2'>{item.store.name}</div>

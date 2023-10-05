@@ -84,8 +84,9 @@ function ConsumePatternPage() {
 
   // 전체 소비 내역 보러가기
   const goToFullHistory = () => {
+    console.log('전체소비내역 넘겨줄떄 year month',year,month)
 
-    navigator('/entire-purchase',{ state2: { year, month }});
+    navigator('/entire-purchase',{ state: { year, month  }});
 
   }
 
