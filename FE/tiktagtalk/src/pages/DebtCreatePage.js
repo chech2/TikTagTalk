@@ -13,7 +13,7 @@ function DebtCreatePage() {
   const [partialPay, setPartialPay] = useState("");
   const [id, setId] = useState(null);
   const userName = useSelector((state) => state.user.userId);
-
+  console.log(useSelector((state) => state.user));
   function getToday() {
     const today = new Date();
     let month = "" + (today.getMonth() + 1);
@@ -63,30 +63,42 @@ function DebtCreatePage() {
         className="debt-create-image-container"
         style={{ backgroundImage: "url(/Icon/차용증리스트.png)" }}
       ></div>
-      <form onSubmit={handleSubmit}>
-        <h1>차용증</h1>
-        {userName}님이
-        <label htmlFor="money">빌린 금액: </label>
-        <input
-          type="number"
-          id="money"
-          name="money"
-          value={money}
-          onChange={(e) => setMoney(e.target.value)}
-        />
+      <form onSubmit={handleSubmit} style={{ fontSize: "1.5em" }}>
+        <h1 style={{ marginBottom: "30px" }}>차용증</h1> <br />
         <br />
-        <label htmlFor="lenderId">채권자 ID:</label>
-        <br />
+        {userName}가<br></br>
+        <label htmlFor="lenderId" style={{ marginTop: "20px" }}>
+          채권자 ID:
+        </label>
         <input
           type="number"
           id="lenderId"
           name="lenderId"
           value={lenderId}
           onChange={(e) => setLenderId(e.target.value)}
+          style={{ margin: "10px 0", backgroundColor: "rgba(255,255,255,0.5)" }}
         />
+        에게
+        <br></br>
+        {/* <label htmlFor="money">빌린 금액: </label> */}
+        <input
+          type="number"
+          id="money"
+          name="money"
+          value={money}
+          onChange={(e) => setMoney(e.target.value)}
+          style={{ margin: "10px 0", backgroundColor: "rgba(255,255,255,0.5)" }}
+        />
+        원을 빌림
         <br />
-        <label htmlFor="repaymentTime">상환일자:</label>
         <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <label htmlFor="repaymentTime" style={{ margin: "10px 0" }}>
+          상환일:{" "}
+        </label>
         <input
           type="date"
           id="repaymentTime"
@@ -94,9 +106,11 @@ function DebtCreatePage() {
           min={getToday()}
           value={repaymentTime}
           onChange={(e) => setRepaymentTime(e.target.value)}
+          style={{ margin: "10px 0", backgroundColor: "rgba(255,255,255,0.5)" }}
         />
         <br />
-        부분 상환 가능 여부
+        <br />
+        나눠서 갚아도 됨?ㅋ
         <br />
         가능
         <input
@@ -106,7 +120,8 @@ function DebtCreatePage() {
           value="1"
           checked={partialPay === "1"}
           onChange={(e) => setPartialPay(e.target.value)}
-        />
+          style={{ margin: "10px 0", backgroundColor: "rgba(255,255,255,0.5)" }}
+        />{" "}
         불가능
         <input
           type="radio"
@@ -115,9 +130,18 @@ function DebtCreatePage() {
           value="0"
           checked={partialPay === "0"}
           onChange={(e) => setPartialPay(e.target.value)}
+          style={{ margin: "10px 0", backgroundColor: "rgba(255,255,255,0.5)" }}
         />
         <br />
-        <input type="submit" value="Submit" />
+        <input
+          type="submit"
+          value="돈 빌리기"
+          style={{
+            backgroundColor: "rgba(255,255,255,0.5)",
+            fontSize: "16px",
+            fontFamily: "Her-Leeoksun",
+          }}
+        />
       </form>
     </div>
   );
