@@ -29,7 +29,7 @@ import ConsumePlanInsertPage from './pages/ConsumePlanInsertPage';
 
 function App() {
   const currentPath = window.location.pathname;
-  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/main' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/');
+  const shouldRenderFooter = currentPath !== '/' && currentPath !== '/sign-up' && currentPath !=='/login' && !currentPath.startsWith('/oauth2/sign-up/') && !currentPath.startsWith('/oauth/redirect/');
 
   function setViewportHeight() {
     let vh = window.innerHeight * 0.01;
@@ -67,6 +67,7 @@ function App() {
         <Route path='/exchange' element={<ExchangePage/>}></Route>
         <Route path='/consume-pattern' element={<ConsumePatternPage/>}></Route>
         <Route path='filter-purchase/:tag' element={<FilteredPurchaseListPage />}></Route>
+        <Route path='entire-purchase' element={<EntirePurchaseListPage/>}></Route>
       </Routes>
       {shouldRenderFooter && <Footer/>}
     </div>
