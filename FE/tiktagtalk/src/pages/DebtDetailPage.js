@@ -3,8 +3,11 @@ import { customAxios } from "../CustomAxios";
 import { useParams } from "react-router-dom";
 import "./DebtDetailPage.css";
 import AppBar from "../components/ui/AppBar";
+import { useNavigate } from "react-router-dom";
 
 function DebtDetailItem() {
+  const navigate = useNavigate();
+
   const [Data, setData] = useState();
   const { id, mode } = useParams();
   const statusMap = {
@@ -15,7 +18,6 @@ function DebtDetailItem() {
     ARREARS: { label: "체납", color: "#FF3300" },
   };
 
-  console.log(id, " ", mode);
   // useEffect를 사용하여 모달 창이 열릴 때마다 GET 요청을 보냅니다.
   useEffect(() => {
     customAxios
@@ -27,10 +29,37 @@ function DebtDetailItem() {
         console.error("Error fetching contracts:", error);
       });
   }, [id]); // page나 size가 바뀔 때마다 API 요청을 다시 보냅니다
+  console.log(id, " ", mode, Data);
+
+  const yourFunction = async () => {
+    try {
+      const response = await customAxios
+        .patch(process.env.REACT_APP_BASE_URL + `/debts/debt-approval`, {
+          id: id,
+          status: "ACTIVE",
+        })
+        .then(window.history.back());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const makeInactive = async (money) => {
+    try {
+      const response = await customAxios
+        .patch(process.env.REACT_APP_BASE_URL + `/debts/repayment`, {
+          id: id,
+          repaymentMoney: money,
+        })
+        .then(window.history.back());
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
-      <AppBar title="차용증 상세내역" style={{ zIndex: 1 }}></AppBar>
+      <AppBar style={{ zIndex: 1 }}></AppBar>
 
       <div className="debt-detail-root-container">
         <div
@@ -40,8 +69,16 @@ function DebtDetailItem() {
           {Data && (
             <div>
               <div className="debt-detail-status" style={{ color: statusMap[Data.status].color }}>
-                <p>{statusMap[Data.status].label}</p>
-                {Data.status === "차용증 상태값" ? (
+                <p
+                  onClick={() => {
+                    if (Data.status === "REQUESTING") {
+                      yourFunction();
+                    }
+                  }}
+                >
+                  {statusMap[Data.status].label}
+                </p>
+                {/* {Data.status === "ARREARS" ? (
                   <button
                     className="debt-status-button"
                     onClick={() => console.log("차용증 붙이러 가기")}
@@ -49,10 +86,10 @@ function DebtDetailItem() {
                     차용증 붙이러 가기
                   </button>
                 ) : (
-                  <button className="debt-status-button" onClick={() => console.log("상환하기")}>
+                  <button className="debt-status-button" onClick={() => makeInactive(Data.money)}>
                     상환하기
                   </button>
-                )}
+                )} */}
               </div>
               <h1 className="debt-detail-name ">차용증</h1>
 

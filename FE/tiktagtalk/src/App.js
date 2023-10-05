@@ -30,7 +30,7 @@ import DebtDetailPage from "./pages/DebtDetailPage";
 import FilteredPurchaseListPage from "./pages/FilteredPurchaseListPage";
 import ConsumePlanInsertPage from "./pages/ConsumePlanInsertPage";
 import EntirePurchaseListPage from "./pages/EntirePurchaseListPage";
-
+import DebtCreatePage from "./pages/DebtCreatePage";
 function App() {
   const currentPath = window.location.pathname;
   const shouldRenderFooter =
@@ -79,6 +79,7 @@ function App() {
 
         <Route path="/debts/list" element={<DebtListPage />}></Route>
         <Route path="/debts/detail/:id/:mode" element={<DebtDetailPage />}></Route>
+        <Route path="/debts/create" element={<DebtCreatePage />}></Route>
       </Routes>
       {shouldRenderFooter && <Footer />}
     </div>

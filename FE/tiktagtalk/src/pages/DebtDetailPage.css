@@ -15,7 +15,8 @@
   margin-top: 15px;
 }
 .debt-detail-name {
-  margin-top: 10px;
+  /* border-top: 0px; */
+  margin-top: 0px;
   margin-bottom: 30px;
 }
 

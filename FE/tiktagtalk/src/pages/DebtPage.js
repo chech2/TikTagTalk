@@ -29,11 +29,8 @@ function DebtListPage() {
       .then((response) => {
         setPageInfo(response.data.pageInfo);
         setItems(response.data.data);
-        console.log("확인: ", response.data.data);
-        console.log("확인2: ", response.data.pageInfo);
       })
       .catch((error) => {
-        console.error("Error fetching contracts:", error);
         console.log(error);
       });
   }, [page, mode]); // page나 size가 바뀔 때마다 API 요청을 다시 보냅니다
@@ -55,8 +52,8 @@ function DebtListPage() {
     navigate(`/debts/detail/${id}/${mode}`);
   };
 
-  const handleCloseModal = () => {
-    setSelectedDebtId(null);
+  const createDebt = () => {
+    navigate(`/debts/create`);
   };
 
   const handleModeChange = (checked) => {
@@ -64,7 +61,7 @@ function DebtListPage() {
   };
 
   return (
-    <div>
+    <div className="debt-list-font-container ">
       <div>
         <AppBar title={`${user.userId}님의 ${getModeString(mode)}용 차용증 내역`}></AppBar>
       </div>
@@ -85,7 +82,7 @@ function DebtListPage() {
           </div>
         </label>
         <div>
-          <button className="debt-input-button" onClick={handlePrevPage}>
+          <button className="debt-input-button" onClick={createDebt}>
             차용증 생성
           </button>
         </div>
@@ -110,7 +107,7 @@ function DebtListPage() {
             onClick={() => handleIdClick(contract.id, mode)} // 여기에 onClick 이벤트 핸들러 추가
           >
             <div>
-              {contract.status === "REQUESTING" && (
+              {contract.status === "INAVTIVE" && (
                 <img
                   src="/Icon/차용증상환완료.png"
                   alt="Status Icon"
