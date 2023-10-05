@@ -126,7 +126,7 @@ public class MemberController {
         return new ResponseEntity<>(memberLoginResponseDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     @Operation(summary = "find member by userId", description = "아이디(userId)로 멤버 찾기 : 톡톡 친구 찾기")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "userId를 앞에 포함하는 모든 멤버 리스트 반환(like userId%)")

@@ -112,9 +112,10 @@ function FriendListPage(){
                         </div>
                     ))}
                 </div>
-                <div>친구목록</div>
+                
                 {/* 친구폼 끝 */}
             {showFriend === 1 ?  
+            
             (friendList.length === 0 ? (
                 // friendList 배열이 비어있는 경우
                 <div>
@@ -123,6 +124,7 @@ function FriendListPage(){
             ) : (
                 // friendList 배열에 친구가 있는 경우
                 <>
+                <div>친구목록</div>
                 <div className='friend-list'>
                     {friendList.map((friend) => (
                         <div key={friend.id} className='friend-item'>
