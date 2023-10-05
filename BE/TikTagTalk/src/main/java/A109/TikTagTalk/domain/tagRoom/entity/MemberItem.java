@@ -21,14 +21,10 @@ public class MemberItem {
     @Column(name="position_y")
     private Long positionY;
     @Column(name="grid_z_number")
-    private Long positoinZ;
-    @Column(name="size_x")
-    private Long sizeX;
-    @Column(name="size_y")
-    private Long sizeY;
+    private Long positionZ;
 
-    private boolean room;
-    private boolean wall;
+    private Boolean inroom;
+    private Boolean wall;
     private Long rotation;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,7 +1,6 @@
 import './StartPage.css';
-
 import { useNavigate } from 'react-router-dom'
-import 'animate.css';
+// import 'animate.css';
 
 import logo1 from "./logo/TikTagTalk_1.png";
 import logo2 from "./logo/TikTagTalk_2.png";
