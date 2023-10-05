@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class CurrencyAPIServiceImpl implements CurrencyAPIService{
     @Value("${currencyLayer.accessKey}")
     private String accessKey;
-    @Value("${currencyLayer.source}")
+    @Value("${currencyLayer.url}")
     private String url;
     @Value("${currencyLayer.source}")
     private String source;
@@ -38,6 +38,7 @@ public class CurrencyAPIServiceImpl implements CurrencyAPIService{
                             + "&format=1",
                     CurrencyDto.class
             );
+            System.out.println(currency.getSource());
         }
         return currency;
     }

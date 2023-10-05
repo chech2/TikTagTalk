@@ -20,7 +20,7 @@ public interface SkinService {
     //상품 구매 - 구매
     BuyResponse buySkin(BuyRequest request);
 
-    BuyResponse insertSkinItem(LocalDateTime now, String userId, Long skinId);
+    BuyResponse insertSkinItem(LocalDateTime now, Long memberId, Long skinId);
 
     void createDummySkin();
 }

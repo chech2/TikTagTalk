@@ -91,7 +91,6 @@
 .consume-pattern-container .consume-list .tag-list .tag {
     display:flex;
     align-items: center;
-<<<<<<< HEAD
     width: 75vw;
     height: 10vw;
 
@@ -122,12 +121,3 @@
     justify-content: end;
     color: #C5C0C8;
 }
-=======
-} */
-.consume-responsive-image{
-    width: 80%;
-    height: auto;
-    max-width: 20vw; /* 이미지 최대 너비 지정 */
-    border-radius: 50px;
-}
->>>>>>> 125d55b79ecf5a7dcc0f2a3dbae2916909fd201d

@@ -22,7 +22,7 @@ public class CurrencyConverterAPIController {
         System.out.println("TESTETSTEST!!!!!");
     }
     //국가에 따라 환율을 가져오는 메소드
-    @PostMapping("/exchange-rates1")
+    @GetMapping("/exchange-rates")
     public ResponseEntity getExchangeRage(@RequestParam(name = "receiveCountry") String receiveCountry) {
         System.out.println("요청!!");
         Double exchangeRate = currencyConverter.getCurrencyRate(receiveCountry);

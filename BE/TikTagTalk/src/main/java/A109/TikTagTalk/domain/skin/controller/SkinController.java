@@ -31,14 +31,15 @@ public class SkinController {
 
     //모든 스킨 조회(GET)
     @GetMapping("")
-    public List<AllSkinResponse> allSkinResponseListlist() {
+    public List<AllSkinResponse> allSkinResponseList() {
         return skinService.selectAllSkins();
     }
 
     //스킨 구매(POST)
     @PostMapping("/{skinId}")
     public ResponseEntity<BuyResponse> buySkin(@RequestHeader(required = true, name = "Authorization") String token, @PathVariable("skinId") Long skinId) {
-        BuyResponse buyResponse = skinService.insertSkinItem(LocalDateTime.now(), "sun", 1L);
+        Member member = SecurityUtil.getCurrentLoginMember();
+        BuyResponse buyResponse = skinService.insertSkinItem(LocalDateTime.now(), member.getId(), skinId);
         return new ResponseEntity<>(buyResponse, HttpStatus.OK);
     }
 }

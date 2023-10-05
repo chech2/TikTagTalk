@@ -72,11 +72,11 @@ public class SkinServiceImpl implements SkinService{
 
     //구매한 스킨을 DB에 저장
     @Override
-    public BuyResponse insertSkinItem(LocalDateTime now, String userId, Long skinId) {
+    public BuyResponse insertSkinItem(LocalDateTime now, Long memberId, Long skinId) {
 
         Skin skin = skinRepository.findById(skinId).get();
 
-        Member member = memberRepository.findByUserId(userId).get();
+        Member member = memberRepository.findById(memberId).get();
 
         Timestamp Tnow = Timestamp.valueOf(now);
 
