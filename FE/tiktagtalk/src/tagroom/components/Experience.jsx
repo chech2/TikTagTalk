@@ -61,15 +61,21 @@ export const Experience = () => {
 
     console.log(item);
 
-    if(item !== undefined) {
-      map.items.push({
-        ...item[item.name],
-        gridPosition: item.gridPosition,
-        gridNumber: item.gridNumber,
-        rotation: item.rotation,
-        isRoom: item.isRoom,
-      });
-    }
+    // if(item.name !== undefined) {
+    //   console.log(item);
+    //   map.items.push({
+    //     name : item.name,
+    //     size : item.size,
+    //     room : item.room,
+    //     wall : item.wall,
+    //     gridPosition: item.gridPosition,
+    //     gridNumber: item.gridNumber,
+    //     rotation: item.rotation,
+    //     isRoom: item.isRoom,
+    //   });
+    // }
+
+    console.log(map);
 
     const width = draggedItemRotation === 1 || draggedItemRotation === 3 ? item.size[1] : item.size[0];
     const height = draggedItemRotation === 1 || draggedItemRotation === 3 ? item.size[0] : item.size[1];
@@ -232,6 +238,23 @@ export const Experience = () => {
 
     setDraggedItem(items.length);
     setDraggedItemRotation(0);
+
+    if(item.name !== undefined) {
+      console.log(item);
+      map.items.push({
+        name : item.name,
+        size : item.size,
+        room : item.room,
+        wall : item.wall,
+        gridPosition: item.gridPosition,
+        gridNumber: item.gridNumber ? 1 : 1,
+        rotation: item.rotation,
+        isRoom: item.isRoom ? true : true,
+      });
+    }
+
+    console.log(item);
+
   };
 
   useEffect(() => {
