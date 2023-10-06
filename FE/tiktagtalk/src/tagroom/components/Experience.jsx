@@ -239,19 +239,19 @@ export const Experience = () => {
     setDraggedItem(items.length);
     setDraggedItemRotation(0);
 
-    // if(item.name !== undefined) {
-    //   console.log(item);
-    //   map.items.push({
-    //     name : item.name,
-    //     size : item.size,
-    //     room : item.room,
-    //     wall : item.wall,
-    //     gridPosition: item.gridPosition,
-    //     gridNumber: item.gridNumber,
-    //     rotation: item.rotation,
-    //     isRoom: item.isRoom,
-    //   });
-    // }
+    if(item.name !== undefined) {
+      console.log(item);
+      map.items.push({
+        name : item.name,
+        size : item.size,
+        room : item.room,
+        wall : item.wall,
+        gridPosition: item.gridPosition,
+        gridNumber: item.gridNumber ? 1 : 1,
+        rotation: item.rotation,
+        isRoom: item.isRoom ? true : true,
+      });
+    }
 
     console.log(item);
 
