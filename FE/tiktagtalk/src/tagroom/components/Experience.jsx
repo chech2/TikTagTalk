@@ -197,7 +197,7 @@ export const Experience = () => {
         };
       });
 
-      // console.log(transformedItems)
+      console.log(transformedItems)
 
       // 서버로 보낼 최종 JSON 객체를 만듭니다.
       const payload = {
@@ -206,12 +206,11 @@ export const Experience = () => {
 
       // console.log(payload);  // 확인용 로그
 
-      // Content-Type 헤더 추가
-      const headers = {
-        'Content-Type': 'application/json'
-      };
-
-      await customAxios.put(`${process.env.REACT_APP_BASE_URL}/memberitem`, payload, { headers });
+      await customAxios.put(`${process.env.REACT_APP_BASE_URL}/memberitem`, payload, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       console.log('Items successfully updated.');
     } catch (error) {
       console.error('An error occurred while updating items:', error);
