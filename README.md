@@ -1,4 +1,5 @@
 # TIKTAGTALK
+<img src="/images/tiktagtalklogo.png">
 
 # 목차
 #### 1. [프로젝트 개요](#프로젝트-개요)
