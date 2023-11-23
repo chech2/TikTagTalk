@@ -17,7 +17,7 @@
 >2023.08.21 - 2023.10.06
 >
 >#### 프로젝트 소개
->소비 내역에 따른 소비 태그를 이용한 마이룸 꾸미기 SNS
+>소비 내역에 따른 소비 태그를 이용한 마이룸 꾸미기 SNS서비스 입니다.
 
 # 기술 스택
 
@@ -33,7 +33,25 @@
 <br>
 
 # 주요 기능
+### 소비 태그 카테고리화
+소비처에 따른 태그를 분류하여 카테고리화<br>
 
+>#### 소비 태그 카테고리 <br>
+>`식비`, `편의점/마트/잡화`, `교통/자동차`, `쇼핑`, <br>
+>`카페/간식`,`보험/세금/기타금융`, `취미/여가`, `미용` <br>
+>`의료/건강/피트니스`,`정기결제`, `여행`, `반려동물` <br>
+
+### 소비 태그에 따른 태그룸(마이룸)을 꾸밀 수 있는 아이템 획득
+
+소비 횟수 및 금액 초과하는 각 소비 카테고리에 따라 아이템 획득<br>
+
+### 현재 환율을 적용한 포인트 환전
+실시간 달러 환율을 적용하여 코인 → 포인트 환전<br>
+
+>#### 환전 포인트로 아이템에 대한 스킨 구매 가능 <br>
+
+### SNS의 팔로우 기능인 톡톡 친구 기능 도입
+톡톡 관계를 맺고 있는 친구의 태그룸 구경 및 방명록 작성 가능<br>
 
 # 화면 구성
 
@@ -44,6 +62,7 @@
   <tbody>
     <tr>
       <td align="center"><a href="https://github.com/tjsguddl96"><img src="https://avatars.githubusercontent.com/u/58164681?v=4" width="150px;" alt=""/><br /><b>김선형</b></a> <br>BE </b><br /></td>
+      <td align="center"><a href="https://github.com/juneheyoung"><img src="https://avatars.githubusercontent.com/u/88702363?v=4" width="150px;" alt=""/><br /><b>박준형</b></a> <br>FE </b><br /></td>
       <td align="center"><a href="https://github.com/SeungAh-Yoo99"><img src="https://avatars.githubusercontent.com/u/68517303?v=4" width="150px;" alt=""/><br /><b>유승아</b></a> <br>BE (팀장) </b><br /></td>
     <tr/>
       <td align="center"><a href="https://github.com/chech2"><img src="https://avatars.githubusercontent.com/u/90683516?v=4" width="150px;" alt=""/><br /><b>이채림</b></a> <br>BE </b><br /></td>
