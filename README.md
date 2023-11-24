@@ -57,6 +57,7 @@
 # 화면 구성
 
 # 아키텍쳐
+<img src="/images/tiktagtalk.시스템 아키텍처.png"><br><br><br>
 
 # 디렉토리 구조
 ```bash
