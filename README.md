@@ -7,7 +7,8 @@
 #### 3. [주요 기능](#주요-기능)
 #### 4. [화면 구성](#화면-구성)
 #### 5. [아키텍쳐](#아키텍쳐)
-#### 6. [팀 정보](#팀-정보)
+#### 6. [디렉토리 구조](#디렉토리-구조)
+#### 7. [팀 정보](#팀-정보)
 
 # 프로젝트 개요
 >#### 프로젝트 명
@@ -56,6 +57,298 @@
 # 화면 구성
 
 # 아키텍쳐
+
+# 디렉토리 구조
+```bash
+📦TikTagTalk
+ ┣ 📂domain
+ ┃ ┣ 📂account
+ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┣ 📜ConsumeHistoryController.java
+ ┃ ┃ ┃ ┗ 📜ConsumePlanController.java
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┣ 📜AddConsumeHistoryRequestDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜AllConsumePlanRequestDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜ConsumeHistoryRequestDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜ConsumePlanRequestDto.java
+ ┃ ┃ ┃ ┃ ┗ 📜ModifyConsumeHistoryRequestDto.java
+ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┣ 📜AllConsumeHistoryResponseDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜AllConsumePlanResonseDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜CheckAccountResponseDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜CheckMemberTagResponseDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜ResponseDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜ResponseStatus.java
+ ┃ ┃ ┃ ┃ ┗ 📜ResponseUtil.java
+ ┃ ┃ ┣ 📂entity
+ ┃ ┃ ┃ ┣ 📜Account.java
+ ┃ ┃ ┃ ┣ 📜ConsumeHistory.java
+ ┃ ┃ ┃ ┗ 📜ConsumePlan.java
+ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┣ 📜InvalidException.java
+ ┃ ┃ ┃ ┗ 📜NotExistException.java
+ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┣ 📜AccountRepository.java
+ ┃ ┃ ┃ ┣ 📜AccountRepositoryCustom.java
+ ┃ ┃ ┃ ┣ 📜AccountRepositoryImpl.java
+ ┃ ┃ ┃ ┣ 📜ConsumeHistoryRepository.java
+ ┃ ┃ ┃ ┣ 📜ConsumeHistoryRepositoryCustom.java
+ ┃ ┃ ┃ ┣ 📜ConsumeHistoryRepositoryImpl.java
+ ┃ ┃ ┃ ┣ 📜ConsumePlanRepository.java
+ ┃ ┃ ┃ ┣ 📜ConsumePlanRepositoryCustom.java
+ ┃ ┃ ┃ ┗ 📜ConsumePlanRepositoryImpl.java
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┣ 📜ConsumeHistoryServcieImpl.java
+ ┃ ┃ ┃ ┣ 📜ConsumeHistoryService.java
+ ┃ ┃ ┃ ┣ 📜ConsumePlanService.java
+ ┃ ┃ ┃ ┗ 📜ConsumePlanServiceImpl.java
+ ┃ ┣ 📂debt
+ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┗ 📜DebtController.java
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┗ 📜DebtRequestDto.java
+ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┗ 📜DebtResponseDto.java
+ ┃ ┃ ┣ 📂entity
+ ┃ ┃ ┃ ┣ 📜Debt.java
+ ┃ ┃ ┃ ┣ 📜ExtendHistory.java
+ ┃ ┃ ┃ ┣ 📜ExtendStatus.java
+ ┃ ┃ ┃ ┗ 📜RepaymentHistory.java
+ ┃ ┃ ┣ 📂exceptions
+ ┃ ┃ ┃ ┣ 📂business
+ ┃ ┃ ┃ ┃ ┗ 📜BusinessLogicException.java
+ ┃ ┃ ┃ ┣ 📂codes
+ ┃ ┃ ┃ ┃ ┗ 📜ExceptionCode.java
+ ┃ ┃ ┃ ┗ 📂dto
+ ┃ ┃ ┃ ┃ ┗ 📜ErrorResponse.java
+ ┃ ┃ ┣ 📂mapper
+ ┃ ┃ ┃ ┗ 📜DebtMapper.java
+ ┃ ┃ ┣ 📂pagination
+ ┃ ┃ ┃ ┣ 📜MultiResponseDto.java
+ ┃ ┃ ┃ ┗ 📜PageInfo.java
+ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┣ 📜DebtRepository.java
+ ┃ ┃ ┃ ┣ 📜DebtRepositoryCustom.java
+ ┃ ┃ ┃ ┣ 📜DebtRepositoryImpl.java
+ ┃ ┃ ┃ ┣ 📜ExtendHistoryRepository.java
+ ┃ ┃ ┃ ┗ 📜RepaymentHistoryRepository.java
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┣ 📜DebtService.java
+ ┃ ┃ ┃ ┗ 📜DebtServiceImpl.java
+ ┃ ┣ 📂skin
+ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┣ 📜MemberSkinController.java
+ ┃ ┃ ┃ ┗ 📜SkinController.java
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┗ 📜BuyRequest.java
+ ┃ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┃ ┣ 📜AllSkinResponse.java
+ ┃ ┃ ┃ ┃ ┣ 📜BuyResponse.java
+ ┃ ┃ ┃ ┃ ┗ 📜MemberSkinListResponse.java
+ ┃ ┃ ┃ ┗ 📜skinDto.java
+ ┃ ┃ ┣ 📂entity
+ ┃ ┃ ┃ ┣ 📜MemberSkin.java
+ ┃ ┃ ┃ ┗ 📜Skin.java
+ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┣ 📜MemberSkinRepository.java
+ ┃ ┃ ┃ ┣ 📜SkinRepository.java
+ ┃ ┃ ┃ ┣ 📜SkinRepositoryCustom.java
+ ┃ ┃ ┃ ┗ 📜SkinRepositoryImpl.java
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┣ 📜MemberSkinService.java
+ ┃ ┃ ┃ ┣ 📜MemberSkinServiceImpl.java
+ ┃ ┃ ┃ ┣ 📜SkinService.java
+ ┃ ┃ ┃ ┗ 📜SkinServiceImpl.java
+ ┃ ┣ 📂tag
+ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┗ 📜MemberTagController.java
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┗ 📜CheckMemberTagRequestDto.java
+ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┗ 📜CheckMemberTagResponseDto.java
+ ┃ ┃ ┣ 📂entity
+ ┃ ┃ ┃ ┣ 📜MemberTag.java
+ ┃ ┃ ┃ ┣ 📜Store.java
+ ┃ ┃ ┃ ┗ 📜Tag.java
+ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┣ 📜MemberTagRepository.java
+ ┃ ┃ ┃ ┣ 📜MemberTagRepositoryCustom.java
+ ┃ ┃ ┃ ┣ 📜MemberTagRepositoryImpl.java
+ ┃ ┃ ┃ ┣ 📜StoreRepository.java
+ ┃ ┃ ┃ ┗ 📜TagRepository.java
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┣ 📜MemberTagService.java
+ ┃ ┃ ┃ ┗ 📜MemberTagServiceImpl.java
+ ┃ ┣ 📂tagRoom
+ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┣ 📜CommentController.java
+ ┃ ┃ ┃ ┣ 📜ItemController.java
+ ┃ ┃ ┃ ┣ 📜MemberItemController.java
+ ┃ ┃ ┃ ┗ 📜TagRoomController.java
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┣ 📜InitMemberItemRequestDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜InsertCommentRequestDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜ModifyCommentRequestDto.java
+ ┃ ┃ ┃ ┃ ┗ 📜UpdateMemberItemRequestDto.java
+ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┣ 📜AllCommentsResponseDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜InitMemberItemResponseDto.java
+ ┃ ┃ ┃ ┃ ┗ 📜TagRoomResponseDto.java
+ ┃ ┃ ┣ 📂entity
+ ┃ ┃ ┃ ┣ 📜Comment.java
+ ┃ ┃ ┃ ┣ 📜Item.java
+ ┃ ┃ ┃ ┣ 📜MemberItem.java
+ ┃ ┃ ┃ ┣ 📜TagRoom.java
+ ┃ ┃ ┃ ┗ 📜TagRoomItem.java
+ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┗ 📜CustomAccessDeniedException.java
+ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┣ 📜CommentRepository.java
+ ┃ ┃ ┃ ┣ 📜CommentRepositoryCustom.java
+ ┃ ┃ ┃ ┣ 📜CommentRepositoryImpl.java
+ ┃ ┃ ┃ ┣ 📜ItemRepository.java
+ ┃ ┃ ┃ ┣ 📜ItemRepositoryCustom.java
+ ┃ ┃ ┃ ┣ 📜ItemRespositoryImpl.java
+ ┃ ┃ ┃ ┣ 📜MemberItemRepository.java
+ ┃ ┃ ┃ ┣ 📜MemberItemRepositoryCustom.java
+ ┃ ┃ ┃ ┣ 📜MemberItemRepositoryImpl.java
+ ┃ ┃ ┃ ┣ 📜TagRoomRepository.java
+ ┃ ┃ ┃ ┣ 📜TagRoomRepositoryCustom.java
+ ┃ ┃ ┃ ┗ 📜TagRoomRepositoryImpl.java
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┣ 📜CommentService.java
+ ┃ ┃ ┃ ┣ 📜CommentServiceImpl.java
+ ┃ ┃ ┃ ┣ 📜ItemService.java
+ ┃ ┃ ┃ ┣ 📜ItemServiceImpl.java
+ ┃ ┃ ┃ ┣ 📜MemberItemService.java
+ ┃ ┃ ┃ ┣ 📜MemberItemServiceImpl.java
+ ┃ ┃ ┃ ┣ 📜TagRoomService.java
+ ┃ ┃ ┃ ┗ 📜TagRoomServiceImpl.java
+ ┃ ┣ 📂user
+ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┣ 📜MemberController.java
+ ┃ ┃ ┃ ┗ 📜TalkTalkController.java
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┣ 📜CheckUserIdRequestDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜FindMemberRequestDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜MemberOAuthSignUpDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜MemberSignUpDto.java
+ ┃ ┃ ┃ ┃ ┗ 📜TalkTalkRequestDto.java
+ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┣ 📜ExceptionResponseDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜FindMemberResponseDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜FindTalkTalkListResponseDto.java
+ ┃ ┃ ┃ ┃ ┣ 📜MemberLoginResponseDTO.java
+ ┃ ┃ ┃ ┃ ┗ 📜ResponseDto.java
+ ┃ ┃ ┣ 📂entity
+ ┃ ┃ ┃ ┣ 📜Member.java
+ ┃ ┃ ┃ ┣ 📜Role.java
+ ┃ ┃ ┃ ┣ 📜SocialType.java
+ ┃ ┃ ┃ ┣ 📜TalkTalk.java
+ ┃ ┃ ┃ ┗ 📜TalkTalkStatus.java
+ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┣ 📂custom
+ ┃ ┃ ┃ ┃ ┣ 📜AlreadyExistingTalkTalkException.java
+ ┃ ┃ ┃ ┃ ┣ 📜AlreadySentRequestException.java
+ ┃ ┃ ┃ ┃ ┣ 📜AvatarTypeIsInvalidException.java
+ ┃ ┃ ┃ ┃ ┣ 📜DoNotHavePremissionException.java
+ ┃ ┃ ┃ ┃ ┣ 📜DuplicateUserIdException.java
+ ┃ ┃ ┃ ┃ ┣ 📜ExpriedRefreshTokenException.java
+ ┃ ┃ ┃ ┃ ┣ 📜NoSuchUserException.java
+ ┃ ┃ ┃ ┃ ┣ 📜NotExistRequestException.java
+ ┃ ┃ ┃ ┃ ┣ 📜OtherPartyAlreadySentRequestException.java
+ ┃ ┃ ┃ ┃ ┣ 📜PasswordIsInvalidException.java
+ ┃ ┃ ┃ ┃ ┣ 📜SendTalktalkRequestYourself.java
+ ┃ ┃ ┃ ┃ ┗ 📜UserIdIsInvalidException.java
+ ┃ ┃ ┃ ┗ 📜ExceptionCode.java
+ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┣ 📜MemberRepository.java
+ ┃ ┃ ┃ ┗ 📜TalkTalkRepository.java
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┣ 📜MemberService.java
+ ┃ ┃ ┃ ┗ 📜TalkTalkService.java
+ ┃ ┗ 📂wallet
+ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┣ 📜CoinHistoryController.java
+ ┃ ┃ ┃ ┣ 📜CurrencyConverterAPIController.java
+ ┃ ┃ ┃ ┣ 📜ExchangeHistoryController.java
+ ┃ ┃ ┃ ┗ 📜PointHistoryController.java
+ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┗ 📜ExchangeRequest.java
+ ┃ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┃ ┣ 📜CoinListResponse.java
+ ┃ ┃ ┃ ┃ ┣ 📜ExchangeResponse.java
+ ┃ ┃ ┃ ┃ ┗ 📜PointListResponse.java
+ ┃ ┃ ┃ ┣ 📜ConvertInfoDto.java
+ ┃ ┃ ┃ ┗ 📜CurrencyDto.java
+ ┃ ┃ ┣ 📂entity
+ ┃ ┃ ┃ ┣ 📜CoinHistory.java
+ ┃ ┃ ┃ ┣ 📜ExchangeHistory.java
+ ┃ ┃ ┃ ┗ 📜PointHistory.java
+ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┣ 📜CoinHistoryRepository.java
+ ┃ ┃ ┃ ┣ 📜ExchangeHistoryRepository.java
+ ┃ ┃ ┃ ┗ 📜PointHistoryRepository.java
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┣ 📜CoinHistoryService.java
+ ┃ ┃ ┃ ┣ 📜CoinHistoryServiceImpl.java
+ ┃ ┃ ┃ ┣ 📜CurrencyAPIService.java
+ ┃ ┃ ┃ ┣ 📜CurrencyAPIServiceImpl.java
+ ┃ ┃ ┃ ┣ 📜CurrencyConverterService.java
+ ┃ ┃ ┃ ┣ 📜CurrencyConverterServiceImpl.java
+ ┃ ┃ ┃ ┣ 📜ExchangeHistoryService.java
+ ┃ ┃ ┃ ┣ 📜ExchangeHistoryServiceImpl.java
+ ┃ ┃ ┃ ┣ 📜PointHistoryService.java
+ ┃ ┃ ┃ ┗ 📜PointHistoryServiceImpl.java
+ ┣ 📂global
+ ┃ ┣ 📂config
+ ┃ ┃ ┗ 📜SecurityConfig.java
+ ┃ ┣ 📂entity
+ ┃ ┃ ┗ 📜CustomUserDetails.java
+ ┃ ┣ 📂jwt
+ ┃ ┃ ┣ 📂filter
+ ┃ ┃ ┃ ┗ 📜JwtAuthenticationProcessingFilter.java
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┗ 📜JwtService.java
+ ┃ ┣ 📂login
+ ┃ ┃ ┣ 📂filter
+ ┃ ┃ ┃ ┗ 📜CustomJsonUsernamePasswordAuthenticationFilter.java
+ ┃ ┃ ┣ 📂handler
+ ┃ ┃ ┃ ┣ 📜LoginFailureHandler.java
+ ┃ ┃ ┃ ┗ 📜LoginSuccessHandler.java
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┗ 📜LoginService.java
+ ┃ ┣ 📂oauth2
+ ┃ ┃ ┣ 📂handler
+ ┃ ┃ ┃ ┣ 📜OAuth2LoginFailureHandler.java
+ ┃ ┃ ┃ ┗ 📜OAuth2LoginSuccessHandler.java
+ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┗ 📜CustomOAuth2UserService.java
+ ┃ ┃ ┣ 📂userInfo
+ ┃ ┃ ┃ ┣ 📜GoogleOAuth2UserInfo.java
+ ┃ ┃ ┃ ┣ 📜KakaoOAuth2UserInfo.java
+ ┃ ┃ ┃ ┣ 📜NaverOAuth2UserInfo.java
+ ┃ ┃ ┃ ┗ 📜OAuth2UserInfo.java
+ ┃ ┃ ┣ 📜CustomOAuth2User.java
+ ┃ ┃ ┗ 📜OAuthAttributes.java
+ ┃ ┣ 📂s3
+ ┃ ┃ ┗ 📜AwsS3Config.java
+ ┃ ┣ 📂schedule
+ ┃ ┃ ┗ 📜MemberScheduler.java
+ ┃ ┣ 📂util
+ ┃ ┃ ┣ 📜PasswordUtil.java
+ ┃ ┃ ┗ 📜SecurityUtil.java
+ ┃ ┗ 📜SwaggerController.java
+ ┣ 📜AppConfig.java
+ ┗ 📜TikTagTalkApplication.java
+```
 
 # 팀 정보
 <table>
