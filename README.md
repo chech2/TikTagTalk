@@ -11,6 +11,8 @@
 #### 7. [팀 정보](#팀-정보)
 
 # 프로젝트 개요
+<img src="/images/introduction.png" width="80%">
+
 >#### 프로젝트 명
 >TIKTAGTALK
 >
