@@ -58,6 +58,33 @@
 
 # 화면 구성
 
+### 1) 로그인 및 회원 가입
+
+<table>
+  <tbody>
+    <tr>
+      <td>
+        로그인
+      </td>
+      <td>
+        회원 가입
+      </td>
+    <tr/>
+    <tr>
+      <td>
+      <p align="center">
+      <img src="/images/introduction.png" width="100%">
+      </p>
+      </td>
+      <td>
+      <p align="center">
+      <img src="/images/회원가입.png" width="100%">
+      </p>
+      </td>
+    <tr/>
+  </tobdy>
+</table>
+
 # 아키텍쳐
 <img src="/images/tiktagtalk.시스템 아키텍처.png"><br><br><br>
 
