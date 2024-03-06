@@ -4,7 +4,7 @@
 FROM openjdk:17
 
 # jar 파일 위치를 변수로 설정
-ARG JAR_FILE=build/libs/*-SNAPSHOT.jar
+ARG JAR_FILE=./build/libs/*-SNAPSHOT.jar
 
 ## 현재 위치와 JAR_FILE 디렉토리의 파일 목록 출력
 #RUN ls -l build/libs/
