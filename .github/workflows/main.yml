@@ -38,3 +38,17 @@ jobs:
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
+    
+      - 
+        name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: 35.216.16.69:
+          username: ec2-user
+          key: ${{ secrets.PRIVATE_KEY }}
+          envs: GITHUB_SHA
+          script: |
+            docker pull chelim/ttt_backend_server:${GITHUB_SHA::7}
+            docker tag chelim/ttt_backend_server:${GITHUB_SHA::7} spring-cicd
+            docker stop server
+            docker run -d --rm --name server -p 80:8080 spring-cicd
