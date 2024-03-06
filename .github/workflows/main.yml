@@ -45,7 +45,7 @@ jobs:
         with:
           host: 35.216.16.69
           username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY }}
+          key: ${{ secrets.TTT_BACKEND_CICD }}
           envs: GITHUB_SHA
           script: |
             docker pull chelim/ttt_backend_server:${GITHUB_SHA::7}
