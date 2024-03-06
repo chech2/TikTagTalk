@@ -30,7 +30,7 @@ jobs:
           password: ${{secrets.DOCKERHUB_TOKEN}}
       -
         name: Create build/libs directory
-        run: mkdir -p build/libs
+        run: mkdir -p ../TikTagTalk/BE/TikTagTalk/build/libs
       -
         name: Build and push
         uses: docker/build-push-action@v2
@@ -44,4 +44,4 @@ jobs:
       
       -
         name: Remove build/libs directory
-        run: rm -rf build/libs
+        run: rm -rf ../TikTagTalk/BE/TikTagTalk/build/libs
