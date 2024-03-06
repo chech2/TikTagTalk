@@ -36,9 +36,7 @@ import java.util.List;
 @RequestMapping("/api/members")
 @Tag(name="Member Controller", description = "멤버 API")
 public class MemberController {
-
     private final MemberService memberService;
-
     @Operation(summary = "sign up", description = "자체 회원가입")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "회원가입이 완료되었습니다."),
